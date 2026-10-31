@@ -2,8 +2,9 @@
 
 # Journey: Kolla-Ansible Ussuri → OpenStack 2026.1
 
-> Author: agent 8 (documentation and community engineer), Claude Sonnet 5.5, 2026-10-31. Status: **Stage 1,
-> investigation. Nothing is validated.** Part of [OzarLand](https://github.com/OzarLand/ozarland): *a shared land for
+> Author: agent 8 (documentation and community engineer), Claude Sonnet 5.5, 2026-10-31. Updated by the architect on
+> 2026-10-31. Status: **experiments under way. One database result is lab-validated in a narrow scope; no
+> procedure is supported or production-validated.** Part of [OzarLand](https://github.com/OzarLand/ozarland): *a shared land for
 > better OpenStack operations.*
 
 > [!WARNING]
@@ -23,10 +24,10 @@ procedure is never presented as supported.
 
 | | |
 |---|---|
-| **Stage** | 1: investigation (reading upstream sources, building the compatibility picture, designing lab experiments) |
-| **Validated procedures** | 0 (`LAB-VALIDATED`: 0, `PRODUCTION-VALIDATED`: 0) |
-| **Experiments run** | 0 |
-| **Answer to the question** | Unknown. Not yet established by anything in this repository. |
+| **Stage** | 4–5: laboratory experiments and independent review (see the [progress report](reports/2026-10-31-progress-report-01.md)) |
+| **Validated procedures** | `LAB-VALIDATED`: 1, the database fast-forward EXP-DB-01, within a narrow container-lab scope ([VAL-001](validation/VAL-001-exp-db-01-strict-r2.yaml)). `PRODUCTION-VALIDATED`: 0 |
+| **Experiments run** | EXP-DB-00 baseline (LAB-VALIDATED for restorability); EXP-DB-N1, the direct jump (FAILED, as predicted); R0 calibration; EXP-DB-01 (FAILED first, then strict run R2 passed) |
+| **Answer to the question** | Partial. A single direct jump is **incompatible**. The databases of every service can be walked offline through 2023.1 → (Cinder 2023.2) → 2024.1 → 2025.1 → 2026.1 code without deploying those releases. That is lab-validated on a synthetic dataset only and is **technically possible but unsupported**. Service start, workloads, Kolla-Ansible and production data are not yet shown. |
 | **Last updated** | 2026-10-31 |
 
 ```mermaid
@@ -71,15 +72,23 @@ evidence), *Not validated*, *Incompatible*. The **validation status** says how w
 
 ## The agent team
 
-Stage 1 is carried out by AI agents, each with one role, supervised by the architect. The owner of OzarLand takes
+The journey is carried out by AI agents, each with one role, supervised by the architect. The owner of OzarLand takes
 responsibility for the contributions under the Developer Certificate of Origin. No agent confirms its own work, and no
 agent can make anything `PRODUCTION-VALIDATED`.
 
-| Agent | Role | Writes | Model |
-|---|---|---|---|
-| Architect | Plans the journey, assigns the agents, merges their work, commits | The plan, the journey README, decisions with the owner | _to be filled by the architect_ |
-| Agent 8 | Documentation and community engineer | Repository organisation, templates, root files, [assessment 08](assessments/08-repository-organization.md) | _to be filled by the architect_ |
-| Agents 1 to 7 | Specialists; roles to be listed by the architect | `assessments/0N-*.md`, compatibility matrix, dependency graph | _to be filled by the architect_ |
+| Agent | Role | Model |
+|---|---|---|
+| 1 | OpenStack Upgrade Architect (coordinates, decides, commits) | Opus 5.5 (main session) |
+| 2 | Release Compatibility Expert | Opus |
+| 3 | Kolla-Ansible Specialist | Opus |
+| 4 | Database and Messaging Specialist | Opus |
+| 5 | Laboratory and Automation Engineer | Sonnet |
+| 6 | Operations and Reliability Expert | Sonnet |
+| 7 | Independent Red Team Reviewer | Fable |
+| 8 | Documentation and Community Engineer | Sonnet |
+| — | Inventory assistant | Haiku |
+
+Rationale and limits of this allocation: [DR-000](decision-records/DR-000-agent-team-and-model-allocation.md).
 
 ## Environment limits of this mission
 
@@ -90,8 +99,8 @@ from it, so some evidence comes from upstream git repositories only. Details are
 
 ## Open questions / what is not yet known
 
-- Whether any path shorter than "every release" works for a real Ussuri deployment: unknown.
-- Whether the Ussuri-era container images and packages can still be obtained by an operator today: to be verified,
-  not assumed.
+- Whether the database fast-forward works on a real (production-copy) dataset, with Kolla images and Galera: unknown (Tier B not run).
+- Ussuri Kolla images: not anonymously pullable from Docker Hub as observed here (HTTP 401). An operator must hold a private mirror;
+  availability elsewhere is not established.
 - Whether any path preserves running workloads and data: unknown until an experiment shows it.
 - Which of these pages another team has run: none so far.

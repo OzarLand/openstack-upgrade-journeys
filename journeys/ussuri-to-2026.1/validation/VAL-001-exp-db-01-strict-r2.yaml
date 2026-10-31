@@ -1,0 +1,48 @@
+# Validation record VAL-001. Template: docs/templates/validation-record.yaml. No value invented; "unknown" where unknown.
+id: VAL-001
+procedure: >-
+  Offline database fast-forward of a Ussuri control plane's databases, without deploying any intermediate release.
+  Path: Ussuri (online data migrations finished, computes fenced and forced-down through the API) ->
+  2023.1 code for all services (db sync + online data migrations, Nova per cell) -> Cinder-only 2023.2 code (cinder 23.5.0,
+  DR-004) -> gate PC-C1 -> 2024.1 -> 2025.1 -> 2026.1, then a second 2026.1 pass (idempotency).
+  MariaDB stepwise 10.3 -> 10.5 -> 10.6 -> 10.11 -> 11.4 with mariadb-upgrade and a clean restart after each step.
+classification_of_procedure: Technically possible but unsupported
+status: LAB-VALIDATED
+status_line: >-
+  LAB-VALIDATED — scope: database schema and data migration Ussuri → 2026.1 by the S2c code sequence (with the Cinder
+  23.5.0 step of DR-004), using upstream service code installed from PyPI under each release's upper-constraints,
+  standalone MariaDB library images (no Galera), synthetic Tier A dataset generated through Ussuri APIs with the fake
+  virt driver, no Kolla images, no Kolla-Ansible, no data plane.
+openstack_version: "Ussuri (keystone 17.0.1, glance 20.2.0, placement 3.0.1, nova 21.2.4, neutron 16.4.2, cinder 16.4.2) to 2026.1; intermediate code 2023.1, cinder 23.5.0 (2023.2), 2024.1, 2025.1 (versions and pip freeze in evidence/EXP-DB-01/)"
+kolla_ansible_version: "not used"
+laboratory_topology: >-
+  Single Docker host (Ubuntu 24.04 container, 4 vCPU, 15 GB RAM, no KVM). Container control plane built from PyPI;
+  three fake computes (nova fake driver subclass), fake Neutron agents, fake Cinder driver; single standalone MariaDB;
+  one-shot migration containers per release. Not Kolla. Described in DR-001 and assessments/05-lab-feasibility-and-baseline.md.
+dataset: "Tier A baseline v4 (synthetic, ~4,100 rows, created through Ussuri APIs; derivation v1 -> v4 in experiments/EXP-DB-00-baseline.md)"
+test_date: 2026-10-31
+run_window: "14:29:00Z - 14:40:13Z (673 s)"
+harness: "lab/ussuri-db-lab/ff at commit 2f3e48a364655d86acb1f0e21f70933fed4f16e6, clean tree (evidence/EXP-DB-01/strict-r2/harness.txt)"
+responsible_agent: "agent:lab-engineer (Agent 5, Sonnet) executed; criteria pre-registered by Agent 7 (Red Team, Fable) and Agent 4 (Opus); harness and verdict checked by the architect (Agent 1, Opus)"
+independent_human_check: false
+evidence:
+  - journeys/ussuri-to-2026.1/experiments/EXP-DB-01-s2c-r1.md   # section "Strict run R2 (harness 2f3e48a)"
+  - journeys/ussuri-to-2026.1/evidence/EXP-DB-01/strict-r2/      # verdict.txt, run.log, per-hop diffs, prechecks, engine logs
+  - journeys/ussuri-to-2026.1/experiments/declared-differences.md # frozen list with Amendments 1 and 2 (Red Team accepted)
+  - journeys/ussuri-to-2026.1/assessments/07-red-team-stage5-results-review.md  # pass criteria (Stage 5b)
+result: >-
+  PASS on every pre-registered criterion: all commands and online data migrations exit 0 (Nova per cell); 37 pre-checks
+  pass; PC-C1 0/0 after H1b; schema vs fresh reference and row counts/fingerprints vs T0 show 0 undeclared differences at
+  every hop; N-3 reconciliation passes; no *-status FAILURE (keystone-status run); clean engine restarts; the second
+  2026.1 pass changes nothing; Nova archive check passes. Earlier runs of the same experiment FAILED and stay recorded.
+known_limitations:
+  - Synthetic dataset (Tier A); 6 coverage items not covered and 5 partial (EXP-DB-00). No production data shapes.
+  - Upstream PyPI releases, not Kolla images (Kolla builds from branch content; parity unknown, Red Team RT-N-10).
+  - Standalone MariaDB, no Galera; durations at ~4,100 rows do not extrapolate.
+  - Database layer only. Not shown: 2026.1 services starting on the result and serving old resources (EXP-SVC-01/02),
+    rollback (EXP-RB-01), Kolla-Ansible, RabbitMQ, host OS, libvirt/QEMU and the data plane, workloads.
+  - Not independently re-executed by a second operator or a human.
+missing_evidence_for_next_level: >-
+  Tier B run on a sanitized production copy with Kolla images pinned by digest and a Galera rebuild; EXP-SVC-01/02 and
+  EXP-RB-01 in this lab; a Kolla-Ansible lab (quick-lab Ussuri profile) for the deployment layer.
+revalidate_when: "Any change to the harness, the path, the package versions, the engine path, or the declared-differences list; any new baseline."

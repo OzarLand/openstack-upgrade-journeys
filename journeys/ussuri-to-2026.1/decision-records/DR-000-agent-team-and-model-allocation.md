@@ -68,3 +68,15 @@ Updated as stages complete.
 | 1 | 5, 6, 8 | sonnet | see `assessments/05-*`, `06-*`, `08-*` |
 | 1 | 7 | fable | `assessments/07-red-team-initial-assessment.md` |
 | 1 | inventory | haiku | `assessments/01-repository-inventory.md` |
+| 2 | 1 (architect) | opus | `architecture.md` |
+| 3 | 7 | fable | `assessments/07-red-team-stage3-review.md` |
+| 4 | 5 | sonnet | `experiments/EXP-DB-*`, `evidence/`, `lab/ussuri-db-lab/ff/` |
+| 5 | 4 | opus | `experiments/EXP-DB-01-root-cause-analysis.md`, amendments to `declared-differences.md` |
+| 5 | 7 | fable | `assessments/07-red-team-stage5-results-review.md` (interrupted once by a usage limit and resumed in the same context) |
+
+Notes:
+- The inventory assistant (Haiku) made one call to create a remote session, which its task did not need. The call was
+  denied and not retried.
+- Fable's Red Team work found issues that the other agents and the architect had missed. The two most important were
+  the second Nova gate (RPC cap) and the comparator-integrity problem. No switch to Opus was needed.
+
