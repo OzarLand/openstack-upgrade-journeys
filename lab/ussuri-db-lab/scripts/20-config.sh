@@ -185,6 +185,11 @@ volume_driver = cinder.tests.fake_driver.FakeLoggingVolumeDriver
 volume_backend_name = fake
 T
 
+# paste pipelines ship as data files in the wheels (/opt/ussuri/etc/<svc>/); copy them next to the rendered configs
+for pair in nova:api-paste.ini neutron:api-paste.ini glance:glance-api-paste.ini cinder:api-paste.ini; do
+  docker run --rm "$IMG" cat "/opt/ussuri/etc/${pair%%:*}/${pair#*:}" > "$E/${pair%%:*}/${pair#*:}"
+done
+
 # Admin credentials for the client container. Mounted read-only at /run/ufj.
 cat > "$E/client/admin-openrc" <<T
 OS_AUTH_URL=http://ufj-keystone:5000/v3
