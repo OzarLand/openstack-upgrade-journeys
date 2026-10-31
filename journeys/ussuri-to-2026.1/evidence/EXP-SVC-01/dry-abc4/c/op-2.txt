@@ -1,0 +1,8 @@
+server create -> exit 0 (flavor ufj-tiny, image ufj-image-public, host nova:ufj-compute2)
+server 555f6325-b293-472e-a35e-680ed73c7079
+status after wait: ACTIVE
+{  "OS-EXT-SRV-ATTR:host": "ufj-compute2",  "OS-EXT-STS:task_state": null,  "OS-EXT-STS:vm_state": "active",  "status": "ACTIVE"}
+
+op 'stop' (rc=0): expected 'SHUTOFF None', got 'None SHUTOFF' -> FAIL
+op 'start' (rc=0): expected 'ACTIVE None', got 'None ACTIVE' -> FAIL
+op 'reboot --hard' (rc=0): expected 'ACTIVE None', got 'None ACTIVE' -> FAIL

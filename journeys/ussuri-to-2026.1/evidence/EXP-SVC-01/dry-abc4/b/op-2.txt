@@ -7,3 +7,5 @@ op 'stop' (rc=0): expected 'SHUTOFF None', got 'None SHUTOFF' -> FAIL
 op 'start' (rc=0): expected 'ACTIVE None', got 'None ACTIVE' -> FAIL
 op 'reboot --hard' (rc=0): expected 'ACTIVE None', got 'None ACTIVE' -> FAIL
 op 'pause' (rc=0): expected 'PAUSED None', got 'None PAUSED' -> FAIL
+op 'unpause' (rc=0): expected 'ACTIVE None', got 'None ACTIVE' -> FAIL
+compute log (errors since 2026-10-31T17:00:22Z):
