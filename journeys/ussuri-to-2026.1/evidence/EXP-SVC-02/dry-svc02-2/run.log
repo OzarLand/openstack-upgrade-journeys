@@ -17,3 +17,9 @@ stop-start-of-Ussuri-created-ACTIVE-server-a-vm3 (boot volume attached)	OK	after
 resize-confirm-of-Ussuri-created-VERIFY_RESIZE-server-a-migrate (rc=0)	OK	status ACTIVE 
 volume-attach-a-vol2-to-a-vm2 (rc=1)	FAIL	volume status available BadRequestException: 400: Client Error for url: http://ufj-cinder-api:8776/v3/a7cec7ef1552403fbb23fc861b3e16eb/volumes/d
 volume-detach-a-vol2-from-a-vm2 (rc=1)	OK	volume status available BadRequestException: 400: Client Error for url: http://ufj-cinder-api:8776/v3/a7cec7ef1552403fbb23fc861b3e16eb/volumes/d
+resize-of-Ussuri-created-server-a-vm1-with-attached-volume (rc=0)	FAIL	status ERROR
+fault-of-a-vm1-phase-A	INFO	ClientException: ConflictNovaUsingAttachment: Detach volume from instance 5bd66e93-1640-4bb0-8586-aeff76fca423 using the Compute API (HTTP 409) (Request-ID: req-a63acdfb-2f96-4c
+[18:48:05] 3B. remedy: create role 'service' and grant it to the nova service user in project service; restart the Nova computes and cinder-api; flush memcached
+role-service-granted-to-nova	INFO	admin nova@Default  service@Default   False service nova@Default  service@Default   False 
+volume-detach-of-Ussuri-attachment-a-vol1-from-a-vm1 after remedy (rc=1)	FAIL	volume status in-use BadRequestException: 400: Client Error for url: http://ufj-cinder-api:8776/v3/a7cec7ef1552403fbb23fc861b3e16eb/volumes/detail?name=a-vol1, Invalid fil
+resize-of-a-vm1 after remedy and detach (rc=1)	FAIL	status ERROR

@@ -1,0 +1,1 @@
+BadRequestException: 400: Client Error for url: http://ufj-nova-api:8774/v2.1/servers/2e599a03-2aaa-46df-88bb-35eec018450c/action, When resizing, instances must change flavor!

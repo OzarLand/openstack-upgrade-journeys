@@ -1,0 +1,3 @@
+2026-10-31 19:02:07.773 7 WARNING keystonemiddleware.auth_token [req-5e692452-6d21-4a2d-b26d-fc7d788705a3 req-bc2171d3-98b7-4c73-a1ae-8566a99f7c6c - - - - - -] A valid token was submitted as a service token, but it was not a valid service token. This
+2026-10-31 19:02:10.091 6 WARNING keystonemiddleware.auth_token [req-5e692452-6d21-4a2d-b26d-fc7d788705a3 req-71881b26-b67e-44b6-958e-7113e76b4a7c - - - - - -] A valid token was submitted as a service token, but it was not a valid service token. This
+2026-10-31 19:01:17.995 7 WARNING keystonemiddleware.auth_token [None req-32317a3a-47e3-4908-9c04-0f81abca4434 294358f815ab42e88afd374c4624392a 4fc1ca9a9fb74c36b34f4d4dfb10345d - - default default] A valid token was submitted as a service token, but 
