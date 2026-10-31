@@ -1,0 +1,4 @@
+auth(before, lab password): AUTH OK
+auth(after bootstrap 1, lab password): AUTH OK
+auth(after bootstrap 2, lab password): AUTH FAILED: The request you have made requires authentication. (HTTP 401) (Request-ID: req-d8732046-c39a-412b-bed0-7c6775011ac7)
+auth(after bootstrap 2, new password): AUTH OK

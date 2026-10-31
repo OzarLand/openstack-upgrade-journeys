@@ -23,8 +23,11 @@ from neutron_lib.agent import topics  # noqa: E402
 from neutron_lib.plugins.ml2 import api as ml2_api  # noqa: E402,F401
 from oslo_log import log as logging  # noqa: E402
 
+logging.register_options(cfg.CONF)   # 2026.1: the logging options are no longer registered by the neutron imports above
 cfg.CONF(args=['--config-file', '/etc/neutron/neutron.conf'], project='neutron')
 logging.setup(cfg.CONF, 'fake-l2-agent')
+from neutron.conf.agent import common as agent_conf  # noqa: E402  2026.1: [AGENT] options must be registered explicitly
+agent_conf.register_agent_state_opts_helper(cfg.CONF)
 n_rpc.init(cfg.CONF)
 ctx = context.get_admin_context_without_session()
 report = agent_rpc.PluginReportStateAPI(topics.REPORTS)

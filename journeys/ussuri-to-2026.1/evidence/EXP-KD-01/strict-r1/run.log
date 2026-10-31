@@ -6,3 +6,73 @@ cloned ufj-ff-derive-h4r-data -> ufj-svc-data
 [18:09:20] C-1 pass 1: Kolla deploy-time commands
 SUMMARY declared=0 undeclared=0
 [18:09:50] C-1 pass 2: Kolla deploy-time commands
+SUMMARY declared=0 undeclared=0
+[18:10:21] reset: fresh clone of ufj-ff-derive-h4r-data
+cloned ufj-ff-derive-h4r-data -> ufj-svc-data
+11.4.13-MariaDB-ubu2404-log
+4.4.0
+auth(before, lab password): AUTH OK
+[18:10:39] C-2 step 1: bootstrap with the lab password and the stored URLs
+auth(after bootstrap 1, lab password): AUTH OK
+SUMMARY declared=0 undeclared=6
+[18:10:47] C-2 step 2: bootstrap with a DIFFERENT password
+auth(after bootstrap 2, lab password): AUTH FAILED: The request you have made requires authentication. (HTTP 401) (Request-ID: req-d8732046-c39a-412b-bed0-7c6775011ac7)
+auth(after bootstrap 2, new password): AUTH OK
+SUMMARY declared=0 undeclared=4
+[18:10:57] C-2 step 3: bootstrap with changed endpoint URLs
+SUMMARY declared=0 undeclared=1
+state diff lines: 46
+[18:11:04] reset: fresh clone of ufj-ff-derive-h4r-data
+cloned ufj-ff-derive-h4r-data -> ufj-svc-data
+11.4.13-MariaDB-ubu2404-log
+4.4.0
+id	uuid	name	disabled	has_transport	has_db
+1	00000000-0000-0000-0000-000000000000	cell0	0	0	1
+2	3a38ca82-d40a-4fd8-bc63-dc4bdc851077	cell1	0	1	1
+[18:11:13] C-3: list_cells --verbose, then kolla_ansible.nova_filters.extract_cell('') and extract_cell('cell1') (kolla-ansible 22.2.0 code)
+nova-manage cell_v2 list_cells --verbose exit code 0 ; table lines: 6
+  +-------+--------------------------------------+-----------------------------------------------------------------+-----------------------------------------------------------------------------------+----------+
+  |  Name |                 UUID                 |                          Transport URL                          |                                Database Connection                                | Disabled |
+  +-------+--------------------------------------+-----------------------------------------------------------------+-----------------------------------------------------------------------------------+----------+
+  | cell0 | 00000000-0000-0000-0000-000000000000 |                             none:///                            | mysql+pymysql://nova:***@ufj-mariadb/nova_cell0?charset=utf8 |  False   |
+  | cell1 | 3a38ca82-d40a-4fd8-bc63-dc4bdc851077 | rabbit://openstack:***@ufj-rabbitmq:5672// |    mysql+pymysql://nova:***@ufj-mariadb/nova?charset=utf8    |  False   |
+  +-------+--------------------------------------+-----------------------------------------------------------------+-----------------------------------------------------------------------------------+----------+
+extract_cell('') -> None
+extract_cell('cell1') -> {'cell_name': 'cell1', 'cell_uuid': '3a38ca82-d40a-4fd8-bc63-dc4bdc851077', 'cell_message_queue': 'rabbit://openstack:***@ufj-rabbitmq:5672//', 'cell_database': 'mysql+pymysql://nova:***@ufj-mariadb/nova?charset=utf8', 'cell_disabled': 'False'}
+[18:11:17] C-4 case (i): create_cell with the conductor's own transport_url and [database] (Kolla, nova_cell_name='' -> no --name)
+--transport-url not provided in the command line, using the value [DEFAULT]/transport_url from the configuration file
+--database_connection not provided in the command line, using the value [database]/connection from the configuration file
+The specified transport_url and/or database_connection combination already exists for another cell with uuid 3a38ca82-d40a-4fd8-bc63-dc4bdc851077.
+id	uuid	name	disabled	has_transport	has_db
+1	00000000-0000-0000-0000-000000000000	cell0	0	0	1
+2	3a38ca82-d40a-4fd8-bc63-dc4bdc851077	cell1	0	1	1
+[18:11:20] C-4 case (ii): same DB URL, different transport_url
+--database_connection not provided in the command line, using the value [database]/connection from the configuration file
+The specified transport_url and/or database_connection combination already exists for another cell with uuid 3a38ca82-d40a-4fd8-bc63-dc4bdc851077.
+id	uuid	name	disabled	has_transport	has_db
+1	00000000-0000-0000-0000-000000000000	cell0	0	0	1
+2	3a38ca82-d40a-4fd8-bc63-dc4bdc851077	cell1	0	1	1
+[18:11:24] C-4 case (iii): different transport_url AND a different DB URL string for the same database (query suffix) -> second mapping expected
+id	uuid	name	disabled	has_transport	has_db
+1	00000000-0000-0000-0000-000000000000	cell0	0	0	1
+2	3a38ca82-d40a-4fd8-bc63-dc4bdc851077	cell1	0	1	1
+3	89fb3931-dbbd-4080-9cc8-d993ba87c33a	NULL	0	1	1
++-------+--------------------------------------+-----------------------------------------------------------------+-----------------------------------------------------------------------------------+----------+
+|  Name |                 UUID                 |                          Transport URL                          |                                Database Connection                                | Disabled |
++-------+--------------------------------------+-----------------------------------------------------------------+-----------------------------------------------------------------------------------+----------+
+|       | 89fb3931-dbbd-4080-9cc8-d993ba87c33a |             rabbit://openstack:x@kd-other-host:5672/            |  mysql+pymysql://nova:<redacted>@ufj-mariadb/nova?charset=utf8&kd=1 |  False   |
+| cell0 | 00000000-0000-0000-0000-000000000000 |                             none:///                            | mysql+pymysql://nova:<redacted>@ufj-mariadb/nova_cell0?charset=utf8 |  False   |
+| cell1 | 3a38ca82-d40a-4fd8-bc63-dc4bdc851077 | rabbit://openstack:<redacted>@ufj-rabbitmq:5672// |    mysql+pymysql://nova:<redacted>@ufj-mariadb/nova?charset=utf8    |  False   |
++-------+--------------------------------------+-----------------------------------------------------------------+-----------------------------------------------------------------------------------+----------+
+[18:11:32] extract_cell after the duplicate mapping exists:
+nova-manage cell_v2 list_cells --verbose exit code 0 ; table lines: 7
+  +-------+--------------------------------------+-----------------------------------------------------------------+-----------------------------------------------------------------------------------+----------+
+  |  Name |                 UUID                 |                          Transport URL                          |                                Database Connection                                | Disabled |
+  +-------+--------------------------------------+-----------------------------------------------------------------+-----------------------------------------------------------------------------------+----------+
+  |       | 89fb3931-dbbd-4080-9cc8-d993ba87c33a |             rabbit://openstack:***@kd-other-host:5672/            |  mysql+pymysql://nova:***@ufj-mariadb/nova?charset=utf8&kd=1 |  False   |
+  | cell0 | 00000000-0000-0000-0000-000000000000 |                             none:///                            | mysql+pymysql://nova:***@ufj-mariadb/nova_cell0?charset=utf8 |  False   |
+  | cell1 | 3a38ca82-d40a-4fd8-bc63-dc4bdc851077 | rabbit://openstack:***@ufj-rabbitmq:5672// |    mysql+pymysql://nova:***@ufj-mariadb/nova?charset=utf8    |  False   |
+  +-------+--------------------------------------+-----------------------------------------------------------------+-----------------------------------------------------------------------------------+----------+
+extract_cell('') -> {'cell_name': None, 'cell_uuid': '89fb3931-dbbd-4080-9cc8-d993ba87c33a', 'cell_message_queue': 'rabbit://openstack:***@kd-other-host:5672/', 'cell_database': 'mysql+pymysql://nova:***@ufj-mariadb/nova?charset=utf8&kd=1', 'cell_disabled': 'False'}
+extract_cell('cell1') -> {'cell_name': 'cell1', 'cell_uuid': '3a38ca82-d40a-4fd8-bc63-dc4bdc851077', 'cell_message_queue': 'rabbit://openstack:***@ufj-rabbitmq:5672//', 'cell_database': 'mysql+pymysql://nova:***@ufj-mariadb/nova?charset=utf8', 'cell_disabled': 'False'}
+[18:11:32] done: strict-r1 all

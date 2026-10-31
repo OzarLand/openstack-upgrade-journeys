@@ -1,0 +1,4 @@
+2026-10-31 18:10:15.635 1 INFO cinder.db.migration [-] Applying migration(s)
+2026-10-31 18:10:15.638 1 INFO alembic.runtime.migration [-] Context impl MySQLImpl.
+2026-10-31 18:10:15.638 1 INFO alembic.runtime.migration [-] Will assume non-transactional DDL.
+2026-10-31 18:10:15.648 1 INFO cinder.db.migration [-] Migration(s) applied

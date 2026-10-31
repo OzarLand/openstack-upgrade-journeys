@@ -1,0 +1,1 @@
+stored keystone endpoint URLs: public=http://ufj-keystone:5000/v3/ internal=http://ufj-keystone:5000/v3/ admin=http://ufj-keystone:5000/v3/

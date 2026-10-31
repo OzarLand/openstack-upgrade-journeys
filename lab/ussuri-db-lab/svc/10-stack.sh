@@ -67,5 +67,7 @@ computes) # computes <n..> : stock nova.virt.fake.FakeDriver, container hostname
 up) # up : render (before any container is created: render replaces the bind-mounted directories) and start every control-plane service
   "$0" render; for s in keystone glance placement nova neutron cinder; do "$0" $s; done
   swait http://ufj-keystone:5000/v3 120 && swait http://ufj-glance:9292/ 120 && swait http://ufj-placement:8778/ 120 && swait http://ufj-nova-api:8774/ 180 && swait http://ufj-neutron:9696/ 180 && swait http://ufj-cinder-api:8776/ 180 && echo "control plane answering";;
+agents) # agents <n..> : fake L2 agents (tools/fake_l2_agent.py, unchanged Ussuri lab tool) reporting through the real report_state RPC
+  for n in "$@"; do srun agent$n ufj-agent$n -v "$SVC_RUN/etc/neutron:/etc/neutron:ro" -v "$LAB_DIR/tools:/tools:ro" -- $SIMG python /tools/fake_l2_agent.py --host ufj-compute$n; done;;
 down) { docker ps -aq --filter label=org.ozarland.svc=1 | xargs -r docker rm -f; } >/dev/null 2>&1 || true; echo "removed ufj-svc-* containers";;
 esac

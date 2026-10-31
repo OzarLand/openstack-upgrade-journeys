@@ -17,3 +17,6 @@ p2-placement-online_data_migrations	0
 p2-nova-api_db_sync	0
 p2-nova-db_sync-cell0	0
 p2-nova-db_sync-cell1	0
+p2-neutron-upgrade	0
+p2-cinder-db_sync	0
+p2-nova-map_cell0	0

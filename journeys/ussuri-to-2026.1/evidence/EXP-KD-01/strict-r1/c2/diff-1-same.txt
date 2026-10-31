@@ -1,0 +1,7 @@
+UNDECLARED	-	row count keystone.implied_role: 2 -> 3
+UNDECLARED	-	row count keystone.role: 3 -> 5
+UNDECLARED	-	row count keystone.role_option: 3 -> 5
+UNDECLARED	-	rows changed in keystone.implied_role: 1
+UNDECLARED	-	rows changed in keystone.role: 0
+UNDECLARED	-	rows changed in keystone.role_option: 0
+SUMMARY declared=0 undeclared=6

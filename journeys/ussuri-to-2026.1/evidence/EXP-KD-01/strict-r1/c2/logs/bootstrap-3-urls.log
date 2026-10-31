@@ -1,0 +1,18 @@
+2026-10-31 18:11:00.193 1 INFO keystone.cmd.bootstrap [-] Domain default already exists, skipping creation.
+2026-10-31 18:11:00.211 1 INFO keystone.cmd.bootstrap [None req-5f496033-cadb-4257-b41b-31d9253f63a7 - - - - - -] Project admin already exists, skipping creation.
+2026-10-31 18:11:00.213 1 INFO keystone.cmd.bootstrap [None req-5f496033-cadb-4257-b41b-31d9253f63a7 - - - - - -] User admin already exists, skipping creation.
+2026-10-31 18:11:00.230 1 WARNING keystone.common.password_hashing [None req-5f496033-cadb-4257-b41b-31d9253f63a7 - - - - - -] Truncating password to algorithm specific maximum length 72 characters.
+2026-10-31 18:11:00.491 1 INFO keystone.cmd.bootstrap [None req-5f496033-cadb-4257-b41b-31d9253f63a7 - - - - - -] Role reader exists, skipping creation.
+2026-10-31 18:11:00.583 1 INFO keystone.cmd.bootstrap [None req-5f496033-cadb-4257-b41b-31d9253f63a7 - - - - - -] Role member exists, skipping creation.
+2026-10-31 18:11:00.595 1 INFO keystone.cmd.bootstrap [None req-5f496033-cadb-4257-b41b-31d9253f63a7 - - - - - -] Implied role where d2c15eb68ca746459ecff5c717683d87 implies 6d8d6a9f5fab4b4c8946cb74dcf86e24 exists, skipping creation.
+2026-10-31 18:11:00.597 1 INFO keystone.cmd.bootstrap [None req-5f496033-cadb-4257-b41b-31d9253f63a7 - - - - - -] Role manager exists, skipping creation.
+2026-10-31 18:11:00.609 1 INFO keystone.cmd.bootstrap [None req-5f496033-cadb-4257-b41b-31d9253f63a7 - - - - - -] Implied role where c68c8c0205404fd59f1e23fe14516dc8 implies d2c15eb68ca746459ecff5c717683d87 exists, skipping creation.
+2026-10-31 18:11:00.612 1 INFO keystone.cmd.bootstrap [None req-5f496033-cadb-4257-b41b-31d9253f63a7 - - - - - -] Role admin exists, skipping creation.
+2026-10-31 18:11:00.622 1 INFO keystone.cmd.bootstrap [None req-5f496033-cadb-4257-b41b-31d9253f63a7 - - - - - -] Implied role where 098243217b914ea38db72383ed16fe0e implies c68c8c0205404fd59f1e23fe14516dc8 exists, skipping creation.
+2026-10-31 18:11:00.627 1 INFO keystone.cmd.bootstrap [None req-5f496033-cadb-4257-b41b-31d9253f63a7 - - - - - -] Role service exists, skipping creation.
+2026-10-31 18:11:00.683 1 INFO keystone.cmd.bootstrap [None req-5f496033-cadb-4257-b41b-31d9253f63a7 - - - - - -] User admin already has role admin on project admin.
+2026-10-31 18:11:00.686 1 INFO keystone.cmd.bootstrap [None req-5f496033-cadb-4257-b41b-31d9253f63a7 - - - - - -] Granted role admin on the system to user admin.
+2026-10-31 18:11:00.687 1 INFO keystone.cmd.bootstrap [None req-5f496033-cadb-4257-b41b-31d9253f63a7 - - - - - -] Region RegionOne exists, skipping creation.
+2026-10-31 18:11:00.700 1 INFO keystone.cmd.bootstrap [None req-5f496033-cadb-4257-b41b-31d9253f63a7 - - - - - -] public endpoint updated
+2026-10-31 18:11:00.705 1 INFO keystone.cmd.bootstrap [None req-5f496033-cadb-4257-b41b-31d9253f63a7 - - - - - -] internal endpoint updated
+2026-10-31 18:11:00.710 1 INFO keystone.cmd.bootstrap [None req-5f496033-cadb-4257-b41b-31d9253f63a7 - - - - - -] admin endpoint updated
