@@ -1,0 +1,68 @@
+# Ussuri ODM summaries at T0 2026-10-31T13:14:11Z
+== nova-manage db online_data_migrations (run 1)
+Running batches of 50 until complete
++-------------------------------------+--------------+-----------+
+|              Migration              | Total Needed | Completed |
++-------------------------------------+--------------+-----------+
+|     fill_virtual_interface_list     |      0       |     0     |
+|         migrate_empty_ratio         |      0       |     0     |
+|   migrate_quota_classes_to_api_db   |      0       |     0     |
+|    migrate_quota_limits_to_api_db   |      0       |     0     |
+|      migration_migrate_to_uuid      |      0       |     0     |
+| populate_missing_availability_zones |      0       |     0     |
+|      populate_queued_for_delete     |      0       |     0     |
+|           populate_user_id          |      0       |     0     |
+|            populate_uuids           |      0       |     0     |
++-------------------------------------+--------------+-----------+
+exit=0
+== placement-manage db online_data_migrations
+Running batches of 50 until complete
++-----------------------------+-------------+-----------+
+|          Migration          | Total Found | Completed |
++-----------------------------+-------------+-----------+
+|    set_root_provider_ids    |      0      |     0     |
+| create_incomplete_consumers |      0      |     0     |
++-----------------------------+-------------+-----------+
+exit=0
+== cinder-manage db online_data_migrations
+Running batches of 50 until complete.
++-----------------------------------------+----------------+-------------+
+| Migration                               |   Total Needed |   Completed |
+|-----------------------------------------+----------------+-------------|
+| untyped_snapshots_online_data_migration |              0 |           0 |
+| untyped_volumes_online_data_migration   |              0 |           0 |
++-----------------------------------------+----------------+-------------+
+exit=0
+== glance-manage db check
+2026-10-31 13:14:20.788 1 INFO alembic.runtime.migration [-] Context impl MySQLImpl.[00m
+2026-10-31 13:14:20.788 1 INFO alembic.runtime.migration [-] Will assume non-transactional DDL.[00m
+Database is up to date. No upgrades needed.
+exit=0
+== nova-status upgrade check
++------------------------------------+
+| Upgrade Check Results              |
++------------------------------------+
+| Check: Cells v2                    |
+| Result: Success                    |
+| Details: None                      |
++------------------------------------+
+| Check: Placement API               |
+| Result: Success                    |
+| Details: None                      |
++------------------------------------+
+| Check: Ironic Flavor Migration     |
+| Result: Success                    |
+| Details: None                      |
++------------------------------------+
+| Check: Cinder API                  |
+| Result: Success                    |
+| Details: None                      |
++------------------------------------+
+| Check: Policy Scope-based Defaults |
+| Result: Success                    |
+| Details: None                      |
++------------------------------------+
+| Check: Older than N-1 computes     |
+| Result: Success                    |
+| Details: None                      |
++------------------------------------+

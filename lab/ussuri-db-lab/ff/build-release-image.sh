@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # usage: build-release-image.sh <2023.1|2024.1|2025.1|2026.1>   -> image ufj-ff-<release>:1
 . "$(dirname "$0")/../scripts/lib.sh"
-rel=$1; case $rel in 2023.1) py=3.10;; 2024.1) py=3.11;; 2025.1|2026.1) py=3.12;; *) die "release?";; esac
+rel=$1; case $rel in 2023.1|2023.2) py=3.10;; 2024.1) py=3.11;; 2025.1|2026.1) py=3.12;; *) die "release?";; esac
 ctx="$LAB_DIR/ff/image/$rel"; mkdir -p "$ctx/ca"; cp "$LAB_DIR/ff/image/Dockerfile" "$ctx/Dockerfile"
 args=(--build-arg PYVER=$py); CA="${LAB_CA_BUNDLE:-}"; [ -z "$CA" ] && [ -f /root/.ccr/ca-bundle.crt ] && CA=/root/.ccr/ca-bundle.crt
 [ -n "$CA" ] && { cp "$CA" "$ctx/ca/ca-bundle.crt"; args+=(--build-arg PIP_CERT=/tmp/ca/ca-bundle.crt); }

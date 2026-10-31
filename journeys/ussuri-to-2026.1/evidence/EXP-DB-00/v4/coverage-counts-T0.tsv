@@ -1,0 +1,99 @@
+# T0 baseline coverage counts, read-only SELECTs, 2026-10-31T13:14:49Z
+cinder	volumes available	4
+cinder	volumes in-use	3
+cinder	volumes error	0
+cinder	volumes deleted (soft)	3
+cinder	snapshots	1
+cinder	volume_admin_metadata temporary='True'	0
+cinder	volumes migration_status LIKE 'target:%' (incl. deleted)	0
+cinder	volumes migration_status (distinct, count)	NULL=9;error=1
+cinder	quota_usages rows	19
+cinder	quotas rows (project quotas set)	backups=11;gigabytes=500;groups=7;snapshots=30;volumes=25
+cinder	consistencygroup/group quota rows	1
+cinder	quota_usages for groups/consistencygroups	1
+nova	instances by vm_state (deleted=0)	active=7;resized=1;soft-delete=1;stopped=1
+nova	instances ERROR without host	0
+nova	instances soft-deleted (vm_state soft-delete)	1
+nova	instances deleted<>0 (live table)	1
+nova	shadow_instances (archived)	2
+nova	instances per host	ufj-compute1=4;ufj-compute2=2;ufj-compute3=4
+nova	compute_nodes rows	ufj-compute1/ufj-compute1 deleted=0;ufj-compute2/ufj-compute2 deleted=0;ufj-compute3/ufj-compute3 deleted=0
+nova	flavors with hw:numa_nodes	1
+nova	flavors with hw:cpu_policy=dedicated	1
+nova	instances with numa_topology	1
+nova	block_device_mapping volume-backed (source_type=volume)	3
+nova	migrations rows by status	migration/finished=1;resize/confirmed=1
+nova	instance_extra with migration_context	1
+nova	request_specs	12
+nova	request_specs with scheduler hints (spec like %scheduler_hints%group%)	12
+nova	instance_groups	2
+nova	instance_actions	17
+nova	quotas (api db)	8
+nova	quotas (legacy cell db, table nova.quotas)	0
+nova	services (binary/host/version)	nova-conductor/ufj-nova-conductor version=51 forced_down=0;nova-osapi_compute/0.0.0.0 version=51 forced_down=0;nova-metadata/0.0.0.0 version=51 forced_down=0;nova-scheduler/ufj-nova-scheduler version=51 forced_down=0;nova-compute/ufj-compute2 version=51 forced_down=1;nova-compute/ufj-compute1 version=51 forced_down=1;nova-compute/ufj-compute3 version=51 forced_down=1
+nova	host_mappings	3
+nova	aggregates	2
+keystone	trusts	3
+keystone	application credentials	4
+keystone	credentials by type	ec2=1;totp=1
+keystone	revocation_event rows	1501
+keystone	federated: identity_provider/mapping/protocol	1/1/1
+keystone	password hasher per user (prefix of password_hash)	admin:$2b;alice:$2b;bob:$2b;carol:$2b;cinder:$2b;glance:$2b;neutron:$2b;nova:$2b;placement:$2b
+keystone	migrate_version	keystone=109;keystone_contract=78;keystone_data_migrate=78;keystone_expand=78
+neutron	multi-segment networks (>1 segment)	1
+neutron	network_segment_ranges (type/physnet NULL?)	vlan/physnet1/300-310;vxlan/NULL/1-1000;vxlan/NULL/2000-2100;vlan/physnet1/100-200
+neutron	quotas rows	5
+neutron	ports with binding profile <> ''	2
+neutron	extradhcpopts rows	2
+neutron	HA routers (routers with ha flag)	0
+neutron	networkrbacs	3
+neutron	standardattributes tags (tags table)	6
+neutron	agents (type/host)	OFA driver agent/ufj-compute1;OFA driver agent/ufj-compute2;OFA driver agent/ufj-compute3
+glance	images with >1 location	1
+glance	image_locations total	5
+glance	image_locations.meta_data without "backend":	5
+glance	tasks	import/success=1
+placement	resource_providers (name parent?)	ufj-compute2;ufj-compute3;ufj-compute1;ufj-compute1-nested [nested]
+placement	nested providers	1
+placement	custom traits	CUSTOM_UFJ_LAB
+placement	consumers	12
+placement	consumer_types table exists (1/0)	0
+placement	consumers without consumer_types row (no table in Ussuri: all)	12
+placement	allocations: distinct consumers	12
+placement	instances alive (nova) without allocation	0
+engine	@@GLOBAL.sql_mode	STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+engine	@@GLOBAL.version	10.3.39-MariaDB-1:10.3.39+maria~ubu2004-log
+engine	oslo.db session sql_mode used by the services/tools	TRADITIONAL (oslo.db [database]mysql_sql_mode default; see report)
+engine	character_set_server / collation_server	utf8/utf8_general_ci
+cinder	quota_classes rows (default class backups/backup_gigabytes present?)	default/consistencygroups=10 deleted=0;default/gigabytes=1000 deleted=0;default/groups=10 deleted=0;default/per_volume_gigabytes=-1 deleted=0;default/snapshots=10 deleted=0;default/volumes=10 deleted=0
+cinder	quota_usages consistencygroups/groups (incl. deleted)	groups in_use=2 deleted=0
+cinder	reservations consistencygroups	0
+cinder	consistencygroups / groups rows	0/2
+cinder	encryption volume types / encrypted volumes	1/1
+cinder	volume_attachment rows with connection_info	3
+nova	pci_devices rows / with NULL uuid	0/0
+nova	deleted instances whose (host,node) has no live compute_nodes row	0
+nova	live instances whose (host,node) has no live compute_nodes row	0
+nova	console_auth_tokens	1
+nova	shadow_block_device_mapping rows	2
+nova	cell_mappings (name, db host, mq host; passwords masked)	cell0 db=mysql+pymysql://nova:***@ufj-mariadb/nova_cell0?charset=utf8 mq=none:///;cell1 db=mysql+pymysql://nova:***@ufj-mariadb/nova?charset=utf8 mq=rabbit://openstack:***@ufj-rabbitmq:5672//
+nova	services incl. deleted (id host binary version forced_down deleted)	1 ufj-nova-conductor nova-conductor v51 fd=0 del=0;3 0.0.0.0 nova-osapi_compute v51 fd=0 del=0;6 0.0.0.0 nova-metadata v51 fd=0 del=0;7 ufj-nova-scheduler nova-scheduler v51 fd=0 del=0;8 ufj-compute2 nova-compute v51 fd=1 del=0;9 ufj-compute1 nova-compute v51 fd=1 del=0;10 ufj-compute3 nova-compute v51 fd=1 del=0
+nova	compute_nodes incl. deleted	1 ufj-compute2 deleted=0;2 ufj-compute1 deleted=0;3 ufj-compute3 deleted=0
+keystone	trusts with expires_at NULL / not NULL	2/1
+keystone	mapping rows (schema_version column exists?)	1
+keystone	service_provider rows	1
+keystone	access_rule rows	1
+keystone	project_tag rows	3
+keystone	migrate_version ALL rows	keystone=109;keystone_contract=78;keystone_data_migrate=78;keystone_expand=78
+neutron	portforwardings	1
+neutron	ports with profile containing trusted / ports with empty profile	1/20
+neutron	rbac rows per table (network/qos/securitygroup/subnetpool/addressscope)	3/1/1/2/1
+neutron	tags (all, incl. non-ASCII)	ÉTÉ;extra-tag;lab;Mixed-Case;proj-a;tâg-ünï
+neutron	ha_router_networks	0
+neutron	DHCP ports (device_owner network:dhcp)	0
+neutron	portbindingports	0
+neutron	segments in networksegments (network_type/physical_network NULL?)	flat/physnet1 count=1;vlan/physnet1 count=1;vxlan/NULL count=4
+glance	images by visibility / hidden	private hidden=1 count=1;public hidden=0 count=2;shared hidden=0 count=2;community hidden=0 count=1
+glance	image_members / image_properties	0/8
+glance	tasks with result	1
+placement	consumers with NULL project or user (incomplete)	0

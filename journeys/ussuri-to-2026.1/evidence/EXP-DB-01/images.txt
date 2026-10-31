@@ -2,3 +2,4 @@ release 2023.1 python 3.10 image sha256:98f86c48ce99810eea225755a6a127875c29e5ed
 release 2024.1 python 3.11 image sha256:fb0cb1207464eaa267eb15f18147503d8d6f1d3959e018ff88329099c3a7b370 build_seconds 5
 release 2025.1 python 3.12 image sha256:88062c24931bdc3b6157db3bc073e88b9faf7c6c163daec0fbd787ee4a7b4e90 build_seconds 5
 release 2026.1 python 3.12 image sha256:d6352bc257fd24380d8bd63de4da9142edcbe7f25870ec6800b8b16e52afc8cb build_seconds 5
+release 2023.2 python 3.10 image sha256:5425d2b60e12154065d10c777748246d58195a7063bfc5b4927e9f0d3822b4a5 build_seconds 87

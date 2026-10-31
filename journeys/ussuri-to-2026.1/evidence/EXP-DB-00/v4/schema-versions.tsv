@@ -1,0 +1,13 @@
+keystone	migrate_version	keystone	/opt/ussuri/lib/python3.8/site-packages/keystone/common/sql/migrate_repo	109
+keystone	migrate_version	keystone_contract	/opt/ussuri/lib/python3.8/site-packages/keystone/common/sql/contract_repo	78
+keystone	migrate_version	keystone_data_migrate	/opt/ussuri/lib/python3.8/site-packages/keystone/common/sql/data_migration_repo	78
+keystone	migrate_version	keystone_expand	/opt/ussuri/lib/python3.8/site-packages/keystone/common/sql/expand_repo	78
+glance	migrate_version	Glance Migrations	/opt/ussuri/lib/python3.8/site-packages/glance/db/sqlalchemy/migrate_repo	0
+glance	alembic_version	ussuri_contract01
+placement	alembic_version	b5c396305c25
+nova_api	migrate_version	nova_api	/opt/ussuri/lib/python3.8/site-packages/nova/db/sqlalchemy/api_migrations/migrate_repo	72
+nova	migrate_version	nova	/opt/ussuri/lib/python3.8/site-packages/nova/db/sqlalchemy/migrate_repo	407
+nova_cell0	migrate_version	nova	/opt/ussuri/lib/python3.8/site-packages/nova/db/sqlalchemy/migrate_repo	407
+neutron	alembic_version	5c85685d616d
+neutron	alembic_version	d8bdf05313f4
+cinder	migrate_version	cinder	/opt/ussuri/lib/python3.8/site-packages/cinder/db/sqlalchemy/migrate_repo	136

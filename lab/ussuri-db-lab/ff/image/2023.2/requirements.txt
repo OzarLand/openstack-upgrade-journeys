@@ -1,0 +1,2 @@
+cinder==23.5.0
+PyMySQL

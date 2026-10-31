@@ -1,0 +1,22 @@
+# v4 remedies and additions through the Ussuri API, 2026-10-31T13:13:00Z, starting from baseline v1 restored into the lab
+## before
+ufj-multiseg
+multi-seg network segments:	vlan/physnet1/151,vlan/physnet1/150
+volumes non-deleted with service_uuid NULL (PC-C4 input):	1
+a-boot error
+## remedy PC-Q5: delete the offending network and re-create it as an operator would (admin, Ussuri API)
+network ufj-multiseg deleted
+{"item": "multisegment", "ok": true, "detail": "network 16b444d2-8c17-4670-857c-46e633774ce0 segments=2"}
+## remedy PC-C4: delete the ERROR volume that never got a service (admin, Ussuri API)
+volume a-boot deleted
+## additions: soft-deleted snapshot (existing a-vol2-snap) and a new soft-deleted volume + snapshot
+snapshot a-vol2-snap deleted
+bd328611-6a55-4aa8-a916-05dcf86c1211
+bacd0e3a-8f85-46a0-9000-d59e5eb85ac9
+## after
+volumes deleted=1:	3
+snapshots deleted=1:	2
+volumes non-deleted service_uuid NULL:	0
+multi-seg segments:	vxlan/-/500,vlan/physnet1/150
+PC-Q5 duplicates:	0
+volumes by status:	available=4,in-use=3
