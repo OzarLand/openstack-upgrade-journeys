@@ -17,7 +17,10 @@ say "manifest check: $( (cd "$B" && sha256sum --quiet -c MANIFEST.sha256 && echo
 compare() { # compare <container> <label>
   local c=$1 l=$2 ok=1
   sql_rowcounts "$c" "$DB_ROOT" > "$B/.rc.$l"; sql_checksums "$c" "$DB_ROOT" > "$B/.ck.$l"
-  if diff -q "$B/rowcounts.tsv" "$B/.rc.$l" >/dev/null; then say "[$l] row counts identical for $(wc -l < "$B/rowcounts.tsv") tables"; else say "[$l] ROW COUNT DIFFERENCES:"; diff "$B/rowcounts.tsv" "$B/.rc.$l" | head -20 | tee -a "$OUT"; ok=0; fi
+  # mysql.innodb_table_stats / innodb_index_stats are engine statistics (rewritten by the server itself), not data: reported, not compared
+  local F=$'^mysql\tinnodb_(table|index)_stats\t'
+  if diff -q <(grep -vE "$F" "$B/rowcounts.tsv") <(grep -vE "$F" "$B/.rc.$l") >/dev/null; then say "[$l] row counts identical for $(grep -vcE "$F" "$B/rowcounts.tsv") tables (excluding the two InnoDB statistics tables)"; else say "[$l] ROW COUNT DIFFERENCES:"; diff <(grep -vE "$F" "$B/rowcounts.tsv") <(grep -vE "$F" "$B/.rc.$l") | head -20 | tee -a "$OUT"; ok=0; fi
+  diff -q <(grep -E "$F" "$B/rowcounts.tsv") <(grep -E "$F" "$B/.rc.$l") >/dev/null || say "[$l] note: InnoDB statistics tables differ in row count (engine-maintained): $(grep -E "$F" "$B/.rc.$l" | tr '\t' ' ' | tr '\n' ';')"
   # CHECKSUM TABLE: the OpenStack databases must be identical; mysql.* system tables are reported but not required
   if diff -q <(grep -vE '^mysql\.' "$B/table-checksums.tsv") <(grep -vE '^mysql\.' "$B/.ck.$l") >/dev/null; then
     say "[$l] CHECKSUM TABLE identical for $(grep -vcE '^mysql\.' "$B/table-checksums.tsv") OpenStack tables"

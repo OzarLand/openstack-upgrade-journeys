@@ -27,8 +27,8 @@ gen_secrets() {
   {
     for k in DB_ROOT RABBIT ADMIN SVC_KEYSTONE SVC_GLANCE SVC_PLACEMENT SVC_NOVA SVC_NEUTRON SVC_CINDER \
              DBPW_KEYSTONE DBPW_GLANCE DBPW_PLACEMENT DBPW_NOVA DBPW_NEUTRON DBPW_CINDER \
-             METADATA_SECRET USER_ALICE USER_BOB USER_CAROL; do
-      printf '%s=%s\n' "$k" "$(openssl rand -hex 12)"
+             METADATA_SECRET FIXEDKEY USER_ALICE USER_BOB USER_CAROL; do
+      if [ "$k" = FIXEDKEY ]; then printf '%s=%s\n' "$k" "$(openssl rand -hex 32)"; else printf '%s=%s\n' "$k" "$(openssl rand -hex 12)"; fi
     done
   } > "$SECRETS_DIR/passwords.env"
   log "generated $SECRETS_DIR/passwords.env (git-ignored)"

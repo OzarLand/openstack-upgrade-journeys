@@ -7,7 +7,7 @@ case "${1:-}" in
   versions)     exec "$D/75-versions.sh";;
   all)          "$0" build && "$0" up && "$0" populate && "$0" versions && "$0" capture && "$0" restore-test && "$0" verify;;
   populate)     exec "$D/60-populate.sh";;
-  capture)      exec "$D/70-capture.sh";;
+  capture)      exec "$D/72-capture-both.sh";;
   verify)       exec "$D/90-verify.sh" "${2:-}";;
   restore-test) shift; exec "$D/80-restore-test.sh" "$@";;
   restore)      shift; exec "$D/85-restore-into-lab.sh" "$@";;

@@ -1,8 +1,8 @@
-glance-db_sync	2.3 s
-placement-db_sync	1.7 s
-nova-api_db_sync	3.5 s
-nova-cell_v2_map_cell0	3.1 s
+glance-db_sync	2.4 s
+placement-db_sync	1.9 s
+nova-api_db_sync	3.4 s
+nova-cell_v2_map_cell0	2.8 s
 nova-cell_v2_create_cell	2.5 s
-nova-db_sync	12.2 s
-neutron-db_upgrade	4.8 s
-cinder-db_sync	2.9 s
+nova-db_sync	12.9 s
+neutron-db_upgrade	5.2 s
+cinder-db_sync	2.8 s

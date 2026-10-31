@@ -1,0 +1,6 @@
+ufj-compute1
+ufj-compute2
+ufj-compute3
+ufj-fake-agent1
+ufj-fake-agent2
+ufj-fake-agent3

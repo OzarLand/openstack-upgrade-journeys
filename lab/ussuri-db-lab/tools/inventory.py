@@ -38,7 +38,7 @@ def sess(user=None, password=None, project=None):
 
 
 def ad(s, stype, **kw):
-    return adapter.Adapter(session=s, service_type=stype, interface='public', region_name='RegionOne', **kw)
+    return adapter.Adapter(session=s, service_type=stype, interface='public', region_name='RegionOne', raise_exc=False, **kw)
 
 
 def get(a, url, key=None, **kw):
@@ -66,22 +66,24 @@ def capture():
     pv = {'headers': {'OpenStack-API-Version': 'placement 1.30'}}
     inv = {'_meta': {'captured_at': datetime.datetime.utcnow().isoformat() + 'Z', 'tool': 'inventory.py'}}
     # --- identity
-    inv['projects'] = get(ks, '/v3/projects', 'projects')
-    inv['users'] = get(ks, '/v3/users', 'users')
-    inv['groups'] = get(ks, '/v3/groups', 'groups')
-    inv['roles'] = get(ks, '/v3/roles', 'roles')
-    inv['domains'] = get(ks, '/v3/domains', 'domains')
-    inv['regions'] = get(ks, '/v3/regions', 'regions')
-    inv['services'] = get(ks, '/v3/services', 'services')
-    inv['endpoints'] = get(ks, '/v3/endpoints', 'endpoints')
-    inv['role_assignments'] = get(ks, '/v3/role_assignments?include_names=true', 'role_assignments')
-    inv['group_memberships'] = {g['name']: sorted(u['name'] for u in get(ks, '/v3/groups/%s/users' % g['id'], 'users'))
+    inv['projects'] = get(ks, '/projects', 'projects')
+    inv['users'] = get(ks, '/users', 'users')
+    inv['groups'] = get(ks, '/groups', 'groups')
+    inv['roles'] = get(ks, '/roles', 'roles')
+    inv['domains'] = get(ks, '/domains', 'domains')
+    inv['regions'] = get(ks, '/regions', 'regions')
+    inv['services'] = get(ks, '/services', 'services')
+    inv['endpoints'] = get(ks, '/endpoints', 'endpoints')
+    inv['role_assignments'] = get(ks, '/role_assignments?include_names=true', 'role_assignments')
+    inv['group_memberships'] = {g['name']: sorted(u['name'] for u in get(ks, '/groups/%s/users' % g['id'], 'users'))
                                 for g in inv['groups']}
     pid = {p['id']: p['name'] for p in inv['projects']}
     # --- image
     imgs = paged_glance(glance)
     for i in imgs:
-        i['_members'] = sorted((m['member_id'], m['status']) for m in glance.get('/v2/images/%s/members' % i['id']).json()['members'])
+        r = glance.get('/v2/images/%s/members' % i['id'])
+        # community images refuse member listing (403): recorded as None
+        i['_members'] = sorted((m['member_id'], m['status']) for m in r.json()['members']) if r.status_code == 200 else None
     inv['images'] = imgs
     # --- compute
     inv['servers'] = get(nova, '/servers/detail?all_tenants=1', 'servers', **nv)

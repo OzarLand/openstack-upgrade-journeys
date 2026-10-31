@@ -54,6 +54,8 @@ oa aggregate add host ufj-agg2 ufj-compute2 2>/dev/null || true
 say "images"
 mkdir -p /tmp/ufj; [ -f /tmp/ufj/ufj-image-a.raw ] || head -c 8388608 /dev/urandom > /tmp/ufj/ufj-image-a.raw
 [ -f /tmp/ufj/ufj-image-b.raw ] || head -c 3145728 /dev/urandom > /tmp/ufj/ufj-image-b.raw
+# the files are also served by ufj-static (multi-location image, glance task import)
+cp -n /tmp/ufj/ufj-image-a.raw /tmp/ufj/ufj-image-b.raw /static/
 oA image show ufj-image-a >/dev/null 2>&1 || oA image create --file /tmp/ufj/ufj-image-a.raw --disk-format raw --container-format bare \
    --min-disk 1 --min-ram 64 --property os_distro=lab --property hw_disk_bus=virtio --tag lab --tag ussuri ufj-image-a >/dev/null
 oa image show ufj-image-public >/dev/null 2>&1 || oa image create --file /tmp/ufj/ufj-image-b.raw --disk-format raw --container-format bare --public --tag lab ufj-image-public >/dev/null

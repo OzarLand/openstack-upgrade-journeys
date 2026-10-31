@@ -1,0 +1,4 @@
+# corrections to coverage-counts-T0.tsv: two placement queries joined allocations.consumer_id (a UUID string) to consumers.id. Recomputed read-only on the live lab restored from the final baseline (checksums equal to T0), 2026-10-31T11:48:02Z
+placement	allocations: distinct consumers (corrected)	12
+placement	instances alive (host not NULL) without allocation (corrected)	NULL
+placement	allocation consumers that are not instances	2

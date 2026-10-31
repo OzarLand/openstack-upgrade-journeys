@@ -1,0 +1,11 @@
+inventory-fenced	4 s
+services-stopped	8 s
+dump-all	10 s
+dump-openstack	11 s
+dump-schema	12 s
+rowcounts	12 s
+checksums	12 s
+coverage-counts	22 s
+mariadb-stopped	26 s
+volumes-tarred	30 s
+services-restarted	35 s

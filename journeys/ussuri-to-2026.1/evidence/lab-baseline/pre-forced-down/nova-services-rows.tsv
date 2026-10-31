@@ -1,0 +1,10 @@
+nova-conductor\tufj-nova-conductor\tversion=51\tdisabled=0\tforced_down=0\tdeleted=0
+nova-osapi_compute\t0.0.0.0\tversion=51\tdisabled=0\tforced_down=0\tdeleted=0
+nova-metadata\t0.0.0.0\tversion=51\tdisabled=0\tforced_down=0\tdeleted=0
+nova-scheduler\tufj-nova-scheduler\tversion=51\tdisabled=0\tforced_down=0\tdeleted=0
+nova-compute\tufj-compute2\tversion=51\tdisabled=0\tforced_down=0\tdeleted=0
+nova-compute\tufj-compute1\tversion=51\tdisabled=0\tforced_down=0\tdeleted=0
+nova-compute\tufj-compute3\tversion=51\tdisabled=0\tforced_down=0\tdeleted=0
+cinder-volume\tufj-cinder-volume@fake\tdeleted=0
+cinder-volume\tufj-cinder-volume@fake2\tdeleted=0
+cinder-scheduler\tufj-cinder-scheduler\tdeleted=0

@@ -1,0 +1,12 @@
+forced down: ufj-compute2
+forced down: ufj-compute1
+forced down: ufj-compute3
++--------------------------------------+----------------+--------------------+---------+-------+-----------------+
+| ID                                   | Binary         | Host               | Status  | State | Disabled Reason |
++--------------------------------------+----------------+--------------------+---------+-------+-----------------+
+| 3076cae0-54ba-4ffc-8a7b-edd49a7aab83 | nova-conductor | ufj-nova-conductor | enabled | up    | None            |
+| fb91a028-6f52-4baa-8ca6-43cb9cbc8340 | nova-scheduler | ufj-nova-scheduler | enabled | up    | None            |
+| b5ab617c-edf0-46af-a972-5c7726a5985c | nova-compute   | ufj-compute2       | enabled | down  | None            |
+| 3c70b673-248e-451a-af75-1a04b3d9f8dd | nova-compute   | ufj-compute1       | enabled | down  | None            |
+| 6b31858c-e383-46b9-9c8b-eaeb220ac616 | nova-compute   | ufj-compute3       | enabled | down  | None            |
++--------------------------------------+----------------+--------------------+---------+-------+-----------------+

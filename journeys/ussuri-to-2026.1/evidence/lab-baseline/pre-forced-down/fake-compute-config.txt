@@ -1,0 +1,23 @@
+compute hosts: ufj-compute1 ufj-compute2 ufj-compute3 
+--- nova.conf (shared) driver-related lines
+11:compute_driver = fake.FakeDriver
+12:firewall_driver = nova.virt.firewall.NoopFirewallDriver
+13:vif_plugging_is_fatal = false
+14:vif_plugging_timeout = 0
+15:resume_guests_state_on_host_boot = false
+16:reclaim_instance_interval = 3600
+67:enabled_filters = AvailabilityZoneFilter,NUMATopologyFilter,ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,ServerGroupAntiAffinityFilter,ServerGroupAffinityFilter
+--- nova-compute.conf (compute containers only)
+[DEFAULT]
+compute_driver = ufj_fake.UfjFakeDriver
+--- cinder.conf quota/backends
+7:enabled_backends = fake,fake2
+8:quota_backups = 7
+40:volume_driver = cinder.tests.fake_driver.FakeLoggingVolumeDriver
+41:volume_backend_name = fake
+43:volume_driver = cinder.tests.fake_driver.FakeLoggingVolumeDriver
+44:volume_backend_name = fake2
+--- neutron service_plugins / ml2
+/home/user/openstack-upgrade-journeys/lab/ussuri-db-lab/.run/etc/neutron/neutron.conf:3:service_plugins = router,segments,network_segment_range,qos,port_forwarding
+/home/user/openstack-upgrade-journeys/lab/ussuri-db-lab/.run/etc/neutron/ml2_conf.ini:4:type_drivers = flat,vlan,vxlan
+/home/user/openstack-upgrade-journeys/lab/ussuri-db-lab/.run/etc/neutron/ml2_conf.ini:6:mechanism_drivers = fake_agent

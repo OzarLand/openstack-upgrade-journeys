@@ -123,6 +123,9 @@ enabled_filters = AvailabilityZoneFilter,NUMATopologyFilter,ComputeFilter,Comput
 workers = 2
 [oslo_concurrency]
 lock_path = /var/lib/nova/tmp
+[key_manager]
+backend = nova.keymgr.conf_key_mgr.ConfKeyManager
+fixed_key = $FIXEDKEY
 T
 
 # compute-only overrides (kept apart so that the shared nova.conf stays the stock FakeDriver setting)
@@ -130,7 +133,7 @@ printf '[DEFAULT]\ncompute_driver = ufj_fake.UfjFakeDriver\n' > "$E/nova/nova-co
 cat > "$E/neutron/neutron.conf" <<T
 [DEFAULT]
 core_plugin = ml2
-service_plugins = router,segments,network_segment_range
+service_plugins = router,segments,network_segment_range,qos,port_forwarding
 allow_overlapping_ips = true
 auth_strategy = keystone
 transport_url = $MQ
@@ -155,7 +158,7 @@ cat > "$E/neutron/ml2_conf.ini" <<'T'
 type_drivers = flat,vlan,vxlan
 tenant_network_types = vxlan
 mechanism_drivers = fake_agent
-extension_drivers = port_security
+extension_drivers = port_security,qos
 [ml2_type_flat]
 flat_networks = physnet1
 [ml2_type_vlan]
@@ -176,6 +179,7 @@ osapi_volume_listen = 0.0.0.0
 osapi_volume_listen_port = 8776
 enabled_backends = fake,fake2
 quota_backups = 7
+quota_backup_gigabytes = 2500
 default_volume_type = __DEFAULT__
 use_stderr = true
 state_path = /var/lib/cinder
@@ -185,6 +189,9 @@ $(authtoken cinder "$SVC_CINDER")
 $(auth_section nova nova "$SVC_NOVA")
 [oslo_concurrency]
 lock_path = /var/lib/cinder/tmp
+[key_manager]
+backend = cinder.keymgr.conf_key_mgr.ConfKeyManager
+fixed_key = $FIXEDKEY
 [fake]
 volume_driver = cinder.tests.fake_driver.FakeLoggingVolumeDriver
 volume_backend_name = fake

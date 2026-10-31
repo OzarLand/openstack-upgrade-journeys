@@ -23,9 +23,11 @@ for the image build (the CA file is copied into the build context only for the b
 ```bash
 ./ufj.sh build          # ufj-ussuri-py38:1  (about 3-4 min; Docker Hub 429 rate limits are retried)
 ./ufj.sh up             # MariaDB 10.3, RabbitMQ 3.8, memcached, db syncs, all services (about 3 min)
-./ufj.sh populate       # representative resources through the APIs (about 3 min)
+./ufj.sh populate       # base resources (populate.sh) + baseline-coverage items (coverage.sh) + ODM runs, through the APIs (about 15 min)
 ./ufj.sh versions       # versions into the evidence directory
-./ufj.sh capture        # baseline: API inventory, dumps, row counts, table checksums, cold volume tarballs
+./ufj.sh capture        # DR-003 end state, two captures: A) computes+agents stopped, NOT forced down (backups/latest-pre-forced-down);
+                        # then 'compute service set --down' through the API; B) final baseline (backups/latest). Each: API inventory,
+                        # dumps, row counts, table checksums, T0 coverage counts, cold volume tarballs
 ./ufj.sh restore-test   # restore into FRESH MariaDB containers and prove equality (does not touch the live lab)
 ./ufj.sh verify         # compare the running control plane with the baseline inventory + functional checks
 ./ufj.sh all            # build, up, populate, versions, capture, restore-test, verify
@@ -90,8 +92,9 @@ matters for what the baseline can prove: DB upgrade paths and API-visible state,
 | Path | Purpose |
 |---|---|
 | `image/` | `Dockerfile`, `requirements-lab.txt` (service versions), `upper-constraints-ussuri-eol.txt` (from `requirements@ussuri-eol`) |
-| `scripts/` | numbered steps (`05` build, `10` infra, `20` config, `30/35` keystone, `40` db syncs, `50` services, `60` populate, `70` capture, `75` versions, `80` restore test, `85` restore into lab, `90` verify, `99` destroy), `lib.sh` |
-| `scripts/inside/populate.sh` | resource creation, runs inside `ufj-client` |
+| `scripts/` | numbered steps (`71` forced-down via API, `72` both captures) (`05` build, `10` infra, `20` config, `30/35` keystone, `40` db syncs, `50` services, `60` populate, `70` capture, `75` versions, `80` restore test, `85` restore into lab, `90` verify, `99` destroy), `lib.sh` |
+| `scripts/inside/populate.sh`, `coverage.sh` | resource creation and the baseline-coverage checklist items, run inside `ufj-client`; every attempt is logged to `evidence/lab-baseline/coverage-actions.tsv` |
+| `tools/coverage_counts.sh`, `tools/coverage_rest.py`, `tools/ufj_fake.py` | read-only T0 counts of the checklist items; REST-only items; fake compute driver with NUMA/PCPU |
 | `tools/inventory.py` | JSON inventory + verify + functional checks (REST, keystoneauth) |
 | `tools/fake_l2_agent.py` | fake agent (report_state + update_device_up) |
 | `tools/tag_server.py` | server tags (python-openstackclient 5.2 has no option) |
