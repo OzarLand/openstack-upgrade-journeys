@@ -1,0 +1,6 @@
+keystone: 0
+glance: 0
+placement: 0
+nova-api: 2
+neutron: 0
+cinder-api: 0

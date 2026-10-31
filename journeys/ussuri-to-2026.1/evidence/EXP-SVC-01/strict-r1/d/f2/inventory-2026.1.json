@@ -1,0 +1,6055 @@
+{
+ "_meta": {
+  "captured_at": "2026-10-31T17:42:47.713887Z",
+  "counts": {
+   "agents": 3,
+   "aggregates": 2,
+   "cinder_quotas": 4,
+   "compute_services": 5,
+   "domains": 3,
+   "endpoints": 18,
+   "flavors": 7,
+   "floatingips": 3,
+   "group_memberships": 1,
+   "groups": 1,
+   "hypervisors": 3,
+   "images": 5,
+   "keypairs": 3,
+   "networks": 5,
+   "neutron_quotas": 4,
+   "nova_quotas": 4,
+   "placement_resource_providers": 4,
+   "ports": 22,
+   "projects": 4,
+   "rbac_policies": 8,
+   "regions": 1,
+   "role_assignments": 12,
+   "roles": 3,
+   "routers": 2,
+   "security_group_rules": 24,
+   "security_groups": 6,
+   "server_groups": 2,
+   "servers": 11,
+   "services": 6,
+   "snapshots": 1,
+   "subnetpools": 2,
+   "subnets": 5,
+   "users": 9,
+   "volume_services": 3,
+   "volume_types": 3,
+   "volumes": 7
+  },
+  "tool": "inventory.py"
+ },
+ "agents": [
+  {
+   "admin_state_up": true,
+   "agent_type": "OFA driver agent",
+   "alive": false,
+   "availability_zone": null,
+   "binary": "neutron-fake-l2-agent",
+   "configurations": {
+    "interface_mappings": {
+     "physnet1": "none"
+    },
+    "tunnel_types": [
+     "vxlan"
+    ]
+   },
+   "created_at": "2026-10-31 11:18:35",
+   "description": null,
+   "heartbeat_timestamp": "2026-10-31 11:42:37",
+   "host": "ufj-compute3",
+   "id": "6251e7a6-7964-4ed9-a780-d8a5701bb6ad",
+   "resources_synced": null,
+   "started_at": "2026-10-31 11:18:35",
+   "topic": "N/A"
+  },
+  {
+   "admin_state_up": true,
+   "agent_type": "OFA driver agent",
+   "alive": false,
+   "availability_zone": null,
+   "binary": "neutron-fake-l2-agent",
+   "configurations": {
+    "interface_mappings": {
+     "physnet1": "none"
+    },
+    "tunnel_types": [
+     "vxlan"
+    ]
+   },
+   "created_at": "2026-10-31 11:18:34",
+   "description": null,
+   "heartbeat_timestamp": "2026-10-31 11:42:36",
+   "host": "ufj-compute1",
+   "id": "b215bd52-7262-4787-957d-814c699d2a28",
+   "resources_synced": null,
+   "started_at": "2026-10-31 11:18:34",
+   "topic": "N/A"
+  },
+  {
+   "admin_state_up": true,
+   "agent_type": "OFA driver agent",
+   "alive": false,
+   "availability_zone": null,
+   "binary": "neutron-fake-l2-agent",
+   "configurations": {
+    "interface_mappings": {
+     "physnet1": "none"
+    },
+    "tunnel_types": [
+     "vxlan"
+    ]
+   },
+   "created_at": "2026-10-31 11:18:35",
+   "description": null,
+   "heartbeat_timestamp": "2026-10-31 11:42:37",
+   "host": "ufj-compute2",
+   "id": "c4e70ebf-b731-4029-aedd-16e1079c64e5",
+   "resources_synced": null,
+   "started_at": "2026-10-31 11:18:35",
+   "topic": "N/A"
+  }
+ ],
+ "aggregates": [
+  {
+   "availability_zone": "az1",
+   "created_at": "2026-10-31T11:19:36.000000",
+   "deleted": false,
+   "deleted_at": null,
+   "hosts": [
+    "ufj-compute1"
+   ],
+   "id": 1,
+   "metadata": {
+    "availability_zone": "az1",
+    "ssd": "true"
+   },
+   "name": "ufj-agg1",
+   "updated_at": null,
+   "uuid": "a8150a2c-50a8-4233-8059-8fe77eeb3a81"
+  },
+  {
+   "availability_zone": null,
+   "created_at": "2026-10-31T11:19:42.000000",
+   "deleted": false,
+   "deleted_at": null,
+   "hosts": [
+    "ufj-compute2"
+   ],
+   "id": 2,
+   "metadata": {},
+   "name": "ufj-agg2",
+   "updated_at": null,
+   "uuid": "0757d553-f609-43ed-afaa-9bed44bb9413"
+  }
+ ],
+ "cinder_quotas": {
+  "admin": {
+   "backup_gigabytes": 2500,
+   "backups": 7,
+   "gigabytes": 1000,
+   "gigabytes___DEFAULT__": -1,
+   "gigabytes_ufj-enc": -1,
+   "gigabytes_ufj-fake": -1,
+   "groups": 10,
+   "id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "per_volume_gigabytes": -1,
+   "snapshots": 10,
+   "snapshots___DEFAULT__": -1,
+   "snapshots_ufj-enc": -1,
+   "snapshots_ufj-fake": -1,
+   "volumes": 10,
+   "volumes___DEFAULT__": -1,
+   "volumes_ufj-enc": -1,
+   "volumes_ufj-fake": -1
+  },
+  "service": {
+   "backup_gigabytes": 2500,
+   "backups": 7,
+   "gigabytes": 1000,
+   "gigabytes___DEFAULT__": -1,
+   "gigabytes_ufj-enc": -1,
+   "gigabytes_ufj-fake": -1,
+   "groups": 10,
+   "id": "34e4d7af78ed4ae5849f1a262c786dae",
+   "per_volume_gigabytes": -1,
+   "snapshots": 10,
+   "snapshots___DEFAULT__": -1,
+   "snapshots_ufj-enc": -1,
+   "snapshots_ufj-fake": -1,
+   "volumes": 10,
+   "volumes___DEFAULT__": -1,
+   "volumes_ufj-enc": -1,
+   "volumes_ufj-fake": -1
+  },
+  "ufj-proj-a": {
+   "backup_gigabytes": 2500,
+   "backups": 11,
+   "gigabytes": 500,
+   "gigabytes___DEFAULT__": -1,
+   "gigabytes_ufj-enc": -1,
+   "gigabytes_ufj-fake": -1,
+   "groups": 7,
+   "id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "per_volume_gigabytes": -1,
+   "snapshots": 30,
+   "snapshots___DEFAULT__": -1,
+   "snapshots_ufj-enc": -1,
+   "snapshots_ufj-fake": -1,
+   "volumes": 25,
+   "volumes___DEFAULT__": -1,
+   "volumes_ufj-enc": -1,
+   "volumes_ufj-fake": -1
+  },
+  "ufj-proj-b": {
+   "backup_gigabytes": 2500,
+   "backups": 7,
+   "gigabytes": 1000,
+   "gigabytes___DEFAULT__": -1,
+   "gigabytes_ufj-enc": -1,
+   "gigabytes_ufj-fake": -1,
+   "groups": 10,
+   "id": "3d064405fa2447cf9aa98184a4348f36",
+   "per_volume_gigabytes": -1,
+   "snapshots": 10,
+   "snapshots___DEFAULT__": -1,
+   "snapshots_ufj-enc": -1,
+   "snapshots_ufj-fake": -1,
+   "volumes": 10,
+   "volumes___DEFAULT__": -1,
+   "volumes_ufj-enc": -1,
+   "volumes_ufj-fake": -1
+  }
+ },
+ "compute_services": [
+  {
+   "binary": "nova-conductor",
+   "disabled_reason": null,
+   "forced_down": false,
+   "host": "ufj-nova-conductor",
+   "id": "3076cae0-54ba-4ffc-8a7b-edd49a7aab83",
+   "state": "up",
+   "status": "enabled",
+   "updated_at": "2026-10-31T17:42:49.000000",
+   "zone": "internal"
+  },
+  {
+   "binary": "nova-scheduler",
+   "disabled_reason": null,
+   "forced_down": false,
+   "host": "ufj-nova-scheduler",
+   "id": "fb91a028-6f52-4baa-8ca6-43cb9cbc8340",
+   "state": "up",
+   "status": "enabled",
+   "updated_at": "2026-10-31T17:42:41.000000",
+   "zone": "internal"
+  },
+  {
+   "binary": "nova-compute",
+   "disabled_reason": null,
+   "forced_down": true,
+   "host": "ufj-compute2",
+   "id": "b5ab617c-edf0-46af-a972-5c7726a5985c",
+   "state": "down",
+   "status": "enabled",
+   "updated_at": "2026-10-31T11:43:51.000000",
+   "zone": "nova"
+  },
+  {
+   "binary": "nova-compute",
+   "disabled_reason": null,
+   "forced_down": true,
+   "host": "ufj-compute1",
+   "id": "3c70b673-248e-451a-af75-1a04b3d9f8dd",
+   "state": "down",
+   "status": "enabled",
+   "updated_at": "2026-10-31T11:43:53.000000",
+   "zone": "az1"
+  },
+  {
+   "binary": "nova-compute",
+   "disabled_reason": null,
+   "forced_down": true,
+   "host": "ufj-compute3",
+   "id": "6b31858c-e383-46b9-9c8b-eaeb220ac616",
+   "state": "down",
+   "status": "enabled",
+   "updated_at": "2026-10-31T11:43:55.000000",
+   "zone": "nova"
+  }
+ ],
+ "domains": [
+  {
+   "description": "Extra domain",
+   "enabled": true,
+   "id": "794588127ec54200bb756f98dd6494f2",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/domains/794588127ec54200bb756f98dd6494f2"
+   },
+   "name": "ufj-dom",
+   "options": {},
+   "tags": []
+  },
+  {
+   "description": "Auto generated federated domain for Identity Provider: ufj-idp",
+   "enabled": true,
+   "id": "86d69daea36d44e789e8f9487e93c231",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/domains/86d69daea36d44e789e8f9487e93c231"
+   },
+   "name": "86d69daea36d44e789e8f9487e93c231",
+   "options": {},
+   "tags": []
+  },
+  {
+   "description": "The default domain",
+   "enabled": true,
+   "id": "default",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/domains/default"
+   },
+   "name": "Default",
+   "options": {},
+   "tags": []
+  }
+ ],
+ "endpoints": [
+  {
+   "enabled": true,
+   "id": "02eeed49232c44f4a461fa95793093a3",
+   "interface": "admin",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/endpoints/02eeed49232c44f4a461fa95793093a3"
+   },
+   "region": "RegionOne",
+   "region_id": "RegionOne",
+   "service_id": "1ca6ed6ed21a4edfb1b33146d3bba310",
+   "url": "http://ufj-cinder-api:8776/v3/%(project_id)s"
+  },
+  {
+   "enabled": true,
+   "id": "05ee9da830244d39ac4c6c9dc3b31363",
+   "interface": "admin",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/endpoints/05ee9da830244d39ac4c6c9dc3b31363"
+   },
+   "region": "RegionOne",
+   "region_id": "RegionOne",
+   "service_id": "a882214723bd434e8dbba9c99c7439d6",
+   "url": "http://ufj-nova-api:8774/v2.1"
+  },
+  {
+   "enabled": true,
+   "id": "08b17fd95d214be1bf4d10040e77c916",
+   "interface": "admin",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/endpoints/08b17fd95d214be1bf4d10040e77c916"
+   },
+   "region": "RegionOne",
+   "region_id": "RegionOne",
+   "service_id": "6db526532fe1459d904cff4e639abd11",
+   "url": "http://ufj-keystone:5000/v3/"
+  },
+  {
+   "enabled": true,
+   "id": "2335b841745f4d52b518972178317607",
+   "interface": "internal",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/endpoints/2335b841745f4d52b518972178317607"
+   },
+   "region": "RegionOne",
+   "region_id": "RegionOne",
+   "service_id": "a882214723bd434e8dbba9c99c7439d6",
+   "url": "http://ufj-nova-api:8774/v2.1"
+  },
+  {
+   "enabled": true,
+   "id": "2341d79b855d4a81b04d745ff166b514",
+   "interface": "internal",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/endpoints/2341d79b855d4a81b04d745ff166b514"
+   },
+   "region": "RegionOne",
+   "region_id": "RegionOne",
+   "service_id": "1632c657a3cc41258c4460e9286aeb13",
+   "url": "http://ufj-placement:8778"
+  },
+  {
+   "enabled": true,
+   "id": "298d62f0266146ddbbe31bee28b6b313",
+   "interface": "internal",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/endpoints/298d62f0266146ddbbe31bee28b6b313"
+   },
+   "region": "RegionOne",
+   "region_id": "RegionOne",
+   "service_id": "d851a2676c9b4fa29144adcfecb8a815",
+   "url": "http://ufj-neutron:9696"
+  },
+  {
+   "enabled": true,
+   "id": "2db2a8d505d5412e83ff5f5b45c705c6",
+   "interface": "public",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/endpoints/2db2a8d505d5412e83ff5f5b45c705c6"
+   },
+   "region": "RegionOne",
+   "region_id": "RegionOne",
+   "service_id": "1ca6ed6ed21a4edfb1b33146d3bba310",
+   "url": "http://ufj-cinder-api:8776/v3/%(project_id)s"
+  },
+  {
+   "enabled": true,
+   "id": "3678055216034feabb26782ff96a108b",
+   "interface": "public",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/endpoints/3678055216034feabb26782ff96a108b"
+   },
+   "region": "RegionOne",
+   "region_id": "RegionOne",
+   "service_id": "d1e5b332fed743f7806581811ddb144f",
+   "url": "http://ufj-glance:9292"
+  },
+  {
+   "enabled": true,
+   "id": "43a1dcd927734fababef2c50c69cdb33",
+   "interface": "admin",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/endpoints/43a1dcd927734fababef2c50c69cdb33"
+   },
+   "region": "RegionOne",
+   "region_id": "RegionOne",
+   "service_id": "1632c657a3cc41258c4460e9286aeb13",
+   "url": "http://ufj-placement:8778"
+  },
+  {
+   "enabled": true,
+   "id": "51b0e5e1c12048b39608e6f35783c1e6",
+   "interface": "internal",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/endpoints/51b0e5e1c12048b39608e6f35783c1e6"
+   },
+   "region": "RegionOne",
+   "region_id": "RegionOne",
+   "service_id": "1ca6ed6ed21a4edfb1b33146d3bba310",
+   "url": "http://ufj-cinder-api:8776/v3/%(project_id)s"
+  },
+  {
+   "enabled": true,
+   "id": "5d7a40d0c4654a25a5ceb3bb1a5b7440",
+   "interface": "internal",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/endpoints/5d7a40d0c4654a25a5ceb3bb1a5b7440"
+   },
+   "region": "RegionOne",
+   "region_id": "RegionOne",
+   "service_id": "6db526532fe1459d904cff4e639abd11",
+   "url": "http://ufj-keystone:5000/v3/"
+  },
+  {
+   "enabled": true,
+   "id": "8715e711714847989c2bf7a7726efb12",
+   "interface": "public",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/endpoints/8715e711714847989c2bf7a7726efb12"
+   },
+   "region": "RegionOne",
+   "region_id": "RegionOne",
+   "service_id": "a882214723bd434e8dbba9c99c7439d6",
+   "url": "http://ufj-nova-api:8774/v2.1"
+  },
+  {
+   "enabled": true,
+   "id": "a459fb21e04b4fc8bd2b82857ed17ee7",
+   "interface": "public",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/endpoints/a459fb21e04b4fc8bd2b82857ed17ee7"
+   },
+   "region": "RegionOne",
+   "region_id": "RegionOne",
+   "service_id": "1632c657a3cc41258c4460e9286aeb13",
+   "url": "http://ufj-placement:8778"
+  },
+  {
+   "enabled": true,
+   "id": "b3be560c67844445a4e6e0f7d222ffea",
+   "interface": "public",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/endpoints/b3be560c67844445a4e6e0f7d222ffea"
+   },
+   "region": "RegionOne",
+   "region_id": "RegionOne",
+   "service_id": "d851a2676c9b4fa29144adcfecb8a815",
+   "url": "http://ufj-neutron:9696"
+  },
+  {
+   "enabled": true,
+   "id": "d2e46cba125e4c2a873d393f9ba101ef",
+   "interface": "admin",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/endpoints/d2e46cba125e4c2a873d393f9ba101ef"
+   },
+   "region": "RegionOne",
+   "region_id": "RegionOne",
+   "service_id": "d1e5b332fed743f7806581811ddb144f",
+   "url": "http://ufj-glance:9292"
+  },
+  {
+   "enabled": true,
+   "id": "e45a8752a2a246cea2ff48ea572032cc",
+   "interface": "admin",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/endpoints/e45a8752a2a246cea2ff48ea572032cc"
+   },
+   "region": "RegionOne",
+   "region_id": "RegionOne",
+   "service_id": "d851a2676c9b4fa29144adcfecb8a815",
+   "url": "http://ufj-neutron:9696"
+  },
+  {
+   "enabled": true,
+   "id": "e7d941b8f1ce4620ab5690095a65f9d8",
+   "interface": "public",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/endpoints/e7d941b8f1ce4620ab5690095a65f9d8"
+   },
+   "region": "RegionOne",
+   "region_id": "RegionOne",
+   "service_id": "6db526532fe1459d904cff4e639abd11",
+   "url": "http://ufj-keystone:5000/v3/"
+  },
+  {
+   "enabled": true,
+   "id": "f7c144706c564c90b4a08fa01ec08292",
+   "interface": "internal",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/endpoints/f7c144706c564c90b4a08fa01ec08292"
+   },
+   "region": "RegionOne",
+   "region_id": "RegionOne",
+   "service_id": "d1e5b332fed743f7806581811ddb144f",
+   "url": "http://ufj-glance:9292"
+  }
+ ],
+ "flavors": [
+  {
+   "OS-FLV-DISABLED:disabled": false,
+   "OS-FLV-EXT-DATA:ephemeral": 0,
+   "_access": [],
+   "_extra_specs": {
+    "trait:CUSTOM_UFJ_NOT_PROVIDED": "required"
+   },
+   "description": null,
+   "disk": 1,
+   "id": "ufj-huge",
+   "links": [
+    {
+     "href": "http://ufj-nova-api:8774/v2.1/flavors/ufj-huge",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-nova-api:8774/flavors/ufj-huge",
+     "rel": "bookmark"
+    }
+   ],
+   "name": "ufj.huge",
+   "os-flavor-access:is_public": true,
+   "ram": 512,
+   "rxtx_factor": 1.0,
+   "swap": "",
+   "vcpus": 1
+  },
+  {
+   "OS-FLV-DISABLED:disabled": false,
+   "OS-FLV-EXT-DATA:ephemeral": 0,
+   "_access": [],
+   "_extra_specs": {
+    "hw:cpu_policy": "shared",
+    "ufj:purpose": "lab"
+   },
+   "description": null,
+   "disk": 20,
+   "id": "ufj-medium",
+   "links": [
+    {
+     "href": "http://ufj-nova-api:8774/v2.1/flavors/ufj-medium",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-nova-api:8774/flavors/ufj-medium",
+     "rel": "bookmark"
+    }
+   ],
+   "name": "ufj.medium",
+   "os-flavor-access:is_public": true,
+   "ram": 4096,
+   "rxtx_factor": 1.0,
+   "swap": "",
+   "vcpus": 2
+  },
+  {
+   "OS-FLV-DISABLED:disabled": false,
+   "OS-FLV-EXT-DATA:ephemeral": 0,
+   "_access": [],
+   "_extra_specs": {
+    "hw:numa_nodes": "2"
+   },
+   "description": null,
+   "disk": 1,
+   "id": "ufj-numa",
+   "links": [
+    {
+     "href": "http://ufj-nova-api:8774/v2.1/flavors/ufj-numa",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-nova-api:8774/flavors/ufj-numa",
+     "rel": "bookmark"
+    }
+   ],
+   "name": "ufj.numa",
+   "os-flavor-access:is_public": true,
+   "ram": 1024,
+   "rxtx_factor": 1.0,
+   "swap": "",
+   "vcpus": 2
+  },
+  {
+   "OS-FLV-DISABLED:disabled": false,
+   "OS-FLV-EXT-DATA:ephemeral": 0,
+   "_access": [],
+   "_extra_specs": {
+    "hw:cpu_policy": "dedicated"
+   },
+   "description": null,
+   "disk": 1,
+   "id": "ufj-pinned",
+   "links": [
+    {
+     "href": "http://ufj-nova-api:8774/v2.1/flavors/ufj-pinned",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-nova-api:8774/flavors/ufj-pinned",
+     "rel": "bookmark"
+    }
+   ],
+   "name": "ufj.pinned",
+   "os-flavor-access:is_public": true,
+   "ram": 1024,
+   "rxtx_factor": 1.0,
+   "swap": "",
+   "vcpus": 2
+  },
+  {
+   "OS-FLV-DISABLED:disabled": false,
+   "OS-FLV-EXT-DATA:ephemeral": 0,
+   "_access": [
+    "a7cec7ef1552403fbb23fc861b3e16eb"
+   ],
+   "_extra_specs": {},
+   "description": null,
+   "disk": 5,
+   "id": "ufj-private",
+   "links": [
+    {
+     "href": "http://ufj-nova-api:8774/v2.1/flavors/ufj-private",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-nova-api:8774/flavors/ufj-private",
+     "rel": "bookmark"
+    }
+   ],
+   "name": "ufj.private",
+   "os-flavor-access:is_public": false,
+   "ram": 2048,
+   "rxtx_factor": 1.0,
+   "swap": "",
+   "vcpus": 2
+  },
+  {
+   "OS-FLV-DISABLED:disabled": false,
+   "OS-FLV-EXT-DATA:ephemeral": 0,
+   "_access": [],
+   "_extra_specs": {},
+   "description": null,
+   "disk": 10,
+   "id": "ufj-small",
+   "links": [
+    {
+     "href": "http://ufj-nova-api:8774/v2.1/flavors/ufj-small",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-nova-api:8774/flavors/ufj-small",
+     "rel": "bookmark"
+    }
+   ],
+   "name": "ufj.small",
+   "os-flavor-access:is_public": true,
+   "ram": 2048,
+   "rxtx_factor": 1.0,
+   "swap": "",
+   "vcpus": 1
+  },
+  {
+   "OS-FLV-DISABLED:disabled": false,
+   "OS-FLV-EXT-DATA:ephemeral": 0,
+   "_access": [],
+   "_extra_specs": {},
+   "description": null,
+   "disk": 1,
+   "id": "ufj-tiny",
+   "links": [
+    {
+     "href": "http://ufj-nova-api:8774/v2.1/flavors/ufj-tiny",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-nova-api:8774/flavors/ufj-tiny",
+     "rel": "bookmark"
+    }
+   ],
+   "name": "ufj.tiny",
+   "os-flavor-access:is_public": true,
+   "ram": 512,
+   "rxtx_factor": 1.0,
+   "swap": "",
+   "vcpus": 1
+  }
+ ],
+ "floatingips": [
+  {
+   "created_at": "2026-10-31T11:22:47Z",
+   "description": "",
+   "fixed_ip_address": "192.168.30.21",
+   "floating_ip_address": "203.0.113.63",
+   "floating_network_id": "2bd9513e-f8d3-41ed-91b6-34d0785a58ea",
+   "id": "5dce3eda-7a01-44e2-b79e-c32e40b01447",
+   "port_details": {
+    "admin_state_up": true,
+    "device_id": "b8a388ae-0087-42ea-9385-216189fedddf",
+    "device_owner": "compute:az1",
+    "mac_address": "fa:16:3e:30:f8:af",
+    "name": "",
+    "network_id": "b7146217-7a6a-4e22-bc6a-d93dabb824ff",
+    "status": "ACTIVE"
+   },
+   "port_forwardings": [],
+   "port_id": "e51547ee-c062-4dbe-969c-f49482c22d94",
+   "project_id": "3d064405fa2447cf9aa98184a4348f36",
+   "qos_policy_id": null,
+   "revision_number": 1,
+   "router_id": "56270edc-bfdb-4316-b86c-ccaa3c88adac",
+   "status": "DOWN",
+   "tags": [],
+   "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+   "updated_at": "2026-10-31T11:22:49Z"
+  },
+  {
+   "created_at": "2026-10-31T11:22:38Z",
+   "description": "lab fip for a-vm1",
+   "fixed_ip_address": "192.168.10.175",
+   "floating_ip_address": "203.0.113.45",
+   "floating_network_id": "2bd9513e-f8d3-41ed-91b6-34d0785a58ea",
+   "id": "db6e8a27-ea8e-4401-bd6b-fd3f8d36edd4",
+   "port_details": {
+    "admin_state_up": true,
+    "device_id": "5bd66e93-1640-4bb0-8586-aeff76fca423",
+    "device_owner": "compute:az1",
+    "mac_address": "fa:16:3e:b5:e2:8a",
+    "name": "",
+    "network_id": "43b97212-7d54-461d-8d98-1d14e2b83d21",
+    "status": "ACTIVE"
+   },
+   "port_forwardings": [],
+   "port_id": "f801dc92-2532-4bf6-8138-489540451ea8",
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "qos_policy_id": null,
+   "revision_number": 1,
+   "router_id": "17ee97c0-5229-4408-a000-7912ce55f7c1",
+   "status": "DOWN",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:22:40Z"
+  },
+  {
+   "created_at": "2026-10-31T11:22:44Z",
+   "description": "unassociated lab fip",
+   "fixed_ip_address": null,
+   "floating_ip_address": "203.0.113.12",
+   "floating_network_id": "2bd9513e-f8d3-41ed-91b6-34d0785a58ea",
+   "id": "e86b4221-1a4d-4eba-8e33-1b7dcceb742c",
+   "port_details": null,
+   "port_forwardings": [
+    {
+     "external_port": 2222,
+     "id": "2bb1d304-797b-49d5-97b8-ba3fae82dfde",
+     "internal_ip_address": "192.168.10.50",
+     "internal_port": 22,
+     "internal_port_id": "c852fbed-a5fd-4c00-8f5c-dc69d9a88173",
+     "protocol": "tcp"
+    }
+   ],
+   "port_id": null,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "qos_policy_id": null,
+   "revision_number": 1,
+   "router_id": "17ee97c0-5229-4408-a000-7912ce55f7c1",
+   "status": "DOWN",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:33:38Z"
+  }
+ ],
+ "group_memberships": {
+  "ufj-ops": [
+   "bob"
+  ]
+ },
+ "groups": [
+  {
+   "description": "",
+   "domain_id": "default",
+   "id": "482fb46e506b4f9a90e14e7528c191fe",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/groups/482fb46e506b4f9a90e14e7528c191fe"
+   },
+   "name": "ufj-ops"
+  }
+ ],
+ "hypervisors": [
+  {
+   "cpu_info": {
+    "arch": "x86_64",
+    "features": [
+     "pge",
+     "clflush"
+    ],
+    "model": "Nehalem",
+    "topology": {
+     "cores": 1,
+     "sockets": 4,
+     "threads": 1
+    },
+    "vendor": "Intel"
+   },
+   "current_workload": 0,
+   "disk_available_least": 0,
+   "free_disk_gb": 599988,
+   "free_ram_mb": 796416,
+   "host_ip": null,
+   "hypervisor_hostname": "ufj-compute2",
+   "hypervisor_type": "fake",
+   "hypervisor_version": 1000,
+   "id": "1ffa4385-060e-4e69-84f7-0bb6ab09d0dd",
+   "local_gb": 600000,
+   "local_gb_used": 12,
+   "memory_mb": 800000,
+   "memory_mb_used": 3584,
+   "running_vms": 2,
+   "service": {
+    "disabled_reason": null,
+    "host": "ufj-compute2",
+    "id": "b5ab617c-edf0-46af-a972-5c7726a5985c"
+   },
+   "state": "down",
+   "status": "enabled",
+   "vcpus": 1000,
+   "vcpus_used": 3
+  },
+  {
+   "cpu_info": {
+    "arch": "x86_64",
+    "features": [
+     "pge",
+     "clflush"
+    ],
+    "model": "Nehalem",
+    "topology": {
+     "cores": 1,
+     "sockets": 4,
+     "threads": 1
+    },
+    "vendor": "Intel"
+   },
+   "current_workload": 0,
+   "disk_available_least": 0,
+   "free_disk_gb": 599987,
+   "free_ram_mb": 795904,
+   "host_ip": null,
+   "hypervisor_hostname": "ufj-compute1",
+   "hypervisor_type": "fake",
+   "hypervisor_version": 1000,
+   "id": "ffb37850-5050-44a3-b7df-6b126b1b0140",
+   "local_gb": 600000,
+   "local_gb_used": 13,
+   "memory_mb": 800000,
+   "memory_mb_used": 4096,
+   "running_vms": 4,
+   "service": {
+    "disabled_reason": null,
+    "host": "ufj-compute1",
+    "id": "3c70b673-248e-451a-af75-1a04b3d9f8dd"
+   },
+   "state": "down",
+   "status": "enabled",
+   "vcpus": 1000,
+   "vcpus_used": 4
+  },
+  {
+   "cpu_info": {
+    "arch": "x86_64",
+    "features": [
+     "pge",
+     "clflush"
+    ],
+    "model": "Nehalem",
+    "topology": {
+     "cores": 1,
+     "sockets": 4,
+     "threads": 1
+    },
+    "vendor": "Intel"
+   },
+   "current_workload": 0,
+   "disk_available_least": 0,
+   "free_disk_gb": 599997,
+   "free_ram_mb": 796928,
+   "host_ip": null,
+   "hypervisor_hostname": "ufj-compute3",
+   "hypervisor_type": "fake",
+   "hypervisor_version": 1000,
+   "id": "8130328a-9a79-4540-84eb-dc846acc3492",
+   "local_gb": 600000,
+   "local_gb_used": 3,
+   "memory_mb": 800000,
+   "memory_mb_used": 3072,
+   "running_vms": 4,
+   "service": {
+    "disabled_reason": null,
+    "host": "ufj-compute3",
+    "id": "6b31858c-e383-46b9-9c8b-eaeb220ac616"
+   },
+   "state": "down",
+   "status": "enabled",
+   "vcpus": 1000,
+   "vcpus_used": 5
+  }
+ ],
+ "images": [
+  {
+   "_members": null,
+   "checksum": null,
+   "container_format": "bare",
+   "created_at": "2026-10-31T11:33:34Z",
+   "disk_format": "raw",
+   "file": "/v2/images/f2ffe885-b964-456b-bc11-186bb18dd70b/file",
+   "id": "f2ffe885-b964-456b-bc11-186bb18dd70b",
+   "locations": [],
+   "min_disk": 0,
+   "min_ram": 0,
+   "name": "ufj-image-community",
+   "os_hash_algo": null,
+   "os_hash_value": null,
+   "os_hidden": false,
+   "owner": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "protected": false,
+   "schema": "/v2/schemas/image",
+   "self": "/v2/images/f2ffe885-b964-456b-bc11-186bb18dd70b",
+   "size": null,
+   "status": "queued",
+   "tags": [],
+   "updated_at": "2026-10-31T11:33:34Z",
+   "virtual_size": null,
+   "visibility": "community"
+  },
+  {
+   "_members": [],
+   "checksum": "09dfa6b3436086e471111f1a90dacae6",
+   "container_format": "bare",
+   "created_at": "2026-10-31T11:23:50Z",
+   "disk_format": "raw",
+   "file": "/v2/images/5126f2cd-766d-480a-a690-ae6c9bf9f643/file",
+   "id": "5126f2cd-766d-480a-a690-ae6c9bf9f643",
+   "locations": [
+    {
+     "metadata": {},
+     "url": "file:///var/lib/glance/images/5126f2cd-766d-480a-a690-ae6c9bf9f643"
+    }
+   ],
+   "min_disk": 0,
+   "min_ram": 0,
+   "name": "ufj-image-from-task",
+   "os_hash_algo": "sha512",
+   "os_hash_value": "b1a80f291dc6379a8c9cc9681da631d872a6829d8bef82060e8c7650c32b30e9516ae6d14966e5e78004601581c1b57cafef04e0f7312d912c964a2364e1ee65",
+   "os_hidden": false,
+   "owner": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "protected": false,
+   "schema": "/v2/schemas/image",
+   "self": "/v2/images/5126f2cd-766d-480a-a690-ae6c9bf9f643",
+   "size": 3145728,
+   "status": "active",
+   "tags": [],
+   "updated_at": "2026-10-31T11:23:50Z",
+   "virtual_size": null,
+   "visibility": "shared"
+  },
+  {
+   "_members": null,
+   "checksum": null,
+   "container_format": "bare",
+   "created_at": "2026-10-31T11:23:49Z",
+   "disk_format": "raw",
+   "file": "/v2/images/f4956087-2143-4057-9a7e-8a5710277f82/file",
+   "id": "f4956087-2143-4057-9a7e-8a5710277f82",
+   "locations": [
+    {
+     "metadata": {},
+     "url": "http://ufj-static:8000/ufj-image-a.raw"
+    },
+    {
+     "metadata": {},
+     "url": "http://ufj-static:8000/ufj-image-b.raw"
+    }
+   ],
+   "min_disk": 0,
+   "min_ram": 0,
+   "name": "ufj-image-multiloc",
+   "os_hash_algo": null,
+   "os_hash_value": null,
+   "os_hidden": false,
+   "owner": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "protected": false,
+   "schema": "/v2/schemas/image",
+   "self": "/v2/images/f4956087-2143-4057-9a7e-8a5710277f82",
+   "size": 8388608,
+   "status": "active",
+   "tags": [],
+   "updated_at": "2026-10-31T11:23:49Z",
+   "virtual_size": null,
+   "visibility": "public"
+  },
+  {
+   "_members": null,
+   "checksum": "09dfa6b3436086e471111f1a90dacae6",
+   "container_format": "bare",
+   "created_at": "2026-10-31T11:19:51Z",
+   "disk_format": "raw",
+   "file": "/v2/images/3414b4f7-b413-4aab-9e28-a9bc97644b47/file",
+   "id": "3414b4f7-b413-4aab-9e28-a9bc97644b47",
+   "locations": [
+    {
+     "metadata": {},
+     "url": "file:///var/lib/glance/images/3414b4f7-b413-4aab-9e28-a9bc97644b47"
+    }
+   ],
+   "min_disk": 0,
+   "min_ram": 0,
+   "name": "ufj-image-public",
+   "os_hash_algo": "sha512",
+   "os_hash_value": "b1a80f291dc6379a8c9cc9681da631d872a6829d8bef82060e8c7650c32b30e9516ae6d14966e5e78004601581c1b57cafef04e0f7312d912c964a2364e1ee65",
+   "os_hidden": false,
+   "owner": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "owner_specified.openstack.md5": "09dfa6b3436086e471111f1a90dacae6",
+   "owner_specified.openstack.object": "images/ufj-image-public",
+   "owner_specified.openstack.sha256": "91c5743fdd8cc50de5f6473551c0c2d5451fbb655060e35519c7e15ebdd0b503",
+   "protected": false,
+   "schema": "/v2/schemas/image",
+   "self": "/v2/images/3414b4f7-b413-4aab-9e28-a9bc97644b47",
+   "size": 3145728,
+   "status": "active",
+   "tags": [
+    "lab"
+   ],
+   "updated_at": "2026-10-31T11:19:51Z",
+   "virtual_size": null,
+   "visibility": "public"
+  },
+  {
+   "_members": [],
+   "checksum": "117052a062cd2e774b89ccecc00935df",
+   "container_format": "bare",
+   "created_at": "2026-10-31T11:19:47Z",
+   "disk_format": "raw",
+   "file": "/v2/images/2ebd9825-81e9-407c-b9b5-837e6be6849c/file",
+   "hw_disk_bus": "virtio",
+   "id": "2ebd9825-81e9-407c-b9b5-837e6be6849c",
+   "locations": [
+    {
+     "metadata": {},
+     "url": "file:///var/lib/glance/images/2ebd9825-81e9-407c-b9b5-837e6be6849c"
+    }
+   ],
+   "min_disk": 1,
+   "min_ram": 64,
+   "name": "ufj-image-a",
+   "os_distro": "lab",
+   "os_hash_algo": "sha512",
+   "os_hash_value": "6e4ec0395e2ca7c6bba1a5b2e892edf53b2813f8d5ce165121d74a6d574b5b4ec6df4e16a63344da1d25972f28aaf705bd9c95e159bb71ed2d2a6cb5e3319d9f",
+   "os_hidden": false,
+   "owner": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "owner_specified.openstack.md5": "117052a062cd2e774b89ccecc00935df",
+   "owner_specified.openstack.object": "images/ufj-image-a",
+   "owner_specified.openstack.sha256": "163b798daf7536ec75c1f5c94d6ca20690636aa106e65a167ebdae5ab0de0ff7",
+   "protected": false,
+   "schema": "/v2/schemas/image",
+   "self": "/v2/images/2ebd9825-81e9-407c-b9b5-837e6be6849c",
+   "size": 8388608,
+   "status": "active",
+   "tags": [
+    "lab",
+    "ussuri"
+   ],
+   "updated_at": "2026-10-31T11:19:48Z",
+   "virtual_size": null,
+   "visibility": "shared"
+  }
+ ],
+ "keypairs": [
+  {
+   "_user": "bob",
+   "fingerprint": "53:1d:14:83:e2:9c:2b:9f:20:3d:a8:23:da:34:99:18",
+   "name": "ufj-key-b",
+   "type": "ssh"
+  },
+  {
+   "_user": "alice",
+   "fingerprint": "17:a9:51:22:30:1a:5a:6f:24:a3:57:f0:1e:38:2e:2f",
+   "name": "ufj-key-a",
+   "type": "ssh"
+  },
+  {
+   "_user": "alice",
+   "fingerprint": "e2:8a:b1:b7:a7:03:6f:f3:60:86:03:59:7b:52:c1:95",
+   "name": "ufj-key-imported",
+   "type": "ssh"
+  }
+ ],
+ "networks": [
+  {
+   "admin_state_up": true,
+   "availability_zone_hints": [],
+   "availability_zones": [],
+   "created_at": "2026-10-31T13:13:24Z",
+   "description": "",
+   "id": "16b444d2-8c17-4670-857c-46e633774ce0",
+   "ipv4_address_scope": null,
+   "ipv6_address_scope": null,
+   "l2_adjacency": true,
+   "mtu": 1450,
+   "name": "ufj-multiseg",
+   "port_security_enabled": true,
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "qinq": null,
+   "qos_policy_id": null,
+   "revision_number": 1,
+   "router:external": false,
+   "segments": [
+    {
+     "provider:network_type": "vlan",
+     "provider:physical_network": "physnet1",
+     "provider:segmentation_id": 150
+    },
+    {
+     "provider:network_type": "vxlan",
+     "provider:physical_network": null,
+     "provider:segmentation_id": 500
+    }
+   ],
+   "shared": false,
+   "status": "ACTIVE",
+   "subnets": [],
+   "tags": [],
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "updated_at": "2026-10-31T13:13:24Z",
+   "vlan_transparent": null
+  },
+  {
+   "admin_state_up": true,
+   "availability_zone_hints": [],
+   "availability_zones": [],
+   "created_at": "2026-10-31T11:20:01Z",
+   "description": "",
+   "id": "2bd9513e-f8d3-41ed-91b6-34d0785a58ea",
+   "ipv4_address_scope": null,
+   "ipv6_address_scope": null,
+   "is_default": false,
+   "l2_adjacency": true,
+   "mtu": 1500,
+   "name": "ufj-ext",
+   "port_security_enabled": true,
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "provider:network_type": "flat",
+   "provider:physical_network": "physnet1",
+   "provider:segmentation_id": null,
+   "qinq": null,
+   "qos_policy_id": null,
+   "revision_number": 2,
+   "router:external": true,
+   "shared": true,
+   "status": "ACTIVE",
+   "subnets": [
+    "dae8c7ea-6e11-468e-ac10-1157d3c3e3c1"
+   ],
+   "tags": [],
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "updated_at": "2026-10-31T11:20:04Z",
+   "vlan_transparent": null
+  },
+  {
+   "admin_state_up": true,
+   "availability_zone_hints": [],
+   "availability_zones": [],
+   "created_at": "2026-10-31T11:20:09Z",
+   "description": "",
+   "id": "43b97212-7d54-461d-8d98-1d14e2b83d21",
+   "ipv4_address_scope": null,
+   "ipv6_address_scope": null,
+   "l2_adjacency": true,
+   "mtu": 1450,
+   "name": "a-net1",
+   "port_security_enabled": true,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "provider:network_type": "vxlan",
+   "provider:physical_network": null,
+   "provider:segmentation_id": 1,
+   "qinq": null,
+   "qos_policy_id": null,
+   "revision_number": 4,
+   "router:external": false,
+   "shared": false,
+   "status": "ACTIVE",
+   "subnets": [
+    "87ceba15-165a-4727-a19f-326efe5faeb6"
+   ],
+   "tags": [
+    "Mixed-Case",
+    "lab",
+    "proj-a",
+    "t\u00e2g-\u00fcn\u00ef",
+    "\u00c9T\u00c9"
+   ],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:33:49Z",
+   "vlan_transparent": null
+  },
+  {
+   "admin_state_up": true,
+   "availability_zone_hints": [],
+   "availability_zones": [],
+   "created_at": "2026-10-31T11:20:12Z",
+   "description": "",
+   "id": "967d2540-e192-45cf-83bd-4c7c689ae70a",
+   "ipv4_address_scope": null,
+   "ipv6_address_scope": null,
+   "l2_adjacency": true,
+   "mtu": 1450,
+   "name": "a-net2",
+   "port_security_enabled": true,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "provider:network_type": "vxlan",
+   "provider:physical_network": null,
+   "provider:segmentation_id": 2,
+   "qinq": null,
+   "qos_policy_id": null,
+   "revision_number": 4,
+   "router:external": false,
+   "shared": false,
+   "status": "ACTIVE",
+   "subnets": [
+    "1def56bb-a885-4956-96ce-4c6d9c3ebc63",
+    "ddc763c7-d362-42f8-a324-f5b570cbf2d6"
+   ],
+   "tags": [
+    "extra-tag"
+   ],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:23:48Z",
+   "vlan_transparent": null
+  },
+  {
+   "admin_state_up": true,
+   "availability_zone_hints": [],
+   "availability_zones": [],
+   "created_at": "2026-10-31T11:20:56Z",
+   "description": "",
+   "id": "b7146217-7a6a-4e22-bc6a-d93dabb824ff",
+   "ipv4_address_scope": null,
+   "ipv6_address_scope": null,
+   "l2_adjacency": true,
+   "mtu": 1450,
+   "name": "b-net1",
+   "port_security_enabled": true,
+   "project_id": "3d064405fa2447cf9aa98184a4348f36",
+   "provider:network_type": "vxlan",
+   "provider:physical_network": null,
+   "provider:segmentation_id": 3,
+   "qinq": null,
+   "qos_policy_id": null,
+   "revision_number": 3,
+   "router:external": false,
+   "shared": false,
+   "status": "ACTIVE",
+   "subnets": [
+    "2c3ec096-48f5-408b-8af2-f6f4ac1b554e"
+   ],
+   "tags": [],
+   "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+   "updated_at": "2026-10-31T11:21:14Z",
+   "vlan_transparent": null
+  }
+ ],
+ "neutron_quotas": {
+  "admin": {
+   "floatingip": 50,
+   "network": 100,
+   "port": 500,
+   "rbac_policy": 10,
+   "router": 10,
+   "security_group": 10,
+   "security_group_rule": 100,
+   "subnet": 100,
+   "subnetpool": -1
+  },
+  "service": {
+   "floatingip": 50,
+   "network": 100,
+   "port": 500,
+   "rbac_policy": 10,
+   "router": 10,
+   "security_group": 10,
+   "security_group_rule": 100,
+   "subnet": 100,
+   "subnetpool": -1
+  },
+  "ufj-proj-a": {
+   "floatingip": 15,
+   "network": 20,
+   "port": 200,
+   "rbac_policy": 10,
+   "router": 5,
+   "security_group": 15,
+   "security_group_rule": 100,
+   "subnet": 100,
+   "subnetpool": -1
+  },
+  "ufj-proj-b": {
+   "floatingip": 50,
+   "network": 100,
+   "port": 500,
+   "rbac_policy": 10,
+   "router": 10,
+   "security_group": 10,
+   "security_group_rule": 100,
+   "subnet": 100,
+   "subnetpool": -1
+  }
+ },
+ "nova_quotas": {
+  "admin": {
+   "cores": 20,
+   "id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "instances": 10,
+   "key_pairs": 100,
+   "metadata_items": 128,
+   "ram": 51200,
+   "server_group_members": 10,
+   "server_groups": 10
+  },
+  "service": {
+   "cores": 20,
+   "id": "34e4d7af78ed4ae5849f1a262c786dae",
+   "instances": 10,
+   "key_pairs": 100,
+   "metadata_items": 128,
+   "ram": 51200,
+   "server_group_members": 10,
+   "server_groups": 10
+  },
+  "ufj-proj-a": {
+   "cores": 40,
+   "id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "instances": 22,
+   "key_pairs": 60,
+   "metadata_items": 128,
+   "ram": 81920,
+   "server_group_members": 10,
+   "server_groups": 5
+  },
+  "ufj-proj-b": {
+   "cores": 10,
+   "id": "3d064405fa2447cf9aa98184a4348f36",
+   "instances": 5,
+   "key_pairs": 100,
+   "metadata_items": 128,
+   "ram": 20480,
+   "server_group_members": 10,
+   "server_groups": 10
+  }
+ },
+ "placement_resource_providers": [
+  {
+   "_allocations": {
+    "14595f00-8a8f-424b-ae0b-1949df098c61": {
+     "consumer_generation": 1,
+     "resources": {
+      "DISK_GB": 1,
+      "MEMORY_MB": 512,
+      "VCPU": 1
+     }
+    },
+    "2e599a03-2aaa-46df-88bb-35eec018450c": {
+     "consumer_generation": 1,
+     "resources": {
+      "DISK_GB": 10,
+      "MEMORY_MB": 2048,
+      "VCPU": 1
+     }
+    },
+    "5d3a4db6-4fd9-5b2b-9044-22c76281cfd7": {
+     "consumer_generation": 1,
+     "resources": {
+      "MEMORY_MB": 64
+     }
+    },
+    "fc00ebc1-b37b-4fd9-a2ee-8039815c6bca": {
+     "consumer_generation": 1,
+     "resources": {
+      "DISK_GB": 1,
+      "MEMORY_MB": 512,
+      "VCPU": 1
+     }
+    }
+   },
+   "_inventories": {
+    "DISK_GB": {
+     "allocation_ratio": 1.0,
+     "max_unit": 600000,
+     "min_unit": 1,
+     "reserved": 0,
+     "step_size": 1,
+     "total": 600000
+    },
+    "MEMORY_MB": {
+     "allocation_ratio": 1.5,
+     "max_unit": 800000,
+     "min_unit": 1,
+     "reserved": 512,
+     "step_size": 1,
+     "total": 800000
+    },
+    "PCPU": {
+     "allocation_ratio": 1.0,
+     "max_unit": 8,
+     "min_unit": 1,
+     "reserved": 0,
+     "step_size": 1,
+     "total": 8
+    },
+    "VCPU": {
+     "allocation_ratio": 16.0,
+     "max_unit": 1000,
+     "min_unit": 1,
+     "reserved": 0,
+     "step_size": 1,
+     "total": 1000
+    }
+   },
+   "generation": 11,
+   "links": [
+    {
+     "href": "/resource_providers/1ffa4385-060e-4e69-84f7-0bb6ab09d0dd",
+     "rel": "self"
+    },
+    {
+     "href": "/resource_providers/1ffa4385-060e-4e69-84f7-0bb6ab09d0dd/inventories",
+     "rel": "inventories"
+    },
+    {
+     "href": "/resource_providers/1ffa4385-060e-4e69-84f7-0bb6ab09d0dd/usages",
+     "rel": "usages"
+    },
+    {
+     "href": "/resource_providers/1ffa4385-060e-4e69-84f7-0bb6ab09d0dd/aggregates",
+     "rel": "aggregates"
+    },
+    {
+     "href": "/resource_providers/1ffa4385-060e-4e69-84f7-0bb6ab09d0dd/traits",
+     "rel": "traits"
+    },
+    {
+     "href": "/resource_providers/1ffa4385-060e-4e69-84f7-0bb6ab09d0dd/allocations",
+     "rel": "allocations"
+    }
+   ],
+   "name": "ufj-compute2",
+   "parent_provider_uuid": null,
+   "root_provider_uuid": "1ffa4385-060e-4e69-84f7-0bb6ab09d0dd",
+   "uuid": "1ffa4385-060e-4e69-84f7-0bb6ab09d0dd"
+  },
+  {
+   "_allocations": {
+    "1708595d-5939-4347-85d2-76c07da25611": {
+     "consumer_generation": 1,
+     "resources": {
+      "DISK_GB": 1,
+      "MEMORY_MB": 1024,
+      "VCPU": 2
+     }
+    },
+    "3ada7992-6903-4a56-b3e3-c80d303608c9": {
+     "consumer_generation": 1,
+     "resources": {
+      "MEMORY_MB": 512,
+      "VCPU": 1
+     }
+    },
+    "bdf0fc23-0a16-42df-a518-cffbd479e19d": {
+     "consumer_generation": 1,
+     "resources": {
+      "DISK_GB": 1,
+      "MEMORY_MB": 512,
+      "VCPU": 1
+     }
+    },
+    "f3dfa909-6141-410c-9382-14902d603307": {
+     "consumer_generation": 1,
+     "resources": {
+      "DISK_GB": 1,
+      "MEMORY_MB": 512,
+      "VCPU": 1
+     }
+    }
+   },
+   "_inventories": {
+    "DISK_GB": {
+     "allocation_ratio": 1.0,
+     "max_unit": 600000,
+     "min_unit": 1,
+     "reserved": 0,
+     "step_size": 1,
+     "total": 600000
+    },
+    "MEMORY_MB": {
+     "allocation_ratio": 1.5,
+     "max_unit": 800000,
+     "min_unit": 1,
+     "reserved": 512,
+     "step_size": 1,
+     "total": 800000
+    },
+    "PCPU": {
+     "allocation_ratio": 1.0,
+     "max_unit": 8,
+     "min_unit": 1,
+     "reserved": 0,
+     "step_size": 1,
+     "total": 8
+    },
+    "VCPU": {
+     "allocation_ratio": 16.0,
+     "max_unit": 1000,
+     "min_unit": 1,
+     "reserved": 0,
+     "step_size": 1,
+     "total": 1000
+    }
+   },
+   "generation": 10,
+   "links": [
+    {
+     "href": "/resource_providers/8130328a-9a79-4540-84eb-dc846acc3492",
+     "rel": "self"
+    },
+    {
+     "href": "/resource_providers/8130328a-9a79-4540-84eb-dc846acc3492/inventories",
+     "rel": "inventories"
+    },
+    {
+     "href": "/resource_providers/8130328a-9a79-4540-84eb-dc846acc3492/usages",
+     "rel": "usages"
+    },
+    {
+     "href": "/resource_providers/8130328a-9a79-4540-84eb-dc846acc3492/aggregates",
+     "rel": "aggregates"
+    },
+    {
+     "href": "/resource_providers/8130328a-9a79-4540-84eb-dc846acc3492/traits",
+     "rel": "traits"
+    },
+    {
+     "href": "/resource_providers/8130328a-9a79-4540-84eb-dc846acc3492/allocations",
+     "rel": "allocations"
+    }
+   ],
+   "name": "ufj-compute3",
+   "parent_provider_uuid": null,
+   "root_provider_uuid": "8130328a-9a79-4540-84eb-dc846acc3492",
+   "uuid": "8130328a-9a79-4540-84eb-dc846acc3492"
+  },
+  {
+   "_allocations": {
+    "4ed557f0-1444-4e7a-8668-1b6f1d76c116": {
+     "consumer_generation": 1,
+     "resources": {
+      "DISK_GB": 10,
+      "MEMORY_MB": 2048,
+      "VCPU": 1
+     }
+    },
+    "5bd66e93-1640-4bb0-8586-aeff76fca423": {
+     "consumer_generation": 1,
+     "resources": {
+      "DISK_GB": 1,
+      "MEMORY_MB": 512,
+      "VCPU": 1
+     }
+    },
+    "8d6bf91c-cafd-4bb8-826a-94ba275c2b24": {
+     "consumer_generation": 1,
+     "resources": {
+      "DISK_GB": 1,
+      "MEMORY_MB": 512,
+      "VCPU": 1
+     }
+    },
+    "b8a388ae-0087-42ea-9385-216189fedddf": {
+     "consumer_generation": 1,
+     "resources": {
+      "DISK_GB": 1,
+      "MEMORY_MB": 512,
+      "VCPU": 1
+     }
+    }
+   },
+   "_inventories": {
+    "DISK_GB": {
+     "allocation_ratio": 1.0,
+     "max_unit": 600000,
+     "min_unit": 1,
+     "reserved": 0,
+     "step_size": 1,
+     "total": 600000
+    },
+    "MEMORY_MB": {
+     "allocation_ratio": 1.5,
+     "max_unit": 800000,
+     "min_unit": 1,
+     "reserved": 512,
+     "step_size": 1,
+     "total": 800000
+    },
+    "PCPU": {
+     "allocation_ratio": 1.0,
+     "max_unit": 8,
+     "min_unit": 1,
+     "reserved": 0,
+     "step_size": 1,
+     "total": 8
+    },
+    "VCPU": {
+     "allocation_ratio": 16.0,
+     "max_unit": 1000,
+     "min_unit": 1,
+     "reserved": 0,
+     "step_size": 1,
+     "total": 1000
+    }
+   },
+   "generation": 7,
+   "links": [
+    {
+     "href": "/resource_providers/ffb37850-5050-44a3-b7df-6b126b1b0140",
+     "rel": "self"
+    },
+    {
+     "href": "/resource_providers/ffb37850-5050-44a3-b7df-6b126b1b0140/inventories",
+     "rel": "inventories"
+    },
+    {
+     "href": "/resource_providers/ffb37850-5050-44a3-b7df-6b126b1b0140/usages",
+     "rel": "usages"
+    },
+    {
+     "href": "/resource_providers/ffb37850-5050-44a3-b7df-6b126b1b0140/aggregates",
+     "rel": "aggregates"
+    },
+    {
+     "href": "/resource_providers/ffb37850-5050-44a3-b7df-6b126b1b0140/traits",
+     "rel": "traits"
+    },
+    {
+     "href": "/resource_providers/ffb37850-5050-44a3-b7df-6b126b1b0140/allocations",
+     "rel": "allocations"
+    }
+   ],
+   "name": "ufj-compute1",
+   "parent_provider_uuid": null,
+   "root_provider_uuid": "ffb37850-5050-44a3-b7df-6b126b1b0140",
+   "uuid": "ffb37850-5050-44a3-b7df-6b126b1b0140"
+  },
+  {
+   "_allocations": {},
+   "_inventories": {},
+   "generation": 1,
+   "links": [
+    {
+     "href": "/resource_providers/605ece78-6d47-5c57-ae87-d44ac8966e0e",
+     "rel": "self"
+    },
+    {
+     "href": "/resource_providers/605ece78-6d47-5c57-ae87-d44ac8966e0e/inventories",
+     "rel": "inventories"
+    },
+    {
+     "href": "/resource_providers/605ece78-6d47-5c57-ae87-d44ac8966e0e/usages",
+     "rel": "usages"
+    },
+    {
+     "href": "/resource_providers/605ece78-6d47-5c57-ae87-d44ac8966e0e/aggregates",
+     "rel": "aggregates"
+    },
+    {
+     "href": "/resource_providers/605ece78-6d47-5c57-ae87-d44ac8966e0e/traits",
+     "rel": "traits"
+    },
+    {
+     "href": "/resource_providers/605ece78-6d47-5c57-ae87-d44ac8966e0e/allocations",
+     "rel": "allocations"
+    }
+   ],
+   "name": "ufj-compute1-nested",
+   "parent_provider_uuid": "ffb37850-5050-44a3-b7df-6b126b1b0140",
+   "root_provider_uuid": "ffb37850-5050-44a3-b7df-6b126b1b0140",
+   "uuid": "605ece78-6d47-5c57-ae87-d44ac8966e0e"
+  }
+ ],
+ "ports": [
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "ufj-compute3",
+   "binding:profile": {},
+   "binding:vif_details": {
+    "bound_drivers": {
+     "0": "fake_agent"
+    },
+    "connectivity": "l2",
+    "ovs_hybrid_plug": true,
+    "port_filter": true
+   },
+   "binding:vif_type": "ovs",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:22:10Z",
+   "description": "",
+   "device_id": "3ada7992-6903-4a56-b3e3-c80d303608c9",
+   "device_owner": "compute:nova",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "192.168.10.86",
+     "subnet_id": "87ceba15-165a-4727-a19f-326efe5faeb6"
+    }
+   ],
+   "id": "0f83bc33-88a6-4b27-9081-e810e3cc82ae",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:06:f8:f3",
+   "name": "",
+   "network_id": "43b97212-7d54-461d-8d98-1d14e2b83d21",
+   "port_security_enabled": true,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 4,
+   "security_groups": [
+    "41758f18-aa76-40ad-9614-404c51b18b36"
+   ],
+   "status": "ACTIVE",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:22:15Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "",
+   "binding:profile": {},
+   "binding:vif_details": {},
+   "binding:vif_type": "unbound",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:22:37Z",
+   "description": "",
+   "device_id": "db6e8a27-ea8e-4401-bd6b-fd3f8d36edd4",
+   "device_owner": "network:floatingip",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "203.0.113.45",
+     "subnet_id": "dae8c7ea-6e11-468e-ac10-1157d3c3e3c1"
+    }
+   ],
+   "id": "2c1618a1-3843-4fff-9250-dcbae95a693c",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:f0:0e:e2",
+   "name": "",
+   "network_id": "2bd9513e-f8d3-41ed-91b6-34d0785a58ea",
+   "port_security_enabled": false,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 2,
+   "security_groups": [],
+   "status": "N/A",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:22:38Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "ufj-compute1",
+   "binding:profile": {},
+   "binding:vif_details": {
+    "bound_drivers": {
+     "0": "fake_agent"
+    },
+    "connectivity": "l2",
+    "ovs_hybrid_plug": true,
+    "port_filter": true
+   },
+   "binding:vif_type": "ovs",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:24:52Z",
+   "description": "",
+   "device_id": "8d6bf91c-cafd-4bb8-826a-94ba275c2b24",
+   "device_owner": "compute:az1",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "192.168.10.96",
+     "subnet_id": "87ceba15-165a-4727-a19f-326efe5faeb6"
+    }
+   ],
+   "id": "3b720f20-2284-4718-8811-fdd00f57c875",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:4c:8b:51",
+   "name": "",
+   "network_id": "43b97212-7d54-461d-8d98-1d14e2b83d21",
+   "port_security_enabled": true,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 4,
+   "security_groups": [
+    "41758f18-aa76-40ad-9614-404c51b18b36"
+   ],
+   "status": "ACTIVE",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:24:55Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "ufj-compute2",
+   "binding:profile": {},
+   "binding:vif_details": {
+    "bound_drivers": {
+     "0": "fake_agent"
+    },
+    "connectivity": "l2",
+    "ovs_hybrid_plug": true,
+    "port_filter": true
+   },
+   "binding:vif_type": "ovs",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:22:01Z",
+   "description": "",
+   "device_id": "2e599a03-2aaa-46df-88bb-35eec018450c",
+   "device_owner": "compute:nova",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "192.168.20.172",
+     "subnet_id": "1def56bb-a885-4956-96ce-4c6d9c3ebc63"
+    },
+    {
+     "ip_address": "2001:db8:a2:0:f816:3eff:fe03:bb71",
+     "subnet_id": "ddc763c7-d362-42f8-a324-f5b570cbf2d6"
+    }
+   ],
+   "id": "410b49ca-5d94-4ac9-b52b-0e00fe3c596f",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:03:bb:71",
+   "name": "",
+   "network_id": "967d2540-e192-45cf-83bd-4c7c689ae70a",
+   "port_security_enabled": true,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 4,
+   "security_groups": [
+    "41758f18-aa76-40ad-9614-404c51b18b36",
+    "a3587e82-7571-4eb2-a4ed-b78fec892494"
+   ],
+   "status": "ACTIVE",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:22:15Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "",
+   "binding:profile": {},
+   "binding:vif_details": {},
+   "binding:vif_type": "unbound",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:20:29Z",
+   "description": "",
+   "device_id": "17ee97c0-5229-4408-a000-7912ce55f7c1",
+   "device_owner": "network:router_interface",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "192.168.10.1",
+     "subnet_id": "87ceba15-165a-4727-a19f-326efe5faeb6"
+    }
+   ],
+   "id": "46887fd9-5ae4-42c5-b287-2cb61198c1af",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:11:17:66",
+   "name": "",
+   "network_id": "43b97212-7d54-461d-8d98-1d14e2b83d21",
+   "port_security_enabled": false,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 2,
+   "security_groups": [],
+   "status": "DOWN",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:29Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "",
+   "binding:profile": {},
+   "binding:vif_details": {},
+   "binding:vif_type": "unbound",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:21:04Z",
+   "description": "",
+   "device_id": "56270edc-bfdb-4316-b86c-ccaa3c88adac",
+   "device_owner": "network:router_gateway",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "203.0.113.83",
+     "subnet_id": "dae8c7ea-6e11-468e-ac10-1157d3c3e3c1"
+    }
+   ],
+   "id": "49f3bc26-c03a-4009-a2e2-3e1ac3b5325a",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:20:66:3a",
+   "name": "",
+   "network_id": "2bd9513e-f8d3-41ed-91b6-34d0785a58ea",
+   "port_security_enabled": false,
+   "project_id": "",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 1,
+   "security_groups": [],
+   "status": "DOWN",
+   "tags": [],
+   "tenant_id": "",
+   "updated_at": "2026-10-31T11:21:04Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "",
+   "binding:profile": {
+    "pci_slot": "0000:00:03.0",
+    "ufj_key": "ufj_value"
+   },
+   "binding:vif_details": {},
+   "binding:vif_type": "unbound",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:23:46Z",
+   "description": "",
+   "device_id": "",
+   "device_owner": "",
+   "extra_dhcp_opts": [
+    {
+     "ip_version": 4,
+     "opt_name": "bootfile-name",
+     "opt_value": "pxelinux.0"
+    },
+    {
+     "ip_version": 4,
+     "opt_name": "tftp-server",
+     "opt_value": "192.0.2.9"
+    }
+   ],
+   "fixed_ips": [
+    {
+     "ip_address": "203.0.113.19",
+     "subnet_id": "dae8c7ea-6e11-468e-ac10-1157d3c3e3c1"
+    }
+   ],
+   "id": "4cb2254a-8354-444d-a06c-28e39146aea6",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:d6:28:22",
+   "name": "ufj-port-profile",
+   "network_id": "2bd9513e-f8d3-41ed-91b6-34d0785a58ea",
+   "port_security_enabled": true,
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 1,
+   "security_groups": [
+    "3fed4046-6a49-4b82-9169-df1df5cfb673"
+   ],
+   "status": "DOWN",
+   "tags": [],
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "updated_at": "2026-10-31T11:23:46Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "ufj-compute3",
+   "binding:profile": {},
+   "binding:vif_details": {
+    "bound_drivers": {
+     "0": "fake_agent"
+    },
+    "connectivity": "l2",
+    "ovs_hybrid_plug": true,
+    "port_filter": true
+   },
+   "binding:vif_type": "ovs",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:24:44Z",
+   "description": "",
+   "device_id": "f3dfa909-6141-410c-9382-14902d603307",
+   "device_owner": "compute:nova",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "192.168.10.164",
+     "subnet_id": "87ceba15-165a-4727-a19f-326efe5faeb6"
+    }
+   ],
+   "id": "591e10a4-c3bd-4261-9f72-702173fd58fa",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:b9:bf:5f",
+   "name": "",
+   "network_id": "43b97212-7d54-461d-8d98-1d14e2b83d21",
+   "port_security_enabled": true,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 4,
+   "security_groups": [
+    "b584eb1f-c68c-42f1-90d9-d5fc5b02f56b"
+   ],
+   "status": "ACTIVE",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:24:56Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "",
+   "binding:profile": {},
+   "binding:vif_details": {},
+   "binding:vif_type": "unbound",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:22:47Z",
+   "description": "",
+   "device_id": "5dce3eda-7a01-44e2-b79e-c32e40b01447",
+   "device_owner": "network:floatingip",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "203.0.113.63",
+     "subnet_id": "dae8c7ea-6e11-468e-ac10-1157d3c3e3c1"
+    }
+   ],
+   "id": "5e70765d-aa2b-4172-92ae-2380d2a5207c",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:b9:fc:b7",
+   "name": "",
+   "network_id": "2bd9513e-f8d3-41ed-91b6-34d0785a58ea",
+   "port_security_enabled": false,
+   "project_id": "3d064405fa2447cf9aa98184a4348f36",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 2,
+   "security_groups": [],
+   "status": "N/A",
+   "tags": [],
+   "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+   "updated_at": "2026-10-31T11:22:47Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "",
+   "binding:profile": {},
+   "binding:vif_details": {},
+   "binding:vif_type": "unbound",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:20:26Z",
+   "description": "",
+   "device_id": "17ee97c0-5229-4408-a000-7912ce55f7c1",
+   "device_owner": "network:router_gateway",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "203.0.113.32",
+     "subnet_id": "dae8c7ea-6e11-468e-ac10-1157d3c3e3c1"
+    }
+   ],
+   "id": "88e9bd47-ad11-4e77-a779-9986a20d4a57",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:89:a1:12",
+   "name": "",
+   "network_id": "2bd9513e-f8d3-41ed-91b6-34d0785a58ea",
+   "port_security_enabled": false,
+   "project_id": "",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 1,
+   "security_groups": [],
+   "status": "DOWN",
+   "tags": [],
+   "tenant_id": "",
+   "updated_at": "2026-10-31T11:20:27Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "",
+   "binding:profile": {},
+   "binding:vif_details": {},
+   "binding:vif_type": "unbound",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:20:32Z",
+   "description": "",
+   "device_id": "17ee97c0-5229-4408-a000-7912ce55f7c1",
+   "device_owner": "network:router_interface",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "192.168.20.1",
+     "subnet_id": "1def56bb-a885-4956-96ce-4c6d9c3ebc63"
+    }
+   ],
+   "id": "9404ae93-70b4-46dc-8700-a988672f8d80",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:5e:08:f4",
+   "name": "",
+   "network_id": "967d2540-e192-45cf-83bd-4c7c689ae70a",
+   "port_security_enabled": false,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 2,
+   "security_groups": [],
+   "status": "DOWN",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:33Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "",
+   "binding:profile": {},
+   "binding:vif_details": {},
+   "binding:vif_type": "unbound",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:33:40Z",
+   "description": "",
+   "device_id": "",
+   "device_owner": "",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "203.0.113.66",
+     "subnet_id": "dae8c7ea-6e11-468e-ac10-1157d3c3e3c1"
+    }
+   ],
+   "id": "aa5729b5-390f-43c7-8b82-e2a52d5d9f92",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:ae:8a:75",
+   "name": "ufj-port-trusted",
+   "network_id": "2bd9513e-f8d3-41ed-91b6-34d0785a58ea",
+   "port_security_enabled": true,
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 1,
+   "security_groups": [
+    "3fed4046-6a49-4b82-9169-df1df5cfb673"
+   ],
+   "status": "DOWN",
+   "tags": [],
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "updated_at": "2026-10-31T11:33:40Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "ufj-compute2",
+   "binding:profile": {},
+   "binding:vif_details": {
+    "bound_drivers": {
+     "0": "fake_agent"
+    },
+    "connectivity": "l2",
+    "ovs_hybrid_plug": true,
+    "port_filter": true
+   },
+   "binding:vif_type": "ovs",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:22:01Z",
+   "description": "",
+   "device_id": "2e599a03-2aaa-46df-88bb-35eec018450c",
+   "device_owner": "compute:nova",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "192.168.10.149",
+     "subnet_id": "87ceba15-165a-4727-a19f-326efe5faeb6"
+    }
+   ],
+   "id": "b5ef728c-2c16-4af9-9c2a-4077621717aa",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:c5:7e:6b",
+   "name": "",
+   "network_id": "43b97212-7d54-461d-8d98-1d14e2b83d21",
+   "port_security_enabled": true,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 4,
+   "security_groups": [
+    "41758f18-aa76-40ad-9614-404c51b18b36",
+    "a3587e82-7571-4eb2-a4ed-b78fec892494"
+   ],
+   "status": "ACTIVE",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:22:15Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "",
+   "binding:profile": {},
+   "binding:vif_details": {},
+   "binding:vif_type": "unbound",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:20:53Z",
+   "description": "",
+   "device_id": "",
+   "device_owner": "",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "192.168.10.50",
+     "subnet_id": "87ceba15-165a-4727-a19f-326efe5faeb6"
+    }
+   ],
+   "id": "c852fbed-a5fd-4c00-8f5c-dc69d9a88173",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:48:59:09",
+   "name": "a-port-fixed",
+   "network_id": "43b97212-7d54-461d-8d98-1d14e2b83d21",
+   "port_security_enabled": true,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 2,
+   "security_groups": [
+    "41758f18-aa76-40ad-9614-404c51b18b36"
+   ],
+   "status": "DOWN",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:33:39Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "",
+   "binding:profile": {},
+   "binding:vif_details": {},
+   "binding:vif_type": "unbound",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:22:43Z",
+   "description": "",
+   "device_id": "e86b4221-1a4d-4eba-8e33-1b7dcceb742c",
+   "device_owner": "network:floatingip",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "203.0.113.12",
+     "subnet_id": "dae8c7ea-6e11-468e-ac10-1157d3c3e3c1"
+    }
+   ],
+   "id": "cc906c6b-583d-4d53-901d-c97badb16090",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:1d:c1:dc",
+   "name": "",
+   "network_id": "2bd9513e-f8d3-41ed-91b6-34d0785a58ea",
+   "port_security_enabled": false,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 2,
+   "security_groups": [],
+   "status": "N/A",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:22:44Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "ufj-compute2",
+   "binding:profile": {},
+   "binding:vif_details": {
+    "bound_drivers": {
+     "0": "fake_agent"
+    },
+    "connectivity": "l2",
+    "ovs_hybrid_plug": true,
+    "port_filter": true
+   },
+   "binding:vif_type": "ovs",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:25:42Z",
+   "description": "",
+   "device_id": "14595f00-8a8f-424b-ae0b-1949df098c61",
+   "device_owner": "compute:nova",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "192.168.10.6",
+     "subnet_id": "87ceba15-165a-4727-a19f-326efe5faeb6"
+    }
+   ],
+   "id": "d1a3773f-265f-473a-a9e2-cde5ce2b0dae",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:84:62:94",
+   "name": "",
+   "network_id": "43b97212-7d54-461d-8d98-1d14e2b83d21",
+   "port_security_enabled": true,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 4,
+   "security_groups": [
+    "41758f18-aa76-40ad-9614-404c51b18b36"
+   ],
+   "status": "ACTIVE",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:25:56Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "",
+   "binding:profile": {},
+   "binding:vif_details": {},
+   "binding:vif_type": "unbound",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:21:07Z",
+   "description": "",
+   "device_id": "56270edc-bfdb-4316-b86c-ccaa3c88adac",
+   "device_owner": "network:router_interface",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "192.168.30.1",
+     "subnet_id": "2c3ec096-48f5-408b-8af2-f6f4ac1b554e"
+    }
+   ],
+   "id": "dbe8e850-e2c3-4256-9bed-77820c7515bc",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:23:fd:41",
+   "name": "",
+   "network_id": "b7146217-7a6a-4e22-bc6a-d93dabb824ff",
+   "port_security_enabled": false,
+   "project_id": "3d064405fa2447cf9aa98184a4348f36",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 2,
+   "security_groups": [],
+   "status": "DOWN",
+   "tags": [],
+   "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+   "updated_at": "2026-10-31T11:21:07Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "ufj-compute1",
+   "binding:profile": {},
+   "binding:vif_details": {
+    "bound_drivers": {
+     "0": "fake_agent"
+    },
+    "connectivity": "l2",
+    "ovs_hybrid_plug": true,
+    "port_filter": true
+   },
+   "binding:vif_type": "ovs",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:22:18Z",
+   "description": "",
+   "device_id": "b8a388ae-0087-42ea-9385-216189fedddf",
+   "device_owner": "compute:az1",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "192.168.30.21",
+     "subnet_id": "2c3ec096-48f5-408b-8af2-f6f4ac1b554e"
+    }
+   ],
+   "id": "e51547ee-c062-4dbe-969c-f49482c22d94",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:30:f8:af",
+   "name": "",
+   "network_id": "b7146217-7a6a-4e22-bc6a-d93dabb824ff",
+   "port_security_enabled": true,
+   "project_id": "3d064405fa2447cf9aa98184a4348f36",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 4,
+   "security_groups": [
+    "779a1c8f-59ab-447e-8c16-f8d6659a51b3"
+   ],
+   "status": "ACTIVE",
+   "tags": [],
+   "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+   "updated_at": "2026-10-31T11:22:34Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "ufj-compute1",
+   "binding:profile": {},
+   "binding:vif_details": {
+    "bound_drivers": {
+     "0": "fake_agent"
+    },
+    "connectivity": "l2",
+    "ovs_hybrid_plug": true,
+    "port_filter": true
+   },
+   "binding:vif_type": "ovs",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:25:05Z",
+   "description": "",
+   "device_id": "4ed557f0-1444-4e7a-8668-1b6f1d76c116",
+   "device_owner": "compute:az1",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "192.168.10.68",
+     "subnet_id": "87ceba15-165a-4727-a19f-326efe5faeb6"
+    }
+   ],
+   "id": "ec702d61-1320-4ce8-9951-c6d5cff62158",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:db:4b:e9",
+   "name": "",
+   "network_id": "43b97212-7d54-461d-8d98-1d14e2b83d21",
+   "port_security_enabled": true,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 6,
+   "security_groups": [
+    "41758f18-aa76-40ad-9614-404c51b18b36"
+   ],
+   "status": "ACTIVE",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:25:35Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "ufj-compute1",
+   "binding:profile": {},
+   "binding:vif_details": {
+    "bound_drivers": {
+     "0": "fake_agent"
+    },
+    "connectivity": "l2",
+    "ovs_hybrid_plug": true,
+    "port_filter": true
+   },
+   "binding:vif_type": "ovs",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:21:48Z",
+   "description": "",
+   "device_id": "5bd66e93-1640-4bb0-8586-aeff76fca423",
+   "device_owner": "compute:az1",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "192.168.10.175",
+     "subnet_id": "87ceba15-165a-4727-a19f-326efe5faeb6"
+    }
+   ],
+   "id": "f801dc92-2532-4bf6-8138-489540451ea8",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:b5:e2:8a",
+   "name": "",
+   "network_id": "43b97212-7d54-461d-8d98-1d14e2b83d21",
+   "port_security_enabled": true,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 4,
+   "security_groups": [
+    "41758f18-aa76-40ad-9614-404c51b18b36"
+   ],
+   "status": "ACTIVE",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:21:54Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "ufj-compute3",
+   "binding:profile": {},
+   "binding:vif_details": {
+    "bound_drivers": {
+     "0": "fake_agent"
+    },
+    "connectivity": "l2",
+    "ovs_hybrid_plug": true,
+    "port_filter": true
+   },
+   "binding:vif_type": "ovs",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:24:06Z",
+   "description": "",
+   "device_id": "1708595d-5939-4347-85d2-76c07da25611",
+   "device_owner": "compute:nova",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "192.168.10.101",
+     "subnet_id": "87ceba15-165a-4727-a19f-326efe5faeb6"
+    }
+   ],
+   "id": "fe49a524-57dc-4936-a5ee-bda36e0f7a1d",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:43:64:d7",
+   "name": "",
+   "network_id": "43b97212-7d54-461d-8d98-1d14e2b83d21",
+   "port_security_enabled": true,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 4,
+   "security_groups": [
+    "41758f18-aa76-40ad-9614-404c51b18b36"
+   ],
+   "status": "ACTIVE",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:24:16Z"
+  },
+  {
+   "admin_state_up": true,
+   "allowed_address_pairs": [],
+   "binding:host_id": "ufj-compute3",
+   "binding:profile": {},
+   "binding:vif_details": {
+    "bound_drivers": {
+     "0": "fake_agent"
+    },
+    "connectivity": "l2",
+    "ovs_hybrid_plug": true,
+    "port_filter": true
+   },
+   "binding:vif_type": "ovs",
+   "binding:vnic_type": "normal",
+   "created_at": "2026-10-31T11:25:24Z",
+   "description": "",
+   "device_id": "bdf0fc23-0a16-42df-a518-cffbd479e19d",
+   "device_owner": "compute:nova",
+   "extra_dhcp_opts": [],
+   "fixed_ips": [
+    {
+     "ip_address": "192.168.10.204",
+     "subnet_id": "87ceba15-165a-4727-a19f-326efe5faeb6"
+    }
+   ],
+   "id": "feb37720-bfc0-41b8-b559-b5f35ed896ee",
+   "ip_allocation": "immediate",
+   "mac_address": "fa:16:3e:e6:53:c4",
+   "name": "",
+   "network_id": "43b97212-7d54-461d-8d98-1d14e2b83d21",
+   "port_security_enabled": true,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "qos_network_policy_id": null,
+   "qos_policy_id": null,
+   "resource_request": null,
+   "revision_number": 6,
+   "security_groups": [
+    "41758f18-aa76-40ad-9614-404c51b18b36"
+   ],
+   "status": "ACTIVE",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:25:36Z"
+  }
+ ],
+ "projects": [
+  {
+   "description": "",
+   "domain_id": "default",
+   "enabled": true,
+   "id": "34e4d7af78ed4ae5849f1a262c786dae",
+   "is_domain": false,
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/projects/34e4d7af78ed4ae5849f1a262c786dae"
+   },
+   "name": "service",
+   "options": {},
+   "parent_id": "default",
+   "tags": []
+  },
+  {
+   "description": "Project B (journey lab)",
+   "domain_id": "default",
+   "enabled": true,
+   "id": "3d064405fa2447cf9aa98184a4348f36",
+   "is_domain": false,
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/projects/3d064405fa2447cf9aa98184a4348f36"
+   },
+   "name": "ufj-proj-b",
+   "options": {},
+   "parent_id": "default",
+   "tags": []
+  },
+  {
+   "description": "Bootstrap project for initializing the cloud.",
+   "domain_id": "default",
+   "enabled": true,
+   "id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "is_domain": false,
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/projects/4fc1ca9a9fb74c36b34f4d4dfb10345d"
+   },
+   "name": "admin",
+   "options": {},
+   "parent_id": "default",
+   "tags": []
+  },
+  {
+   "description": "Project A (journey lab)",
+   "domain_id": "default",
+   "enabled": true,
+   "id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "is_domain": false,
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/projects/a7cec7ef1552403fbb23fc861b3e16eb"
+   },
+   "name": "ufj-proj-a",
+   "options": {},
+   "parent_id": "default",
+   "tags": [
+    "lab",
+    "Mixed-Case",
+    "t\u00e2g-\u00fcn\u00ef"
+   ]
+  }
+ ],
+ "rbac_policies": [
+  {
+   "action": "access_as_shared",
+   "id": "5fb1d2f3-d0c4-4566-8070-f6039dd761d4",
+   "object_id": "b7146217-7a6a-4e22-bc6a-d93dabb824ff",
+   "object_type": "network",
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "target_tenant": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d"
+  },
+  {
+   "action": "access_as_shared",
+   "id": "77df8ccd-f6ad-4e83-9050-bb6f8f9fc294",
+   "object_id": "2bd9513e-f8d3-41ed-91b6-34d0785a58ea",
+   "object_type": "network",
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "target_tenant": "*",
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d"
+  },
+  {
+   "action": "access_as_external",
+   "id": "d71206e6-fedd-4e6d-a1d3-5509088894bd",
+   "object_id": "2bd9513e-f8d3-41ed-91b6-34d0785a58ea",
+   "object_type": "network",
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "target_tenant": "*",
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d"
+  },
+  {
+   "action": "access_as_shared",
+   "id": "88b16cf8-a48b-456a-a9cd-942851674e58",
+   "object_id": "39946477-e179-47d8-8908-4e9af4c84f3c",
+   "object_type": "qos_policy",
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "target_tenant": "3d064405fa2447cf9aa98184a4348f36",
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d"
+  },
+  {
+   "action": "access_as_shared",
+   "id": "e18b3be2-8254-4bbf-88a0-29f99fe9ae1a",
+   "object_id": "41758f18-aa76-40ad-9614-404c51b18b36",
+   "object_type": "security_group",
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "target_tenant": "3d064405fa2447cf9aa98184a4348f36",
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d"
+  },
+  {
+   "action": "access_as_shared",
+   "id": "86e0a26a-2c7b-43e6-86b1-8cad6dac707e",
+   "object_id": "d82e6741-d4cb-470a-a1a5-9509e4b49d4c",
+   "object_type": "subnetpool",
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "target_tenant": "*",
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d"
+  },
+  {
+   "action": "access_as_shared",
+   "id": "ff728002-d58d-4a50-b695-b7efcca4da53",
+   "object_id": "017500b1-8fc5-4142-bc8e-559f111536b2",
+   "object_type": "subnetpool",
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "target_tenant": "3d064405fa2447cf9aa98184a4348f36",
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d"
+  },
+  {
+   "action": "access_as_shared",
+   "id": "284af5ff-1539-4bba-a9a7-4af107a4f9ae",
+   "object_id": "83e4ca56-2ad2-4acb-b29c-5d8f0a829cf2",
+   "object_type": "address_scope",
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "target_tenant": "3d064405fa2447cf9aa98184a4348f36",
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d"
+  }
+ ],
+ "regions": [
+  {
+   "description": "",
+   "id": "RegionOne",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/regions/RegionOne"
+   },
+   "parent_region_id": null
+  }
+ ],
+ "role_assignments": [
+  {
+   "links": {
+    "assignment": "http://ufj-keystone:5000/v3/projects/3d064405fa2447cf9aa98184a4348f36/users/077e901012c74c0895b686133a5e390f/roles/6d8d6a9f5fab4b4c8946cb74dcf86e24"
+   },
+   "role": {
+    "id": "6d8d6a9f5fab4b4c8946cb74dcf86e24",
+    "name": "reader"
+   },
+   "scope": {
+    "project": {
+     "domain": {
+      "id": "default",
+      "name": "Default"
+     },
+     "id": "3d064405fa2447cf9aa98184a4348f36",
+     "name": "ufj-proj-b"
+    }
+   },
+   "user": {
+    "domain": {
+     "id": "default",
+     "name": "Default"
+    },
+    "id": "077e901012c74c0895b686133a5e390f",
+    "name": "carol"
+   }
+  },
+  {
+   "links": {
+    "assignment": "http://ufj-keystone:5000/v3/projects/a7cec7ef1552403fbb23fc861b3e16eb/users/077e901012c74c0895b686133a5e390f/roles/098243217b914ea38db72383ed16fe0e"
+   },
+   "role": {
+    "id": "098243217b914ea38db72383ed16fe0e",
+    "name": "admin"
+   },
+   "scope": {
+    "project": {
+     "domain": {
+      "id": "default",
+      "name": "Default"
+     },
+     "id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "name": "ufj-proj-a"
+    }
+   },
+   "user": {
+    "domain": {
+     "id": "default",
+     "name": "Default"
+    },
+    "id": "077e901012c74c0895b686133a5e390f",
+    "name": "carol"
+   }
+  },
+  {
+   "links": {
+    "assignment": "http://ufj-keystone:5000/v3/projects/34e4d7af78ed4ae5849f1a262c786dae/users/08c508ddfe2f424daad5b41a2f0345b6/roles/098243217b914ea38db72383ed16fe0e"
+   },
+   "role": {
+    "id": "098243217b914ea38db72383ed16fe0e",
+    "name": "admin"
+   },
+   "scope": {
+    "project": {
+     "domain": {
+      "id": "default",
+      "name": "Default"
+     },
+     "id": "34e4d7af78ed4ae5849f1a262c786dae",
+     "name": "service"
+    }
+   },
+   "user": {
+    "domain": {
+     "id": "default",
+     "name": "Default"
+    },
+    "id": "08c508ddfe2f424daad5b41a2f0345b6",
+    "name": "placement"
+   }
+  },
+  {
+   "links": {
+    "assignment": "http://ufj-keystone:5000/v3/projects/34e4d7af78ed4ae5849f1a262c786dae/users/094862844b5a4c6c880727398fca2d60/roles/098243217b914ea38db72383ed16fe0e"
+   },
+   "role": {
+    "id": "098243217b914ea38db72383ed16fe0e",
+    "name": "admin"
+   },
+   "scope": {
+    "project": {
+     "domain": {
+      "id": "default",
+      "name": "Default"
+     },
+     "id": "34e4d7af78ed4ae5849f1a262c786dae",
+     "name": "service"
+    }
+   },
+   "user": {
+    "domain": {
+     "id": "default",
+     "name": "Default"
+    },
+    "id": "094862844b5a4c6c880727398fca2d60",
+    "name": "nova"
+   }
+  },
+  {
+   "links": {
+    "assignment": "http://ufj-keystone:5000/v3/projects/4fc1ca9a9fb74c36b34f4d4dfb10345d/users/294358f815ab42e88afd374c4624392a/roles/098243217b914ea38db72383ed16fe0e"
+   },
+   "role": {
+    "id": "098243217b914ea38db72383ed16fe0e",
+    "name": "admin"
+   },
+   "scope": {
+    "project": {
+     "domain": {
+      "id": "default",
+      "name": "Default"
+     },
+     "id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+     "name": "admin"
+    }
+   },
+   "user": {
+    "domain": {
+     "id": "default",
+     "name": "Default"
+    },
+    "id": "294358f815ab42e88afd374c4624392a",
+    "name": "admin"
+   }
+  },
+  {
+   "group": {
+    "domain": {
+     "id": "default",
+     "name": "Default"
+    },
+    "id": "482fb46e506b4f9a90e14e7528c191fe",
+    "name": "ufj-ops"
+   },
+   "links": {
+    "assignment": "http://ufj-keystone:5000/v3/projects/a7cec7ef1552403fbb23fc861b3e16eb/groups/482fb46e506b4f9a90e14e7528c191fe/roles/d2c15eb68ca746459ecff5c717683d87"
+   },
+   "role": {
+    "id": "d2c15eb68ca746459ecff5c717683d87",
+    "name": "member"
+   },
+   "scope": {
+    "project": {
+     "domain": {
+      "id": "default",
+      "name": "Default"
+     },
+     "id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "name": "ufj-proj-a"
+    }
+   }
+  },
+  {
+   "links": {
+    "assignment": "http://ufj-keystone:5000/v3/projects/34e4d7af78ed4ae5849f1a262c786dae/users/6acf411269da4b1e8d043c9de70ff4fd/roles/098243217b914ea38db72383ed16fe0e"
+   },
+   "role": {
+    "id": "098243217b914ea38db72383ed16fe0e",
+    "name": "admin"
+   },
+   "scope": {
+    "project": {
+     "domain": {
+      "id": "default",
+      "name": "Default"
+     },
+     "id": "34e4d7af78ed4ae5849f1a262c786dae",
+     "name": "service"
+    }
+   },
+   "user": {
+    "domain": {
+     "id": "default",
+     "name": "Default"
+    },
+    "id": "6acf411269da4b1e8d043c9de70ff4fd",
+    "name": "glance"
+   }
+  },
+  {
+   "links": {
+    "assignment": "http://ufj-keystone:5000/v3/projects/3d064405fa2447cf9aa98184a4348f36/users/8175aebca9c64a12a348ba76e8d07b24/roles/d2c15eb68ca746459ecff5c717683d87"
+   },
+   "role": {
+    "id": "d2c15eb68ca746459ecff5c717683d87",
+    "name": "member"
+   },
+   "scope": {
+    "project": {
+     "domain": {
+      "id": "default",
+      "name": "Default"
+     },
+     "id": "3d064405fa2447cf9aa98184a4348f36",
+     "name": "ufj-proj-b"
+    }
+   },
+   "user": {
+    "domain": {
+     "id": "default",
+     "name": "Default"
+    },
+    "id": "8175aebca9c64a12a348ba76e8d07b24",
+    "name": "bob"
+   }
+  },
+  {
+   "links": {
+    "assignment": "http://ufj-keystone:5000/v3/projects/34e4d7af78ed4ae5849f1a262c786dae/users/a1c412dff9414169b7b9f4fcb4440ea2/roles/098243217b914ea38db72383ed16fe0e"
+   },
+   "role": {
+    "id": "098243217b914ea38db72383ed16fe0e",
+    "name": "admin"
+   },
+   "scope": {
+    "project": {
+     "domain": {
+      "id": "default",
+      "name": "Default"
+     },
+     "id": "34e4d7af78ed4ae5849f1a262c786dae",
+     "name": "service"
+    }
+   },
+   "user": {
+    "domain": {
+     "id": "default",
+     "name": "Default"
+    },
+    "id": "a1c412dff9414169b7b9f4fcb4440ea2",
+    "name": "neutron"
+   }
+  },
+  {
+   "links": {
+    "assignment": "http://ufj-keystone:5000/v3/projects/34e4d7af78ed4ae5849f1a262c786dae/users/bdb720be5d354f43852860707848ab8a/roles/098243217b914ea38db72383ed16fe0e"
+   },
+   "role": {
+    "id": "098243217b914ea38db72383ed16fe0e",
+    "name": "admin"
+   },
+   "scope": {
+    "project": {
+     "domain": {
+      "id": "default",
+      "name": "Default"
+     },
+     "id": "34e4d7af78ed4ae5849f1a262c786dae",
+     "name": "service"
+    }
+   },
+   "user": {
+    "domain": {
+     "id": "default",
+     "name": "Default"
+    },
+    "id": "bdb720be5d354f43852860707848ab8a",
+    "name": "cinder"
+   }
+  },
+  {
+   "links": {
+    "assignment": "http://ufj-keystone:5000/v3/projects/a7cec7ef1552403fbb23fc861b3e16eb/users/d0d00427fc324381adb6b56ebdab82de/roles/d2c15eb68ca746459ecff5c717683d87"
+   },
+   "role": {
+    "id": "d2c15eb68ca746459ecff5c717683d87",
+    "name": "member"
+   },
+   "scope": {
+    "project": {
+     "domain": {
+      "id": "default",
+      "name": "Default"
+     },
+     "id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "name": "ufj-proj-a"
+    }
+   },
+   "user": {
+    "domain": {
+     "id": "default",
+     "name": "Default"
+    },
+    "id": "d0d00427fc324381adb6b56ebdab82de",
+    "name": "alice"
+   }
+  },
+  {
+   "links": {
+    "assignment": "http://ufj-keystone:5000/v3/system/users/294358f815ab42e88afd374c4624392a/roles/098243217b914ea38db72383ed16fe0e"
+   },
+   "role": {
+    "id": "098243217b914ea38db72383ed16fe0e",
+    "name": "admin"
+   },
+   "scope": {
+    "system": {
+     "all": true
+    }
+   },
+   "user": {
+    "domain": {
+     "id": "default",
+     "name": "Default"
+    },
+    "id": "294358f815ab42e88afd374c4624392a",
+    "name": "admin"
+   }
+  }
+ ],
+ "roles": [
+  {
+   "description": null,
+   "domain_id": null,
+   "id": "098243217b914ea38db72383ed16fe0e",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/roles/098243217b914ea38db72383ed16fe0e"
+   },
+   "name": "admin",
+   "options": {
+    "immutable": true
+   }
+  },
+  {
+   "description": null,
+   "domain_id": null,
+   "id": "6d8d6a9f5fab4b4c8946cb74dcf86e24",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/roles/6d8d6a9f5fab4b4c8946cb74dcf86e24"
+   },
+   "name": "reader",
+   "options": {
+    "immutable": true
+   }
+  },
+  {
+   "description": null,
+   "domain_id": null,
+   "id": "d2c15eb68ca746459ecff5c717683d87",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/roles/d2c15eb68ca746459ecff5c717683d87"
+   },
+   "name": "member",
+   "options": {
+    "immutable": true
+   }
+  }
+ ],
+ "routers": [
+  {
+   "admin_state_up": true,
+   "availability_zone_hints": [],
+   "availability_zones": [],
+   "created_at": "2026-10-31T11:20:25Z",
+   "description": "",
+   "distributed": false,
+   "external_gateway_info": {
+    "enable_snat": true,
+    "external_fixed_ips": [
+     {
+      "ip_address": "203.0.113.32",
+      "subnet_id": "dae8c7ea-6e11-468e-ac10-1157d3c3e3c1"
+     }
+    ],
+    "network_id": "2bd9513e-f8d3-41ed-91b6-34d0785a58ea"
+   },
+   "flavor_id": null,
+   "ha": false,
+   "id": "17ee97c0-5229-4408-a000-7912ce55f7c1",
+   "name": "a-router",
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "revision_number": 6,
+   "routes": [
+    {
+     "destination": "198.51.100.0/24",
+     "nexthop": "192.168.10.254"
+    }
+   ],
+   "status": "ACTIVE",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:37Z"
+  },
+  {
+   "admin_state_up": true,
+   "availability_zone_hints": [],
+   "availability_zones": [],
+   "created_at": "2026-10-31T11:21:02Z",
+   "description": "",
+   "distributed": false,
+   "external_gateway_info": {
+    "enable_snat": true,
+    "external_fixed_ips": [
+     {
+      "ip_address": "203.0.113.83",
+      "subnet_id": "dae8c7ea-6e11-468e-ac10-1157d3c3e3c1"
+     }
+    ],
+    "network_id": "2bd9513e-f8d3-41ed-91b6-34d0785a58ea"
+   },
+   "flavor_id": null,
+   "ha": false,
+   "id": "56270edc-bfdb-4316-b86c-ccaa3c88adac",
+   "name": "b-router",
+   "project_id": "3d064405fa2447cf9aa98184a4348f36",
+   "revision_number": 4,
+   "routes": [],
+   "status": "ACTIVE",
+   "tags": [],
+   "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+   "updated_at": "2026-10-31T11:21:07Z"
+  }
+ ],
+ "security_group_rules": [
+  {
+   "belongs_to_default_sg": true,
+   "created_at": "2026-10-31T11:20:09Z",
+   "description": null,
+   "direction": "egress",
+   "ethertype": "IPv4",
+   "id": "00af26ef-adc9-4819-9269-9e40c2b696ad",
+   "normalized_cidr": null,
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "protocol": null,
+   "remote_address_group_id": null,
+   "remote_group_id": null,
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "b584eb1f-c68c-42f1-90d9-d5fc5b02f56b",
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:09Z"
+  },
+  {
+   "belongs_to_default_sg": true,
+   "created_at": "2026-10-31T11:20:56Z",
+   "description": null,
+   "direction": "egress",
+   "ethertype": "IPv4",
+   "id": "04be1d9b-104d-4d37-86bf-aae49f4e3773",
+   "normalized_cidr": null,
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "3d064405fa2447cf9aa98184a4348f36",
+   "protocol": null,
+   "remote_address_group_id": null,
+   "remote_group_id": null,
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "8e4f0cb3-c0db-43ee-aa77-670589bdff9f",
+   "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+   "updated_at": "2026-10-31T11:20:56Z"
+  },
+  {
+   "belongs_to_default_sg": true,
+   "created_at": "2026-10-31T11:20:56Z",
+   "description": null,
+   "direction": "egress",
+   "ethertype": "IPv6",
+   "id": "193db93b-ba61-403e-97d9-990e74ec988d",
+   "normalized_cidr": null,
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "3d064405fa2447cf9aa98184a4348f36",
+   "protocol": null,
+   "remote_address_group_id": null,
+   "remote_group_id": null,
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "8e4f0cb3-c0db-43ee-aa77-670589bdff9f",
+   "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+   "updated_at": "2026-10-31T11:20:56Z"
+  },
+  {
+   "belongs_to_default_sg": true,
+   "created_at": "2026-10-31T11:20:56Z",
+   "description": null,
+   "direction": "ingress",
+   "ethertype": "IPv4",
+   "id": "2b729bf5-269f-40eb-a0f7-81a31e0b6de3",
+   "normalized_cidr": null,
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "3d064405fa2447cf9aa98184a4348f36",
+   "protocol": null,
+   "remote_address_group_id": null,
+   "remote_group_id": "8e4f0cb3-c0db-43ee-aa77-670589bdff9f",
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "8e4f0cb3-c0db-43ee-aa77-670589bdff9f",
+   "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+   "updated_at": "2026-10-31T11:20:56Z"
+  },
+  {
+   "belongs_to_default_sg": false,
+   "created_at": "2026-10-31T11:20:49Z",
+   "description": "",
+   "direction": "ingress",
+   "ethertype": "IPv4",
+   "id": "31965f7a-5978-4dee-b496-71ebc6ac6a97",
+   "normalized_cidr": null,
+   "port_range_max": 3306,
+   "port_range_min": 3306,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "protocol": "tcp",
+   "remote_address_group_id": null,
+   "remote_group_id": "41758f18-aa76-40ad-9614-404c51b18b36",
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "a3587e82-7571-4eb2-a4ed-b78fec892494",
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:49Z"
+  },
+  {
+   "belongs_to_default_sg": true,
+   "created_at": "2026-10-31T11:20:09Z",
+   "description": null,
+   "direction": "ingress",
+   "ethertype": "IPv6",
+   "id": "358a35bb-c9ba-446b-bc1a-83c79243b8a1",
+   "normalized_cidr": null,
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "protocol": null,
+   "remote_address_group_id": null,
+   "remote_group_id": "b584eb1f-c68c-42f1-90d9-d5fc5b02f56b",
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "b584eb1f-c68c-42f1-90d9-d5fc5b02f56b",
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:09Z"
+  },
+  {
+   "belongs_to_default_sg": true,
+   "created_at": "2026-10-31T11:20:09Z",
+   "description": null,
+   "direction": "egress",
+   "ethertype": "IPv6",
+   "id": "3682890e-57fc-440b-a00a-967ed155cdf9",
+   "normalized_cidr": null,
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "protocol": null,
+   "remote_address_group_id": null,
+   "remote_group_id": null,
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "b584eb1f-c68c-42f1-90d9-d5fc5b02f56b",
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:09Z"
+  },
+  {
+   "belongs_to_default_sg": false,
+   "created_at": "2026-10-31T11:21:12Z",
+   "description": "",
+   "direction": "ingress",
+   "ethertype": "IPv4",
+   "id": "36f85cf7-5cb3-436b-9162-af4cd8470d0f",
+   "normalized_cidr": "10.0.0.0/8",
+   "port_range_max": 22,
+   "port_range_min": 22,
+   "project_id": "3d064405fa2447cf9aa98184a4348f36",
+   "protocol": "tcp",
+   "remote_address_group_id": null,
+   "remote_group_id": null,
+   "remote_ip_prefix": "10.0.0.0/8",
+   "revision_number": 0,
+   "security_group_id": "779a1c8f-59ab-447e-8c16-f8d6659a51b3",
+   "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+   "updated_at": "2026-10-31T11:21:12Z"
+  },
+  {
+   "belongs_to_default_sg": true,
+   "created_at": "2026-10-31T11:20:56Z",
+   "description": null,
+   "direction": "ingress",
+   "ethertype": "IPv6",
+   "id": "41c8aab0-ae67-41f5-8802-53f307c3a993",
+   "normalized_cidr": null,
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "3d064405fa2447cf9aa98184a4348f36",
+   "protocol": null,
+   "remote_address_group_id": null,
+   "remote_group_id": "8e4f0cb3-c0db-43ee-aa77-670589bdff9f",
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "8e4f0cb3-c0db-43ee-aa77-670589bdff9f",
+   "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+   "updated_at": "2026-10-31T11:20:56Z"
+  },
+  {
+   "belongs_to_default_sg": true,
+   "created_at": "2026-10-31T11:20:01Z",
+   "description": null,
+   "direction": "ingress",
+   "ethertype": "IPv4",
+   "id": "4486e81c-6b49-4349-944e-72975b21da24",
+   "normalized_cidr": null,
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "protocol": null,
+   "remote_address_group_id": null,
+   "remote_group_id": "3fed4046-6a49-4b82-9169-df1df5cfb673",
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "3fed4046-6a49-4b82-9169-df1df5cfb673",
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "updated_at": "2026-10-31T11:20:01Z"
+  },
+  {
+   "belongs_to_default_sg": false,
+   "created_at": "2026-10-31T11:21:11Z",
+   "description": null,
+   "direction": "egress",
+   "ethertype": "IPv6",
+   "id": "5dd3d152-d7d2-41d3-a184-3cb5f32456a5",
+   "normalized_cidr": null,
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "3d064405fa2447cf9aa98184a4348f36",
+   "protocol": null,
+   "remote_address_group_id": null,
+   "remote_group_id": null,
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "779a1c8f-59ab-447e-8c16-f8d6659a51b3",
+   "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+   "updated_at": "2026-10-31T11:21:11Z"
+  },
+  {
+   "belongs_to_default_sg": false,
+   "created_at": "2026-10-31T11:20:44Z",
+   "description": "",
+   "direction": "ingress",
+   "ethertype": "IPv4",
+   "id": "759380b7-2cc8-4574-94a7-8b8ef2114b4b",
+   "normalized_cidr": "0.0.0.0/0",
+   "port_range_max": 443,
+   "port_range_min": 443,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "protocol": "tcp",
+   "remote_address_group_id": null,
+   "remote_group_id": null,
+   "remote_ip_prefix": "0.0.0.0/0",
+   "revision_number": 0,
+   "security_group_id": "41758f18-aa76-40ad-9614-404c51b18b36",
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:44Z"
+  },
+  {
+   "belongs_to_default_sg": true,
+   "created_at": "2026-10-31T11:20:01Z",
+   "description": null,
+   "direction": "egress",
+   "ethertype": "IPv4",
+   "id": "7b6ca1a2-068c-4345-94a3-e818340f6ea8",
+   "normalized_cidr": null,
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "protocol": null,
+   "remote_address_group_id": null,
+   "remote_group_id": null,
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "3fed4046-6a49-4b82-9169-df1df5cfb673",
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "updated_at": "2026-10-31T11:20:01Z"
+  },
+  {
+   "belongs_to_default_sg": false,
+   "created_at": "2026-10-31T11:20:48Z",
+   "description": null,
+   "direction": "egress",
+   "ethertype": "IPv6",
+   "id": "7cd4a66e-3265-4d6b-8a1e-3dbd1ed0bbe1",
+   "normalized_cidr": null,
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "protocol": null,
+   "remote_address_group_id": null,
+   "remote_group_id": null,
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "a3587e82-7571-4eb2-a4ed-b78fec892494",
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:48Z"
+  },
+  {
+   "belongs_to_default_sg": false,
+   "created_at": "2026-10-31T11:20:40Z",
+   "description": null,
+   "direction": "egress",
+   "ethertype": "IPv6",
+   "id": "7dc90616-d6ba-4c1e-a418-096e932b3069",
+   "normalized_cidr": null,
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "protocol": null,
+   "remote_address_group_id": null,
+   "remote_group_id": null,
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "41758f18-aa76-40ad-9614-404c51b18b36",
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:40Z"
+  },
+  {
+   "belongs_to_default_sg": false,
+   "created_at": "2026-10-31T11:20:41Z",
+   "description": "",
+   "direction": "ingress",
+   "ethertype": "IPv4",
+   "id": "96657641-80cc-433c-8212-ca67f5014619",
+   "normalized_cidr": "0.0.0.0/0",
+   "port_range_max": 22,
+   "port_range_min": 22,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "protocol": "tcp",
+   "remote_address_group_id": null,
+   "remote_group_id": null,
+   "remote_ip_prefix": "0.0.0.0/0",
+   "revision_number": 0,
+   "security_group_id": "41758f18-aa76-40ad-9614-404c51b18b36",
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:41Z"
+  },
+  {
+   "belongs_to_default_sg": false,
+   "created_at": "2026-10-31T11:20:45Z",
+   "description": "",
+   "direction": "ingress",
+   "ethertype": "IPv4",
+   "id": "9bb0c3d5-ef27-4dfa-8a02-5f31362174cb",
+   "normalized_cidr": "0.0.0.0/0",
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "protocol": "icmp",
+   "remote_address_group_id": null,
+   "remote_group_id": null,
+   "remote_ip_prefix": "0.0.0.0/0",
+   "revision_number": 0,
+   "security_group_id": "41758f18-aa76-40ad-9614-404c51b18b36",
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:45Z"
+  },
+  {
+   "belongs_to_default_sg": false,
+   "created_at": "2026-10-31T11:20:48Z",
+   "description": null,
+   "direction": "egress",
+   "ethertype": "IPv4",
+   "id": "aa6f0be8-101a-4599-b2f1-afe2434278f5",
+   "normalized_cidr": null,
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "protocol": null,
+   "remote_address_group_id": null,
+   "remote_group_id": null,
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "a3587e82-7571-4eb2-a4ed-b78fec892494",
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:48Z"
+  },
+  {
+   "belongs_to_default_sg": true,
+   "created_at": "2026-10-31T11:20:01Z",
+   "description": null,
+   "direction": "egress",
+   "ethertype": "IPv6",
+   "id": "b54091b4-88f1-4a0b-8901-969146acb212",
+   "normalized_cidr": null,
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "protocol": null,
+   "remote_address_group_id": null,
+   "remote_group_id": null,
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "3fed4046-6a49-4b82-9169-df1df5cfb673",
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "updated_at": "2026-10-31T11:20:01Z"
+  },
+  {
+   "belongs_to_default_sg": false,
+   "created_at": "2026-10-31T11:20:42Z",
+   "description": "",
+   "direction": "ingress",
+   "ethertype": "IPv4",
+   "id": "b7372882-bab7-46d8-a9f5-e0ab5461a2e9",
+   "normalized_cidr": "0.0.0.0/0",
+   "port_range_max": 80,
+   "port_range_min": 80,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "protocol": "tcp",
+   "remote_address_group_id": null,
+   "remote_group_id": null,
+   "remote_ip_prefix": "0.0.0.0/0",
+   "revision_number": 0,
+   "security_group_id": "41758f18-aa76-40ad-9614-404c51b18b36",
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:42Z"
+  },
+  {
+   "belongs_to_default_sg": true,
+   "created_at": "2026-10-31T11:20:01Z",
+   "description": null,
+   "direction": "ingress",
+   "ethertype": "IPv6",
+   "id": "b785d6ab-ffa3-4432-a330-3e5d5a173070",
+   "normalized_cidr": null,
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "protocol": null,
+   "remote_address_group_id": null,
+   "remote_group_id": "3fed4046-6a49-4b82-9169-df1df5cfb673",
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "3fed4046-6a49-4b82-9169-df1df5cfb673",
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "updated_at": "2026-10-31T11:20:01Z"
+  },
+  {
+   "belongs_to_default_sg": false,
+   "created_at": "2026-10-31T11:21:10Z",
+   "description": null,
+   "direction": "egress",
+   "ethertype": "IPv4",
+   "id": "c9eb88f8-d6f5-48f0-a02c-6f39573943d5",
+   "normalized_cidr": null,
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "3d064405fa2447cf9aa98184a4348f36",
+   "protocol": null,
+   "remote_address_group_id": null,
+   "remote_group_id": null,
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "779a1c8f-59ab-447e-8c16-f8d6659a51b3",
+   "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+   "updated_at": "2026-10-31T11:21:10Z"
+  },
+  {
+   "belongs_to_default_sg": true,
+   "created_at": "2026-10-31T11:20:09Z",
+   "description": null,
+   "direction": "ingress",
+   "ethertype": "IPv4",
+   "id": "d86a6cfe-e764-48da-9a73-46a77a741468",
+   "normalized_cidr": null,
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "protocol": null,
+   "remote_address_group_id": null,
+   "remote_group_id": "b584eb1f-c68c-42f1-90d9-d5fc5b02f56b",
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "b584eb1f-c68c-42f1-90d9-d5fc5b02f56b",
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:09Z"
+  },
+  {
+   "belongs_to_default_sg": false,
+   "created_at": "2026-10-31T11:20:40Z",
+   "description": null,
+   "direction": "egress",
+   "ethertype": "IPv4",
+   "id": "f0864ad7-9bf2-45e1-8c35-9ca399145502",
+   "normalized_cidr": null,
+   "port_range_max": null,
+   "port_range_min": null,
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "protocol": null,
+   "remote_address_group_id": null,
+   "remote_group_id": null,
+   "remote_ip_prefix": null,
+   "revision_number": 0,
+   "security_group_id": "41758f18-aa76-40ad-9614-404c51b18b36",
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:40Z"
+  }
+ ],
+ "security_groups": [
+  {
+   "created_at": "2026-10-31T11:20:01Z",
+   "description": "Default security group",
+   "id": "3fed4046-6a49-4b82-9169-df1df5cfb673",
+   "name": "default",
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "revision_number": 1,
+   "security_group_rules": [
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:01Z",
+     "description": null,
+     "direction": "ingress",
+     "ethertype": "IPv4",
+     "id": "4486e81c-6b49-4349-944e-72975b21da24",
+     "normalized_cidr": null,
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+     "protocol": null,
+     "remote_address_group_id": null,
+     "remote_group_id": "3fed4046-6a49-4b82-9169-df1df5cfb673",
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "3fed4046-6a49-4b82-9169-df1df5cfb673",
+     "standard_attr_id": 4,
+     "tags": [],
+     "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+     "updated_at": "2026-10-31T11:20:01Z"
+    },
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:01Z",
+     "description": null,
+     "direction": "egress",
+     "ethertype": "IPv4",
+     "id": "7b6ca1a2-068c-4345-94a3-e818340f6ea8",
+     "normalized_cidr": null,
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+     "protocol": null,
+     "remote_address_group_id": null,
+     "remote_group_id": null,
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "3fed4046-6a49-4b82-9169-df1df5cfb673",
+     "standard_attr_id": 5,
+     "tags": [],
+     "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+     "updated_at": "2026-10-31T11:20:01Z"
+    },
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:01Z",
+     "description": null,
+     "direction": "egress",
+     "ethertype": "IPv6",
+     "id": "b54091b4-88f1-4a0b-8901-969146acb212",
+     "normalized_cidr": null,
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+     "protocol": null,
+     "remote_address_group_id": null,
+     "remote_group_id": null,
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "3fed4046-6a49-4b82-9169-df1df5cfb673",
+     "standard_attr_id": 7,
+     "tags": [],
+     "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+     "updated_at": "2026-10-31T11:20:01Z"
+    },
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:01Z",
+     "description": null,
+     "direction": "ingress",
+     "ethertype": "IPv6",
+     "id": "b785d6ab-ffa3-4432-a330-3e5d5a173070",
+     "normalized_cidr": null,
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+     "protocol": null,
+     "remote_address_group_id": null,
+     "remote_group_id": "3fed4046-6a49-4b82-9169-df1df5cfb673",
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "3fed4046-6a49-4b82-9169-df1df5cfb673",
+     "standard_attr_id": 6,
+     "tags": [],
+     "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+     "updated_at": "2026-10-31T11:20:01Z"
+    }
+   ],
+   "shared": false,
+   "stateful": true,
+   "tags": [],
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "updated_at": "2026-10-31T11:20:01Z"
+  },
+  {
+   "created_at": "2026-10-31T11:20:40Z",
+   "description": "web",
+   "id": "41758f18-aa76-40ad-9614-404c51b18b36",
+   "name": "a-web",
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "revision_number": 5,
+   "security_group_rules": [
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:44Z",
+     "description": "",
+     "direction": "ingress",
+     "ethertype": "IPv4",
+     "id": "759380b7-2cc8-4574-94a7-8b8ef2114b4b",
+     "normalized_cidr": "0.0.0.0/0",
+     "port_range_max": 443,
+     "port_range_min": 443,
+     "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "protocol": "tcp",
+     "remote_address_group_id": null,
+     "remote_group_id": null,
+     "remote_ip_prefix": "0.0.0.0/0",
+     "revision_number": 0,
+     "security_group_id": "41758f18-aa76-40ad-9614-404c51b18b36",
+     "standard_attr_id": 33,
+     "tags": [],
+     "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "updated_at": "2026-10-31T11:20:44Z"
+    },
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:40Z",
+     "description": null,
+     "direction": "egress",
+     "ethertype": "IPv6",
+     "id": "7dc90616-d6ba-4c1e-a418-096e932b3069",
+     "normalized_cidr": null,
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "protocol": null,
+     "remote_address_group_id": null,
+     "remote_group_id": null,
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "41758f18-aa76-40ad-9614-404c51b18b36",
+     "standard_attr_id": 30,
+     "tags": [],
+     "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "updated_at": "2026-10-31T11:20:40Z"
+    },
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:41Z",
+     "description": "",
+     "direction": "ingress",
+     "ethertype": "IPv4",
+     "id": "96657641-80cc-433c-8212-ca67f5014619",
+     "normalized_cidr": "0.0.0.0/0",
+     "port_range_max": 22,
+     "port_range_min": 22,
+     "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "protocol": "tcp",
+     "remote_address_group_id": null,
+     "remote_group_id": null,
+     "remote_ip_prefix": "0.0.0.0/0",
+     "revision_number": 0,
+     "security_group_id": "41758f18-aa76-40ad-9614-404c51b18b36",
+     "standard_attr_id": 31,
+     "tags": [],
+     "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "updated_at": "2026-10-31T11:20:41Z"
+    },
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:45Z",
+     "description": "",
+     "direction": "ingress",
+     "ethertype": "IPv4",
+     "id": "9bb0c3d5-ef27-4dfa-8a02-5f31362174cb",
+     "normalized_cidr": "0.0.0.0/0",
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "protocol": "icmp",
+     "remote_address_group_id": null,
+     "remote_group_id": null,
+     "remote_ip_prefix": "0.0.0.0/0",
+     "revision_number": 0,
+     "security_group_id": "41758f18-aa76-40ad-9614-404c51b18b36",
+     "standard_attr_id": 34,
+     "tags": [],
+     "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "updated_at": "2026-10-31T11:20:45Z"
+    },
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:42Z",
+     "description": "",
+     "direction": "ingress",
+     "ethertype": "IPv4",
+     "id": "b7372882-bab7-46d8-a9f5-e0ab5461a2e9",
+     "normalized_cidr": "0.0.0.0/0",
+     "port_range_max": 80,
+     "port_range_min": 80,
+     "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "protocol": "tcp",
+     "remote_address_group_id": null,
+     "remote_group_id": null,
+     "remote_ip_prefix": "0.0.0.0/0",
+     "revision_number": 0,
+     "security_group_id": "41758f18-aa76-40ad-9614-404c51b18b36",
+     "standard_attr_id": 32,
+     "tags": [],
+     "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "updated_at": "2026-10-31T11:20:42Z"
+    },
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:40Z",
+     "description": null,
+     "direction": "egress",
+     "ethertype": "IPv4",
+     "id": "f0864ad7-9bf2-45e1-8c35-9ca399145502",
+     "normalized_cidr": null,
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "protocol": null,
+     "remote_address_group_id": null,
+     "remote_group_id": null,
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "41758f18-aa76-40ad-9614-404c51b18b36",
+     "standard_attr_id": 29,
+     "tags": [],
+     "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "updated_at": "2026-10-31T11:20:40Z"
+    }
+   ],
+   "shared": false,
+   "stateful": true,
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:45Z"
+  },
+  {
+   "created_at": "2026-10-31T11:21:10Z",
+   "description": "ssh only",
+   "id": "779a1c8f-59ab-447e-8c16-f8d6659a51b3",
+   "name": "b-ssh",
+   "project_id": "3d064405fa2447cf9aa98184a4348f36",
+   "revision_number": 2,
+   "security_group_rules": [
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:21:12Z",
+     "description": "",
+     "direction": "ingress",
+     "ethertype": "IPv4",
+     "id": "36f85cf7-5cb3-436b-9162-af4cd8470d0f",
+     "normalized_cidr": "10.0.0.0/8",
+     "port_range_max": 22,
+     "port_range_min": 22,
+     "project_id": "3d064405fa2447cf9aa98184a4348f36",
+     "protocol": "tcp",
+     "remote_address_group_id": null,
+     "remote_group_id": null,
+     "remote_ip_prefix": "10.0.0.0/8",
+     "revision_number": 0,
+     "security_group_id": "779a1c8f-59ab-447e-8c16-f8d6659a51b3",
+     "standard_attr_id": 54,
+     "tags": [],
+     "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+     "updated_at": "2026-10-31T11:21:12Z"
+    },
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:21:11Z",
+     "description": null,
+     "direction": "egress",
+     "ethertype": "IPv6",
+     "id": "5dd3d152-d7d2-41d3-a184-3cb5f32456a5",
+     "normalized_cidr": null,
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "3d064405fa2447cf9aa98184a4348f36",
+     "protocol": null,
+     "remote_address_group_id": null,
+     "remote_group_id": null,
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "779a1c8f-59ab-447e-8c16-f8d6659a51b3",
+     "standard_attr_id": 53,
+     "tags": [],
+     "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+     "updated_at": "2026-10-31T11:21:11Z"
+    },
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:21:10Z",
+     "description": null,
+     "direction": "egress",
+     "ethertype": "IPv4",
+     "id": "c9eb88f8-d6f5-48f0-a02c-6f39573943d5",
+     "normalized_cidr": null,
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "3d064405fa2447cf9aa98184a4348f36",
+     "protocol": null,
+     "remote_address_group_id": null,
+     "remote_group_id": null,
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "779a1c8f-59ab-447e-8c16-f8d6659a51b3",
+     "standard_attr_id": 52,
+     "tags": [],
+     "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+     "updated_at": "2026-10-31T11:21:10Z"
+    }
+   ],
+   "shared": false,
+   "stateful": true,
+   "tags": [],
+   "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+   "updated_at": "2026-10-31T11:21:12Z"
+  },
+  {
+   "created_at": "2026-10-31T11:20:56Z",
+   "description": "Default security group",
+   "id": "8e4f0cb3-c0db-43ee-aa77-670589bdff9f",
+   "name": "default",
+   "project_id": "3d064405fa2447cf9aa98184a4348f36",
+   "revision_number": 1,
+   "security_group_rules": [
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:56Z",
+     "description": null,
+     "direction": "egress",
+     "ethertype": "IPv4",
+     "id": "04be1d9b-104d-4d37-86bf-aae49f4e3773",
+     "normalized_cidr": null,
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "3d064405fa2447cf9aa98184a4348f36",
+     "protocol": null,
+     "remote_address_group_id": null,
+     "remote_group_id": null,
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "8e4f0cb3-c0db-43ee-aa77-670589bdff9f",
+     "standard_attr_id": 42,
+     "tags": [],
+     "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+     "updated_at": "2026-10-31T11:20:56Z"
+    },
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:56Z",
+     "description": null,
+     "direction": "egress",
+     "ethertype": "IPv6",
+     "id": "193db93b-ba61-403e-97d9-990e74ec988d",
+     "normalized_cidr": null,
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "3d064405fa2447cf9aa98184a4348f36",
+     "protocol": null,
+     "remote_address_group_id": null,
+     "remote_group_id": null,
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "8e4f0cb3-c0db-43ee-aa77-670589bdff9f",
+     "standard_attr_id": 44,
+     "tags": [],
+     "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+     "updated_at": "2026-10-31T11:20:56Z"
+    },
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:56Z",
+     "description": null,
+     "direction": "ingress",
+     "ethertype": "IPv4",
+     "id": "2b729bf5-269f-40eb-a0f7-81a31e0b6de3",
+     "normalized_cidr": null,
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "3d064405fa2447cf9aa98184a4348f36",
+     "protocol": null,
+     "remote_address_group_id": null,
+     "remote_group_id": "8e4f0cb3-c0db-43ee-aa77-670589bdff9f",
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "8e4f0cb3-c0db-43ee-aa77-670589bdff9f",
+     "standard_attr_id": 41,
+     "tags": [],
+     "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+     "updated_at": "2026-10-31T11:20:56Z"
+    },
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:56Z",
+     "description": null,
+     "direction": "ingress",
+     "ethertype": "IPv6",
+     "id": "41c8aab0-ae67-41f5-8802-53f307c3a993",
+     "normalized_cidr": null,
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "3d064405fa2447cf9aa98184a4348f36",
+     "protocol": null,
+     "remote_address_group_id": null,
+     "remote_group_id": "8e4f0cb3-c0db-43ee-aa77-670589bdff9f",
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "8e4f0cb3-c0db-43ee-aa77-670589bdff9f",
+     "standard_attr_id": 43,
+     "tags": [],
+     "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+     "updated_at": "2026-10-31T11:20:56Z"
+    }
+   ],
+   "shared": false,
+   "stateful": true,
+   "tags": [],
+   "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+   "updated_at": "2026-10-31T11:20:56Z"
+  },
+  {
+   "created_at": "2026-10-31T11:20:48Z",
+   "description": "db tier",
+   "id": "a3587e82-7571-4eb2-a4ed-b78fec892494",
+   "name": "a-db",
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "revision_number": 2,
+   "security_group_rules": [
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:49Z",
+     "description": "",
+     "direction": "ingress",
+     "ethertype": "IPv4",
+     "id": "31965f7a-5978-4dee-b496-71ebc6ac6a97",
+     "normalized_cidr": null,
+     "port_range_max": 3306,
+     "port_range_min": 3306,
+     "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "protocol": "tcp",
+     "remote_address_group_id": null,
+     "remote_group_id": "41758f18-aa76-40ad-9614-404c51b18b36",
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "a3587e82-7571-4eb2-a4ed-b78fec892494",
+     "standard_attr_id": 38,
+     "tags": [],
+     "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "updated_at": "2026-10-31T11:20:49Z"
+    },
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:48Z",
+     "description": null,
+     "direction": "egress",
+     "ethertype": "IPv6",
+     "id": "7cd4a66e-3265-4d6b-8a1e-3dbd1ed0bbe1",
+     "normalized_cidr": null,
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "protocol": null,
+     "remote_address_group_id": null,
+     "remote_group_id": null,
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "a3587e82-7571-4eb2-a4ed-b78fec892494",
+     "standard_attr_id": 37,
+     "tags": [],
+     "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "updated_at": "2026-10-31T11:20:48Z"
+    },
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:48Z",
+     "description": null,
+     "direction": "egress",
+     "ethertype": "IPv4",
+     "id": "aa6f0be8-101a-4599-b2f1-afe2434278f5",
+     "normalized_cidr": null,
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "protocol": null,
+     "remote_address_group_id": null,
+     "remote_group_id": null,
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "a3587e82-7571-4eb2-a4ed-b78fec892494",
+     "standard_attr_id": 36,
+     "tags": [],
+     "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "updated_at": "2026-10-31T11:20:48Z"
+    }
+   ],
+   "shared": false,
+   "stateful": true,
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:49Z"
+  },
+  {
+   "created_at": "2026-10-31T11:20:09Z",
+   "description": "Default security group",
+   "id": "b584eb1f-c68c-42f1-90d9-d5fc5b02f56b",
+   "name": "default",
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "revision_number": 1,
+   "security_group_rules": [
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:09Z",
+     "description": null,
+     "direction": "egress",
+     "ethertype": "IPv4",
+     "id": "00af26ef-adc9-4819-9269-9e40c2b696ad",
+     "normalized_cidr": null,
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "protocol": null,
+     "remote_address_group_id": null,
+     "remote_group_id": null,
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "b584eb1f-c68c-42f1-90d9-d5fc5b02f56b",
+     "standard_attr_id": 14,
+     "tags": [],
+     "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "updated_at": "2026-10-31T11:20:09Z"
+    },
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:09Z",
+     "description": null,
+     "direction": "ingress",
+     "ethertype": "IPv6",
+     "id": "358a35bb-c9ba-446b-bc1a-83c79243b8a1",
+     "normalized_cidr": null,
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "protocol": null,
+     "remote_address_group_id": null,
+     "remote_group_id": "b584eb1f-c68c-42f1-90d9-d5fc5b02f56b",
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "b584eb1f-c68c-42f1-90d9-d5fc5b02f56b",
+     "standard_attr_id": 15,
+     "tags": [],
+     "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "updated_at": "2026-10-31T11:20:09Z"
+    },
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:09Z",
+     "description": null,
+     "direction": "egress",
+     "ethertype": "IPv6",
+     "id": "3682890e-57fc-440b-a00a-967ed155cdf9",
+     "normalized_cidr": null,
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "protocol": null,
+     "remote_address_group_id": null,
+     "remote_group_id": null,
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "b584eb1f-c68c-42f1-90d9-d5fc5b02f56b",
+     "standard_attr_id": 16,
+     "tags": [],
+     "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "updated_at": "2026-10-31T11:20:09Z"
+    },
+    {
+     "belongs_to_default_sg": null,
+     "created_at": "2026-10-31T11:20:09Z",
+     "description": null,
+     "direction": "ingress",
+     "ethertype": "IPv4",
+     "id": "d86a6cfe-e764-48da-9a73-46a77a741468",
+     "normalized_cidr": null,
+     "port_range_max": null,
+     "port_range_min": null,
+     "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "protocol": null,
+     "remote_address_group_id": null,
+     "remote_group_id": "b584eb1f-c68c-42f1-90d9-d5fc5b02f56b",
+     "remote_ip_prefix": null,
+     "revision_number": 0,
+     "security_group_id": "b584eb1f-c68c-42f1-90d9-d5fc5b02f56b",
+     "standard_attr_id": 13,
+     "tags": [],
+     "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+     "updated_at": "2026-10-31T11:20:09Z"
+    }
+   ],
+   "shared": false,
+   "stateful": true,
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:09Z"
+  }
+ ],
+ "server_groups": [
+  {
+   "id": "cca83f94-4b1b-418a-92cd-f18d6f094b43",
+   "members": [
+    "5bd66e93-1640-4bb0-8586-aeff76fca423",
+    "2e599a03-2aaa-46df-88bb-35eec018450c"
+   ],
+   "metadata": {},
+   "name": "a-aaff",
+   "policies": [
+    "anti-affinity"
+   ],
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "user_id": "d0d00427fc324381adb6b56ebdab82de"
+  },
+  {
+   "id": "991385fc-cffa-45b4-96c4-71542c99604f",
+   "members": [],
+   "metadata": {},
+   "name": "b-aff",
+   "policies": [
+    "affinity"
+   ],
+   "project_id": "3d064405fa2447cf9aa98184a4348f36",
+   "user_id": "8175aebca9c64a12a348ba76e8d07b24"
+  }
+ ],
+ "servers": [
+  {
+   "OS-DCF:diskConfig": "MANUAL",
+   "OS-EXT-AZ:availability_zone": "nova",
+   "OS-EXT-SRV-ATTR:host": "ufj-compute3",
+   "OS-EXT-SRV-ATTR:hostname": "a-migrate",
+   "OS-EXT-SRV-ATTR:hypervisor_hostname": "ufj-compute3",
+   "OS-EXT-SRV-ATTR:instance_name": "instance-00000009",
+   "OS-EXT-SRV-ATTR:kernel_id": "",
+   "OS-EXT-SRV-ATTR:launch_index": 0,
+   "OS-EXT-SRV-ATTR:ramdisk_id": "",
+   "OS-EXT-SRV-ATTR:reservation_id": "r-fa6judpj",
+   "OS-EXT-SRV-ATTR:root_device_name": "/dev/sda",
+   "OS-EXT-SRV-ATTR:user_data": null,
+   "OS-EXT-STS:power_state": 1,
+   "OS-EXT-STS:task_state": null,
+   "OS-EXT-STS:vm_state": "resized",
+   "OS-SRV-USG:launched_at": "2026-10-31T11:25:35.000000",
+   "OS-SRV-USG:terminated_at": null,
+   "accessIPv4": "",
+   "accessIPv6": "",
+   "addresses": {
+    "a-net1": [
+     {
+      "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:e6:53:c4",
+      "OS-EXT-IPS:type": "fixed",
+      "addr": "192.168.10.204",
+      "version": 4
+     }
+    ]
+   },
+   "config_drive": "",
+   "created": "2026-10-31T11:25:23Z",
+   "description": null,
+   "flavor": {
+    "disk": 1,
+    "ephemeral": 0,
+    "extra_specs": {},
+    "original_name": "ufj.tiny",
+    "ram": 512,
+    "swap": 0,
+    "vcpus": 1
+   },
+   "hostId": "4e0a745c55286138bf541473e04cf0c5324c83859bb1485abcc5c99b",
+   "host_status": "DOWN",
+   "id": "bdf0fc23-0a16-42df-a518-cffbd479e19d",
+   "image": {
+    "id": "2ebd9825-81e9-407c-b9b5-837e6be6849c",
+    "links": [
+     {
+      "href": "http://ufj-nova-api:8774/images/2ebd9825-81e9-407c-b9b5-837e6be6849c",
+      "rel": "bookmark"
+     }
+    ]
+   },
+   "key_name": null,
+   "links": [
+    {
+     "href": "http://ufj-nova-api:8774/v2.1/servers/bdf0fc23-0a16-42df-a518-cffbd479e19d",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-nova-api:8774/servers/bdf0fc23-0a16-42df-a518-cffbd479e19d",
+     "rel": "bookmark"
+    }
+   ],
+   "locked": false,
+   "metadata": {},
+   "name": "a-migrate",
+   "os-extended-volumes:volumes_attached": [],
+   "progress": 0,
+   "security_groups": [
+    {
+     "name": "a-web"
+    }
+   ],
+   "status": "VERIFY_RESIZE",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated": "2026-10-31T15:18:40Z",
+   "user_id": "d0d00427fc324381adb6b56ebdab82de"
+  },
+  {
+   "OS-DCF:diskConfig": "MANUAL",
+   "OS-EXT-AZ:availability_zone": "az1",
+   "OS-EXT-SRV-ATTR:host": "ufj-compute1",
+   "OS-EXT-SRV-ATTR:hostname": "a-resize",
+   "OS-EXT-SRV-ATTR:hypervisor_hostname": "ufj-compute1",
+   "OS-EXT-SRV-ATTR:instance_name": "instance-00000008",
+   "OS-EXT-SRV-ATTR:kernel_id": "",
+   "OS-EXT-SRV-ATTR:launch_index": 0,
+   "OS-EXT-SRV-ATTR:ramdisk_id": "",
+   "OS-EXT-SRV-ATTR:reservation_id": "r-829y2o25",
+   "OS-EXT-SRV-ATTR:root_device_name": "/dev/sda",
+   "OS-EXT-SRV-ATTR:user_data": null,
+   "OS-EXT-STS:power_state": 1,
+   "OS-EXT-STS:task_state": null,
+   "OS-EXT-STS:vm_state": "active",
+   "OS-SRV-USG:launched_at": "2026-10-31T11:25:17.000000",
+   "OS-SRV-USG:terminated_at": null,
+   "accessIPv4": "",
+   "accessIPv6": "",
+   "addresses": {
+    "a-net1": [
+     {
+      "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:db:4b:e9",
+      "OS-EXT-IPS:type": "fixed",
+      "addr": "192.168.10.68",
+      "version": 4
+     }
+    ]
+   },
+   "config_drive": "",
+   "created": "2026-10-31T11:25:05Z",
+   "description": null,
+   "flavor": {
+    "disk": 10,
+    "ephemeral": 0,
+    "extra_specs": {},
+    "original_name": "ufj.small",
+    "ram": 2048,
+    "swap": 0,
+    "vcpus": 1
+   },
+   "hostId": "6f784b09af822d666ff077a7f3fe6b0fd424234df4155ee890022182",
+   "host_status": "DOWN",
+   "id": "4ed557f0-1444-4e7a-8668-1b6f1d76c116",
+   "image": {
+    "id": "2ebd9825-81e9-407c-b9b5-837e6be6849c",
+    "links": [
+     {
+      "href": "http://ufj-nova-api:8774/images/2ebd9825-81e9-407c-b9b5-837e6be6849c",
+      "rel": "bookmark"
+     }
+    ]
+   },
+   "key_name": null,
+   "links": [
+    {
+     "href": "http://ufj-nova-api:8774/v2.1/servers/4ed557f0-1444-4e7a-8668-1b6f1d76c116",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-nova-api:8774/servers/4ed557f0-1444-4e7a-8668-1b6f1d76c116",
+     "rel": "bookmark"
+    }
+   ],
+   "locked": false,
+   "metadata": {},
+   "name": "a-resize",
+   "os-extended-volumes:volumes_attached": [],
+   "progress": 0,
+   "security_groups": [
+    {
+     "name": "a-web"
+    }
+   ],
+   "status": "ACTIVE",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated": "2026-10-31T15:18:40Z",
+   "user_id": "d0d00427fc324381adb6b56ebdab82de"
+  },
+  {
+   "OS-DCF:diskConfig": "MANUAL",
+   "OS-EXT-AZ:availability_zone": "az1",
+   "OS-EXT-SRV-ATTR:host": "ufj-compute1",
+   "OS-EXT-SRV-ATTR:hostname": "a-stopped",
+   "OS-EXT-SRV-ATTR:hypervisor_hostname": "ufj-compute1",
+   "OS-EXT-SRV-ATTR:instance_name": "instance-00000007",
+   "OS-EXT-SRV-ATTR:kernel_id": "",
+   "OS-EXT-SRV-ATTR:launch_index": 0,
+   "OS-EXT-SRV-ATTR:ramdisk_id": "",
+   "OS-EXT-SRV-ATTR:reservation_id": "r-11d5lz9h",
+   "OS-EXT-SRV-ATTR:root_device_name": "/dev/sda",
+   "OS-EXT-SRV-ATTR:user_data": null,
+   "OS-EXT-STS:power_state": 4,
+   "OS-EXT-STS:task_state": null,
+   "OS-EXT-STS:vm_state": "stopped",
+   "OS-SRV-USG:launched_at": "2026-10-31T11:24:54.000000",
+   "OS-SRV-USG:terminated_at": null,
+   "accessIPv4": "",
+   "accessIPv6": "",
+   "addresses": {
+    "a-net1": [
+     {
+      "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:4c:8b:51",
+      "OS-EXT-IPS:type": "fixed",
+      "addr": "192.168.10.96",
+      "version": 4
+     }
+    ]
+   },
+   "config_drive": "",
+   "created": "2026-10-31T11:24:52Z",
+   "description": null,
+   "flavor": {
+    "disk": 1,
+    "ephemeral": 0,
+    "extra_specs": {},
+    "original_name": "ufj.tiny",
+    "ram": 512,
+    "swap": 0,
+    "vcpus": 1
+   },
+   "hostId": "6f784b09af822d666ff077a7f3fe6b0fd424234df4155ee890022182",
+   "host_status": "DOWN",
+   "id": "8d6bf91c-cafd-4bb8-826a-94ba275c2b24",
+   "image": {
+    "id": "2ebd9825-81e9-407c-b9b5-837e6be6849c",
+    "links": [
+     {
+      "href": "http://ufj-nova-api:8774/images/2ebd9825-81e9-407c-b9b5-837e6be6849c",
+      "rel": "bookmark"
+     }
+    ]
+   },
+   "key_name": null,
+   "links": [
+    {
+     "href": "http://ufj-nova-api:8774/v2.1/servers/8d6bf91c-cafd-4bb8-826a-94ba275c2b24",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-nova-api:8774/servers/8d6bf91c-cafd-4bb8-826a-94ba275c2b24",
+     "rel": "bookmark"
+    }
+   ],
+   "locked": false,
+   "metadata": {},
+   "name": "a-stopped",
+   "os-extended-volumes:volumes_attached": [],
+   "security_groups": [
+    {
+     "name": "a-web"
+    }
+   ],
+   "status": "SHUTOFF",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated": "2026-10-31T15:18:40Z",
+   "user_id": "d0d00427fc324381adb6b56ebdab82de"
+  },
+  {
+   "OS-DCF:diskConfig": "MANUAL",
+   "OS-EXT-AZ:availability_zone": "nova",
+   "OS-EXT-SRV-ATTR:host": "ufj-compute3",
+   "OS-EXT-SRV-ATTR:hostname": "a-on-compute3",
+   "OS-EXT-SRV-ATTR:hypervisor_hostname": "ufj-compute3",
+   "OS-EXT-SRV-ATTR:instance_name": "instance-00000006",
+   "OS-EXT-SRV-ATTR:kernel_id": "",
+   "OS-EXT-SRV-ATTR:launch_index": 0,
+   "OS-EXT-SRV-ATTR:ramdisk_id": "",
+   "OS-EXT-SRV-ATTR:reservation_id": "r-boxadfp7",
+   "OS-EXT-SRV-ATTR:root_device_name": "/dev/sda",
+   "OS-EXT-SRV-ATTR:user_data": null,
+   "OS-EXT-STS:power_state": 1,
+   "OS-EXT-STS:task_state": null,
+   "OS-EXT-STS:vm_state": "active",
+   "OS-SRV-USG:launched_at": "2026-10-31T11:24:45.000000",
+   "OS-SRV-USG:terminated_at": null,
+   "accessIPv4": "",
+   "accessIPv6": "",
+   "addresses": {
+    "a-net1": [
+     {
+      "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:b9:bf:5f",
+      "OS-EXT-IPS:type": "fixed",
+      "addr": "192.168.10.164",
+      "version": 4
+     }
+    ]
+   },
+   "config_drive": "",
+   "created": "2026-10-31T11:24:43Z",
+   "description": null,
+   "flavor": {
+    "disk": 1,
+    "ephemeral": 0,
+    "extra_specs": {},
+    "original_name": "ufj.tiny",
+    "ram": 512,
+    "swap": 0,
+    "vcpus": 1
+   },
+   "hostId": "4e0a745c55286138bf541473e04cf0c5324c83859bb1485abcc5c99b",
+   "host_status": "DOWN",
+   "id": "f3dfa909-6141-410c-9382-14902d603307",
+   "image": {
+    "id": "2ebd9825-81e9-407c-b9b5-837e6be6849c",
+    "links": [
+     {
+      "href": "http://ufj-nova-api:8774/images/2ebd9825-81e9-407c-b9b5-837e6be6849c",
+      "rel": "bookmark"
+     }
+    ]
+   },
+   "key_name": null,
+   "links": [
+    {
+     "href": "http://ufj-nova-api:8774/v2.1/servers/f3dfa909-6141-410c-9382-14902d603307",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-nova-api:8774/servers/f3dfa909-6141-410c-9382-14902d603307",
+     "rel": "bookmark"
+    }
+   ],
+   "locked": false,
+   "metadata": {},
+   "name": "a-on-compute3",
+   "os-extended-volumes:volumes_attached": [],
+   "progress": 0,
+   "security_groups": [
+    {
+     "name": "default"
+    }
+   ],
+   "status": "ACTIVE",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated": "2026-10-31T15:18:40Z",
+   "user_id": "077e901012c74c0895b686133a5e390f"
+  },
+  {
+   "OS-DCF:diskConfig": "MANUAL",
+   "OS-EXT-AZ:availability_zone": "",
+   "OS-EXT-SRV-ATTR:host": null,
+   "OS-EXT-SRV-ATTR:hostname": "a-huge",
+   "OS-EXT-SRV-ATTR:hypervisor_hostname": null,
+   "OS-EXT-SRV-ATTR:instance_name": "instance-00000002",
+   "OS-EXT-SRV-ATTR:kernel_id": "",
+   "OS-EXT-SRV-ATTR:launch_index": 0,
+   "OS-EXT-SRV-ATTR:ramdisk_id": "",
+   "OS-EXT-SRV-ATTR:reservation_id": "r-uo7vgfw5",
+   "OS-EXT-SRV-ATTR:root_device_name": null,
+   "OS-EXT-SRV-ATTR:user_data": null,
+   "OS-EXT-STS:power_state": 0,
+   "OS-EXT-STS:task_state": null,
+   "OS-EXT-STS:vm_state": "error",
+   "OS-SRV-USG:launched_at": null,
+   "OS-SRV-USG:terminated_at": null,
+   "accessIPv4": "",
+   "accessIPv6": "",
+   "addresses": {},
+   "config_drive": "",
+   "created": "2026-10-31T11:24:23Z",
+   "description": null,
+   "fault": {
+    "code": 500,
+    "created": "2026-10-31T11:24:23Z",
+    "details": "Traceback (most recent call last):\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/conductor/manager.py\", line 1462, in schedule_and_build_instances\n    host_lists = self._schedule_instances(context, request_specs[0],\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/conductor/manager.py\", line 868, in _schedule_instances\n    host_lists = self.query_client.select_destinations(\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/scheduler/client/query.py\", line 41, in select_destinations\n    return self.scheduler_rpcapi.select_destinations(context, spec_obj,\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/scheduler/rpcapi.py\", line 160, in select_destinations\n    return cctxt.call(ctxt, 'select_destinations', **msg_args)\n  File \"/opt/ussuri/lib/python3.8/site-packages/oslo_messaging/rpc/client.py\", line 177, in call\n    self.transport._send(self.target, msg_ctxt, msg,\n  File \"/opt/ussuri/lib/python3.8/site-packages/oslo_messaging/transport.py\", line 124, in _send\n    return self._driver.send(target, ctxt, message,\n  File \"/opt/ussuri/lib/python3.8/site-packages/oslo_messaging/_drivers/amqpdriver.py\", line 680, in send\n    return self._send(target, ctxt, message, wait_for_reply, timeout,\n  File \"/opt/ussuri/lib/python3.8/site-packages/oslo_messaging/_drivers/amqpdriver.py\", line 672, in _send\n    raise result\nnova.exception_Remote.NoValidHost_Remote: No valid host was found. \nTraceback (most recent call last):\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/oslo_messaging/rpc/server.py\", line 241, in inner\n    return func(*args, **kwargs)\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/scheduler/manager.py\", line 200, in select_destinations\n    raise exception.NoValidHost(reason=\"\")\n\nnova.exception.NoValidHost: No valid host was found. \n\n",
+    "message": "No valid host was found. "
+   },
+   "flavor": {
+    "disk": 1,
+    "ephemeral": 0,
+    "extra_specs": {
+     "trait:CUSTOM_UFJ_NOT_PROVIDED": "required"
+    },
+    "original_name": "ufj.huge",
+    "ram": 512,
+    "swap": 0,
+    "vcpus": 1
+   },
+   "hostId": "",
+   "host_status": "",
+   "id": "5b204343-c4ef-4349-a011-dc63bbba4992",
+   "image": {
+    "id": "2ebd9825-81e9-407c-b9b5-837e6be6849c",
+    "links": [
+     {
+      "href": "http://ufj-nova-api:8774/images/2ebd9825-81e9-407c-b9b5-837e6be6849c",
+      "rel": "bookmark"
+     }
+    ]
+   },
+   "key_name": null,
+   "links": [
+    {
+     "href": "http://ufj-nova-api:8774/v2.1/servers/5b204343-c4ef-4349-a011-dc63bbba4992",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-nova-api:8774/servers/5b204343-c4ef-4349-a011-dc63bbba4992",
+     "rel": "bookmark"
+    }
+   ],
+   "locked": false,
+   "metadata": {},
+   "name": "a-huge",
+   "os-extended-volumes:volumes_attached": [],
+   "status": "ERROR",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated": "2026-10-31T11:24:23Z",
+   "user_id": "d0d00427fc324381adb6b56ebdab82de"
+  },
+  {
+   "OS-DCF:diskConfig": "MANUAL",
+   "OS-EXT-AZ:availability_zone": "",
+   "OS-EXT-SRV-ATTR:host": null,
+   "OS-EXT-SRV-ATTR:hostname": "a-pinned",
+   "OS-EXT-SRV-ATTR:hypervisor_hostname": null,
+   "OS-EXT-SRV-ATTR:instance_name": "instance-00000001",
+   "OS-EXT-SRV-ATTR:kernel_id": "",
+   "OS-EXT-SRV-ATTR:launch_index": 0,
+   "OS-EXT-SRV-ATTR:ramdisk_id": "",
+   "OS-EXT-SRV-ATTR:reservation_id": "r-c8u11gs6",
+   "OS-EXT-SRV-ATTR:root_device_name": null,
+   "OS-EXT-SRV-ATTR:user_data": null,
+   "OS-EXT-STS:power_state": 0,
+   "OS-EXT-STS:task_state": null,
+   "OS-EXT-STS:vm_state": "error",
+   "OS-SRV-USG:launched_at": null,
+   "OS-SRV-USG:terminated_at": null,
+   "accessIPv4": "",
+   "accessIPv6": "",
+   "addresses": {},
+   "config_drive": "",
+   "created": "2026-10-31T11:24:15Z",
+   "description": null,
+   "fault": {
+    "code": 500,
+    "created": "2026-10-31T11:24:15Z",
+    "details": "Traceback (most recent call last):\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/conductor/manager.py\", line 1462, in schedule_and_build_instances\n    host_lists = self._schedule_instances(context, request_specs[0],\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/conductor/manager.py\", line 868, in _schedule_instances\n    host_lists = self.query_client.select_destinations(\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/scheduler/client/query.py\", line 41, in select_destinations\n    return self.scheduler_rpcapi.select_destinations(context, spec_obj,\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/scheduler/rpcapi.py\", line 160, in select_destinations\n    return cctxt.call(ctxt, 'select_destinations', **msg_args)\n  File \"/opt/ussuri/lib/python3.8/site-packages/oslo_messaging/rpc/client.py\", line 177, in call\n    self.transport._send(self.target, msg_ctxt, msg,\n  File \"/opt/ussuri/lib/python3.8/site-packages/oslo_messaging/transport.py\", line 124, in _send\n    return self._driver.send(target, ctxt, message,\n  File \"/opt/ussuri/lib/python3.8/site-packages/oslo_messaging/_drivers/amqpdriver.py\", line 680, in send\n    return self._send(target, ctxt, message, wait_for_reply, timeout,\n  File \"/opt/ussuri/lib/python3.8/site-packages/oslo_messaging/_drivers/amqpdriver.py\", line 672, in _send\n    raise result\nValueError: max() arg is an empty sequence\nTraceback (most recent call last):\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/oslo_messaging/rpc/server.py\", line 165, in _process_incoming\n    res = self.dispatcher.dispatch(message)\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/oslo_messaging/rpc/dispatcher.py\", line 276, in dispatch\n    return self._do_dispatch(endpoint, method, ctxt, args)\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/oslo_messaging/rpc/dispatcher.py\", line 196, in _do_dispatch\n    result = func(ctxt, **new_args)\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/oslo_messaging/rpc/server.py\", line 241, in inner\n    return func(*args, **kwargs)\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/scheduler/manager.py\", line 213, in select_destinations\n    selections = self.driver.select_destinations(ctxt, spec_obj,\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/scheduler/filter_scheduler.py\", line 94, in select_destinations\n    host_selections = self._schedule(context, spec_obj, instance_uuids,\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/scheduler/filter_scheduler.py\", line 210, in _schedule\n    hosts = self._get_sorted_hosts(spec_obj, hosts, num)\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/scheduler/filter_scheduler.py\", line 440, in _get_sorted_hosts\n    filtered_hosts = self.host_manager.get_filtered_hosts(host_states,\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/scheduler/host_manager.py\", line 605, in get_filtered_hosts\n    return self.filter_handler.get_filtered_objects(self.enabled_filters,\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/filters.py\", line 89, in get_filtered_objects\n    list_objs = list(objs)\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/filters.py\", line 44, in filter_all\n    if self._filter_one(obj, spec_obj):\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/scheduler/filters/__init__.py\", line 44, in _filter_one\n    return self.host_passes(obj, spec)\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/scheduler/filters/numa_topology_filter.py\", line 100, in host_passes\n    instance_topology = (hardware.numa_fit_instance_to_host(\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/virt/hardware.py\", line 2086, in numa_fit_instance_to_host\n    got_cell = _numa_fit_instance_cell(\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/virt/hardware.py\", line 1171, in _numa_fit_instance_cell\n    new_instance_cell = _numa_fit_instance_cell_with_pinning(\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/virt/hardware.py\", line 1052, in _numa_fit_instance_cell_with_pinning\n    numa_cell = _pack_instance_onto_cores(\n\n  File \"/opt/ussuri/lib/python3.8/site-packages/nova/virt/hardware.py\", line 717, in _pack_instance_onto_cores\n    threads_per_core = max(map(len, host_cell.siblings)) or 1\n\nValueError: max() arg is an empty sequence\n\n",
+    "message": "ValueError"
+   },
+   "flavor": {
+    "disk": 1,
+    "ephemeral": 0,
+    "extra_specs": {
+     "hw:cpu_policy": "dedicated"
+    },
+    "original_name": "ufj.pinned",
+    "ram": 1024,
+    "swap": 0,
+    "vcpus": 2
+   },
+   "hostId": "",
+   "host_status": "",
+   "id": "cb5c848d-6ad7-4c78-9301-45a16b01094e",
+   "image": {
+    "id": "2ebd9825-81e9-407c-b9b5-837e6be6849c",
+    "links": [
+     {
+      "href": "http://ufj-nova-api:8774/images/2ebd9825-81e9-407c-b9b5-837e6be6849c",
+      "rel": "bookmark"
+     }
+    ]
+   },
+   "key_name": null,
+   "links": [
+    {
+     "href": "http://ufj-nova-api:8774/v2.1/servers/cb5c848d-6ad7-4c78-9301-45a16b01094e",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-nova-api:8774/servers/cb5c848d-6ad7-4c78-9301-45a16b01094e",
+     "rel": "bookmark"
+    }
+   ],
+   "locked": false,
+   "metadata": {},
+   "name": "a-pinned",
+   "os-extended-volumes:volumes_attached": [],
+   "status": "ERROR",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated": "2026-10-31T11:24:15Z",
+   "user_id": "d0d00427fc324381adb6b56ebdab82de"
+  },
+  {
+   "OS-DCF:diskConfig": "MANUAL",
+   "OS-EXT-AZ:availability_zone": "nova",
+   "OS-EXT-SRV-ATTR:host": "ufj-compute3",
+   "OS-EXT-SRV-ATTR:hostname": "a-numa",
+   "OS-EXT-SRV-ATTR:hypervisor_hostname": "ufj-compute3",
+   "OS-EXT-SRV-ATTR:instance_name": "instance-00000005",
+   "OS-EXT-SRV-ATTR:kernel_id": "",
+   "OS-EXT-SRV-ATTR:launch_index": 0,
+   "OS-EXT-SRV-ATTR:ramdisk_id": "",
+   "OS-EXT-SRV-ATTR:reservation_id": "r-rwci3oet",
+   "OS-EXT-SRV-ATTR:root_device_name": "/dev/sda",
+   "OS-EXT-SRV-ATTR:user_data": null,
+   "OS-EXT-STS:power_state": 1,
+   "OS-EXT-STS:task_state": null,
+   "OS-EXT-STS:vm_state": "active",
+   "OS-SRV-USG:launched_at": "2026-10-31T11:24:08.000000",
+   "OS-SRV-USG:terminated_at": null,
+   "accessIPv4": "",
+   "accessIPv6": "",
+   "addresses": {
+    "a-net1": [
+     {
+      "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:43:64:d7",
+      "OS-EXT-IPS:type": "fixed",
+      "addr": "192.168.10.101",
+      "version": 4
+     }
+    ]
+   },
+   "config_drive": "",
+   "created": "2026-10-31T11:24:06Z",
+   "description": null,
+   "flavor": {
+    "disk": 1,
+    "ephemeral": 0,
+    "extra_specs": {
+     "hw:numa_nodes": "2"
+    },
+    "original_name": "ufj.numa",
+    "ram": 1024,
+    "swap": 0,
+    "vcpus": 2
+   },
+   "hostId": "4e0a745c55286138bf541473e04cf0c5324c83859bb1485abcc5c99b",
+   "host_status": "DOWN",
+   "id": "1708595d-5939-4347-85d2-76c07da25611",
+   "image": {
+    "id": "2ebd9825-81e9-407c-b9b5-837e6be6849c",
+    "links": [
+     {
+      "href": "http://ufj-nova-api:8774/images/2ebd9825-81e9-407c-b9b5-837e6be6849c",
+      "rel": "bookmark"
+     }
+    ]
+   },
+   "key_name": null,
+   "links": [
+    {
+     "href": "http://ufj-nova-api:8774/v2.1/servers/1708595d-5939-4347-85d2-76c07da25611",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-nova-api:8774/servers/1708595d-5939-4347-85d2-76c07da25611",
+     "rel": "bookmark"
+    }
+   ],
+   "locked": false,
+   "metadata": {},
+   "name": "a-numa",
+   "os-extended-volumes:volumes_attached": [],
+   "progress": 0,
+   "security_groups": [
+    {
+     "name": "a-web"
+    }
+   ],
+   "status": "ACTIVE",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated": "2026-10-31T15:18:40Z",
+   "user_id": "d0d00427fc324381adb6b56ebdab82de"
+  },
+  {
+   "OS-DCF:diskConfig": "MANUAL",
+   "OS-EXT-AZ:availability_zone": "az1",
+   "OS-EXT-SRV-ATTR:host": "ufj-compute1",
+   "OS-EXT-SRV-ATTR:hostname": "b-vm1",
+   "OS-EXT-SRV-ATTR:hypervisor_hostname": "ufj-compute1",
+   "OS-EXT-SRV-ATTR:instance_name": "instance-00000004",
+   "OS-EXT-SRV-ATTR:kernel_id": "",
+   "OS-EXT-SRV-ATTR:launch_index": 0,
+   "OS-EXT-SRV-ATTR:ramdisk_id": "",
+   "OS-EXT-SRV-ATTR:reservation_id": "r-i5w68sux",
+   "OS-EXT-SRV-ATTR:root_device_name": "/dev/sda",
+   "OS-EXT-SRV-ATTR:user_data": null,
+   "OS-EXT-STS:power_state": 1,
+   "OS-EXT-STS:task_state": null,
+   "OS-EXT-STS:vm_state": "active",
+   "OS-SRV-USG:launched_at": "2026-10-31T11:22:20.000000",
+   "OS-SRV-USG:terminated_at": null,
+   "accessIPv4": "",
+   "accessIPv6": "",
+   "addresses": {
+    "b-net1": [
+     {
+      "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:30:f8:af",
+      "OS-EXT-IPS:type": "fixed",
+      "addr": "192.168.30.21",
+      "version": 4
+     },
+     {
+      "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:30:f8:af",
+      "OS-EXT-IPS:type": "floating",
+      "addr": "203.0.113.63",
+      "version": 4
+     }
+    ]
+   },
+   "config_drive": "",
+   "created": "2026-10-31T11:22:18Z",
+   "description": null,
+   "flavor": {
+    "disk": 1,
+    "ephemeral": 0,
+    "extra_specs": {},
+    "original_name": "ufj.tiny",
+    "ram": 512,
+    "swap": 0,
+    "vcpus": 1
+   },
+   "hostId": "d6b64ecbb4dd739b5ebff854d0461578ca36ac42ba3f84fd0121c1b3",
+   "host_status": "DOWN",
+   "id": "b8a388ae-0087-42ea-9385-216189fedddf",
+   "image": {
+    "id": "3414b4f7-b413-4aab-9e28-a9bc97644b47",
+    "links": [
+     {
+      "href": "http://ufj-nova-api:8774/images/3414b4f7-b413-4aab-9e28-a9bc97644b47",
+      "rel": "bookmark"
+     }
+    ]
+   },
+   "key_name": "ufj-key-b",
+   "links": [
+    {
+     "href": "http://ufj-nova-api:8774/v2.1/servers/b8a388ae-0087-42ea-9385-216189fedddf",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-nova-api:8774/servers/b8a388ae-0087-42ea-9385-216189fedddf",
+     "rel": "bookmark"
+    }
+   ],
+   "locked": false,
+   "metadata": {
+    "owner": "bob"
+   },
+   "name": "b-vm1",
+   "os-extended-volumes:volumes_attached": [],
+   "progress": 0,
+   "security_groups": [
+    {
+     "name": "b-ssh"
+    }
+   ],
+   "status": "ACTIVE",
+   "tags": [
+    "edge"
+   ],
+   "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+   "updated": "2026-10-31T15:18:40Z",
+   "user_id": "8175aebca9c64a12a348ba76e8d07b24"
+  },
+  {
+   "OS-DCF:diskConfig": "MANUAL",
+   "OS-EXT-AZ:availability_zone": "nova",
+   "OS-EXT-SRV-ATTR:host": "ufj-compute3",
+   "OS-EXT-SRV-ATTR:hostname": "a-vm3",
+   "OS-EXT-SRV-ATTR:hypervisor_hostname": "ufj-compute3",
+   "OS-EXT-SRV-ATTR:instance_name": "instance-00000003",
+   "OS-EXT-SRV-ATTR:kernel_id": "",
+   "OS-EXT-SRV-ATTR:launch_index": 0,
+   "OS-EXT-SRV-ATTR:ramdisk_id": "",
+   "OS-EXT-SRV-ATTR:reservation_id": "r-kbu05vft",
+   "OS-EXT-SRV-ATTR:root_device_name": "/dev/sda",
+   "OS-EXT-SRV-ATTR:user_data": null,
+   "OS-EXT-STS:power_state": 1,
+   "OS-EXT-STS:task_state": null,
+   "OS-EXT-STS:vm_state": "active",
+   "OS-SRV-USG:launched_at": "2026-10-31T11:22:11.000000",
+   "OS-SRV-USG:terminated_at": null,
+   "accessIPv4": "",
+   "accessIPv6": "",
+   "addresses": {
+    "a-net1": [
+     {
+      "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:06:f8:f3",
+      "OS-EXT-IPS:type": "fixed",
+      "addr": "192.168.10.86",
+      "version": 4
+     }
+    ]
+   },
+   "config_drive": "",
+   "created": "2026-10-31T11:22:09Z",
+   "description": null,
+   "flavor": {
+    "disk": 1,
+    "ephemeral": 0,
+    "extra_specs": {},
+    "original_name": "ufj.tiny",
+    "ram": 512,
+    "swap": 0,
+    "vcpus": 1
+   },
+   "hostId": "4e0a745c55286138bf541473e04cf0c5324c83859bb1485abcc5c99b",
+   "host_status": "DOWN",
+   "id": "3ada7992-6903-4a56-b3e3-c80d303608c9",
+   "image": "",
+   "key_name": null,
+   "links": [
+    {
+     "href": "http://ufj-nova-api:8774/v2.1/servers/3ada7992-6903-4a56-b3e3-c80d303608c9",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-nova-api:8774/servers/3ada7992-6903-4a56-b3e3-c80d303608c9",
+     "rel": "bookmark"
+    }
+   ],
+   "locked": false,
+   "metadata": {},
+   "name": "a-vm3",
+   "os-extended-volumes:volumes_attached": [
+    {
+     "delete_on_termination": false,
+     "id": "8c061f56-9f26-467d-90ce-81b847a5a162"
+    }
+   ],
+   "progress": 0,
+   "security_groups": [
+    {
+     "name": "a-web"
+    }
+   ],
+   "status": "ACTIVE",
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated": "2026-10-31T15:18:40Z",
+   "user_id": "d0d00427fc324381adb6b56ebdab82de"
+  },
+  {
+   "OS-DCF:diskConfig": "MANUAL",
+   "OS-EXT-AZ:availability_zone": "nova",
+   "OS-EXT-SRV-ATTR:host": "ufj-compute2",
+   "OS-EXT-SRV-ATTR:hostname": "a-vm2",
+   "OS-EXT-SRV-ATTR:hypervisor_hostname": "ufj-compute2",
+   "OS-EXT-SRV-ATTR:instance_name": "instance-00000002",
+   "OS-EXT-SRV-ATTR:kernel_id": "",
+   "OS-EXT-SRV-ATTR:launch_index": 0,
+   "OS-EXT-SRV-ATTR:ramdisk_id": "",
+   "OS-EXT-SRV-ATTR:reservation_id": "r-ztstvjwl",
+   "OS-EXT-SRV-ATTR:root_device_name": "/dev/sda",
+   "OS-EXT-SRV-ATTR:user_data": null,
+   "OS-EXT-STS:power_state": 1,
+   "OS-EXT-STS:task_state": null,
+   "OS-EXT-STS:vm_state": "active",
+   "OS-SRV-USG:launched_at": "2026-10-31T11:22:03.000000",
+   "OS-SRV-USG:terminated_at": null,
+   "accessIPv4": "",
+   "accessIPv6": "",
+   "addresses": {
+    "a-net1": [
+     {
+      "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:c5:7e:6b",
+      "OS-EXT-IPS:type": "fixed",
+      "addr": "192.168.10.149",
+      "version": 4
+     }
+    ],
+    "a-net2": [
+     {
+      "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:03:bb:71",
+      "OS-EXT-IPS:type": "fixed",
+      "addr": "192.168.20.172",
+      "version": 4
+     },
+     {
+      "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:03:bb:71",
+      "OS-EXT-IPS:type": "fixed",
+      "addr": "2001:db8:a2:0:f816:3eff:fe03:bb71",
+      "version": 6
+     }
+    ]
+   },
+   "config_drive": "",
+   "created": "2026-10-31T11:22:00Z",
+   "description": "db server",
+   "flavor": {
+    "disk": 10,
+    "ephemeral": 0,
+    "extra_specs": {},
+    "original_name": "ufj.small",
+    "ram": 2048,
+    "swap": 0,
+    "vcpus": 1
+   },
+   "hostId": "be0dabbbe3369044334f10b01e341cad74df1ce62dd66211fb8f9875",
+   "host_status": "DOWN",
+   "id": "2e599a03-2aaa-46df-88bb-35eec018450c",
+   "image": {
+    "id": "2ebd9825-81e9-407c-b9b5-837e6be6849c",
+    "links": [
+     {
+      "href": "http://ufj-nova-api:8774/images/2ebd9825-81e9-407c-b9b5-837e6be6849c",
+      "rel": "bookmark"
+     }
+    ]
+   },
+   "key_name": "ufj-key-imported",
+   "links": [
+    {
+     "href": "http://ufj-nova-api:8774/v2.1/servers/2e599a03-2aaa-46df-88bb-35eec018450c",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-nova-api:8774/servers/2e599a03-2aaa-46df-88bb-35eec018450c",
+     "rel": "bookmark"
+    }
+   ],
+   "locked": false,
+   "metadata": {
+    "role": "db"
+   },
+   "name": "a-vm2",
+   "os-extended-volumes:volumes_attached": [
+    {
+     "delete_on_termination": false,
+     "id": "4c9b3409-a66a-482d-aa14-a10d2c55baa5"
+    }
+   ],
+   "progress": 0,
+   "security_groups": [
+    {
+     "name": "a-web"
+    },
+    {
+     "name": "a-db"
+    },
+    {
+     "name": "a-web"
+    },
+    {
+     "name": "a-db"
+    }
+   ],
+   "status": "ACTIVE",
+   "tags": [
+    "db"
+   ],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated": "2026-10-31T15:18:40Z",
+   "user_id": "d0d00427fc324381adb6b56ebdab82de"
+  },
+  {
+   "OS-DCF:diskConfig": "MANUAL",
+   "OS-EXT-AZ:availability_zone": "az1",
+   "OS-EXT-SRV-ATTR:host": "ufj-compute1",
+   "OS-EXT-SRV-ATTR:hostname": "a-vm1",
+   "OS-EXT-SRV-ATTR:hypervisor_hostname": "ufj-compute1",
+   "OS-EXT-SRV-ATTR:instance_name": "instance-00000001",
+   "OS-EXT-SRV-ATTR:kernel_id": "",
+   "OS-EXT-SRV-ATTR:launch_index": 0,
+   "OS-EXT-SRV-ATTR:ramdisk_id": "",
+   "OS-EXT-SRV-ATTR:reservation_id": "r-g4ee4gtq",
+   "OS-EXT-SRV-ATTR:root_device_name": "/dev/sda",
+   "OS-EXT-SRV-ATTR:user_data": null,
+   "OS-EXT-STS:power_state": 1,
+   "OS-EXT-STS:task_state": null,
+   "OS-EXT-STS:vm_state": "active",
+   "OS-SRV-USG:launched_at": "2026-10-31T11:21:49.000000",
+   "OS-SRV-USG:terminated_at": null,
+   "accessIPv4": "",
+   "accessIPv6": "",
+   "addresses": {
+    "a-net1": [
+     {
+      "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:b5:e2:8a",
+      "OS-EXT-IPS:type": "fixed",
+      "addr": "192.168.10.175",
+      "version": 4
+     },
+     {
+      "OS-EXT-IPS-MAC:mac_addr": "fa:16:3e:b5:e2:8a",
+      "OS-EXT-IPS:type": "floating",
+      "addr": "203.0.113.45",
+      "version": 4
+     }
+    ]
+   },
+   "config_drive": "",
+   "created": "2026-10-31T11:21:47Z",
+   "description": null,
+   "flavor": {
+    "disk": 1,
+    "ephemeral": 0,
+    "extra_specs": {},
+    "original_name": "ufj.tiny",
+    "ram": 512,
+    "swap": 0,
+    "vcpus": 1
+   },
+   "hostId": "6f784b09af822d666ff077a7f3fe6b0fd424234df4155ee890022182",
+   "host_status": "DOWN",
+   "id": "5bd66e93-1640-4bb0-8586-aeff76fca423",
+   "image": {
+    "id": "2ebd9825-81e9-407c-b9b5-837e6be6849c",
+    "links": [
+     {
+      "href": "http://ufj-nova-api:8774/images/2ebd9825-81e9-407c-b9b5-837e6be6849c",
+      "rel": "bookmark"
+     }
+    ]
+   },
+   "key_name": "ufj-key-a",
+   "links": [
+    {
+     "href": "http://ufj-nova-api:8774/v2.1/servers/5bd66e93-1640-4bb0-8586-aeff76fca423",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-nova-api:8774/servers/5bd66e93-1640-4bb0-8586-aeff76fca423",
+     "rel": "bookmark"
+    }
+   ],
+   "locked": false,
+   "metadata": {
+    "backup": "daily",
+    "owner": "alice",
+    "role": "web",
+    "tier": "gold"
+   },
+   "name": "a-vm1",
+   "os-extended-volumes:volumes_attached": [
+    {
+     "delete_on_termination": false,
+     "id": "5897bc15-41e0-48fb-ba85-5ea9e1e97597"
+    }
+   ],
+   "progress": 0,
+   "security_groups": [
+    {
+     "name": "a-web"
+    }
+   ],
+   "status": "ACTIVE",
+   "tags": [
+    "lab",
+    "web"
+   ],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated": "2026-10-31T15:18:40Z",
+   "user_id": "d0d00427fc324381adb6b56ebdab82de"
+  }
+ ],
+ "services": [
+  {
+   "description": "Placement API",
+   "enabled": true,
+   "id": "1632c657a3cc41258c4460e9286aeb13",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/services/1632c657a3cc41258c4460e9286aeb13"
+   },
+   "name": "placement",
+   "type": "placement"
+  },
+  {
+   "description": "OpenStack Block Storage",
+   "enabled": true,
+   "id": "1ca6ed6ed21a4edfb1b33146d3bba310",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/services/1ca6ed6ed21a4edfb1b33146d3bba310"
+   },
+   "name": "cinderv3",
+   "type": "volumev3"
+  },
+  {
+   "enabled": true,
+   "id": "6db526532fe1459d904cff4e639abd11",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/services/6db526532fe1459d904cff4e639abd11"
+   },
+   "name": "keystone",
+   "type": "identity"
+  },
+  {
+   "description": "OpenStack Compute",
+   "enabled": true,
+   "id": "a882214723bd434e8dbba9c99c7439d6",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/services/a882214723bd434e8dbba9c99c7439d6"
+   },
+   "name": "nova",
+   "type": "compute"
+  },
+  {
+   "description": "OpenStack Image",
+   "enabled": true,
+   "id": "d1e5b332fed743f7806581811ddb144f",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/services/d1e5b332fed743f7806581811ddb144f"
+   },
+   "name": "glance",
+   "type": "image"
+  },
+  {
+   "description": "OpenStack Networking",
+   "enabled": true,
+   "id": "d851a2676c9b4fa29144adcfecb8a815",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/services/d851a2676c9b4fa29144adcfecb8a815"
+   },
+   "name": "neutron",
+   "type": "network"
+  }
+ ],
+ "snapshots": [
+  {
+   "created_at": "2026-10-31T11:22:32.000000",
+   "description": null,
+   "group_snapshot_id": null,
+   "id": "783f8516-96b5-4991-a60b-4d72c9db7706",
+   "metadata": {},
+   "name": "a-vol1-snap",
+   "os-extended-snapshot-attributes:progress": "100%",
+   "os-extended-snapshot-attributes:project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "size": 10,
+   "status": "available",
+   "updated_at": "2026-10-31T15:16:03.000000",
+   "user_id": "d0d00427fc324381adb6b56ebdab82de",
+   "volume_id": "5897bc15-41e0-48fb-ba85-5ea9e1e97597"
+  }
+ ],
+ "subnetpools": [
+  {
+   "address_scope_id": null,
+   "created_at": "2026-10-31T11:33:45Z",
+   "default_prefixlen": "24",
+   "default_quota": null,
+   "description": "",
+   "id": "017500b1-8fc5-4142-bc8e-559f111536b2",
+   "ip_version": 4,
+   "is_default": false,
+   "max_prefixlen": "32",
+   "min_prefixlen": "8",
+   "name": "ufj-pool-priv",
+   "prefixes": [
+    "10.60.0.0/16"
+   ],
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "revision_number": 0,
+   "shared": false,
+   "tags": [],
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "updated_at": "2026-10-31T11:33:45Z"
+  },
+  {
+   "address_scope_id": null,
+   "created_at": "2026-10-31T11:20:07Z",
+   "default_prefixlen": "24",
+   "default_quota": null,
+   "description": "",
+   "id": "d82e6741-d4cb-470a-a1a5-9509e4b49d4c",
+   "ip_version": 4,
+   "is_default": false,
+   "max_prefixlen": "32",
+   "min_prefixlen": "8",
+   "name": "ufj-pool",
+   "prefixes": [
+    "10.50.0.0/16"
+   ],
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "revision_number": 0,
+   "shared": true,
+   "tags": [],
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "updated_at": "2026-10-31T11:20:07Z"
+  }
+ ],
+ "subnets": [
+  {
+   "allocation_pools": [
+    {
+     "end": "192.168.20.254",
+     "start": "192.168.20.2"
+    }
+   ],
+   "cidr": "192.168.20.0/24",
+   "created_at": "2026-10-31T11:20:19Z",
+   "description": "",
+   "dns_nameservers": [],
+   "enable_dhcp": true,
+   "gateway_ip": "192.168.20.1",
+   "host_routes": [],
+   "id": "1def56bb-a885-4956-96ce-4c6d9c3ebc63",
+   "ip_version": 4,
+   "ipv6_address_mode": null,
+   "ipv6_ra_mode": null,
+   "name": "a-sub2",
+   "network_id": "967d2540-e192-45cf-83bd-4c7c689ae70a",
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "revision_number": 0,
+   "router:external": false,
+   "segment_id": null,
+   "service_types": [],
+   "subnetpool_id": null,
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:19Z"
+  },
+  {
+   "allocation_pools": [
+    {
+     "end": "192.168.30.254",
+     "start": "192.168.30.2"
+    }
+   ],
+   "cidr": "192.168.30.0/24",
+   "created_at": "2026-10-31T11:20:59Z",
+   "description": "",
+   "dns_nameservers": [],
+   "enable_dhcp": true,
+   "gateway_ip": "192.168.30.1",
+   "host_routes": [],
+   "id": "2c3ec096-48f5-408b-8af2-f6f4ac1b554e",
+   "ip_version": 4,
+   "ipv6_address_mode": null,
+   "ipv6_ra_mode": null,
+   "name": "b-sub1",
+   "network_id": "b7146217-7a6a-4e22-bc6a-d93dabb824ff",
+   "project_id": "3d064405fa2447cf9aa98184a4348f36",
+   "revision_number": 0,
+   "router:external": false,
+   "segment_id": null,
+   "service_types": [],
+   "subnetpool_id": null,
+   "tags": [],
+   "tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+   "updated_at": "2026-10-31T11:20:59Z"
+  },
+  {
+   "allocation_pools": [
+    {
+     "end": "192.168.10.254",
+     "start": "192.168.10.2"
+    }
+   ],
+   "cidr": "192.168.10.0/24",
+   "created_at": "2026-10-31T11:20:15Z",
+   "description": "",
+   "dns_nameservers": [
+    "192.0.2.53"
+   ],
+   "enable_dhcp": true,
+   "gateway_ip": "192.168.10.1",
+   "host_routes": [],
+   "id": "87ceba15-165a-4727-a19f-326efe5faeb6",
+   "ip_version": 4,
+   "ipv6_address_mode": null,
+   "ipv6_ra_mode": null,
+   "name": "a-sub1",
+   "network_id": "43b97212-7d54-461d-8d98-1d14e2b83d21",
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "revision_number": 0,
+   "router:external": false,
+   "segment_id": null,
+   "service_types": [],
+   "subnetpool_id": null,
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:15Z"
+  },
+  {
+   "allocation_pools": [
+    {
+     "end": "203.0.113.100",
+     "start": "203.0.113.10"
+    }
+   ],
+   "cidr": "203.0.113.0/24",
+   "created_at": "2026-10-31T11:20:04Z",
+   "description": "",
+   "dns_nameservers": [],
+   "enable_dhcp": false,
+   "gateway_ip": "203.0.113.1",
+   "host_routes": [],
+   "id": "dae8c7ea-6e11-468e-ac10-1157d3c3e3c1",
+   "ip_version": 4,
+   "ipv6_address_mode": null,
+   "ipv6_ra_mode": null,
+   "name": "ufj-ext-subnet",
+   "network_id": "2bd9513e-f8d3-41ed-91b6-34d0785a58ea",
+   "project_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "revision_number": 0,
+   "router:external": true,
+   "segment_id": null,
+   "service_types": [],
+   "subnetpool_id": null,
+   "tags": [],
+   "tenant_id": "4fc1ca9a9fb74c36b34f4d4dfb10345d",
+   "updated_at": "2026-10-31T11:20:04Z"
+  },
+  {
+   "allocation_pools": [
+    {
+     "end": "2001:db8:a2:0:ffff:ffff:ffff:ffff",
+     "start": "2001:db8:a2::1"
+    }
+   ],
+   "cidr": "2001:db8:a2::/64",
+   "created_at": "2026-10-31T11:20:22Z",
+   "description": "",
+   "dns_nameservers": [],
+   "enable_dhcp": true,
+   "gateway_ip": "2001:db8:a2::",
+   "host_routes": [],
+   "id": "ddc763c7-d362-42f8-a324-f5b570cbf2d6",
+   "ip_version": 6,
+   "ipv6_address_mode": "slaac",
+   "ipv6_ra_mode": "slaac",
+   "name": "a-sub2-v6",
+   "network_id": "967d2540-e192-45cf-83bd-4c7c689ae70a",
+   "project_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "revision_number": 0,
+   "router:external": false,
+   "segment_id": null,
+   "service_types": [],
+   "subnetpool_id": null,
+   "tags": [],
+   "tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "updated_at": "2026-10-31T11:20:22Z"
+  }
+ ],
+ "users": [
+  {
+   "domain_id": "default",
+   "email": "carol@example.invalid",
+   "enabled": true,
+   "id": "077e901012c74c0895b686133a5e390f",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/users/077e901012c74c0895b686133a5e390f"
+   },
+   "name": "carol",
+   "options": {},
+   "password_expires_at": null
+  },
+  {
+   "domain_id": "default",
+   "enabled": true,
+   "id": "08c508ddfe2f424daad5b41a2f0345b6",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/users/08c508ddfe2f424daad5b41a2f0345b6"
+   },
+   "name": "placement",
+   "options": {},
+   "password_expires_at": null
+  },
+  {
+   "domain_id": "default",
+   "enabled": true,
+   "id": "094862844b5a4c6c880727398fca2d60",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/users/094862844b5a4c6c880727398fca2d60"
+   },
+   "name": "nova",
+   "options": {},
+   "password_expires_at": null
+  },
+  {
+   "domain_id": "default",
+   "enabled": true,
+   "id": "294358f815ab42e88afd374c4624392a",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/users/294358f815ab42e88afd374c4624392a"
+   },
+   "name": "admin",
+   "options": {},
+   "password_expires_at": null
+  },
+  {
+   "domain_id": "default",
+   "enabled": true,
+   "id": "6acf411269da4b1e8d043c9de70ff4fd",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/users/6acf411269da4b1e8d043c9de70ff4fd"
+   },
+   "name": "glance",
+   "options": {},
+   "password_expires_at": null
+  },
+  {
+   "domain_id": "default",
+   "email": "bob@example.invalid",
+   "enabled": true,
+   "id": "8175aebca9c64a12a348ba76e8d07b24",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/users/8175aebca9c64a12a348ba76e8d07b24"
+   },
+   "name": "bob",
+   "options": {},
+   "password_expires_at": null
+  },
+  {
+   "domain_id": "default",
+   "enabled": true,
+   "id": "a1c412dff9414169b7b9f4fcb4440ea2",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/users/a1c412dff9414169b7b9f4fcb4440ea2"
+   },
+   "name": "neutron",
+   "options": {},
+   "password_expires_at": null
+  },
+  {
+   "domain_id": "default",
+   "enabled": true,
+   "id": "bdb720be5d354f43852860707848ab8a",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/users/bdb720be5d354f43852860707848ab8a"
+   },
+   "name": "cinder",
+   "options": {},
+   "password_expires_at": null
+  },
+  {
+   "description": "journey-lab user, member of ufj-proj-a",
+   "domain_id": "default",
+   "email": "alice@example.invalid",
+   "enabled": true,
+   "id": "d0d00427fc324381adb6b56ebdab82de",
+   "links": {
+    "self": "http://ufj-keystone:5000/v3/users/d0d00427fc324381adb6b56ebdab82de"
+   },
+   "name": "alice",
+   "options": {},
+   "password_expires_at": null
+  }
+ ],
+ "volume_services": [
+  {
+   "active_backend_id": null,
+   "backend_state": "up",
+   "binary": "cinder-volume",
+   "cluster": null,
+   "disabled_reason": null,
+   "frozen": false,
+   "host": "ufj-cinder-volume@fake",
+   "replication_status": "disabled",
+   "state": "up",
+   "status": "enabled",
+   "updated_at": "2026-10-31T17:42:44.000000",
+   "zone": "nova"
+  },
+  {
+   "active_backend_id": null,
+   "backend_state": "up",
+   "binary": "cinder-volume",
+   "cluster": null,
+   "disabled_reason": null,
+   "frozen": false,
+   "host": "ufj-cinder-volume@fake2",
+   "replication_status": "disabled",
+   "state": "up",
+   "status": "enabled",
+   "updated_at": "2026-10-31T17:42:45.000000",
+   "zone": "nova"
+  },
+  {
+   "binary": "cinder-scheduler",
+   "cluster": null,
+   "disabled_reason": null,
+   "host": "ufj-cinder-scheduler",
+   "state": "up",
+   "status": "enabled",
+   "updated_at": "2026-10-31T17:42:45.000000",
+   "zone": "nova"
+  }
+ ],
+ "volume_types": [
+  {
+   "description": null,
+   "extra_specs": {},
+   "id": "2822dc3f-4089-4f59-90b7-daa6248678f3",
+   "is_public": true,
+   "name": "ufj-enc",
+   "os-volume-type-access:is_public": true,
+   "qos_specs_id": null
+  },
+  {
+   "description": "fake backend",
+   "extra_specs": {
+    "volume_backend_name": "fake"
+   },
+   "id": "1a097dcd-9663-440c-b13f-1157cbd9c3e5",
+   "is_public": true,
+   "name": "ufj-fake",
+   "os-volume-type-access:is_public": true,
+   "qos_specs_id": null
+  },
+  {
+   "description": "Default Volume Type",
+   "extra_specs": {},
+   "id": "adb70bec-f0e0-40f0-b71b-794b8480b4de",
+   "is_public": true,
+   "name": "__DEFAULT__",
+   "os-volume-type-access:is_public": true,
+   "qos_specs_id": null
+  }
+ ],
+ "volumes": [
+  {
+   "attachments": [],
+   "availability_zone": "nova",
+   "bootable": "true",
+   "consistencygroup_id": null,
+   "created_at": "2026-10-31T11:33:52.000000",
+   "description": null,
+   "encrypted": false,
+   "group_id": null,
+   "id": "aa90d67d-fb52-4c07-93eb-95bf84c9709a",
+   "links": [
+    {
+     "href": "http://ufj-cinder-api:8776/v3/4fc1ca9a9fb74c36b34f4d4dfb10345d/volumes/aa90d67d-fb52-4c07-93eb-95bf84c9709a",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-cinder-api:8776/4fc1ca9a9fb74c36b34f4d4dfb10345d/volumes/aa90d67d-fb52-4c07-93eb-95bf84c9709a",
+     "rel": "bookmark"
+    }
+   ],
+   "metadata": {},
+   "migration_status": null,
+   "multiattach": false,
+   "name": "a-bfv-vol",
+   "os-vol-host-attr:host": "ufj-cinder-volume@fake#fake",
+   "os-vol-mig-status-attr:migstat": null,
+   "os-vol-mig-status-attr:name_id": null,
+   "os-vol-tenant-attr:tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "provider_id": null,
+   "replication_status": null,
+   "service_uuid": "6cdc0c2e-df37-4e1d-955d-4a19dad32d08",
+   "shared_targets": false,
+   "size": 1,
+   "snapshot_id": null,
+   "source_volid": null,
+   "status": "available",
+   "updated_at": "2026-10-31T15:16:03.000000",
+   "user_id": "d0d00427fc324381adb6b56ebdab82de",
+   "volume_type": "ufj-fake"
+  },
+  {
+   "attachments": [
+    {
+     "attached_at": "2026-10-31T11:33:31.000000",
+     "attachment_id": "16dc8178-938e-471d-9802-48171436521c",
+     "device": "/dev/sdb",
+     "host_name": "ufj-compute2",
+     "id": "4c9b3409-a66a-482d-aa14-a10d2c55baa5",
+     "server_id": "2e599a03-2aaa-46df-88bb-35eec018450c",
+     "volume_id": "4c9b3409-a66a-482d-aa14-a10d2c55baa5"
+    }
+   ],
+   "availability_zone": "nova",
+   "bootable": "false",
+   "consistencygroup_id": null,
+   "created_at": "2026-10-31T11:33:26.000000",
+   "description": null,
+   "encrypted": true,
+   "group_id": null,
+   "id": "4c9b3409-a66a-482d-aa14-a10d2c55baa5",
+   "links": [
+    {
+     "href": "http://ufj-cinder-api:8776/v3/4fc1ca9a9fb74c36b34f4d4dfb10345d/volumes/4c9b3409-a66a-482d-aa14-a10d2c55baa5",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-cinder-api:8776/4fc1ca9a9fb74c36b34f4d4dfb10345d/volumes/4c9b3409-a66a-482d-aa14-a10d2c55baa5",
+     "rel": "bookmark"
+    }
+   ],
+   "metadata": {},
+   "migration_status": null,
+   "multiattach": false,
+   "name": "a-enc-vol",
+   "os-vol-host-attr:host": "ufj-cinder-volume@fake#fake",
+   "os-vol-mig-status-attr:migstat": null,
+   "os-vol-mig-status-attr:name_id": null,
+   "os-vol-tenant-attr:tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "provider_id": null,
+   "replication_status": null,
+   "service_uuid": "6cdc0c2e-df37-4e1d-955d-4a19dad32d08",
+   "shared_targets": false,
+   "size": 1,
+   "snapshot_id": null,
+   "source_volid": null,
+   "status": "in-use",
+   "updated_at": "2026-10-31T15:16:03.000000",
+   "user_id": "d0d00427fc324381adb6b56ebdab82de",
+   "volume_type": "ufj-enc"
+  },
+  {
+   "attachments": [],
+   "availability_zone": "nova",
+   "bootable": "false",
+   "consistencygroup_id": null,
+   "created_at": "2026-10-31T11:23:27.000000",
+   "description": null,
+   "encrypted": false,
+   "group_id": null,
+   "id": "c03c4695-629b-4ea1-9ee2-a58193e53bcc",
+   "links": [
+    {
+     "href": "http://ufj-cinder-api:8776/v3/4fc1ca9a9fb74c36b34f4d4dfb10345d/volumes/c03c4695-629b-4ea1-9ee2-a58193e53bcc",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-cinder-api:8776/4fc1ca9a9fb74c36b34f4d4dfb10345d/volumes/c03c4695-629b-4ea1-9ee2-a58193e53bcc",
+     "rel": "bookmark"
+    }
+   ],
+   "metadata": {},
+   "migration_status": "error",
+   "multiattach": false,
+   "name": "a-vol-mig",
+   "os-vol-host-attr:host": "ufj-cinder-volume@fake#fake",
+   "os-vol-mig-status-attr:migstat": "error",
+   "os-vol-mig-status-attr:name_id": null,
+   "os-vol-tenant-attr:tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "provider_id": null,
+   "replication_status": null,
+   "service_uuid": "6cdc0c2e-df37-4e1d-955d-4a19dad32d08",
+   "shared_targets": false,
+   "size": 1,
+   "snapshot_id": null,
+   "source_volid": null,
+   "status": "available",
+   "updated_at": "2026-10-31T15:16:03.000000",
+   "user_id": "d0d00427fc324381adb6b56ebdab82de",
+   "volume_type": "ufj-fake"
+  },
+  {
+   "attachments": [],
+   "availability_zone": "nova",
+   "bootable": "false",
+   "consistencygroup_id": null,
+   "created_at": "2026-10-31T11:21:38.000000",
+   "description": null,
+   "encrypted": false,
+   "group_id": null,
+   "id": "480de57b-73f4-4c15-a19d-e767c6697a80",
+   "links": [
+    {
+     "href": "http://ufj-cinder-api:8776/v3/4fc1ca9a9fb74c36b34f4d4dfb10345d/volumes/480de57b-73f4-4c15-a19d-e767c6697a80",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-cinder-api:8776/4fc1ca9a9fb74c36b34f4d4dfb10345d/volumes/480de57b-73f4-4c15-a19d-e767c6697a80",
+     "rel": "bookmark"
+    }
+   ],
+   "metadata": {},
+   "migration_status": null,
+   "multiattach": false,
+   "name": "b-vol1",
+   "os-vol-host-attr:host": "ufj-cinder-volume@fake#fake",
+   "os-vol-mig-status-attr:migstat": null,
+   "os-vol-mig-status-attr:name_id": null,
+   "os-vol-tenant-attr:tenant_id": "3d064405fa2447cf9aa98184a4348f36",
+   "provider_id": null,
+   "replication_status": null,
+   "service_uuid": "6cdc0c2e-df37-4e1d-955d-4a19dad32d08",
+   "shared_targets": false,
+   "size": 3,
+   "snapshot_id": null,
+   "source_volid": null,
+   "status": "available",
+   "updated_at": "2026-10-31T15:16:03.000000",
+   "user_id": "8175aebca9c64a12a348ba76e8d07b24",
+   "volume_type": "__DEFAULT__"
+  },
+  {
+   "attachments": [
+    {
+     "attached_at": "2026-10-31T11:22:09.000000",
+     "attachment_id": "a5735942-c820-4665-a188-ebf7aea23f51",
+     "device": "/dev/sda",
+     "host_name": "ufj-compute3",
+     "id": "8c061f56-9f26-467d-90ce-81b847a5a162",
+     "server_id": "3ada7992-6903-4a56-b3e3-c80d303608c9",
+     "volume_id": "8c061f56-9f26-467d-90ce-81b847a5a162"
+    }
+   ],
+   "availability_zone": "nova",
+   "bootable": "true",
+   "consistencygroup_id": null,
+   "created_at": "2026-10-31T11:21:34.000000",
+   "description": null,
+   "encrypted": false,
+   "group_id": null,
+   "id": "8c061f56-9f26-467d-90ce-81b847a5a162",
+   "links": [
+    {
+     "href": "http://ufj-cinder-api:8776/v3/4fc1ca9a9fb74c36b34f4d4dfb10345d/volumes/8c061f56-9f26-467d-90ce-81b847a5a162",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-cinder-api:8776/4fc1ca9a9fb74c36b34f4d4dfb10345d/volumes/8c061f56-9f26-467d-90ce-81b847a5a162",
+     "rel": "bookmark"
+    }
+   ],
+   "metadata": {},
+   "migration_status": null,
+   "multiattach": false,
+   "name": "a-boot2",
+   "os-vol-host-attr:host": "ufj-cinder-volume@fake#fake",
+   "os-vol-mig-status-attr:migstat": null,
+   "os-vol-mig-status-attr:name_id": null,
+   "os-vol-tenant-attr:tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "provider_id": null,
+   "replication_status": null,
+   "service_uuid": "6cdc0c2e-df37-4e1d-955d-4a19dad32d08",
+   "shared_targets": false,
+   "size": 2,
+   "snapshot_id": null,
+   "source_volid": null,
+   "status": "in-use",
+   "updated_at": "2026-10-31T15:16:03.000000",
+   "user_id": "d0d00427fc324381adb6b56ebdab82de",
+   "volume_type": "ufj-fake"
+  },
+  {
+   "attachments": [],
+   "availability_zone": "nova",
+   "bootable": "false",
+   "consistencygroup_id": null,
+   "created_at": "2026-10-31T11:21:28.000000",
+   "description": null,
+   "encrypted": false,
+   "group_id": null,
+   "id": "9e80429b-0bac-4be2-8099-34270a857b0d",
+   "links": [
+    {
+     "href": "http://ufj-cinder-api:8776/v3/4fc1ca9a9fb74c36b34f4d4dfb10345d/volumes/9e80429b-0bac-4be2-8099-34270a857b0d",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-cinder-api:8776/4fc1ca9a9fb74c36b34f4d4dfb10345d/volumes/9e80429b-0bac-4be2-8099-34270a857b0d",
+     "rel": "bookmark"
+    }
+   ],
+   "metadata": {},
+   "migration_status": null,
+   "multiattach": false,
+   "name": "a-vol2",
+   "os-vol-host-attr:host": "ufj-cinder-volume@fake#fake",
+   "os-vol-mig-status-attr:migstat": null,
+   "os-vol-mig-status-attr:name_id": null,
+   "os-vol-tenant-attr:tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "provider_id": null,
+   "replication_status": null,
+   "service_uuid": "6cdc0c2e-df37-4e1d-955d-4a19dad32d08",
+   "shared_targets": false,
+   "size": 5,
+   "snapshot_id": null,
+   "source_volid": null,
+   "status": "available",
+   "updated_at": "2026-10-31T15:16:03.000000",
+   "user_id": "d0d00427fc324381adb6b56ebdab82de",
+   "volume_type": "ufj-fake"
+  },
+  {
+   "attachments": [
+    {
+     "attached_at": "2026-10-31T11:22:29.000000",
+     "attachment_id": "6cf9ef2e-1dc4-414b-8823-877916dbfbf4",
+     "device": "/dev/sdb",
+     "host_name": "ufj-compute1",
+     "id": "5897bc15-41e0-48fb-ba85-5ea9e1e97597",
+     "server_id": "5bd66e93-1640-4bb0-8586-aeff76fca423",
+     "volume_id": "5897bc15-41e0-48fb-ba85-5ea9e1e97597"
+    }
+   ],
+   "availability_zone": "nova",
+   "bootable": "false",
+   "consistencygroup_id": null,
+   "created_at": "2026-10-31T11:21:25.000000",
+   "description": "data vol",
+   "encrypted": false,
+   "group_id": null,
+   "id": "5897bc15-41e0-48fb-ba85-5ea9e1e97597",
+   "links": [
+    {
+     "href": "http://ufj-cinder-api:8776/v3/4fc1ca9a9fb74c36b34f4d4dfb10345d/volumes/5897bc15-41e0-48fb-ba85-5ea9e1e97597",
+     "rel": "self"
+    },
+    {
+     "href": "http://ufj-cinder-api:8776/4fc1ca9a9fb74c36b34f4d4dfb10345d/volumes/5897bc15-41e0-48fb-ba85-5ea9e1e97597",
+     "rel": "bookmark"
+    }
+   ],
+   "metadata": {
+    "tier": "gold"
+   },
+   "migration_status": null,
+   "multiattach": false,
+   "name": "a-vol1",
+   "os-vol-host-attr:host": "ufj-cinder-volume@fake#fake",
+   "os-vol-mig-status-attr:migstat": null,
+   "os-vol-mig-status-attr:name_id": null,
+   "os-vol-tenant-attr:tenant_id": "a7cec7ef1552403fbb23fc861b3e16eb",
+   "provider_id": null,
+   "replication_status": null,
+   "service_uuid": "6cdc0c2e-df37-4e1d-955d-4a19dad32d08",
+   "shared_targets": false,
+   "size": 10,
+   "snapshot_id": null,
+   "source_volid": null,
+   "status": "in-use",
+   "updated_at": "2026-10-31T15:16:03.000000",
+   "user_id": "d0d00427fc324381adb6b56ebdab82de",
+   "volume_type": "ufj-fake"
+  }
+ ]
+}

@@ -19,3 +19,80 @@ control plane answering
 ===== keystone-status --config-file keystone.conf upgrade check (keys also mounted at /etc/keystone: the tool checks the default repository paths) Check: Check trust policies are not empty Result: Success Check: Check default roles are immutable Result: Success Check: Policy File JSON to YAML Migration Result: Success 
 ===== exit code: 0
 [17:37:35] F2 read-back (state d1)
+current  counts: {"agents": 3, "aggregates": 2, "cinder_quotas": 4, "compute_services": 5, "domains": 3, "endpoints": 18, "flavors": 7, "floatingips": 3, "group_memberships": 1, "groups": 1, "hypervisors": 3, "images": 5, "keypairs": 3, "networks": 5, "neutron_quotas": 4, "nova_quotas": 4, "placemen
+declared differences: 1   UNDECLARED differences: 0
+RESULT: PASS
+keystone: 0
+glance: 0
+placement: 0
+nova-api: 2
+neutron: 0
+cinder-api: 0
+[17:42:57] (d) d2: re-register one host (ufj-compute1, 2026.1 fake compute)
+compute_id file: ffb37850-5050-44a3-b7df-6b126b1b0140
+compute_nodes rows for ufj-compute1 (all, including deleted):
+id	uuid	host	hypervisor_hostname	service_id	deleted
+2	ffb37850-5050-44a3-b7df-6b126b1b0140	ufj-compute1	ufj-compute1	NULL	0
+services row:
+id	version	forced_down	disabled
+9	72	1	0
+compute log (node identity / adoption / errors):
+2026-10-31 17:43:02.770 1 INFO nova.virt.node [None req-eee87754-326e-4789-bbb7-fd3a722056e4 - - - - - -] Wrote node identity ffb37850-5050-44a3-b7df-6b126b1b0140 to /var/lib/nova/compute_id
+2026-10-31 17:43:02.771 1 INFO nova.virt.node [None req-eee87754-326e-4789-bbb7-fd3a722056e4 - - - - - -] Determined node identity ffb37850-5050-44a3-b7df-6b126b1b0140 from /var/lib/nova/compute_id
+placement resource provider of the node:
+ffb37850-5050-44a3-b7df-6b126b1b0140 ufj-compute1
+[17:43:35] (d) clear forced-down on ufj-compute1 (after verification), restart nova-api/conductor/scheduler once
+compute service set --up ufj-compute1 nova-compute -> rc=0 
+(containers: ufj-svc-nova-scheduler=Up 5 seconds ufj-svc-nova-conductor=Up 16 seconds ufj-svc-nova-api=Up 26 seconds )
+
+===== nova-status upgrade check Check: Cells v2 Result: Success Check: Placement API Result: Success Check: Cinder API Result: Success Check: Policy File JSON to YAML Migration Result: Success Check: Older than N-1 computes Result: Success Check: hw_machine_type unset Result: Warning Check: Service User Token Configuration Result: Success 
+===== exit code: 1 
+===== cinder-status upgrade check Check: Backup Driver Path Result: Success Check: Use of Policy File Result: Success Check: Removed Drivers Result: Success Check: Periodic Interval Use Result: Success Check: Service UUIDs Result: Success Check: Attachment specs Result: Success Check: Use of Nested Quota Driver Result: Success 
+===== exit code: 0 
+===== neutron-status --config-file neutron.conf upgrade check Check: Worker counts configured Result: Success Check: NIC Switch agent check kernel Result: Success Check: VLAN allocations valid segmentation ID check Result: Success Check: Policy File JSON to YAML Migration Result: Success Check: Port MAC address sanity check Result: Success Check: NetworkSegments unique constraint check Result: Success Check: Port Binding profile sanity check Result: Success Check: Floating IP inherits the QoS policy from the external network Result: Success Check: Port extra DHCP options check Result: Success Check: Duplicated HA network per project check Result: Success Check: OVN support for BM provisioning over IPv6 check Result: Warning Check: ML2/OVS IGMP Flood check Result: Success Check: Floating IP Port forwarding and OVN L3 plugin configuration Result: Success Check: Existing tags exceeds limit per resource Result: Success Check: RBAC policies with invalid target_project Result: Success 
+===== exit code: 1 
+===== placement-status upgrade check Check: Missing Root Provider IDs Result: Success Check: Incomplete Consumers Result: Success Check: Policy File JSON to YAML Migration Result: Success 
+===== exit code: 0 
+===== glance-status --config-file glance-api.conf upgrade check Check: Sheepdog Driver Removal Result: Success Check: Policy File JSON to YAML Migration Result: Success Check: Config option owner_is_tenant removal Result: Success 
+===== exit code: 0 
+===== keystone-status --config-file keystone.conf upgrade check (keys also mounted at /etc/keystone: the tool checks the default repository paths) Check: Check trust policies are not empty Result: Success Check: Check default roles are immutable Result: Success Check: Policy File JSON to YAML Migration Result: Success 
+===== exit code: 0
+server create -> exit 0 (flavor ufj-tiny, image ufj-image-public, host az1:ufj-compute1)
+server 51cb79e7-90d1-4448-a9ed-023c60dcd69e
+status after wait: ACTIVE
+{  "OS-EXT-SRV-ATTR:host": "ufj-compute1",  "OS-EXT-STS:task_state": null,  "OS-EXT-STS:vm_state": "active",  "status": "ACTIVE"}
+
+op 'stop' (rc=0): expected 'None SHUTOFF' (task_state status), got 'None SHUTOFF' -> OK
+op 'start' (rc=0): expected 'None ACTIVE' (task_state status), got 'None ACTIVE' -> OK
+op 'reboot --hard' (rc=0): expected 'None ACTIVE' (task_state status), got 'None ACTIVE' -> OK
+op 'pause' (rc=0): expected 'None PAUSED' (task_state status), got 'None PAUSED' -> OK
+op 'unpause' (rc=0): expected 'None ACTIVE' (task_state status), got 'None ACTIVE' -> OK
+compute log (errors since 2026-10-31T17:43:37Z):
+nova-api: 2026-10-31 17:44:36.217 8 INFO nova.compute.rpcapi [None req-3c550f15-a0a1-4da4-8bc8-74f7f0c05a73 - - - - - -] Automatically selected compute RPC version 6.5 from minimum service version 72
+nova-api: 2026-10-31 17:44:41.716 7 INFO nova.compute.rpcapi [None req-7b76c499-9950-4742-814a-e927d876acd3 - - - - - -] Automatically selected compute RPC version 6.5 from minimum service version 72
+nova-conductor: 2026-10-31 17:44:25.189 8 INFO nova.compute.rpcapi [None req-abb2d761-edaf-482b-86fb-2f5182e0ddc4 - - - - - -] Automatically selected compute RPC version 6.5 from minimum service version 72
+(containers: ufj-svc-nova-scheduler=Up 2 minutes ufj-svc-nova-conductor=Up 2 minutes ufj-svc-nova-api=Up 2 minutes )
+[17:46:25] reset: fresh clone of ufj-ff-derive-h4r-data
+cloned ufj-ff-derive-h4r-data -> ufj-svc-data
+11.4.13-MariaDB-ubu2404-log
+4.4.0
+control plane answering
+[17:46:47] (a) start 2026.1 compute ufj-compute1, then clear forced-down on all three Ussuri rows through the 2026.1 API
+compute_id file: ffb37850-5050-44a3-b7df-6b126b1b0140
+compute_nodes rows for ufj-compute1 (all, including deleted):
+id	uuid	host	hypervisor_hostname	service_id	deleted
+2	ffb37850-5050-44a3-b7df-6b126b1b0140	ufj-compute1	ufj-compute1	NULL	0
+services row:
+id	version	forced_down	disabled
+9	72	1	0
+compute log (node identity / adoption / errors):
+2026-10-31 17:46:51.976 1 INFO nova.virt.node [None req-59a4c8f0-ebf0-4542-b82b-92a6f24729a8 - - - - - -] Wrote node identity ffb37850-5050-44a3-b7df-6b126b1b0140 to /var/lib/nova/compute_id
+2026-10-31 17:46:51.977 1 INFO nova.virt.node [None req-59a4c8f0-ebf0-4542-b82b-92a6f24729a8 - - - - - -] Determined node identity ffb37850-5050-44a3-b7df-6b126b1b0140 from /var/lib/nova/compute_id
+placement resource provider of the node:
+ffb37850-5050-44a3-b7df-6b126b1b0140 ufj-compute1
+compute service set --up ufj-compute1 nova-compute -> rc=0 
+API attempt (expected HTTP 500 ServiceTooOld) for ufj-compute2: rc=1
+SQL on the clone: forced_down=0 for ufj-compute2 (rows with version<72) -> 0
+API attempt (expected HTTP 500 ServiceTooOld) for ufj-compute3: rc=0
+SQL on the clone: forced_down=0 for ufj-compute3 (rows with version<72) -> 0
+[17:47:29] (a) restart control WITHOUT the workaround: expected refusal (min service version 51 of the unforced Ussuri rows)
