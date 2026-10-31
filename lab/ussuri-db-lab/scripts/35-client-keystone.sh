@@ -1,12 +1,7 @@
 #!/usr/bin/env bash
 # Starts keystone (gunicorn) and the client container; creates the service project/users/catalog entries. Idempotent.
 . "$(dirname "$0")/lib.sh"; load_secrets
-svc_start ufj-keystone keystone -v ufj-keystone-keys:/var/lib/ufj/keys -v "$LAB_DIR/wsgi:/wsgi:ro" -- \
-  gunicorn --chdir /wsgi --bind 0.0.0.0:5000 --workers 3 --timeout 120 keystone_app:application
-if ! cexists ufj-client; then
-  docker run -d --name ufj-client --hostname ufj-client --network "$NET" --label org.ozarland.ufj=1 \
-    -v "$RUN_DIR/etc/client:/run/ufj:ro" -v "$LAB_DIR:/lab:ro" -v "$EVIDENCE_DIR:/evidence" "$IMG" sleep infinity >/dev/null
-else crunning ufj-client || docker start ufj-client >/dev/null; fi
+start_keystone_client
 log "waiting for keystone"; wait_http http://ufj-keystone:5000/v3 120 || die "keystone not answering"
 osc project show service >/dev/null 2>&1 || osc project create --domain Default service >/dev/null
 mk_user() { # name password

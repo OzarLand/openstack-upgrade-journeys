@@ -75,3 +75,12 @@ sql_rowcounts() { # container pw -> TSV db table rows (exact COUNT(*))
 sql_checksums() { # container pw -> TSV db.table checksum
   sql_tables "$1" "$2" | awk -F'\t' '{printf "CHECKSUM TABLE `%s`.`%s`;\n",$1,$2}' | docker exec -i -e MYSQL_PWD="$2" "$1" mysql -uroot -N; }
 OS_DBS=(keystone glance placement nova_api nova nova_cell0 neutron cinder)
+
+start_keystone_client() { # keystone (gunicorn) and the client container; no database writes
+  svc_start ufj-keystone keystone -v ufj-keystone-keys:/var/lib/ufj/keys -v "$LAB_DIR/wsgi:/wsgi:ro" -- \
+    gunicorn --chdir /wsgi --bind 0.0.0.0:5000 --workers 3 --timeout 120 keystone_app:application
+  if ! cexists ufj-client; then
+    docker run -d --name ufj-client --hostname ufj-client --network "$NET" --label org.ozarland.ufj=1 --restart unless-stopped \
+      -v "$RUN_DIR/etc/client:/run/ufj:ro" -v "$LAB_DIR:/lab:ro" -v "$EVIDENCE_DIR:/evidence" "$IMG" sleep infinity >/dev/null
+  else crunning ufj-client || docker start ufj-client >/dev/null; fi
+}

@@ -29,6 +29,7 @@ log "waiting for MariaDB"
 for i in $(seq 1 90); do mysql_root -e 'select 1' >/dev/null 2>&1 && break; sleep 2; done
 mysql_root -e 'select version()' >/dev/null || die "MariaDB did not come up"
 log "MariaDB $(mysql_root -N -e 'select version()')"
+if [ "${UFJ_SKIP_DB_BOOTSTRAP:-0}" != 1 ]; then
 for svc in keystone glance placement nova neutron cinder; do
   pw_var="DBPW_$(echo $svc | tr a-z A-Z)"; pw="${!pw_var}"
   dbs=("$svc"); [ "$svc" = nova ] && dbs=(nova_api nova nova_cell0)
@@ -38,6 +39,7 @@ for svc in keystone glance placement nova neutron cinder; do
       GRANT ALL PRIVILEGES ON \`$d\`.* TO '$svc'@'%';"
   done
 done
+fi  # UFJ_SKIP_DB_BOOTSTRAP: a restore must not write to the restored database
 log "waiting for RabbitMQ"
 for i in $(seq 1 60); do docker exec ufj-rabbitmq rabbitmq-diagnostics -q ping >/dev/null 2>&1 && break; sleep 3; done
 docker exec ufj-rabbitmq rabbitmqctl --version | sed 's/^/RabbitMQ /'

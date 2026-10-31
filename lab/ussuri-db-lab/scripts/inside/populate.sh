@@ -102,7 +102,15 @@ oa network rbac create --target-project ufj-proj-a --action access_as_shared --t
 say "key pairs"
 oA keypair show ufj-key-a >/dev/null 2>&1 || oA keypair create ufj-key-a > /tmp/ufj/ufj-key-a.pem
 oB keypair show ufj-key-b >/dev/null 2>&1 || oB keypair create ufj-key-b > /tmp/ufj/ufj-key-b.pem
-oA keypair show ufj-key-imported >/dev/null 2>&1 || { ssh-keygen -q -t ed25519 -N "" -f /tmp/ufj/imp 2>/dev/null || true; [ -f /tmp/ufj/imp.pub ] && oA keypair create --public-key /tmp/ufj/imp.pub ufj-key-imported >/dev/null; }
+if ! oA keypair show ufj-key-imported >/dev/null 2>&1; then
+  python - <<'PY' > /tmp/ufj/imp.pub
+from cryptography.hazmat.primitives.asymmetric import rsa
+from cryptography.hazmat.primitives import serialization as s
+k = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+print(k.public_key().public_bytes(s.Encoding.OpenSSH, s.PublicFormat.OpenSSH).decode())
+PY
+  oA keypair create --public-key /tmp/ufj/imp.pub ufj-key-imported >/dev/null
+fi
 
 say "volumes (before servers)"
 oA volume show a-vol1 >/dev/null 2>&1 || oA volume create --size 10 --type ufj-fake --description "data vol" --property tier=gold a-vol1 >/dev/null

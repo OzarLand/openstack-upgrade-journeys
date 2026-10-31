@@ -1,0 +1,38 @@
++ pip install -q pip==23.3.2 setuptools==57.5.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
++ pip install -q -c /probe/upper-constraints.txt kolla==10.4.0 docker
++ tail -3
+
+[notice] A new release of pip is available: 23.3.2 -> 25.0.1
+[notice] To update, run: pip install --upgrade pip
++ kolla-build --version
+10.4.0
++ kolla-build --config-file /probe/kolla-build.conf --build-args 'http_proxy=,https_proxy=http://127.0.0.1:36489,no_proxy=localhost,127.0.0.1,::1,127.0.0.0/8,0.0.0.0/8,::,169.254.0.0/16,api.anthropic.com,api-staging.anthropic.com,api-pr-preview.anthropic.com,mcp-proxy.anthropic.com,mcp-proxy-staging.anthropic.com,registry.npmjs.org,jsr.io,npm.jsr.io,pypi.org,files.pythonhosted.org,index.crates.io,proxy.golang.org,host.docker.internal,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16,100.64.0.0/10,.svc.cluster.local,*.svc.cluster.local' --skip-parents=false --threads 1 base openstack-base
+usage: kolla-build [-h] [--base BASE] [--base-arch BASE_ARCH]
+                   [--base-image BASE_IMAGE] [--base-tag BASE_TAG]
+                   [--build-args BUILD_ARGS] [--cache] [--config-dir DIR]
+                   [--config-file PATH] [--debug] [--docker-dir DOCKER_DIR]
+                   [--docker-healthchecks] [--enable-unbuildable]
+                   [--format FORMAT] [--keep] [--list-dependencies]
+                   [--list-images] [--logs-dir LOGS_DIR]
+                   [--namespace NAMESPACE] [--network_mode NETWORK_MODE]
+                   [--nocache] [--nodebug] [--nodocker-healthchecks]
+                   [--noenable-unbuildable] [--nokeep] [--nolist-dependencies]
+                   [--nolist-images] [--nopull] [--nopush] [--noquiet]
+                   [--noskip-existing] [--noskip-parents] [--nosquash]
+                   [--notemplate-only] [--nouse-dumb-init]
+                   [--openstack-branch OPENSTACK_BRANCH]
+                   [--openstack-release OPENSTACK_RELEASE] [--profile PROFILE]
+                   [--pull] [--push] [--push-threads PUSH_THREADS] [--quiet]
+                   [--registry REGISTRY] [--retries RETRIES]
+                   [--save-dependency SAVE_DEPENDENCY] [--skip-existing]
+                   [--skip-parents] [--squash] [--tag TAG]
+                   [--tarballs-base TARBALLS_BASE] [--template-only]
+                   [--template-override TEMPLATE_OVERRIDE] [--threads THREADS]
+                   [--timeout TIMEOUT] [--type INSTALL_TYPE] [--use-dumb-init]
+                   [--version] [--work-dir WORK_DIR]
+                   [regex [regex ...]]
+kolla-build: error: argument --skip-parents: ignored explicit argument 'false'
++ echo 'kolla-build exit: 2'
+kolla-build exit: 2
+probe exit 0

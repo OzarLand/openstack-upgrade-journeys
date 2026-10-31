@@ -7,4 +7,17 @@ https://ubuntu-cloud.archive.canonical.com/ubuntu/dists/bionic-updates/ussuri/Re
 https://dlm.mariadb.com/repo/mariadb-server/10.3/repo/ubuntu/dists/bionic/Release -> 000
 https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/deb/ubuntu/dists/bionic/Release -> 000
 http://keyserver.ubuntu.com:80/ -> 200
-https://keyserver.ubuntu.com/ -> 
+https://keyserver.ubuntu.com/ -> 200
+https://github.com/openstack/keystone -> 403
+https://pypi.org/simple/kolla/ -> 200
+https://tarballs.opendev.org/openstack/keystone/ -> 000
+https://opendev.org/openstack/keystone -> 000
+https://trunk.rdoproject.org/centos8-ussuri/consistent/delorean.repo -> 000
+https://quay.io/v2/ -> 000
+https://mirror.centos.org/ -> 000
+https://vault.centos.org/8.4.2105/ -> 000
+## from inside ubuntu:18.04 container (apt update)
+Get:17 http://archive.ubuntu.com/ubuntu bionic-backports/main amd64 Packages [63.4 kB]
+Get:18 http://archive.ubuntu.com/ubuntu bionic-backports/universe amd64 Packages [20.5 kB]
+Fetched 28.0 MB in 3s (10.8 MB/s)
+Reading package lists...

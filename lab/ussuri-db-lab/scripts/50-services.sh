@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Starts the Ussuri API services and workers as containers on ufj-net. Idempotent (running containers are kept).
 . "$(dirname "$0")/lib.sh"; load_secrets
+start_keystone_client
 W=(-v "$LAB_DIR/wsgi:/wsgi:ro")
 svc_start ufj-glance glance -v ufj-glance-images:/var/lib/glance -- glance-api --config-file /etc/glance/glance-api.conf
 svc_start ufj-placement placement "${W[@]}" -- gunicorn --chdir /wsgi --bind 0.0.0.0:8778 --workers 2 --timeout 120 placement_app:application
