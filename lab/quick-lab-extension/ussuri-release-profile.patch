@@ -1,0 +1,253 @@
+diff --git a/variants/openstack-cloud/config.example.env b/variants/openstack-cloud/config.example.env
+index 9dcfcef..4033413 100644
+--- a/variants/openstack-cloud/config.example.env
++++ b/variants/openstack-cloud/config.example.env
+@@ -52,6 +52,10 @@ DOCKER_REGISTRY=""
+ OPENSTACK_TAG=""
+ 
+ # --- Versions (tested together; change them together) ------------------------
++# RELEASE_PROFILE: empty = OpenStack 2026.1 (the values below). Another release: the name of a file in profiles/
++# (for example "ussuri"); its values then override the ones below. A profile also needs a DOCKER_REGISTRY when the
++# release's images are not on quay.io (see profiles/ussuri.env).
++RELEASE_PROFILE=""
+ KOLLA_ANSIBLE_VERSION="22.2.0"   # OpenStack 2026.1
+ ANSIBLE_CORE_VERSION="2.20.10"
+ # Address range of the lab's own external network (inside the VM only). Must not overlap NETWORK.
+diff --git a/variants/openstack-cloud/create.sh b/variants/openstack-cloud/create.sh
+index 441e546..3221296 100755
+--- a/variants/openstack-cloud/create.sh
++++ b/variants/openstack-cloud/create.sh
+@@ -44,9 +44,10 @@ print(disk[0][3], "" if disk else "") if disk else print(nodisk[0][2], 50) if no
+ else
+   [ "$(os flavor show "$FLAVOR" -f value -c disk)" -lt 50 ] && BOOT_VOLUME=50
+ fi
+-# Image: the most recent active image named like "Ubuntu 24.04".
+-[ -z "$IMAGE" ] && IMAGE=$(os image list --status active --sort created_at:desc -f value -c Name | { grep -iE 'ubuntu.*24\.04' || true; } | head -1)
+-[ -n "$IMAGE" ] || die "No active Ubuntu 24.04 image found: set IMAGE in config.env."
++# Image: the most recent active image named like "Ubuntu 24.04" (HOST_IMAGE_REGEX of a release profile overrides it).
++if [ -n "${RELEASE_PROFILE:-}" ] && [ -f "$HERE/profiles/$RELEASE_PROFILE.env" ]; then . "$HERE/profiles/$RELEASE_PROFILE.env"; fi
++[ -z "$IMAGE" ] && IMAGE=$(os image list --status active --sort created_at:desc -f value -c Name | { grep -iE "${HOST_IMAGE_REGEX:-ubuntu.*24\.04}" || true; } | head -1)
++[ -n "$IMAGE" ] || die "No active image matching ${HOST_IMAGE_REGEX:-Ubuntu 24.04} found: set IMAGE in config.env."
+ os network show "$NETWORK" >/dev/null || die "Network $NETWORK not found."
+ [ -n "$FLOATING_NETWORK" ] && { os network show "$FLOATING_NETWORK" >/dev/null || die "Network $FLOATING_NETWORK not found."; }
+ 
+diff --git a/variants/openstack-cloud/deploy.sh b/variants/openstack-cloud/deploy.sh
+index 2d6cb02..709b5b9 100755
+--- a/variants/openstack-cloud/deploy.sh
++++ b/variants/openstack-cloud/deploy.sh
+@@ -5,6 +5,14 @@
+ . "$(dirname "$0")/lib.sh"
+ load; [ -n "${VM_ADDRESS:-}" ] || die "No lab found for $VM: run ./create.sh first."
+ say "Deploying on $VM ($VM_ADDRESS). Output also in $LOG"
++# Release profile (optional): overrides the versions and switches for an older release, see profiles/*.env
++if [ -n "${RELEASE_PROFILE:-}" ]; then
++  [ -f "$HERE/profiles/$RELEASE_PROFILE.env" ] || die "No such release profile: profiles/$RELEASE_PROFILE.env"
++  # shellcheck source=/dev/null
++  . "$HERE/profiles/$RELEASE_PROFILE.env"
++  [ "${REQUIRE_DOCKER_REGISTRY:-no}" = yes ] && [ -z "${DOCKER_REGISTRY:-}" ] && die "Profile $RELEASE_PROFILE needs DOCKER_REGISTRY (its images are not on quay.io)."
++  OPENSTACK_TAG="${OPENSTACK_TAG:-${OPENSTACK_RELEASE_TAG:-}}"
++fi
+ SCP=(scp -q -i "$KEY" -o StrictHostKeyChecking=accept-new -o UserKnownHostsFile="$STATE_DIR/known_hosts")
+ # The deploy runs on the VM under nohup, so that it survives a dropped SSH connection; this script only follows its
+ # log. If the connection drops, run ./deploy.sh again: it follows the run in progress instead of starting another.
+@@ -13,7 +21,8 @@ if running; then
+   say "A deploy is already running on $VM: following it."
+ else
+   ssh_vm 'mkdir -p ~/.quicklab'; "${SCP[@]}" "$HERE/remote-deploy.sh" "$SSH_USER@$VM_ADDRESS:remote-deploy.sh"
+-  for v in KOLLA_ANSIBLE_VERSION ANSIBLE_CORE_VERSION LAB_EXT_CIDR HTTPS_PROXY NTP_SERVER APT_HTTPS DOCKER_REGISTRY OPENSTACK_TAG; do printf 'export %s=%q\n' "$v" "${!v:-}"; done > "$STATE_DIR/remote.env"; chmod 600 "$STATE_DIR/remote.env"
++  [ -f "$HERE/profiles/${RELEASE_PROFILE:-none}-build-images.sh" ] && "${SCP[@]}" "$HERE/profiles/$RELEASE_PROFILE-build-images.sh" "$SSH_USER@$VM_ADDRESS:$RELEASE_PROFILE-build-images.sh"
++  for v in KOLLA_ANSIBLE_VERSION ANSIBLE_CORE_VERSION LAB_EXT_CIDR HTTPS_PROXY NTP_SERVER APT_HTTPS DOCKER_REGISTRY OPENSTACK_TAG RELEASE_PROFILE ANSIBLE_PIP_SPEC KOLLA_BASE_DISTRO KOLLA_INSTALL_TYPE HAS_INSTALL_DEPS HAS_CONTAINER_ENGINE_VAR HAS_PROXYSQL HAS_USE_TEST_IMAGES OLD_SYSTEMD APT_SOURCES_FORMAT PIP_EXTRA HAS_DOCKER_PROXY_VARS IMAGE_SOURCE; do printf 'export %s=%q\n' "$v" "${!v:-}"; done > "$STATE_DIR/remote.env"; chmod 600 "$STATE_DIR/remote.env"
+   "${SCP[@]}" "$STATE_DIR/remote.env" "$SSH_USER@$VM_ADDRESS:.quicklab/remote.env"
+   ssh_vm 'rm -f ~/.quicklab/run.rc; nohup bash -c ". ~/.quicklab/remote.env; bash ~/remote-deploy.sh; echo \$? > ~/.quicklab/run.rc" > ~/.quicklab/run.log 2>&1 < /dev/null & echo $! > ~/.quicklab/run.pid'
+ fi
+diff --git a/variants/openstack-cloud/profiles/ussuri-build-images.sh b/variants/openstack-cloud/profiles/ussuri-build-images.sh
+new file mode 100755
+index 0000000..55d3163
+--- /dev/null
++++ b/variants/openstack-cloud/profiles/ussuri-build-images.sh
+@@ -0,0 +1,31 @@
++#!/usr/bin/env bash
++# Runs on the lab VM, after "Install Kolla-Ansible" and before "pull" (profile ussuri only).
++# Kolla Ussuri images are not pullable (Docker Hub kolla/* answers 401, quay.io has no Ussuri tags used here), so build
++# them with kolla-build 10.4.0 into a local registry and let Kolla-Ansible pull from it.
++# PROPOSED-UNVERIFIED. The 2026-10-31 probe (lab/ussuri-db-lab/kolla-probe) built `base` only, and only after removing the
++# Cloud Archive / apt-key / custom-repo steps; see the journey assessment 05 for what was and was not reachable.
++set -euo pipefail
++VENV=~/kolla-venv; REG=${DOCKER_REGISTRY:-127.0.0.1:4000}; TAG=${OPENSTACK_TAG:-ussuri}
++UC=~/upper-constraints-ussuri-eol.txt
++# upper-constraints of the series (pins Jinja2<3.1: kolla 10 imports jinja2.contextfilter, removed in Jinja2 3.1)
++[ -f "$UC" ] || curl -fsSL "https://opendev.org/openstack/requirements/raw/tag/ussuri-eol/upper-constraints.txt" -o "$UC" \
++  || git archive --remote=https://opendev.org/openstack/requirements ussuri-eol upper-constraints.txt | tar -x -O > "$UC"
++"$VENV/bin/pip" install -q -c "$UC" kolla==10.4.0
++docker ps --format '{{.Names}}' | grep -qx ussuri-registry || docker run -d --restart unless-stopped --name ussuri-registry -p 127.0.0.1:4000:5000 registry:2
++cat > ~/kolla-build.conf <<CONF
++[DEFAULT]
++base = ubuntu
++base_tag = 18.04
++install_type = source
++namespace = kolla
++registry = $REG
++tag = $TAG
++push = true
++# Source: tarballs.opendev.org is the Kolla default; use git at the series tag when it is not reachable.
++[openstack-base]
++type = git
++location = https://opendev.org/openstack/requirements
++reference = ussuri-eol
++CONF
++# one-node lab image set (profile subset): keep it small
++"$VENV/bin/kolla-build" --config-file ~/kolla-build.conf "^(keystone|glance-api|nova-(api|conductor|scheduler|compute|libvirt|ssh|novncproxy)|neutron-(server|openvswitch-agent|dhcp-agent|l3-agent|metadata-agent)|openvswitch-(db-server|vswitchd)|placement-api|horizon|mariadb|rabbitmq|memcached|keepalived|haproxy|cron|fluentd|kolla-toolbox|chrony)$"
+diff --git a/variants/openstack-cloud/profiles/ussuri.env b/variants/openstack-cloud/profiles/ussuri.env
+new file mode 100644
+index 0000000..8860aa3
+--- /dev/null
++++ b/variants/openstack-cloud/profiles/ussuri.env
+@@ -0,0 +1,33 @@
++# Release profile: OpenStack Ussuri (2020.1, end of life) with Kolla-Ansible 10.x.
++# PROPOSED-UNVERIFIED: written from the upstream sources (kolla-ansible@ussuri-eol), never run on a cloud.
++# Load by setting RELEASE_PROFILE="ussuri" in config.env. Values below override the 2026.1 defaults.
++
++# Kolla-Ansible 10.x supports Ansible 2.8 to 2.9 only (ansible/roles/prechecks/vars/main.yml). 'ansible-core' does not
++# exist for 2.9: the package is 'ansible'.
++KOLLA_ANSIBLE_VERSION="10.4.0"
++ANSIBLE_PIP_SPEC="ansible>=2.9,<2.10"
++# Host OS: Ubuntu 18.04 (bionic) or CentOS 8, Debian 10, RHEL 8 (doc/source/user/support-matrix.rst). This lab driver
++# knows Ubuntu only. All of these are end of life: use an image you build and keep, or an ESM-enabled one.
++HOST_IMAGE_REGEX='ubuntu.*18\.04'
++# Kolla image selection (ansible/group_vars/all.yml: docker_namespace=kolla, kolla_install_type default "binary")
++KOLLA_BASE_DISTRO="ubuntu"
++KOLLA_INSTALL_TYPE="source"
++OPENSTACK_RELEASE_TAG="ussuri"
++# The kolla/* images on Docker Hub are not pullable anonymously (HTTP 401, tags 'inactive'): a registry is REQUIRED,
++# either one you pushed images to, or the output of scripts/kolla-build-ussuri.sh pushed to a local registry.
++REQUIRE_DOCKER_REGISTRY="yes"
++# Kolla-Ansible 10.x has no 'install-deps' command, no kolla_container_engine, no ProxySQL, and no --use-test-images.
++HAS_INSTALL_DEPS="no"
++HAS_CONTAINER_ENGINE_VAR="no"
++HAS_PROXYSQL="no"
++HAS_USE_TEST_IMAGES="no"
++# systemd 237 (Ubuntu 18.04) has neither 'networkctl reload' nor 'timedatectl show'.
++OLD_SYSTEMD="yes"
++# /etc/apt/sources.list (one-line format) instead of /etc/apt/sources.list.d/ubuntu.sources (deb822)
++APT_SOURCES_FORMAT="list"
++# Packages: dbus-python is only needed by newer Kolla-Ansible; 'docker' SDK must be < 5 for Ansible 2.9 modules.
++PIP_EXTRA="docker<5"
++
++# docker_http_proxy & co. do not exist in Kolla-Ansible 10.x (added later): remote-deploy.sh writes a systemd drop-in instead.
++HAS_DOCKER_PROXY_VARS="no"
++IMAGE_SOURCE="build"   # or "registry" when DOCKER_REGISTRY already holds kolla/ubuntu-source-*:ussuri
+diff --git a/variants/openstack-cloud/remote-deploy.sh b/variants/openstack-cloud/remote-deploy.sh
+index 318ff9d..69448a0 100755
+--- a/variants/openstack-cloud/remote-deploy.sh
++++ b/variants/openstack-cloud/remote-deploy.sh
+@@ -3,6 +3,10 @@
+ # Every step is timed and leaves a marker in ~/.quicklab: a new run skips the steps already done.
+ set -euo pipefail
+ : "${KOLLA_ANSIBLE_VERSION:?}" "${ANSIBLE_CORE_VERSION:?}" "${LAB_EXT_CIDR:?}"
++# Release profile switches (profiles/*.env, exported by deploy.sh). Empty/unset = the 2026.1 behaviour.
++ANSIBLE_PIP_SPEC="${ANSIBLE_PIP_SPEC:-ansible-core==$ANSIBLE_CORE_VERSION}"; KOLLA_BASE_DISTRO="${KOLLA_BASE_DISTRO:-ubuntu}"; KOLLA_INSTALL_TYPE="${KOLLA_INSTALL_TYPE:-}"
++HAS_INSTALL_DEPS="${HAS_INSTALL_DEPS:-yes}"; HAS_CONTAINER_ENGINE_VAR="${HAS_CONTAINER_ENGINE_VAR:-yes}"; HAS_PROXYSQL="${HAS_PROXYSQL:-yes}"
++HAS_USE_TEST_IMAGES="${HAS_USE_TEST_IMAGES:-yes}"; OLD_SYSTEMD="${OLD_SYSTEMD:-no}"; APT_SOURCES_FORMAT="${APT_SOURCES_FORMAT:-deb822}"; PIP_EXTRA="${PIP_EXTRA:-docker dbus-python}"; HAS_DOCKER_PROXY_VARS="${HAS_DOCKER_PROXY_VARS:-yes}"
+ HTTPS_PROXY="${HTTPS_PROXY:-}"; NTP_SERVER="${NTP_SERVER:-}"; APT_HTTPS="${APT_HTTPS:-no}"
+ DOCKER_REGISTRY="${DOCKER_REGISTRY:-}"; OPENSTACK_TAG="${OPENSTACK_TAG:-}"
+ M=~/.quicklab; mkdir -p "$M"; VENV=~/kolla-venv; INV=~/all-in-one
+@@ -34,29 +38,37 @@ prepare_host() {
+     printf 'Acquire::http::Proxy "%s";\nAcquire::https::Proxy "%s";\n' "$HTTPS_PROXY" "$HTTPS_PROXY" | sudo tee /etc/apt/apt.conf.d/90proxy >/dev/null
+   fi
+   if [ "$APT_HTTPS" = yes ]; then
+-    sudo sed -i 's#http://[^ ]*ubuntu.com/ubuntu/\?#https://archive.ubuntu.com/ubuntu/#' /etc/apt/sources.list.d/ubuntu.sources
++    if [ "$APT_SOURCES_FORMAT" = list ]; then sudo sed -i 's#http://[^ ]*ubuntu.com/ubuntu/\?#https://archive.ubuntu.com/ubuntu/#' /etc/apt/sources.list
++    else sudo sed -i 's#http://[^ ]*ubuntu.com/ubuntu/\?#https://archive.ubuntu.com/ubuntu/#' /etc/apt/sources.list.d/ubuntu.sources; fi
+   fi
+   if [ -n "$NTP_SERVER" ]; then
+     sudo mkdir -p /etc/systemd/timesyncd.conf.d; printf '[Time]\nNTP=%s\n' "$NTP_SERVER" | sudo tee /etc/systemd/timesyncd.conf.d/90-quicklab.conf >/dev/null
+     sudo systemctl restart systemd-timesyncd
+   fi
+-  for _ in $(seq 1 30); do [ "$(timedatectl show -p NTPSynchronized --value)" = yes ] && break; sleep 5; done
+-  echo "   clock synchronised: $(timedatectl show -p NTPSynchronized --value)"
++  # systemd 237 (Ubuntu 18.04) has no 'timedatectl show'
++  clock_sync() { if [ "$OLD_SYSTEMD" = yes ]; then timedatectl status | awk -F': ' '/synchronized:/ {print $2}' | head -1; else timedatectl show -p NTPSynchronized --value; fi; }
++  for _ in $(seq 1 30); do [ "$(clock_sync)" = yes ] && break; sleep 5; done
++  echo "   clock synchronised: $(clock_sync)"
+   sudo apt-get update -q >/dev/null
+   sudo DEBIAN_FRONTEND=noninteractive NEEDRESTART_MODE=a apt-get install -y -q git python3-dev python3-venv libffi-dev gcc libssl-dev libdbus-glib-1-dev >/dev/null 2>&1
+   # The lab's external network: a veth pair. veth1 goes to Neutron's br-ex, veth0 is its gateway on the host.
+   printf '[NetDev]\nName=veth0\nKind=veth\n[Peer]\nName=veth1\n' | sudo tee /etc/systemd/network/25-quicklab-veth.netdev >/dev/null
+   printf '[Match]\nName=veth0\n[Network]\nAddress=%s/%s\nLinkLocalAddressing=no\n' "$EXT_GW" "$EXT_PREFIX" | sudo tee /etc/systemd/network/25-quicklab-veth0.network >/dev/null
+   printf '[Match]\nName=veth1\n[Network]\nLinkLocalAddressing=no\n' | sudo tee /etc/systemd/network/25-quicklab-veth1.network >/dev/null
+-  sudo networkctl reload; sleep 3; ip -br addr show veth0 | sed 's/^/   /'
++  # 'networkctl reload' exists from systemd 244; Ubuntu 18.04 has 237
++  if [ "$OLD_SYSTEMD" = yes ]; then sudo systemctl restart systemd-networkd; else sudo networkctl reload; fi; sleep 3; ip -br addr show veth0 | sed 's/^/   /'
+ }
+ install_kolla() {
+   python3 -m venv "$VENV"
+   "${PX[@]}" "$VENV/bin/pip" install -q -U pip
+   # docker and dbus-python in the venv too: on an all-in-one, Ansible runs the venv's Python for localhost.
+-  "${PX[@]}" "$VENV/bin/pip" install -q "ansible-core==$ANSIBLE_CORE_VERSION" "kolla-ansible==$KOLLA_ANSIBLE_VERSION" docker dbus-python
+-  "${PX[@]}" "$VENV/bin/kolla-ansible" install-deps > "$M/install-deps.log" 2>&1 || { tail -5 "$M/install-deps.log"; return 1; }
+-  echo "   $("$VENV/bin/kolla-ansible" --version), ansible-core $ANSIBLE_CORE_VERSION"
++  # shellcheck disable=SC2086
++  "${PX[@]}" "$VENV/bin/pip" install -q "$ANSIBLE_PIP_SPEC" "kolla-ansible==$KOLLA_ANSIBLE_VERSION" $PIP_EXTRA
++  # Kolla-Ansible 10.x (Ussuri) has no install-deps (Ansible collections arrived later)
++  if [ "$HAS_INSTALL_DEPS" = yes ]; then
++    "${PX[@]}" "$VENV/bin/kolla-ansible" install-deps > "$M/install-deps.log" 2>&1 || { tail -5 "$M/install-deps.log"; return 1; }
++  fi
++  echo "   $("$VENV/bin/kolla-ansible" --version), $ANSIBLE_PIP_SPEC"
+ }
+ configure() {
+   sudo mkdir -p /etc/kolla/config && sudo chown -R "$USER": /etc/kolla
+@@ -67,11 +79,12 @@ configure() {
+   {
+     echo "---"
+     echo "# openstack-quick-lab: all-in-one. Generated by remote-deploy.sh."
+-    echo 'kolla_base_distro: "ubuntu"'
+-    echo 'kolla_container_engine: "docker"'
++    echo "kolla_base_distro: \"$KOLLA_BASE_DISTRO\""
++    [ -n "$KOLLA_INSTALL_TYPE" ] && echo "kolla_install_type: \"$KOLLA_INSTALL_TYPE\""
++    [ "$HAS_CONTAINER_ENGINE_VAR" = yes ] && echo 'kolla_container_engine: "docker"'
+     echo '# One node: no HAProxy, no keepalived, and no ProxySQL (it would take port 3306 from MariaDB).'
+     echo 'enable_haproxy: "no"'
+-    echo 'enable_proxysql: "no"'
++    [ "$HAS_PROXYSQL" = yes ] && echo 'enable_proxysql: "no"'
+     echo "kolla_internal_vip_address: \"$ADDR\""
+     echo "network_interface: \"$IFACE\""
+     echo 'neutron_external_interface: "veth1"'
+@@ -82,7 +95,7 @@ configure() {
+       echo "docker_registry: \"$DOCKER_REGISTRY\""; echo 'docker_registry_insecure: true'
+       [ -n "$OPENSTACK_TAG" ] && echo "openstack_tag: \"$OPENSTACK_TAG\""
+     fi
+-    if [ -n "$HTTPS_PROXY" ]; then
++    if [ -n "$HTTPS_PROXY" ] && [ "$HAS_DOCKER_PROXY_VARS" = yes ]; then
+       echo "docker_http_proxy: \"$HTTPS_PROXY\""; echo "docker_https_proxy: \"$HTTPS_PROXY\""; echo "docker_no_proxy: \"$NOPX\""
+       echo 'docker_apt_key_env:'; echo "  http_proxy: \"$HTTPS_PROXY\""; echo "  https_proxy: \"$HTTPS_PROXY\""
+       echo "container_http_proxy: \"$HTTPS_PROXY\""; echo "container_https_proxy: \"$HTTPS_PROXY\""; echo "container_no_proxy: \"$NOPX\""
+@@ -93,6 +106,11 @@ configure() {
+   echo "   interface $IFACE ($ADDR, MTU $MTU), nova_compute_virt_type $virt"
+ }
+ bootstrap() {
++  # Kolla-Ansible 10.x has no docker_http_proxy variables: give Docker its proxy through a systemd drop-in before it pulls.
++  if [ -n "$HTTPS_PROXY" ] && [ "$HAS_DOCKER_PROXY_VARS" = no ]; then
++    sudo mkdir -p /etc/systemd/system/docker.service.d
++    printf '[Service]\nEnvironment="HTTP_PROXY=%s" "HTTPS_PROXY=%s" "NO_PROXY=%s"\n' "$HTTPS_PROXY" "$HTTPS_PROXY" "$NOPX" | sudo tee /etc/systemd/system/docker.service.d/http-proxy.conf >/dev/null
++  fi
+   kolla bootstrap-servers
+   # Docker must run with its proxy before the first pull: check the daemon itself, not only its configuration.
+   if [ -n "$HTTPS_PROXY" ] && ! sudo docker info 2>/dev/null | grep -q 'HTTPS Proxy'; then
+@@ -102,7 +120,7 @@ bootstrap() {
+ }
+ # The images on quay.io/openstack.kolla are published for testing: Kolla-Ansible 2026.1 prechecks refuse them
+ # unless told so. A lab is exactly that use; with your own registry the option is not needed.
+-prechecks()  { if [ -z "$DOCKER_REGISTRY" ]; then kolla prechecks --use-test-images; else kolla prechecks; fi; }
++prechecks()  { if [ -z "$DOCKER_REGISTRY" ] && [ "$HAS_USE_TEST_IMAGES" = yes ]; then kolla prechecks --use-test-images; else kolla prechecks; fi; }
+ pull()       { kolla pull; }
+ deploy()     { kolla deploy; }
+ postdeploy() { kolla post-deploy; "${PX[@]}" "$VENV/bin/pip" install -q python-openstackclient; }
+@@ -134,6 +152,8 @@ step kolla      "Install Kolla-Ansible"              install_kolla
+ step configure  "Write the configuration"            configure
+ step bootstrap  "kolla-ansible bootstrap-servers"    bootstrap
+ step prechecks  "kolla-ansible prechecks"            prechecks
++# Profile option IMAGE_SOURCE=build: build the release's images into a local registry (needed for Ussuri)
++if [ "${IMAGE_SOURCE:-registry}" = build ]; then step images "Build the Kolla images (kolla-build)" bash ~/ussuri-build-images.sh; fi
+ step pull       "kolla-ansible pull"                 pull
+ step deploy     "kolla-ansible deploy"               deploy
+ step postdeploy "kolla-ansible post-deploy, client"  postdeploy

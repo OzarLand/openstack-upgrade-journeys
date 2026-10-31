@@ -1,0 +1,828 @@
++ pip install -q pip==23.3.2 setuptools==57.5.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
++ tail -3
++ pip install -q -c /probe/upper-constraints.txt kolla==10.4.0 docker
+
+[notice] A new release of pip is available: 23.3.2 -> 25.0.1
+[notice] To update, run: pip install --upgrade pip
++ kolla-build --version
+10.4.0
++ cp /probe/kolla-build.conf /tmp/kb.conf
++ '[' -n <proxy-url> ']'
++ printf 'build_args = https_proxy:%s,http_proxy:%s\n' <proxy-url> <proxy-url>
++ kolla-build --config-file /tmp/kb.conf --threads 1 '^base$' '^openstack-base$'
+INFO:kolla.common.utils:Found the docker image folder at /usr/local/share/kolla/docker
+INFO:kolla.common.utils:Added image base to queue
+INFO:kolla.common.utils:Attempt number: 1 to run task: BuildTask(base) 
+INFO:kolla.common.utils.base:Building started at 2026-10-31 09:50:42.283427
+INFO:kolla.common.utils.base:Step 1/27 : FROM ubuntu:18.04
+ERROR:kolla.common.utils.base:Error'd with the following message
+ERROR:kolla.common.utils.base:unknown: failed to resolve reference "docker.io/library/ubuntu:18.04": unexpected status from HEAD request to https://registry-1.docker.io/v2/library/ubuntu/manifests/18.04: 429 Too Many Requests
+INFO:kolla.common.utils:Attempt number: 2 to run task: BuildTask(base) 
+INFO:kolla.common.utils.base:Building started at 2026-10-31 09:50:43.124719
+INFO:kolla.common.utils.base:Directory /tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/base/plugins already exist. Skipping.
+INFO:kolla.common.utils.base:Directory /tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/base/additions already exist. Skipping.
+INFO:kolla.common.utils.base:Step 1/27 : FROM ubuntu:18.04
+INFO:kolla.common.utils.base: ---> 152dc042452c
+INFO:kolla.common.utils.base:Step 2/27 : LABEL maintainer="Kolla Project (https://launchpad.net/kolla)" name="base" build-date="20261031"
+INFO:kolla.common.utils.base: ---> Using cache
+INFO:kolla.common.utils.base: ---> 4b08794aba77
+INFO:kolla.common.utils.base:Step 3/27 : COPY curlrc /root/.curlrc
+INFO:kolla.common.utils.base: ---> Using cache
+INFO:kolla.common.utils.base: ---> e9b94676a623
+INFO:kolla.common.utils.base:Step 4/27 : ENV LANG en_US.UTF-8
+INFO:kolla.common.utils.base: ---> Using cache
+INFO:kolla.common.utils.base: ---> b44bd280ea5c
+INFO:kolla.common.utils.base:Step 5/27 : RUN groupadd --force --gid 42475 almanach     && useradd -l -M --shell /usr/sbin/nologin --uid 42475 --gid 42475 almanach     && groupadd --force --gid 42401 ansible     && useradd -l -M --shell /usr/sbin/nologin --uid 42401 --gid 42401 ansible     && groupadd --force --gid 42402 aodh     && useradd -l -M --shell /usr/sbin/nologin --uid 42402 --gid 42402 aodh     && groupadd --force --gid 42403 barbican     && useradd -l -M --shell /usr/sbin/nologin --uid 42403 --gid 42403 barbican     && groupadd --force --gid 42404 bifrost     && useradd -l -M --shell /usr/sbin/nologin --uid 42404 --gid 42404 bifrost     && groupadd --force --gid 42471 blazar     && useradd -l -M --shell /usr/sbin/nologin --uid 42471 --gid 42471 blazar     && groupadd --force --gid 42405 ceilometer     && useradd -l -M --shell /usr/sbin/nologin --uid 42405 --gid 42405 ceilometer     && groupadd --force --gid 42406 chrony     && useradd -l -M --shell /usr/sbin/nologin --uid 42406 --gid 42406 chrony     && groupadd --force --gid 42407 cinder     && useradd -l -M --shell /usr/sbin/nologin --uid 42407 --gid 42407 cinder     && groupadd --force --gid 42408 cloudkitty     && useradd -l -M --shell /usr/sbin/nologin --uid 42408 --gid 42408 cloudkitty     && groupadd --force --gid 42409 collectd     && useradd -l -M --shell /usr/sbin/nologin --uid 42409 --gid 42409 collectd     && groupadd --force --gid 42410 congress     && useradd -l -M --shell /usr/sbin/nologin --uid 42410 --gid 42410 congress     && groupadd --force --gid 42483 cyborg     && useradd -l -M --shell /usr/sbin/nologin --uid 42483 --gid 42483 cyborg     && groupadd --force --gid 42411 designate     && useradd -l -M --shell /usr/sbin/nologin --uid 42411 --gid 42411 designate     && groupadd --force --gid 42464 dragonflow     && useradd -l -M --shell /usr/sbin/nologin --uid 42464 --gid 42464 dragonflow     && groupadd --force --gid 42466 ec2api     && useradd -l -M --shell /usr/sbin/nologin --uid 42466 --gid 42466 ec2api     && groupadd --force --gid 42412 elasticsearch     && useradd -l -M --shell /usr/sbin/nologin --uid 42412 --gid 42412 elasticsearch     && groupadd --force --gid 42413 etcd     && useradd -l -M --shell /usr/sbin/nologin --uid 42413 --gid 42413 etcd     && groupadd --force --gid 42474 fluentd     && useradd -l -M --shell /usr/sbin/nologin --uid 42474 --gid 42474 fluentd     && groupadd --force --gid 42414 freezer     && useradd -l -M --shell /usr/sbin/nologin --uid 42414 --gid 42414 freezer     && groupadd --force --gid 42415 glance     && useradd -l -M --shell /usr/sbin/nologin --uid 42415 --gid 42415 glance     && groupadd --force --gid 42416 gnocchi     && useradd -l -M --shell /usr/sbin/nologin --uid 42416 --gid 42416 gnocchi     && groupadd --force --gid 42417 grafana     && useradd -l -M --shell /usr/sbin/nologin --uid 42417 --gid 42417 grafana     && groupadd --force --gid 42454 haproxy     && useradd -l -M --shell /usr/sbin/nologin --uid 42454 --gid 42454 haproxy     && groupadd --force --gid 42418 heat     && useradd -l -M --shell /usr/sbin/nologin --uid 42418 --gid 42418 heat     && groupadd --force --gid 42420 horizon     && useradd -l -M --shell /usr/sbin/nologin --uid 42420 --gid 42420 horizon     && groupadd --force --gid 42477 hugetlbfs     && useradd -l -M --shell /usr/sbin/nologin --uid 42477 --gid 42477 hugetlbfs     && groupadd --force --gid 42421 influxdb     && useradd -l -M --shell /usr/sbin/nologin --uid 42421 --gid 42421 influxdb     && groupadd --force --gid 42422 ironic     && useradd -l -M --shell /usr/sbin/nologin --uid 42422 --gid 42422 ironic     && groupadd --force --gid 42461 ironic-inspector     && useradd -l -M --shell /usr/sbin/nologin --uid 42461 --gid 42461 ironic-inspector     && groupadd --force --gid 42423 kafka     && useradd -l -M --shell /usr/sbin/nologin --uid 42423 --gid 42423 kafka     && groupadd --force --gid 42458 karbor     && useradd -l -M --shell /usr/sbin/nologin --uid 42458 --gid 42458 karbor     && groupadd --force --gid 42425 keystone     && useradd -l -M --shell /usr/sbin/nologin --uid 42425 --gid 42425 keystone     && groupadd --force --gid 42426 kibana     && useradd -l -M --shell /usr/sbin/nologin --uid 42426 --gid 42426 kibana     && groupadd --force --gid 42400 kolla     && useradd -l -M --shell /usr/sbin/nologin --uid 42400 --gid 42400 kolla     && groupadd --force --gid 42469 kuryr     && useradd -l -M --shell /usr/sbin/nologin --uid 42469 --gid 42469 kuryr     && groupadd --force --gid 42473 libvirt     && useradd -l -M --shell /usr/sbin/nologin --uid 42473 --gid 42473 libvirt     && groupadd --force --gid 42478 logstash     && useradd -l -M --shell /usr/sbin/nologin --uid 42478 --gid 42478 logstash     && groupadd --force --gid 42428 magnum     && useradd -l -M --shell /usr/sbin/nologin --uid 42428 --gid 42428 magnum     && groupadd --force --gid 42429 manila     && useradd -l -M --shell /usr/sbin/nologin --uid 42429 --gid 42429 manila     && groupadd --force --gid 42485 masakari     && useradd -l -M --shell /usr/sbin/nologin --uid 42485 --gid 42485 masakari     && groupadd --force --gid 42457 memcached     && useradd -l -M --shell /usr/sbin/nologin --uid 42457 --gid 42457 memcached     && groupadd --force --gid 42430 mistral     && useradd -l -M --shell /usr/sbin/nologin --uid 42430 --gid 42430 mistral     && groupadd --force --gid 42431 monasca     && useradd -l -M --shell /usr/sbin/nologin --uid 42431 --gid 42431 monasca     && groupadd --force --gid 65534 mongodb     && useradd -l -M --shell /usr/sbin/nologin --uid 42432 --gid 65534 mongodb     && groupadd --force --gid 42433 murano     && useradd -l -M --shell /usr/sbin/nologin --uid 42433 --gid 42433 murano     && groupadd --force --gid 42434 mysql     && useradd -l -M --shell /usr/sbin/nologin --uid 42434 --gid 42434 mysql     && groupadd --force --gid 42435 neutron     && useradd -l -M --shell /usr/sbin/nologin --uid 42435 --gid 42435 neutron     && groupadd --force --gid 42481 nfast     && useradd -l -M --shell /usr/sbin/nologin --uid 42481 --gid 42481 nfast     && groupadd --force --gid 42436 nova     && useradd -l -M --shell /usr/sbin/nologin --uid 42436 --gid 42436 nova     && groupadd --force --gid 42470 novajoin     && useradd -l -M --shell /usr/sbin/nologin --uid 42470 --gid 42470 novajoin     && groupadd --force --gid 42437 octavia     && useradd -l -M --shell /usr/sbin/nologin --uid 42437 --gid 42437 octavia     && groupadd --force --gid 42462 odl     && useradd -l -M --shell /usr/sbin/nologin --uid 42462 --gid 42462 odl     && groupadd --force --gid 42476 openvswitch     && useradd -l -M --shell /usr/sbin/nologin --uid 42476 --gid 42476 openvswitch     && groupadd --force --gid 42438 panko     && useradd -l -M --shell /usr/sbin/nologin --uid 42438 --gid 42438 panko     && groupadd --force --gid 42482 placement     && useradd -l -M --shell /usr/sbin/nologin --uid 42482 --gid 42482 placement     && groupadd --force --gid 42472 prometheus     && useradd -l -M --shell /usr/sbin/nologin --uid 42472 --gid 42472 prometheus     && groupadd --force --gid 42465 qdrouterd     && useradd -l -M --shell /usr/sbin/nologin --uid 42465 --gid 42465 qdrouterd     && groupadd --force --gid 42427 qemu     && useradd -l -M --shell /usr/sbin/nologin --uid 42427 --gid 42427 qemu     && groupadd --force --gid 42484 qinling     && useradd -l -M --shell /usr/sbin/nologin --uid 42484 --gid 42484 qinling     && groupadd --force --gid 42439 rabbitmq     && useradd -l -M --shell /usr/sbin/nologin --uid 42439 --gid 42439 rabbitmq     && groupadd --force --gid 42440 rally     && useradd -l -M --shell /usr/sbin/nologin --uid 42440 --gid 42440 rally     && groupadd --force --gid 42460 redis     && useradd -l -M --shell /usr/sbin/nologin --uid 42460 --gid 42460 redis     && groupadd --force --gid 42441 sahara     && useradd -l -M --shell /usr/sbin/nologin --uid 42441 --gid 42441 sahara     && groupadd --force --gid 42442 searchlight     && useradd -l -M --shell /usr/sbin/nologin --uid 42442 --gid 42442 searchlight     && groupadd --force --gid 42443 senlin     && useradd -l -M --shell /usr/sbin/nologin --uid 42443 --gid 42443 senlin     && groupadd --force --gid 42467 sensu     && useradd -l -M --shell /usr/sbin/nologin --uid 42467 --gid 42467 sensu     && groupadd --force --gid 42468 skydive     && useradd -l -M --shell /usr/sbin/nologin --uid 42468 --gid 42468 skydive     && groupadd --force --gid 42444 solum     && useradd -l -M --shell /usr/sbin/nologin --uid 42444 --gid 42444 solum     && groupadd --force --gid 42479 storm     && useradd -l -M --shell /usr/sbin/nologin --uid 42479 --gid 42479 storm     && groupadd --force --gid 42445 swift     && useradd -l -M --shell /usr/sbin/nologin --uid 42445 --gid 42445 swift     && groupadd --force --gid 42446 tacker     && useradd -l -M --shell /usr/sbin/nologin --uid 42446 --gid 42446 tacker     && groupadd --force --gid 42447 td-agent     && useradd -l -M --shell /usr/sbin/nologin --uid 42447 --gid 42447 td-agent     && groupadd --force --gid 42448 telegraf     && useradd -l -M --shell /usr/sbin/nologin --uid 42448 --gid 42448 telegraf     && groupadd --force --gid 42480 tempest     && useradd -l -M --shell /usr/sbin/nologin --uid 42480 --gid 42480 tempest     && groupadd --force --gid 42449 trove     && useradd -l -M --shell /usr/sbin/nologin --uid 42449 --gid 42449 trove     && groupadd --force --gid 42459 vitrage     && useradd -l -M --shell /usr/sbin/nologin --uid 42459 --gid 42459 vitrage     && groupadd --force --gid 42450 vmtp     && useradd -l -M --shell /usr/sbin/nologin --uid 42450 --gid 42450 vmtp     && groupadd --force --gid 42451 watcher     && useradd -l -M --shell /usr/sbin/nologin --uid 42451 --gid 42451 watcher     && groupadd --force --gid 42452 zaqar     && useradd -l -M --shell /usr/sbin/nologin --uid 42452 --gid 42452 zaqar     && groupadd --force --gid 42453 zookeeper     && useradd -l -M --shell /usr/sbin/nologin --uid 42453 --gid 42453 zookeeper     && groupadd --force --gid 42463 zun     && useradd -l -M --shell /usr/sbin/nologin --uid 42463 --gid 42463 zun
+INFO:kolla.common.utils.base: ---> Using cache
+INFO:kolla.common.utils.base: ---> 3de0b0658264
+INFO:kolla.common.utils.base:Step 6/27 : LABEL kolla_version="10.4.0"
+INFO:kolla.common.utils.base: ---> Using cache
+INFO:kolla.common.utils.base: ---> 71cc41b94a4b
+INFO:kolla.common.utils.base:Step 7/27 : ENV KOLLA_BASE_DISTRO=ubuntu     KOLLA_INSTALL_TYPE=source     KOLLA_INSTALL_METATYPE=mixed     KOLLA_DISTRO_PYTHON_VERSION=3.6     KOLLA_BASE_ARCH=x86_64
+INFO:kolla.common.utils.base: ---> Using cache
+INFO:kolla.common.utils.base: ---> 8ae7224b293a
+INFO:kolla.common.utils.base:Step 8/27 : COPY kolla_bashrc /tmp/
+INFO:kolla.common.utils.base: ---> Using cache
+INFO:kolla.common.utils.base: ---> b02b84061cef
+INFO:kolla.common.utils.base:Step 9/27 : RUN cat /tmp/kolla_bashrc >> /etc/skel/.bashrc     && cat /tmp/kolla_bashrc >> /root/.bashrc
+INFO:kolla.common.utils.base: ---> Using cache
+INFO:kolla.common.utils.base: ---> 73cc43056ffb
+INFO:kolla.common.utils.base:Step 10/27 : ENV PS1="$(tput bold)($(printenv KOLLA_SERVICE_NAME))$(tput sgr0)[$(id -un)@$(hostname -s) $(pwd)]$ "
+INFO:kolla.common.utils.base: ---> Using cache
+INFO:kolla.common.utils.base: ---> 59a3a8459399
+INFO:kolla.common.utils.base:Step 11/27 : RUN apt-get update && apt-get -y install --no-install-recommends lsb-release && apt-get clean && rm -rf /var/lib/apt/lists/*
+INFO:kolla.common.utils.base: ---> Using cache
+INFO:kolla.common.utils.base: ---> 9b055b9c999d
+INFO:kolla.common.utils.base:Step 12/27 : RUN if [ $(lsb_release -r -s) != "18.04" ]; then         echo "Only release '18.04' is supported on ubuntu"; false; fi
+INFO:kolla.common.utils.base: ---> Using cache
+INFO:kolla.common.utils.base: ---> 156a7b08d6d6
+INFO:kolla.common.utils.base:Step 13/27 : RUN cat /tmp/kolla_bashrc >> /etc/bash.bashrc     && sed -i -e s/LAST_SYSTEM_UID=999/LAST_SYSTEM_UID=59999/g /etc/adduser.conf
+INFO:kolla.common.utils.base: ---> Using cache
+INFO:kolla.common.utils.base: ---> 0b9335382eae
+INFO:kolla.common.utils.base:Step 14/27 : ENV DEBIAN_FRONTEND noninteractive
+INFO:kolla.common.utils.base: ---> Using cache
+INFO:kolla.common.utils.base: ---> d98daf6c2c3f
+INFO:kolla.common.utils.base:Step 15/27 : COPY dpkg_reducing_disk_footprint /etc/dpkg/dpkg.cfg.d/dpkg_reducing_disk_footprint
+INFO:kolla.common.utils.base: ---> Using cache
+INFO:kolla.common.utils.base: ---> 68f6c0390434
+INFO:kolla.common.utils.base:Step 16/27 : RUN apt-get update && apt-get -y install --no-install-recommends apt-transport-https ca-certificates curl dirmngr gnupg && apt-get clean && rm -rf /var/lib/apt/lists/*
+INFO:kolla.common.utils.base: ---> Using cache
+INFO:kolla.common.utils.base: ---> 1ba5a4e6c86b
+INFO:kolla.common.utils.base:Step 17/27 : RUN apt-get update     && apt-get -y install locales     && sed -e "s/# $LANG UTF-8/$LANG UTF-8/g" /etc/locale.gen -i     && locale-gen "$LANG"     && apt-get -y upgrade     && apt-get -y dist-upgrade     && apt-get update && apt-get -y install --no-install-recommends apt-utils curl dumb-init gawk iproute2 kmod lvm2 netbase open-iscsi procps python3 python3-pip python3-setuptools socat sudo tgt && apt-get clean && rm -rf /var/lib/apt/lists/*
+INFO:kolla.common.utils.base: ---> Running in b860dcb24395
+INFO:kolla.common.utils.base:Get:1 http://archive.ubuntu.com/ubuntu bionic InRelease [242 kB]
+INFO:kolla.common.utils.base:Get:2 http://security.ubuntu.com/ubuntu bionic-security InRelease [102 kB]
+INFO:kolla.common.utils.base:Get:3 http://archive.ubuntu.com/ubuntu bionic-updates InRelease [102 kB]
+INFO:kolla.common.utils.base:Get:4 http://archive.ubuntu.com/ubuntu bionic-backports InRelease [102 kB]
+INFO:kolla.common.utils.base:Get:5 http://archive.ubuntu.com/ubuntu bionic/main amd64 Packages [1344 kB]
+INFO:kolla.common.utils.base:Get:6 http://archive.ubuntu.com/ubuntu bionic/universe amd64 Packages [11.3 MB]
+INFO:kolla.common.utils.base:Get:7 http://archive.ubuntu.com/ubuntu bionic/multiverse amd64 Packages [186 kB]
+INFO:kolla.common.utils.base:Get:8 http://security.ubuntu.com/ubuntu bionic-security/multiverse amd64 Packages [23.5 kB]
+INFO:kolla.common.utils.base:Get:9 http://archive.ubuntu.com/ubuntu bionic/restricted amd64 Packages [13.5 kB]
+INFO:kolla.common.utils.base:Get:10 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 Packages [2389 kB]
+INFO:kolla.common.utils.base:Get:11 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 Packages [3735 kB]
+INFO:kolla.common.utils.base:Get:12 http://security.ubuntu.com/ubuntu bionic-security/main amd64 Packages [3328 kB]
+INFO:kolla.common.utils.base:Get:13 http://archive.ubuntu.com/ubuntu bionic-updates/restricted amd64 Packages [1697 kB]
+INFO:kolla.common.utils.base:Get:14 http://archive.ubuntu.com/ubuntu bionic-updates/multiverse amd64 Packages [30.5 kB]
+INFO:kolla.common.utils.base:Get:15 http://archive.ubuntu.com/ubuntu bionic-backports/universe amd64 Packages [20.5 kB]
+INFO:kolla.common.utils.base:Get:16 http://archive.ubuntu.com/ubuntu bionic-backports/main amd64 Packages [63.4 kB]
+INFO:kolla.common.utils.base:Get:17 http://security.ubuntu.com/ubuntu bionic-security/universe amd64 Packages [1622 kB]
+INFO:kolla.common.utils.base:Get:18 http://security.ubuntu.com/ubuntu bionic-security/restricted amd64 Packages [1658 kB]
+INFO:kolla.common.utils.base:Fetched 28.0 MB in 2s (14.1 MB/s)
+INFO:kolla.common.utils.base:Reading package lists...
+INFO:kolla.common.utils.base:Reading package lists...
+INFO:kolla.common.utils.base:Building dependency tree...
+INFO:kolla.common.utils.base:Reading state information...
+INFO:kolla.common.utils.base:The following NEW packages will be installed:
+INFO:kolla.common.utils.base:  locales
+INFO:kolla.common.utils.base:0 upgraded, 1 newly installed, 0 to remove and 1 not upgraded.
+INFO:kolla.common.utils.base:Need to get 3613 kB of archives.
+INFO:kolla.common.utils.base:After this operation, 14.5 MB of additional disk space will be used.
+INFO:kolla.common.utils.base:Get:1 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 locales all 2.27-3ubuntu1.6 [3613 kB]
+INFO:kolla.common.utils.base:[91mperl: warning: Setting locale failed.
+INFO:kolla.common.utils.base:perl: warning: Please check that your locale settings:
+INFO:kolla.common.utils.base:	LANGUAGE = (unset),
+INFO:kolla.common.utils.base:	LC_ALL = (unset),
+INFO:kolla.common.utils.base:	LANG = "en_US.UTF-8"
+INFO:kolla.common.utils.base:    are supported and installed on your system.
+INFO:kolla.common.utils.base:perl: warning: Falling back to the standard locale ("C").
+INFO:kolla.common.utils.base:[0m
+INFO:kolla.common.utils.base:[91mdebconf: delaying package configuration, since apt-utils is not installed
+INFO:kolla.common.utils.base:[0m
+INFO:kolla.common.utils.base:Fetched 3613 kB in 1s (2770 kB/s)
+INFO:kolla.common.utils.base:Selecting previously unselected package locales.
+INFO:kolla.common.utils.base:(Reading database ... 
+INFO:kolla.common.utils.base:(Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%
+INFO:kolla.common.utils.base:(Reading database ... 70%
+INFO:kolla.common.utils.base:(Reading database ... 75%
+INFO:kolla.common.utils.base:(Reading database ... 80%(Reading database ... 85%
+INFO:kolla.common.utils.base:(Reading database ... 90%
+INFO:kolla.common.utils.base:(Reading database ... 95%
+INFO:kolla.common.utils.base:(Reading database ... 100%(Reading database ... 5488 files and directories currently installed.)
+INFO:kolla.common.utils.base:Preparing to unpack .../locales_2.27-3ubuntu1.6_all.deb ...
+INFO:kolla.common.utils.base:Unpacking locales (2.27-3ubuntu1.6) ...
+INFO:kolla.common.utils.base:Setting up locales (2.27-3ubuntu1.6) ...
+INFO:kolla.common.utils.base:Generating locales (this might take a while)...
+INFO:kolla.common.utils.base:Generation complete.
+INFO:kolla.common.utils.base:Generating locales (this might take a while)...
+INFO:kolla.common.utils.base:  en_US.UTF-8
+INFO:kolla.common.utils.base:...
+INFO:kolla.common.utils.base: done
+INFO:kolla.common.utils.base:Generation complete.
+INFO:kolla.common.utils.base:Reading package lists...
+INFO:kolla.common.utils.base:Building dependency tree...
+INFO:kolla.common.utils.base:Reading state information...
+INFO:kolla.common.utils.base:Calculating upgrade...
+INFO:kolla.common.utils.base:The following packages will be upgraded:
+INFO:kolla.common.utils.base:  base-files
+INFO:kolla.common.utils.base:1 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+INFO:kolla.common.utils.base:Need to get 60.4 kB of archives.
+INFO:kolla.common.utils.base:After this operation, 0 B of additional disk space will be used.
+INFO:kolla.common.utils.base:Get:1 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 base-files amd64 10.1ubuntu2.12 [60.4 kB]
+INFO:kolla.common.utils.base:[91mdebconf: delaying package configuration, since apt-utils is not installed
+INFO:kolla.common.utils.base:[0m
+INFO:kolla.common.utils.base:Fetched 60.4 kB in 1s (118 kB/s)
+INFO:kolla.common.utils.base:(Reading database ... 
+INFO:kolla.common.utils.base:(Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%
+INFO:kolla.common.utils.base:(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%
+INFO:kolla.common.utils.base:(Reading database ... 90%
+INFO:kolla.common.utils.base:(Reading database ... 95%
+INFO:kolla.common.utils.base:(Reading database ... 100%(Reading database ... 6106 files and directories currently installed.)
+INFO:kolla.common.utils.base:Preparing to unpack .../base-files_10.1ubuntu2.12_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking base-files (10.1ubuntu2.12) over (10.1ubuntu2.11) ...
+INFO:kolla.common.utils.base:Setting up base-files (10.1ubuntu2.12) ...
+INFO:kolla.common.utils.base:Installing new version of config file /etc/update-motd.d/10-help-text ...
+INFO:kolla.common.utils.base:Reading package lists...
+INFO:kolla.common.utils.base:Building dependency tree...
+INFO:kolla.common.utils.base:Reading state information...
+INFO:kolla.common.utils.base:Calculating upgrade...
+INFO:kolla.common.utils.base:0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+INFO:kolla.common.utils.base:Hit:1 http://archive.ubuntu.com/ubuntu bionic InRelease
+INFO:kolla.common.utils.base:Hit:2 http://security.ubuntu.com/ubuntu bionic-security InRelease
+INFO:kolla.common.utils.base:Hit:3 http://archive.ubuntu.com/ubuntu bionic-updates InRelease
+INFO:kolla.common.utils.base:Hit:4 http://archive.ubuntu.com/ubuntu bionic-backports InRelease
+INFO:kolla.common.utils.base:Reading package lists...
+INFO:kolla.common.utils.base:Reading package lists...
+INFO:kolla.common.utils.base:Building dependency tree...
+INFO:kolla.common.utils.base:Reading state information...
+INFO:kolla.common.utils.base:curl is already the newest version (7.58.0-2ubuntu3.24).
+INFO:kolla.common.utils.base:procps is already the newest version (2:3.3.12-3ubuntu1.2).
+INFO:kolla.common.utils.base:python3 is already the newest version (3.6.7-1~18.04).
+INFO:kolla.common.utils.base:python3 set to manually installed.
+INFO:kolla.common.utils.base:The following additional packages will be installed:
+INFO:kolla.common.utils.base:  dmeventd dmsetup libaio1 libapt-inst2.0 libconfig-general-perl
+INFO:kolla.common.utils.base:  libdevmapper-event1.02.1 libdevmapper1.02.1 libelf1 libgdbm-compat4 libgdbm5
+INFO:kolla.common.utils.base:  libibverbs1 libisns0 libkmod2 liblvm2app2.2 liblvm2cmd2.02 libmnl0 libmpfr6
+INFO:kolla.common.utils.base:  libnl-3-200 libnl-route-3-200 libperl5.26 librdmacm1 libreadline5
+INFO:kolla.common.utils.base:  libsgutils2-2 libsigsegv2 libwrap0 perl perl-modules-5.26 python-pip-whl
+INFO:kolla.common.utils.base:  python3-distutils python3-lib2to3 python3-pkg-resources sg3-utils udev
+INFO:kolla.common.utils.base:Suggested packages:
+INFO:kolla.common.utils.base:  gawk-doc iproute2-doc gdbm-l10n thin-provisioning-tools perl-doc
+INFO:kolla.common.utils.base:  libterm-readline-gnu-perl | libterm-readline-perl-perl make
+INFO:kolla.common.utils.base:  python-setuptools-doc tgt-rbd
+INFO:kolla.common.utils.base:Recommended packages:
+INFO:kolla.common.utils.base:  libatm1 libxtables12 ibverbs-providers busybox-initramfs build-essential
+INFO:kolla.common.utils.base:  python3-dev python3-wheel
+INFO:kolla.common.utils.base:The following NEW packages will be installed:
+INFO:kolla.common.utils.base:  apt-utils dmeventd dmsetup dumb-init gawk iproute2 kmod libaio1
+INFO:kolla.common.utils.base:  libapt-inst2.0 libconfig-general-perl libdevmapper-event1.02.1
+INFO:kolla.common.utils.base:  libdevmapper1.02.1 libelf1 libgdbm-compat4 libgdbm5 libibverbs1 libisns0
+INFO:kolla.common.utils.base:  libkmod2 liblvm2app2.2 liblvm2cmd2.02 libmnl0 libmpfr6 libnl-3-200
+INFO:kolla.common.utils.base:  libnl-route-3-200 libperl5.26 librdmacm1 libreadline5 libsgutils2-2
+INFO:kolla.common.utils.base:  libsigsegv2 libwrap0 lvm2 netbase open-iscsi perl perl-modules-5.26
+INFO:kolla.common.utils.base:  python-pip-whl python3-distutils python3-lib2to3 python3-pip
+INFO:kolla.common.utils.base:  python3-pkg-resources python3-setuptools sg3-utils socat sudo tgt udev
+INFO:kolla.common.utils.base:0 upgraded, 46 newly installed, 0 to remove and 0 not upgraded.
+INFO:kolla.common.utils.base:Need to get 16.7 MB of archives.
+INFO:kolla.common.utils.base:After this operation, 82.3 MB of additional disk space will be used.
+INFO:kolla.common.utils.base:Get:1 http://archive.ubuntu.com/ubuntu bionic/main amd64 libmpfr6 amd64 4.0.1-1 [243 kB]
+INFO:kolla.common.utils.base:Get:2 http://archive.ubuntu.com/ubuntu bionic/main amd64 libsigsegv2 amd64 2.12-1 [14.7 kB]
+INFO:kolla.common.utils.base:Get:3 http://archive.ubuntu.com/ubuntu bionic/main amd64 gawk amd64 1:4.1.4+dfsg-1build1 [401 kB]
+INFO:kolla.common.utils.base:Get:4 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libkmod2 amd64 24-1ubuntu3.5 [40.2 kB]
+INFO:kolla.common.utils.base:Get:5 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 udev amd64 237-3ubuntu10.57 [1,100 kB]
+INFO:kolla.common.utils.base:Get:6 http://archive.ubuntu.com/ubuntu bionic/main amd64 libisns0 amd64 0.97-2build1 [110 kB]
+INFO:kolla.common.utils.base:Get:7 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 open-iscsi amd64 2.0.874-5ubuntu2.11 [280 kB]
+INFO:kolla.common.utils.base:Get:8 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 perl-modules-5.26 all 5.26.1-6ubuntu0.7 [2,764 kB]
+INFO:kolla.common.utils.base:Get:9 http://archive.ubuntu.com/ubuntu bionic/main amd64 libgdbm5 amd64 1.14.1-6 [26.0 kB]
+INFO:kolla.common.utils.base:Get:10 http://archive.ubuntu.com/ubuntu bionic/main amd64 libgdbm-compat4 amd64 1.14.1-6 [6,084 B]
+INFO:kolla.common.utils.base:Get:11 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libperl5.26 amd64 5.26.1-6ubuntu0.7 [3,532 kB]
+INFO:kolla.common.utils.base:Get:12 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 perl amd64 5.26.1-6ubuntu0.7 [201 kB]
+INFO:kolla.common.utils.base:Get:13 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libapt-inst2.0 amd64 1.6.17 [54.6 kB]
+INFO:kolla.common.utils.base:Get:14 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 apt-utils amd64 1.6.17 [206 kB]
+INFO:kolla.common.utils.base:Get:15 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libdevmapper1.02.1 amd64 2:1.02.145-4.1ubuntu3.18.04.3 [127 kB]
+INFO:kolla.common.utils.base:Get:16 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 dmsetup amd64 2:1.02.145-4.1ubuntu3.18.04.3 [74.4 kB]
+INFO:kolla.common.utils.base:Get:17 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libelf1 amd64 0.170-0.4ubuntu0.1 [44.8 kB]
+INFO:kolla.common.utils.base:Get:18 http://archive.ubuntu.com/ubuntu bionic/main amd64 libmnl0 amd64 1.0.4-2 [12.3 kB]
+INFO:kolla.common.utils.base:Get:19 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 iproute2 amd64 4.15.0-2ubuntu1.3 [721 kB]
+INFO:kolla.common.utils.base:Get:20 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 kmod amd64 24-1ubuntu3.5 [88.8 kB]
+INFO:kolla.common.utils.base:Get:21 http://archive.ubuntu.com/ubuntu bionic/main amd64 netbase all 5.4 [12.7 kB]
+INFO:kolla.common.utils.base:Get:22 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 sudo amd64 1.8.21p2-3ubuntu1.6 [430 kB]
+INFO:kolla.common.utils.base:Get:23 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libdevmapper-event1.02.1 amd64 2:1.02.145-4.1ubuntu3.18.04.3 [10.9 kB]
+INFO:kolla.common.utils.base:Get:24 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 liblvm2cmd2.02 amd64 2.02.176-4.1ubuntu3.18.04.3 [584 kB]
+INFO:kolla.common.utils.base:Get:25 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 dmeventd amd64 2:1.02.145-4.1ubuntu3.18.04.3 [30.4 kB]
+INFO:kolla.common.utils.base:Get:26 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libaio1 amd64 0.3.110-5ubuntu0.1 [6,476 B]
+INFO:kolla.common.utils.base:Get:27 http://archive.ubuntu.com/ubuntu bionic/main amd64 libconfig-general-perl all 2.63-1 [53.9 kB]
+INFO:kolla.common.utils.base:Get:28 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 liblvm2app2.2 amd64 2.02.176-4.1ubuntu3.18.04.3 [432 kB]
+INFO:kolla.common.utils.base:Get:29 http://archive.ubuntu.com/ubuntu bionic/main amd64 libnl-3-200 amd64 3.2.29-0ubuntu3 [52.8 kB]
+INFO:kolla.common.utils.base:Get:30 http://archive.ubuntu.com/ubuntu bionic/main amd64 libnl-route-3-200 amd64 3.2.29-0ubuntu3 [146 kB]
+INFO:kolla.common.utils.base:Get:31 http://archive.ubuntu.com/ubuntu bionic/main amd64 libreadline5 amd64 5.2+dfsg-3build1 [99.5 kB]
+INFO:kolla.common.utils.base:Get:32 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libsgutils2-2 amd64 1.42-2ubuntu1.18.04.2 [59.8 kB]
+INFO:kolla.common.utils.base:Get:33 http://archive.ubuntu.com/ubuntu bionic/main amd64 libwrap0 amd64 7.6.q-27 [46.3 kB]
+INFO:kolla.common.utils.base:Get:34 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 lvm2 amd64 2.02.176-4.1ubuntu3.18.04.3 [929 kB]
+INFO:kolla.common.utils.base:Get:35 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 python-pip-whl all 9.0.1-2.3~ubuntu1.18.04.8 [1,653 kB]
+INFO:kolla.common.utils.base:Get:36 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python3-lib2to3 all 3.6.9-1~18.04 [77.4 kB]
+INFO:kolla.common.utils.base:Get:37 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python3-distutils all 3.6.9-1~18.04 [144 kB]
+INFO:kolla.common.utils.base:Get:38 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 python3-pip all 9.0.1-2.3~ubuntu1.18.04.8 [114 kB]
+INFO:kolla.common.utils.base:Get:39 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python3-pkg-resources all 39.0.1-2ubuntu0.1 [99.0 kB]
+INFO:kolla.common.utils.base:Get:40 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python3-setuptools all 39.0.1-2ubuntu0.1 [248 kB]
+INFO:kolla.common.utils.base:Get:41 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 sg3-utils amd64 1.42-2ubuntu1.18.04.2 [749 kB]
+INFO:kolla.common.utils.base:Get:42 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libibverbs1 amd64 17.1-1ubuntu0.2 [44.4 kB]
+INFO:kolla.common.utils.base:Get:43 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 librdmacm1 amd64 17.1-1ubuntu0.2 [56.1 kB]
+INFO:kolla.common.utils.base:Get:44 http://archive.ubuntu.com/ubuntu bionic/main amd64 tgt amd64 1:1.0.72-1ubuntu1 [214 kB]
+INFO:kolla.common.utils.base:Get:45 http://archive.ubuntu.com/ubuntu bionic/universe amd64 dumb-init amd64 1.2.1-1 [13.0 kB]
+INFO:kolla.common.utils.base:Get:46 http://archive.ubuntu.com/ubuntu bionic/main amd64 socat amd64 1.7.3.2-2ubuntu2 [342 kB]
+INFO:kolla.common.utils.base:[91mdebconf: delaying package configuration, since apt-utils is not installed
+INFO:kolla.common.utils.base:[0m
+INFO:kolla.common.utils.base:Fetched 16.7 MB in 2s (7,098 kB/s)
+INFO:kolla.common.utils.base:Selecting previously unselected package libmpfr6:amd64.
+INFO:kolla.common.utils.base:(Reading database ... 
+INFO:kolla.common.utils.base:(Reading database ... 5%(Reading database ... 10%
+INFO:kolla.common.utils.base:(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%
+INFO:kolla.common.utils.base:(Reading database ... 75%
+INFO:kolla.common.utils.base:(Reading database ... 80%
+INFO:kolla.common.utils.base:(Reading database ... 85%
+INFO:kolla.common.utils.base:(Reading database ... 90%
+INFO:kolla.common.utils.base:(Reading database ... 95%
+INFO:kolla.common.utils.base:(Reading database ... 100%(Reading database ... 6106 files and directories currently installed.)
+INFO:kolla.common.utils.base:Preparing to unpack .../libmpfr6_4.0.1-1_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libmpfr6:amd64 (4.0.1-1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libsigsegv2:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../libsigsegv2_2.12-1_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libsigsegv2:amd64 (2.12-1) ...
+INFO:kolla.common.utils.base:Setting up libmpfr6:amd64 (4.0.1-1) ...
+INFO:kolla.common.utils.base:Setting up libsigsegv2:amd64 (2.12-1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package gawk.
+INFO:kolla.common.utils.base:(Reading database ... 
+INFO:kolla.common.utils.base:(Reading database ... 5%
+INFO:kolla.common.utils.base:(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%
+INFO:kolla.common.utils.base:(Reading database ... 70%
+INFO:kolla.common.utils.base:(Reading database ... 75%
+INFO:kolla.common.utils.base:(Reading database ... 80%
+INFO:kolla.common.utils.base:(Reading database ... 85%
+INFO:kolla.common.utils.base:(Reading database ... 90%
+INFO:kolla.common.utils.base:(Reading database ... 95%
+INFO:kolla.common.utils.base:(Reading database ... 100%(Reading database ... 6123 files and directories currently installed.)
+INFO:kolla.common.utils.base:Preparing to unpack .../00-gawk_1%3a4.1.4+dfsg-1build1_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking gawk (1:4.1.4+dfsg-1build1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libkmod2:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../01-libkmod2_24-1ubuntu3.5_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libkmod2:amd64 (24-1ubuntu3.5) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package udev.
+INFO:kolla.common.utils.base:Preparing to unpack .../02-udev_237-3ubuntu10.57_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking udev (237-3ubuntu10.57) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libisns0:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../03-libisns0_0.97-2build1_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libisns0:amd64 (0.97-2build1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package open-iscsi.
+INFO:kolla.common.utils.base:Preparing to unpack .../04-open-iscsi_2.0.874-5ubuntu2.11_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking open-iscsi (2.0.874-5ubuntu2.11) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package perl-modules-5.26.
+INFO:kolla.common.utils.base:Preparing to unpack .../05-perl-modules-5.26_5.26.1-6ubuntu0.7_all.deb ...
+INFO:kolla.common.utils.base:Unpacking perl-modules-5.26 (5.26.1-6ubuntu0.7) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libgdbm5:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../06-libgdbm5_1.14.1-6_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libgdbm5:amd64 (1.14.1-6) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libgdbm-compat4:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../07-libgdbm-compat4_1.14.1-6_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libgdbm-compat4:amd64 (1.14.1-6) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libperl5.26:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../08-libperl5.26_5.26.1-6ubuntu0.7_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libperl5.26:amd64 (5.26.1-6ubuntu0.7) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package perl.
+INFO:kolla.common.utils.base:Preparing to unpack .../09-perl_5.26.1-6ubuntu0.7_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking perl (5.26.1-6ubuntu0.7) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libapt-inst2.0:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../10-libapt-inst2.0_1.6.17_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libapt-inst2.0:amd64 (1.6.17) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package apt-utils.
+INFO:kolla.common.utils.base:Preparing to unpack .../11-apt-utils_1.6.17_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking apt-utils (1.6.17) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libdevmapper1.02.1:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../12-libdevmapper1.02.1_2%3a1.02.145-4.1ubuntu3.18.04.3_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libdevmapper1.02.1:amd64 (2:1.02.145-4.1ubuntu3.18.04.3) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package dmsetup.
+INFO:kolla.common.utils.base:Preparing to unpack .../13-dmsetup_2%3a1.02.145-4.1ubuntu3.18.04.3_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking dmsetup (2:1.02.145-4.1ubuntu3.18.04.3) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libelf1:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../14-libelf1_0.170-0.4ubuntu0.1_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libelf1:amd64 (0.170-0.4ubuntu0.1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libmnl0:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../15-libmnl0_1.0.4-2_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libmnl0:amd64 (1.0.4-2) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package iproute2.
+INFO:kolla.common.utils.base:Preparing to unpack .../16-iproute2_4.15.0-2ubuntu1.3_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking iproute2 (4.15.0-2ubuntu1.3) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package kmod.
+INFO:kolla.common.utils.base:Preparing to unpack .../17-kmod_24-1ubuntu3.5_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking kmod (24-1ubuntu3.5) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package netbase.
+INFO:kolla.common.utils.base:Preparing to unpack .../18-netbase_5.4_all.deb ...
+INFO:kolla.common.utils.base:Unpacking netbase (5.4) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package sudo.
+INFO:kolla.common.utils.base:Preparing to unpack .../19-sudo_1.8.21p2-3ubuntu1.6_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking sudo (1.8.21p2-3ubuntu1.6) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libdevmapper-event1.02.1:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../20-libdevmapper-event1.02.1_2%3a1.02.145-4.1ubuntu3.18.04.3_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libdevmapper-event1.02.1:amd64 (2:1.02.145-4.1ubuntu3.18.04.3) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package liblvm2cmd2.02:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../21-liblvm2cmd2.02_2.02.176-4.1ubuntu3.18.04.3_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking liblvm2cmd2.02:amd64 (2.02.176-4.1ubuntu3.18.04.3) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package dmeventd.
+INFO:kolla.common.utils.base:Preparing to unpack .../22-dmeventd_2%3a1.02.145-4.1ubuntu3.18.04.3_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking dmeventd (2:1.02.145-4.1ubuntu3.18.04.3) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libaio1:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../23-libaio1_0.3.110-5ubuntu0.1_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libaio1:amd64 (0.3.110-5ubuntu0.1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libconfig-general-perl.
+INFO:kolla.common.utils.base:Preparing to unpack .../24-libconfig-general-perl_2.63-1_all.deb ...
+INFO:kolla.common.utils.base:Unpacking libconfig-general-perl (2.63-1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package liblvm2app2.2:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../25-liblvm2app2.2_2.02.176-4.1ubuntu3.18.04.3_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking liblvm2app2.2:amd64 (2.02.176-4.1ubuntu3.18.04.3) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libnl-3-200:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../26-libnl-3-200_3.2.29-0ubuntu3_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libnl-3-200:amd64 (3.2.29-0ubuntu3) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libnl-route-3-200:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../27-libnl-route-3-200_3.2.29-0ubuntu3_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libnl-route-3-200:amd64 (3.2.29-0ubuntu3) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libreadline5:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../28-libreadline5_5.2+dfsg-3build1_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libreadline5:amd64 (5.2+dfsg-3build1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libsgutils2-2.
+INFO:kolla.common.utils.base:Preparing to unpack .../29-libsgutils2-2_1.42-2ubuntu1.18.04.2_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libsgutils2-2 (1.42-2ubuntu1.18.04.2) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libwrap0:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../30-libwrap0_7.6.q-27_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libwrap0:amd64 (7.6.q-27) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package lvm2.
+INFO:kolla.common.utils.base:Preparing to unpack .../31-lvm2_2.02.176-4.1ubuntu3.18.04.3_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking lvm2 (2.02.176-4.1ubuntu3.18.04.3) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package python-pip-whl.
+INFO:kolla.common.utils.base:Preparing to unpack .../32-python-pip-whl_9.0.1-2.3~ubuntu1.18.04.8_all.deb ...
+INFO:kolla.common.utils.base:Unpacking python-pip-whl (9.0.1-2.3~ubuntu1.18.04.8) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package python3-lib2to3.
+INFO:kolla.common.utils.base:Preparing to unpack .../33-python3-lib2to3_3.6.9-1~18.04_all.deb ...
+INFO:kolla.common.utils.base:Unpacking python3-lib2to3 (3.6.9-1~18.04) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package python3-distutils.
+INFO:kolla.common.utils.base:Preparing to unpack .../34-python3-distutils_3.6.9-1~18.04_all.deb ...
+INFO:kolla.common.utils.base:Unpacking python3-distutils (3.6.9-1~18.04) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package python3-pip.
+INFO:kolla.common.utils.base:Preparing to unpack .../35-python3-pip_9.0.1-2.3~ubuntu1.18.04.8_all.deb ...
+INFO:kolla.common.utils.base:Unpacking python3-pip (9.0.1-2.3~ubuntu1.18.04.8) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package python3-pkg-resources.
+INFO:kolla.common.utils.base:Preparing to unpack .../36-python3-pkg-resources_39.0.1-2ubuntu0.1_all.deb ...
+INFO:kolla.common.utils.base:Unpacking python3-pkg-resources (39.0.1-2ubuntu0.1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package python3-setuptools.
+INFO:kolla.common.utils.base:Preparing to unpack .../37-python3-setuptools_39.0.1-2ubuntu0.1_all.deb ...
+INFO:kolla.common.utils.base:Unpacking python3-setuptools (39.0.1-2ubuntu0.1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package sg3-utils.
+INFO:kolla.common.utils.base:Preparing to unpack .../38-sg3-utils_1.42-2ubuntu1.18.04.2_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking sg3-utils (1.42-2ubuntu1.18.04.2) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libibverbs1:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../39-libibverbs1_17.1-1ubuntu0.2_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libibverbs1:amd64 (17.1-1ubuntu0.2) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package librdmacm1:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../40-librdmacm1_17.1-1ubuntu0.2_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking librdmacm1:amd64 (17.1-1ubuntu0.2) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package tgt.
+INFO:kolla.common.utils.base:Preparing to unpack .../41-tgt_1%3a1.0.72-1ubuntu1_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking tgt (1:1.0.72-1ubuntu1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package dumb-init.
+INFO:kolla.common.utils.base:Preparing to unpack .../42-dumb-init_1.2.1-1_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking dumb-init (1.2.1-1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package socat.
+INFO:kolla.common.utils.base:Preparing to unpack .../43-socat_1.7.3.2-2ubuntu2_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking socat (1.7.3.2-2ubuntu2) ...
+INFO:kolla.common.utils.base:Setting up python-pip-whl (9.0.1-2.3~ubuntu1.18.04.8) ...
+INFO:kolla.common.utils.base:Setting up libapt-inst2.0:amd64 (1.6.17) ...
+INFO:kolla.common.utils.base:Setting up sudo (1.8.21p2-3ubuntu1.6) ...
+INFO:kolla.common.utils.base:Setting up apt-utils (1.6.17) ...
+INFO:kolla.common.utils.base:Setting up libisns0:amd64 (0.97-2build1) ...
+INFO:kolla.common.utils.base:Setting up libelf1:amd64 (0.170-0.4ubuntu0.1) ...
+INFO:kolla.common.utils.base:Setting up libdevmapper1.02.1:amd64 (2:1.02.145-4.1ubuntu3.18.04.3) ...
+INFO:kolla.common.utils.base:Setting up perl-modules-5.26 (5.26.1-6ubuntu0.7) ...
+INFO:kolla.common.utils.base:Setting up python3-pkg-resources (39.0.1-2ubuntu0.1) ...
+INFO:kolla.common.utils.base:Setting up libgdbm5:amd64 (1.14.1-6) ...
+INFO:kolla.common.utils.base:Setting up gawk (1:4.1.4+dfsg-1build1) ...
+INFO:kolla.common.utils.base:Setting up libkmod2:amd64 (24-1ubuntu3.5) ...
+INFO:kolla.common.utils.base:Setting up libdevmapper-event1.02.1:amd64 (2:1.02.145-4.1ubuntu3.18.04.3) ...
+INFO:kolla.common.utils.base:Setting up libsgutils2-2 (1.42-2ubuntu1.18.04.2) ...
+INFO:kolla.common.utils.base:Setting up libaio1:amd64 (0.3.110-5ubuntu0.1) ...
+INFO:kolla.common.utils.base:Setting up udev (237-3ubuntu10.57) ...
+INFO:kolla.common.utils.base:invoke-rc.d: could not determine current runlevel
+INFO:kolla.common.utils.base:invoke-rc.d: policy-rc.d denied execution of start.
+INFO:kolla.common.utils.base:Setting up dumb-init (1.2.1-1) ...
+INFO:kolla.common.utils.base:Setting up dmsetup (2:1.02.145-4.1ubuntu3.18.04.3) ...
+INFO:kolla.common.utils.base:Setting up liblvm2app2.2:amd64 (2.02.176-4.1ubuntu3.18.04.3) ...
+INFO:kolla.common.utils.base:Setting up sg3-utils (1.42-2ubuntu1.18.04.2) ...
+INFO:kolla.common.utils.base:Setting up libgdbm-compat4:amd64 (1.14.1-6) ...
+INFO:kolla.common.utils.base:Setting up libreadline5:amd64 (5.2+dfsg-3build1) ...
+INFO:kolla.common.utils.base:Setting up libnl-3-200:amd64 (3.2.29-0ubuntu3) ...
+INFO:kolla.common.utils.base:Setting up python3-lib2to3 (3.6.9-1~18.04) ...
+INFO:kolla.common.utils.base:Setting up libmnl0:amd64 (1.0.4-2) ...
+INFO:kolla.common.utils.base:Setting up python3-distutils (3.6.9-1~18.04) ...
+INFO:kolla.common.utils.base:Setting up libwrap0:amd64 (7.6.q-27) ...
+INFO:kolla.common.utils.base:Setting up netbase (5.4) ...
+INFO:kolla.common.utils.base:Setting up kmod (24-1ubuntu3.5) ...
+INFO:kolla.common.utils.base:Setting up socat (1.7.3.2-2ubuntu2) ...
+INFO:kolla.common.utils.base:Setting up libnl-route-3-200:amd64 (3.2.29-0ubuntu3) ...
+INFO:kolla.common.utils.base:Setting up iproute2 (4.15.0-2ubuntu1.3) ...
+INFO:kolla.common.utils.base:Setting up open-iscsi (2.0.874-5ubuntu2.11) ...
+INFO:kolla.common.utils.base:Setting up libperl5.26:amd64 (5.26.1-6ubuntu0.7) ...
+INFO:kolla.common.utils.base:Setting up python3-pip (9.0.1-2.3~ubuntu1.18.04.8) ...
+INFO:kolla.common.utils.base:Setting up python3-setuptools (39.0.1-2ubuntu0.1) ...
+INFO:kolla.common.utils.base:Setting up libibverbs1:amd64 (17.1-1ubuntu0.2) ...
+INFO:kolla.common.utils.base:Setting up librdmacm1:amd64 (17.1-1ubuntu0.2) ...
+INFO:kolla.common.utils.base:Setting up perl (5.26.1-6ubuntu0.7) ...
+INFO:kolla.common.utils.base:Setting up libconfig-general-perl (2.63-1) ...
+INFO:kolla.common.utils.base:Setting up tgt (1:1.0.72-1ubuntu1) ...
+INFO:kolla.common.utils.base:invoke-rc.d: could not determine current runlevel
+INFO:kolla.common.utils.base:invoke-rc.d: policy-rc.d denied execution of start.
+INFO:kolla.common.utils.base:Setting up liblvm2cmd2.02:amd64 (2.02.176-4.1ubuntu3.18.04.3) ...
+INFO:kolla.common.utils.base:Setting up dmeventd (2:1.02.145-4.1ubuntu3.18.04.3) ...
+INFO:kolla.common.utils.base:Setting up lvm2 (2.02.176-4.1ubuntu3.18.04.3) ...
+INFO:kolla.common.utils.base:invoke-rc.d: could not determine current runlevel
+INFO:kolla.common.utils.base:invoke-rc.d: policy-rc.d denied execution of start.
+INFO:kolla.common.utils.base:invoke-rc.d: could not determine current runlevel
+INFO:kolla.common.utils.base:invoke-rc.d: policy-rc.d denied execution of start.
+INFO:kolla.common.utils.base:invoke-rc.d: could not determine current runlevel
+INFO:kolla.common.utils.base:invoke-rc.d: policy-rc.d denied execution of start.
+INFO:kolla.common.utils.base:Processing triggers for libc-bin (2.27-3ubuntu1.6) ...
+INFO:kolla.common.utils.base: ---> Removed intermediate container b860dcb24395
+INFO:kolla.common.utils.base: ---> a10b5b8ef069
+INFO:kolla.common.utils.base:Step 18/27 : COPY set_configs.py /usr/local/bin/kolla_set_configs
+INFO:kolla.common.utils.base: ---> 169aaa97840f
+INFO:kolla.common.utils.base:Step 19/27 : COPY start.sh /usr/local/bin/kolla_start
+INFO:kolla.common.utils.base: ---> a39efcbb8033
+INFO:kolla.common.utils.base:Step 20/27 : COPY copy_cacerts.sh /usr/local/bin/kolla_copy_cacerts
+INFO:kolla.common.utils.base: ---> 2589a8194758
+INFO:kolla.common.utils.base:Step 21/27 : COPY httpd_setup.sh /usr/local/bin/kolla_httpd_setup
+INFO:kolla.common.utils.base: ---> afeabec5143a
+INFO:kolla.common.utils.base:Step 22/27 : COPY sudoers /etc/sudoers
+INFO:kolla.common.utils.base: ---> 9cf794b2084f
+INFO:kolla.common.utils.base:Step 23/27 : ENTRYPOINT ["dumb-init", "--single-child", "--"]
+INFO:kolla.common.utils.base: ---> Running in 500dd65cfd4d
+INFO:kolla.common.utils.base: ---> Removed intermediate container 500dd65cfd4d
+INFO:kolla.common.utils.base: ---> 5ab3600ea6ad
+INFO:kolla.common.utils.base:Step 24/27 : COPY healthcheck_curl healthcheck_filemod healthcheck_listen healthcheck_port healthcheck_socket /usr/local/bin/
+INFO:kolla.common.utils.base: ---> 4ebe995da3dd
+INFO:kolla.common.utils.base:Step 25/27 : RUN chmod 755 /usr/local/bin/healthcheck_*
+INFO:kolla.common.utils.base: ---> Running in b8e1c1c39cdd
+INFO:kolla.common.utils.base: ---> Removed intermediate container b8e1c1c39cdd
+INFO:kolla.common.utils.base: ---> b4c7eebcf6c9
+INFO:kolla.common.utils.base:Step 26/27 : RUN touch /usr/local/bin/kolla_extend_start     && chmod 755 /usr/local/bin/kolla_start /usr/local/bin/kolla_extend_start /usr/local/bin/kolla_set_configs /usr/local/bin/kolla_copy_cacerts /usr/local/bin/kolla_httpd_setup     && chmod 440 /etc/sudoers     && mkdir -p /var/log/kolla     && chown :kolla /var/log/kolla     && chmod 2775 /var/log/kolla     && rm -f /tmp/kolla_bashrc
+INFO:kolla.common.utils.base: ---> Running in 390444838b88
+INFO:kolla.common.utils.base: ---> Removed intermediate container 390444838b88
+INFO:kolla.common.utils.base: ---> d2c5804fa3e7
+INFO:kolla.common.utils.base:Step 27/27 : CMD ["kolla_start"]
+INFO:kolla.common.utils.base: ---> Running in 2841632e7094
+INFO:kolla.common.utils.base: ---> Removed intermediate container 2841632e7094
+INFO:kolla.common.utils.base: ---> 873b47f44fe3
+INFO:kolla.common.utils.base:Successfully built 873b47f44fe3
+INFO:kolla.common.utils.base:Successfully tagged ufj/ubuntu-source-base:ussuri-probe
+INFO:kolla.common.utils.base:Built at 2026-10-31 09:51:18.260701 (took 0:00:35.135982)
+INFO:kolla.common.utils:Added next task BuildTask(openstack-base) to queue
+INFO:kolla.common.utils:Attempt number: 1 to run task: BuildTask(openstack-base) 
+INFO:kolla.common.utils.openstack-base:Building started at 2026-10-31 09:51:18.261229
+--- Logging error ---
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 450, in process_source
+    git.Git().clone(source['source'], clone_dir)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 542, in <lambda>
+    return lambda *args, **kwargs: self._call_process(name, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 1005, in _call_process
+    return self.execute(call, **exec_kwargs)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 822, in execute
+    raise GitCommandError(command, status, stderr_value, stdout_value)
+git.exc.GitCommandError: Cmd('git') failed due to: exit code(128)
+  cmdline: git clone https://github.com/openstack/requirements /tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol
+  stderr: 'Cloning into '/tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol'...
+fatal: unable to access 'https://github.com/openstack/requirements/': Failed to connect to <proxy>: Connection refused'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/logging/__init__.py", line 1085, in emit
+    msg = self.format(record)
+  File "/usr/local/lib/python3.8/logging/__init__.py", line 929, in format
+    return fmt.format(record)
+  File "/usr/local/lib/python3.8/logging/__init__.py", line 668, in format
+    record.message = record.getMessage()
+  File "/usr/local/lib/python3.8/logging/__init__.py", line 373, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/usr/local/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+  File "/usr/local/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 664, in run
+    task.run()
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 393, in run
+    self.builder(self.image)
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 558, in builder
+    self.process_source(image, image.source)
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 456, in process_source
+    self.logger.error("Failed to get source from git", image.name)
+Message: 'Failed to get source from git'
+Arguments: ('openstack-base',)
+ERROR:kolla.common.utils.openstack-base:Error: Cmd('git') failed due to: exit code(128)
+  cmdline: git clone https://github.com/openstack/requirements /tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol
+  stderr: 'Cloning into '/tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol'...
+fatal: unable to access 'https://github.com/openstack/requirements/': Failed to connect to <proxy>: Connection refused'
+ERROR:kolla.common.utils:Unhandled error when running BuildTask(openstack-base)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 450, in process_source
+    git.Git().clone(source['source'], clone_dir)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 542, in <lambda>
+    return lambda *args, **kwargs: self._call_process(name, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 1005, in _call_process
+    return self.execute(call, **exec_kwargs)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 822, in execute
+    raise GitCommandError(command, status, stderr_value, stdout_value)
+git.exc.GitCommandError: Cmd('git') failed due to: exit code(128)
+  cmdline: git clone https://github.com/openstack/requirements /tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol
+  stderr: 'Cloning into '/tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol'...
+fatal: unable to access 'https://github.com/openstack/requirements/': Failed to connect to <proxy>: Connection refused'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 664, in run
+    task.run()
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 393, in run
+    self.builder(self.image)
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 558, in builder
+    self.process_source(image, image.source)
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 459, in process_source
+    shutil.rmtree(clone_dir)
+  File "/usr/local/lib/python3.8/shutil.py", line 709, in rmtree
+    onerror(os.lstat, path, sys.exc_info())
+  File "/usr/local/lib/python3.8/shutil.py", line 707, in rmtree
+    orig_st = os.lstat(path)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol'
+INFO:kolla.common.utils:Attempt number: 2 to run task: BuildTask(openstack-base) 
+INFO:kolla.common.utils.openstack-base:Building started at 2026-10-31 09:51:18.312070
+--- Logging error ---
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 450, in process_source
+    git.Git().clone(source['source'], clone_dir)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 542, in <lambda>
+    return lambda *args, **kwargs: self._call_process(name, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 1005, in _call_process
+    return self.execute(call, **exec_kwargs)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 822, in execute
+    raise GitCommandError(command, status, stderr_value, stdout_value)
+git.exc.GitCommandError: Cmd('git') failed due to: exit code(128)
+  cmdline: git clone https://github.com/openstack/requirements /tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol
+  stderr: 'Cloning into '/tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol'...
+fatal: unable to access 'https://github.com/openstack/requirements/': Failed to connect to <proxy>: Connection refused'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/logging/__init__.py", line 1085, in emit
+    msg = self.format(record)
+  File "/usr/local/lib/python3.8/logging/__init__.py", line 929, in format
+    return fmt.format(record)
+  File "/usr/local/lib/python3.8/logging/__init__.py", line 668, in format
+    record.message = record.getMessage()
+  File "/usr/local/lib/python3.8/logging/__init__.py", line 373, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/usr/local/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+  File "/usr/local/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 664, in run
+    task.run()
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 393, in run
+    self.builder(self.image)
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 558, in builder
+    self.process_source(image, image.source)
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 456, in process_source
+    self.logger.error("Failed to get source from git", image.name)
+Message: 'Failed to get source from git'
+Arguments: ('openstack-base',)
+ERROR:kolla.common.utils.openstack-base:Error: Cmd('git') failed due to: exit code(128)
+  cmdline: git clone https://github.com/openstack/requirements /tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol
+  stderr: 'Cloning into '/tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol'...
+fatal: unable to access 'https://github.com/openstack/requirements/': Failed to connect to <proxy>: Connection refused'
+ERROR:kolla.common.utils:Unhandled error when running BuildTask(openstack-base)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 450, in process_source
+    git.Git().clone(source['source'], clone_dir)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 542, in <lambda>
+    return lambda *args, **kwargs: self._call_process(name, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 1005, in _call_process
+    return self.execute(call, **exec_kwargs)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 822, in execute
+    raise GitCommandError(command, status, stderr_value, stdout_value)
+git.exc.GitCommandError: Cmd('git') failed due to: exit code(128)
+  cmdline: git clone https://github.com/openstack/requirements /tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol
+  stderr: 'Cloning into '/tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol'...
+fatal: unable to access 'https://github.com/openstack/requirements/': Failed to connect to <proxy>: Connection refused'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 664, in run
+    task.run()
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 393, in run
+    self.builder(self.image)
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 558, in builder
+    self.process_source(image, image.source)
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 459, in process_source
+    shutil.rmtree(clone_dir)
+  File "/usr/local/lib/python3.8/shutil.py", line 709, in rmtree
+    onerror(os.lstat, path, sys.exc_info())
+  File "/usr/local/lib/python3.8/shutil.py", line 707, in rmtree
+    orig_st = os.lstat(path)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol'
+INFO:kolla.common.utils:Attempt number: 3 to run task: BuildTask(openstack-base) 
+INFO:kolla.common.utils.openstack-base:Building started at 2026-10-31 09:51:18.334341
+--- Logging error ---
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 450, in process_source
+    git.Git().clone(source['source'], clone_dir)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 542, in <lambda>
+    return lambda *args, **kwargs: self._call_process(name, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 1005, in _call_process
+    return self.execute(call, **exec_kwargs)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 822, in execute
+    raise GitCommandError(command, status, stderr_value, stdout_value)
+git.exc.GitCommandError: Cmd('git') failed due to: exit code(128)
+  cmdline: git clone https://github.com/openstack/requirements /tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol
+  stderr: 'Cloning into '/tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol'...
+fatal: unable to access 'https://github.com/openstack/requirements/': Failed to connect to <proxy>: Connection refused'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/logging/__init__.py", line 1085, in emit
+    msg = self.format(record)
+  File "/usr/local/lib/python3.8/logging/__init__.py", line 929, in format
+    return fmt.format(record)
+  File "/usr/local/lib/python3.8/logging/__init__.py", line 668, in format
+    record.message = record.getMessage()
+  File "/usr/local/lib/python3.8/logging/__init__.py", line 373, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/usr/local/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+  File "/usr/local/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 664, in run
+    task.run()
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 393, in run
+    self.builder(self.image)
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 558, in builder
+    self.process_source(image, image.source)
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 456, in process_source
+    self.logger.error("Failed to get source from git", image.name)
+Message: 'Failed to get source from git'
+Arguments: ('openstack-base',)
+ERROR:kolla.common.utils.openstack-base:Error: Cmd('git') failed due to: exit code(128)
+  cmdline: git clone https://github.com/openstack/requirements /tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol
+  stderr: 'Cloning into '/tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol'...
+fatal: unable to access 'https://github.com/openstack/requirements/': Failed to connect to <proxy>: Connection refused'
+ERROR:kolla.common.utils:Unhandled error when running BuildTask(openstack-base)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 450, in process_source
+    git.Git().clone(source['source'], clone_dir)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 542, in <lambda>
+    return lambda *args, **kwargs: self._call_process(name, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 1005, in _call_process
+    return self.execute(call, **exec_kwargs)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 822, in execute
+    raise GitCommandError(command, status, stderr_value, stdout_value)
+git.exc.GitCommandError: Cmd('git') failed due to: exit code(128)
+  cmdline: git clone https://github.com/openstack/requirements /tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol
+  stderr: 'Cloning into '/tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol'...
+fatal: unable to access 'https://github.com/openstack/requirements/': Failed to connect to <proxy>: Connection refused'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 664, in run
+    task.run()
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 393, in run
+    self.builder(self.image)
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 558, in builder
+    self.process_source(image, image.source)
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 459, in process_source
+    shutil.rmtree(clone_dir)
+  File "/usr/local/lib/python3.8/shutil.py", line 709, in rmtree
+    onerror(os.lstat, path, sys.exc_info())
+  File "/usr/local/lib/python3.8/shutil.py", line 707, in rmtree
+    orig_st = os.lstat(path)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol'
+INFO:kolla.common.utils:Attempt number: 4 to run task: BuildTask(openstack-base) 
+INFO:kolla.common.utils.openstack-base:Building started at 2026-10-31 09:51:18.354109
+--- Logging error ---
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 450, in process_source
+    git.Git().clone(source['source'], clone_dir)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 542, in <lambda>
+    return lambda *args, **kwargs: self._call_process(name, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 1005, in _call_process
+    return self.execute(call, **exec_kwargs)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 822, in execute
+    raise GitCommandError(command, status, stderr_value, stdout_value)
+git.exc.GitCommandError: Cmd('git') failed due to: exit code(128)
+  cmdline: git clone https://github.com/openstack/requirements /tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol
+  stderr: 'Cloning into '/tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol'...
+fatal: unable to access 'https://github.com/openstack/requirements/': Failed to connect to <proxy>: Connection refused'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/logging/__init__.py", line 1085, in emit
+    msg = self.format(record)
+  File "/usr/local/lib/python3.8/logging/__init__.py", line 929, in format
+    return fmt.format(record)
+  File "/usr/local/lib/python3.8/logging/__init__.py", line 668, in format
+    record.message = record.getMessage()
+  File "/usr/local/lib/python3.8/logging/__init__.py", line 373, in getMessage
+    msg = msg % self.args
+TypeError: not all arguments converted during string formatting
+Call stack:
+  File "/usr/local/lib/python3.8/threading.py", line 890, in _bootstrap
+    self._bootstrap_inner()
+  File "/usr/local/lib/python3.8/threading.py", line 932, in _bootstrap_inner
+    self.run()
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 664, in run
+    task.run()
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 393, in run
+    self.builder(self.image)
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 558, in builder
+    self.process_source(image, image.source)
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 456, in process_source
+    self.logger.error("Failed to get source from git", image.name)
+Message: 'Failed to get source from git'
+Arguments: ('openstack-base',)
+ERROR:kolla.common.utils.openstack-base:Error: Cmd('git') failed due to: exit code(128)
+  cmdline: git clone https://github.com/openstack/requirements /tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol
+  stderr: 'Cloning into '/tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol'...
+fatal: unable to access 'https://github.com/openstack/requirements/': Failed to connect to <proxy>: Connection refused'
+ERROR:kolla.common.utils:Unhandled error when running BuildTask(openstack-base)
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 450, in process_source
+    git.Git().clone(source['source'], clone_dir)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 542, in <lambda>
+    return lambda *args, **kwargs: self._call_process(name, *args, **kwargs)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 1005, in _call_process
+    return self.execute(call, **exec_kwargs)
+  File "/usr/local/lib/python3.8/site-packages/git/cmd.py", line 822, in execute
+    raise GitCommandError(command, status, stderr_value, stdout_value)
+git.exc.GitCommandError: Cmd('git') failed due to: exit code(128)
+  cmdline: git clone https://github.com/openstack/requirements /tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol
+  stderr: 'Cloning into '/tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol'...
+fatal: unable to access 'https://github.com/openstack/requirements/': Failed to connect to <proxy>: Connection refused'
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 664, in run
+    task.run()
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 393, in run
+    self.builder(self.image)
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 558, in builder
+    self.process_source(image, image.source)
+  File "/usr/local/lib/python3.8/site-packages/kolla/image/build.py", line 459, in process_source
+    shutil.rmtree(clone_dir)
+  File "/usr/local/lib/python3.8/shutil.py", line 709, in rmtree
+    onerror(os.lstat, path, sys.exc_info())
+  File "/usr/local/lib/python3.8/shutil.py", line 707, in rmtree
+    orig_st = os.lstat(path)
+FileNotFoundError: [Errno 2] No such file or directory: '/tmp/kolla-2026-10-31_09-50-38_4bw4faf4/docker/openstack-base/openstack-base-archive-ussuri-eol'
+INFO:kolla.common.utils:=========================
+INFO:kolla.common.utils:Successfully built images
+INFO:kolla.common.utils:=========================
+INFO:kolla.common.utils:base
+INFO:kolla.common.utils:===========================
+INFO:kolla.common.utils:Images that failed to build
+INFO:kolla.common.utils:===========================
+ERROR:kolla.common.utils:openstack-base Failed with status: building
+INFO:kolla.common.utils:=========================================
+INFO:kolla.common.utils:Images not buildable due to build options
+INFO:kolla.common.utils:=========================================
+INFO:kolla.common.utils:qdrouterd
+INFO:kolla.common.utils:tripleoclient
+{"built": [{"name": "base"}], "failed": [{"name": "openstack-base", "status": "building"}], "not_matched": [{"name": "aodh-api"}, {"name": "aodh-base"}, {"name": "aodh-evaluator"}, {"name": "aodh-expirer"}, {"name": "aodh-listener"}, {"name": "aodh-notifier"}, {"name": "barbican-api"}, {"name": "barbican-base"}, {"name": "barbican-keystone-listener"}, {"name": "barbican-worker"}, {"name": "bifrost-base"}, {"name": "bifrost-deploy"}, {"name": "blazar-api"}, {"name": "blazar-base"}, {"name": "blazar-manager"}, {"name": "ceilometer-base"}, {"name": "ceilometer-central"}, {"name": "ceilometer-compute"}, {"name": "ceilometer-ipmi"}, {"name": "ceilometer-notification"}, {"name": "certmonger"}, {"name": "chrony"}, {"name": "cinder-api"}, {"name": "cinder-backup"}, {"name": "cinder-base"}, {"name": "cinder-scheduler"}, {"name": "cinder-volume"}, {"name": "cloudkitty-api"}, {"name": "cloudkitty-base"}, {"name": "cloudkitty-processor"}, {"name": "collectd"}, {"name": "congress-api"}, {"name": "congress-base"}, {"name": "congress-datasource"}, {"name": "congress-policy-engine"}, {"name": "cron"}, {"name": "cyborg-agent"}, {"name": "cyborg-api"}, {"name": "cyborg-base"}, {"name": "cyborg-conductor"}, {"name": "designate-api"}, {"name": "designate-backend-bind9"}, {"name": "designate-base"}, {"name": "designate-central"}, {"name": "designate-mdns"}, {"name": "designate-producer"}, {"name": "designate-sink"}, {"name": "designate-worker"}, {"name": "dnsmasq"}, {"name": "ec2-api"}, {"name": "elasticsearch"}, {"name": "elasticsearch-curator"}, {"name": "etcd"}, {"name": "fluentd"}, {"name": "freezer-api"}, {"name": "freezer-base"}, {"name": "freezer-scheduler"}, {"name": "glance-api"}, {"name": "glance-base"}, {"name": "glance-registry"}, {"name": "gnocchi-api"}, {"name": "gnocchi-base"}, {"name": "gnocchi-metricd"}, {"name": "gnocchi-statsd"}, {"name": "grafana"}, {"name": "hacluster-base"}, {"name": "hacluster-corosync"}, {"name": "hacluster-pacemaker"}, {"name": "hacluster-pacemaker-remote"}, {"name": "hacluster-pcs"}, {"name": "haproxy"}, {"name": "heat-all"}, {"name": "heat-api"}, {"name": "heat-api-cfn"}, {"name": "heat-base"}, {"name": "heat-engine"}, {"name": "horizon"}, {"name": "influxdb"}, {"name": "ironic-api"}, {"name": "ironic-base"}, {"name": "ironic-conductor"}, {"name": "ironic-inspector"}, {"name": "ironic-neutron-agent"}, {"name": "ironic-pxe"}, {"name": "iscsid"}, {"name": "kafka"}, {"name": "karbor-api"}, {"name": "karbor-base"}, {"name": "karbor-operationengine"}, {"name": "karbor-protection"}, {"name": "keepalived"}, {"name": "keystone"}, {"name": "keystone-base"}, {"name": "keystone-fernet"}, {"name": "keystone-ssh"}, {"name": "kibana"}, {"name": "kolla-toolbox"}, {"name": "kuryr-base"}, {"name": "kuryr-libnetwork"}, {"name": "logstash"}, {"name": "magnum-api"}, {"name": "magnum-base"}, {"name": "magnum-conductor"}, {"name": "manila-api"}, {"name": "manila-base"}, {"name": "manila-data"}, {"name": "manila-scheduler"}, {"name": "manila-share"}, {"name": "mariadb"}, {"name": "mariadb-base"}, {"name": "mariadb-clustercheck"}, {"name": "mariadb-server"}, {"name": "masakari-api"}, {"name": "masakari-base"}, {"name": "masakari-engine"}, {"name": "masakari-monitors"}, {"name": "memcached"}, {"name": "mistral-api"}, {"name": "mistral-base"}, {"name": "mistral-engine"}, {"name": "mistral-event-engine"}, {"name": "mistral-executor"}, {"name": "monasca-agent"}, {"name": "monasca-api"}, {"name": "monasca-base"}, {"name": "monasca-grafana"}, {"name": "monasca-notification"}, {"name": "monasca-persister"}, {"name": "monasca-thresh"}, {"name": "mongodb"}, {"name": "multipathd"}, {"name": "murano-api"}, {"name": "murano-base"}, {"name": "murano-engine"}, {"name": "neutron-base"}, {"name": "neutron-bgp-dragent"}, {"name": "neutron-dhcp-agent"}, {"name": "neutron-infoblox-ipam-agent"}, {"name": "neutron-l3-agent"}, {"name": "neutron-linuxbridge-agent"}, {"name": "neutron-metadata-agent"}, {"name": "neutron-metadata-agent-ovn"}, {"name": "neutron-metering-agent"}, {"name": "neutron-mlnx-agent"}, {"name": "neutron-openvswitch-agent"}, {"name": "neutron-server"}, {"name": "neutron-server-opendaylight"}, {"name": "neutron-server-ovn"}, {"name": "neutron-sriov-agent"}, {"name": "nova-api"}, {"name": "nova-base"}, {"name": "nova-compute"}, {"name": "nova-compute-ironic"}, {"name": "nova-conductor"}, {"name": "nova-libvirt"}, {"name": "nova-mksproxy"}, {"name": "nova-novncproxy"}, {"name": "nova-scheduler"}, {"name": "nova-serialproxy"}, {"name": "nova-spicehtml5proxy"}, {"name": "nova-ssh"}, {"name": "novajoin-base"}, {"name": "novajoin-notifier"}, {"name": "novajoin-server"}, {"name": "octavia-api"}, {"name": "octavia-base"}, {"name": "octavia-health-manager"}, {"name": "octavia-housekeeping"}, {"name": "octavia-worker"}, {"name": "opendaylight"}, {"name": "openvswitch-base"}, {"name": "openvswitch-db-server"}, {"name": "openvswitch-netcontrold"}, {"name": "openvswitch-vswitchd"}, {"name": "ovn-base"}, {"name": "ovn-controller"}, {"name": "ovn-nb-db-server"}, {"name": "ovn-northd"}, {"name": "ovn-sb-db-server"}, {"name": "ovsdpdk"}, {"name": "ovsdpdk-db"}, {"name": "ovsdpdk-vswitchd"}, {"name": "panko-api"}, {"name": "panko-base"}, {"name": "placement-api"}, {"name": "placement-base"}, {"name": "prometheus-alertmanager"}, {"name": "prometheus-base"}, {"name": "prometheus-blackbox-exporter"}, {"name": "prometheus-cadvisor"}, {"name": "prometheus-elasticsearch-exporter"}, {"name": "prometheus-haproxy-exporter"}, {"name": "prometheus-memcached-exporter"}, {"name": "prometheus-mtail"}, {"name": "prometheus-mysqld-exporter"}, {"name": "prometheus-node-exporter"}, {"name": "prometheus-openstack-exporter"}, {"name": "prometheus-server"}, {"name": "ptp"}, {"name": "qinling-api"}, {"name": "qinling-base"}, {"name": "qinling-engine"}, {"name": "rabbitmq"}, {"name": "radvd"}, {"name": "rally"}, {"name": "redis"}, {"name": "redis-base"}, {"name": "redis-sentinel"}, {"name": "rsyslog"}, {"name": "rsyslog-base"}, {"name": "sahara-api"}, {"name": "sahara-base"}, {"name": "sahara-engine"}, {"name": "searchlight-api"}, {"name": "searchlight-base"}, {"name": "searchlight-listener"}, {"name": "senlin-api"}, {"name": "senlin-base"}, {"name": "senlin-conductor"}, {"name": "senlin-engine"}, {"name": "senlin-health-manager"}, {"name": "skydive-agent"}, {"name": "skydive-analyzer"}, {"name": "skydive-base"}, {"name": "solum-api"}, {"name": "solum-base"}, {"name": "solum-conductor"}, {"name": "solum-deployer"}, {"name": "solum-worker"}, {"name": "storm"}, {"name": "storm-base"}, {"name": "swift-account"}, {"name": "swift-base"}, {"name": "swift-container"}, {"name": "swift-object"}, {"name": "swift-object-expirer"}, {"name": "swift-proxy-server"}, {"name": "swift-rsyncd"}, {"name": "tacker-base"}, {"name": "tacker-conductor"}, {"name": "tacker-server"}, {"name": "telegraf"}, {"name": "tempest"}, {"name": "tgtd"}, {"name": "trove-api"}, {"name": "trove-base"}, {"name": "trove-conductor"}, {"name": "trove-guestagent"}, {"name": "trove-taskmanager"}, {"name": "vitrage-api"}, {"name": "vitrage-base"}, {"name": "vitrage-graph"}, {"name": "vitrage-ml"}, {"name": "vitrage-notifier"}, {"name": "vitrage-persistor"}, {"name": "vmtp"}, {"name": "watcher-api"}, {"name": "watcher-applier"}, {"name": "watcher-base"}, {"name": "watcher-engine"}, {"name": "zaqar-base"}, {"name": "zaqar-server"}, {"name": "zaqar-wsgi"}, {"name": "zookeeper"}, {"name": "zun-api"}, {"name": "zun-base"}, {"name": "zun-cni-daemon"}, {"name": "zun-compute"}, {"name": "zun-wsproxy"}], "skipped": [], "unbuildable": [{"name": "qdrouterd"}, {"name": "tripleoclient"}]}
+kolla-build exit: 1
++ echo 'kolla-build exit: 1'
+probe exit 0

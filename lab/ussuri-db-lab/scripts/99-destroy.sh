@@ -11,7 +11,7 @@ echo "Will remove volumes:    $(docker volume ls -q | grep -E '^ufj-' | tr '\n' 
 docker ps -a --format '{{.Names}}' | grep -E '^ufj-' | xargs -r docker rm -f >/dev/null
 docker volume ls -q | grep -E '^ufj-' | xargs -r docker volume rm >/dev/null
 docker network inspect "$NET" >/dev/null 2>&1 && docker network rm "$NET" >/dev/null
-[ $IMAGES = 1 ] && { docker rmi "$PYIMG_TAG" >/dev/null 2>&1 || true; }
+[ $IMAGES = 1 ] && { docker rmi "$PYIMG_TAG" >/dev/null 2>&1 || true; docker images --format "{{.Repository}}:{{.Tag}}" | grep -E "^ufj/" | xargs -r docker rmi >/dev/null 2>&1 || true; }
 rm -rf "$RUN_DIR"
 [ $PB = 1 ] && rm -rf "$BACKUP_DIR"
 [ $PS = 1 ] && rm -rf "$SECRETS_DIR"

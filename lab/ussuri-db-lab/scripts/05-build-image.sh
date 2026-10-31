@@ -6,6 +6,10 @@ CA="${LAB_CA_BUNDLE:-}"; [ -z "$CA" ] && [ -f /root/.ccr/ca-bundle.crt ] && CA=/
 ARGS=(); [ -n "$CA" ] && { cp "$CA" "$LAB_DIR/image/ca/ca-bundle.crt"; ARGS+=(--build-arg PIP_CERT=/tmp/ca/ca-bundle.crt); }
 for v in https_proxy http_proxy no_proxy; do [ -n "${!v:-}" ] && ARGS+=(--build-arg "$v"); done
 T0=$(date +%s)
+# Docker Hub rate-limits anonymous pulls (HTTP 429, seen on 2026-10-31): pull the base images with retries first
+for img in python:3.8-buster python:3.8-slim-buster; do
+  for try in 1 2 3 4 5 6; do docker pull -q "$img" >/dev/null 2>&1 && break || { log "pull $img failed (try $try), waiting"; sleep $((try*30)); }; done
+done
 docker build -t "$PYIMG_TAG" "${ARGS[@]}" "$LAB_DIR/image"
 log "image built in $(( $(date +%s)-T0 )) s"
 mkdir -p "$EVIDENCE_DIR"; docker run --rm "$PYIMG_TAG" cat /opt/ussuri/pip-freeze.txt > "$EVIDENCE_DIR/pip-freeze-ussuri-py38.txt"

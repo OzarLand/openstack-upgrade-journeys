@@ -10,3 +10,4 @@ python-openstackclient==5.2.0
 PyMySQL==0.9.3
 python-memcached==1.59
 gunicorn==20.0.4
+osc-placement==2.0.0

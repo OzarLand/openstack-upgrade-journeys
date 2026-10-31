@@ -106,7 +106,8 @@ if ! oA keypair show ufj-key-imported >/dev/null 2>&1; then
   python - <<'PY' > /tmp/ufj/imp.pub
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives import serialization as s
-k = rsa.generate_private_key(public_exponent=65537, key_size=2048)
+from cryptography.hazmat.backends import default_backend
+k = rsa.generate_private_key(public_exponent=65537, key_size=2048, backend=default_backend())
 print(k.public_key().public_bytes(s.Encoding.OpenSSH, s.PublicFormat.OpenSSH).decode())
 PY
   oA keypair create --public-key /tmp/ufj/imp.pub ufj-key-imported >/dev/null
@@ -115,7 +116,9 @@ fi
 say "volumes (before servers)"
 oA volume show a-vol1 >/dev/null 2>&1 || oA volume create --size 10 --type ufj-fake --description "data vol" --property tier=gold a-vol1 >/dev/null
 oA volume show a-vol2 >/dev/null 2>&1 || oA volume create --size 5 --type ufj-fake a-vol2 >/dev/null
+# create-from-image fails with the fake LVM-derived driver (volume goes to 'error'): kept in the baseline, recorded as a failure
 oA volume show a-boot >/dev/null 2>&1 || oA volume create --size 2 --image ufj-image-a --type ufj-fake a-boot >/dev/null
+oA volume show a-boot2 >/dev/null 2>&1 || { oA volume create --size 2 --type ufj-fake a-boot2 >/dev/null; oA volume set --bootable a-boot2; }
 oB volume show b-vol1 >/dev/null 2>&1 || oB volume create --size 3 b-vol1 >/dev/null
 
 say "servers"
@@ -125,7 +128,7 @@ oA server show a-vm1 >/dev/null 2>&1 || oA server create --flavor ufj.tiny --ima
 oA server show a-vm2 >/dev/null 2>&1 || oA server create --flavor ufj.small --image ufj-image-a --nic net-id="$(oA network show a-net1 -f value -c id)" \
    --nic net-id="$(oA network show a-net2 -f value -c id)" --security-group a-web --security-group a-db --key-name ufj-key-imported \
    --property role=db --hint group="$(oA server group show a-aaff -f value -c id)" --wait a-vm2 >/dev/null
-oA server show a-vm3 >/dev/null 2>&1 || oA server create --flavor ufj.tiny --volume a-boot --network a-net1 --security-group a-web --wait a-vm3 >/dev/null || say "WARN boot-from-volume server failed (recorded)"
+oA server show a-vm3 >/dev/null 2>&1 || oA server create --flavor ufj.tiny --volume a-boot2 --network a-net1 --security-group a-web --wait a-vm3 >/dev/null || say "WARN boot-from-volume server failed (recorded)"
 oB server show b-vm1 >/dev/null 2>&1 || oB server create --flavor ufj.tiny --image ufj-image-public --network b-net1 --security-group b-ssh --key-name ufj-key-b \
    --property owner=bob --wait b-vm1 >/dev/null
 
@@ -134,15 +137,15 @@ oA_tags() { env OS_USERNAME=alice OS_PASSWORD="$USER_ALICE" OS_PROJECT_NAME=ufj-
 oA_tags a-vm1 web lab; oA_tags a-vm2 db; env OS_USERNAME=bob OS_PASSWORD="$USER_BOB" OS_PROJECT_NAME=ufj-proj-b python /lab/tools/tag_server.py b-vm1 edge
 
 say "volume attach, snapshot"
-oA server add volume a-vm1 a-vol1 2>/dev/null || say "WARN attach a-vol1 failed (recorded)"
+[ "$(oA volume show a-vol1 -f value -c status)" = in-use ] || oA server add volume a-vm1 a-vol1 || say "WARN attach a-vol1 failed (recorded)"
 oA volume snapshot show a-vol1-snap >/dev/null 2>&1 || oA volume snapshot create --volume a-vol1 --force a-vol1-snap >/dev/null || say "WARN snapshot failed"
 oA volume snapshot show a-vol2-snap >/dev/null 2>&1 || oA volume snapshot create --volume a-vol2 a-vol2-snap >/dev/null || say "WARN snapshot2 failed"
 
 say "floating IPs"
-FIP1=$(oA floating ip list --fixed-ip-address "$(oA server show a-vm1 -f json | python -c 'import json,sys,re; d=json.load(sys.stdin); print(re.findall(r"(\d+\.\d+\.\d+\.\d+)", str(d["addresses"]))[0])')" -f value -c "Floating IP Address" | head -1)
-if [ -z "$FIP1" ]; then FIP1=$(oA floating ip create ufj-ext -f value -c floating_ip_address); oA server add floating ip a-vm1 "$FIP1" || say "WARN fip associate failed"; fi
-oA floating ip list -f value -c "Floating IP Address" | grep -q . && [ "$(oA floating ip list -f value -c ID | wc -l)" -ge 2 ] || oA floating ip create ufj-ext --description "unassociated lab fip" >/dev/null
-oB floating ip list -f value -c ID | grep -q . || { F=$(oB floating ip create ufj-ext -f value -c floating_ip_address); oB server add floating ip b-vm1 "$F" || say "WARN fip b failed"; }
+# project A: one associated to a-vm1, one left unassociated (marked by its description); project B: one associated to b-vm1
+oA server show a-vm1 -f value -c addresses | grep -q '203\.0\.113\.' || { F=$(oA floating ip create ufj-ext --description "lab fip for a-vm1" -f value -c floating_ip_address); oA server add floating ip a-vm1 "$F" || say "WARN fip associate failed"; }
+oA floating ip list --long -f value -c Description | grep -q "unassociated lab fip" || oA floating ip create ufj-ext --description "unassociated lab fip" >/dev/null
+oB server show b-vm1 -f value -c addresses | grep -q '203\.0\.113\.' || { F=$(oB floating ip create ufj-ext -f value -c floating_ip_address); oB server add floating ip b-vm1 "$F" || say "WARN fip b failed"; }
 
 say "server metadata / lock / other state"
 oA server set --property tier=gold --property backup=daily a-vm1

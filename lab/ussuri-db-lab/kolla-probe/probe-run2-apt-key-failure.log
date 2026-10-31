@@ -1,0 +1,607 @@
++ pip install -q pip==23.3.2 setuptools==57.5.0
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv
++ pip install -q -c /probe/upper-constraints.txt kolla==10.4.0 docker
++ tail -3
+
+[notice] A new release of pip is available: 23.3.2 -> 25.0.1
+[notice] To update, run: pip install --upgrade pip
++ kolla-build --version
+10.4.0
++ cp /probe/kolla-build.conf /tmp/kb.conf
++ '[' -n <proxy-url> ']'
++ printf 'build_args = https_proxy:%s,http_proxy:%s\n' <proxy-url> <proxy-url>
++ kolla-build --config-file /tmp/kb.conf --threads 1 base openstack-base
+INFO:kolla.common.utils:Found the docker image folder at /usr/local/share/kolla/docker
+INFO:kolla.common.utils:Added image base to queue
+INFO:kolla.common.utils:Attempt number: 1 to run task: BuildTask(base) 
+INFO:kolla.common.utils.base:Building started at 2026-10-31 09:47:58.041540
+INFO:kolla.common.utils.base:Step 1/33 : FROM ubuntu:18.04
+INFO:kolla.common.utils.base: ---> 152dc042452c
+INFO:kolla.common.utils.base:Step 2/33 : LABEL maintainer="Kolla Project (https://launchpad.net/kolla)" name="base" build-date="20261031"
+INFO:kolla.common.utils.base: ---> Running in a9e79c1035c0
+INFO:kolla.common.utils.base: ---> Removed intermediate container a9e79c1035c0
+INFO:kolla.common.utils.base: ---> 4b08794aba77
+INFO:kolla.common.utils.base:Step 3/33 : COPY curlrc /root/.curlrc
+INFO:kolla.common.utils.base: ---> e9b94676a623
+INFO:kolla.common.utils.base:Step 4/33 : ENV LANG en_US.UTF-8
+INFO:kolla.common.utils.base: ---> Running in f560c9b45db2
+INFO:kolla.common.utils.base: ---> Removed intermediate container f560c9b45db2
+INFO:kolla.common.utils.base: ---> b44bd280ea5c
+INFO:kolla.common.utils.base:Step 5/33 : RUN groupadd --force --gid 42475 almanach     && useradd -l -M --shell /usr/sbin/nologin --uid 42475 --gid 42475 almanach     && groupadd --force --gid 42401 ansible     && useradd -l -M --shell /usr/sbin/nologin --uid 42401 --gid 42401 ansible     && groupadd --force --gid 42402 aodh     && useradd -l -M --shell /usr/sbin/nologin --uid 42402 --gid 42402 aodh     && groupadd --force --gid 42403 barbican     && useradd -l -M --shell /usr/sbin/nologin --uid 42403 --gid 42403 barbican     && groupadd --force --gid 42404 bifrost     && useradd -l -M --shell /usr/sbin/nologin --uid 42404 --gid 42404 bifrost     && groupadd --force --gid 42471 blazar     && useradd -l -M --shell /usr/sbin/nologin --uid 42471 --gid 42471 blazar     && groupadd --force --gid 42405 ceilometer     && useradd -l -M --shell /usr/sbin/nologin --uid 42405 --gid 42405 ceilometer     && groupadd --force --gid 42406 chrony     && useradd -l -M --shell /usr/sbin/nologin --uid 42406 --gid 42406 chrony     && groupadd --force --gid 42407 cinder     && useradd -l -M --shell /usr/sbin/nologin --uid 42407 --gid 42407 cinder     && groupadd --force --gid 42408 cloudkitty     && useradd -l -M --shell /usr/sbin/nologin --uid 42408 --gid 42408 cloudkitty     && groupadd --force --gid 42409 collectd     && useradd -l -M --shell /usr/sbin/nologin --uid 42409 --gid 42409 collectd     && groupadd --force --gid 42410 congress     && useradd -l -M --shell /usr/sbin/nologin --uid 42410 --gid 42410 congress     && groupadd --force --gid 42483 cyborg     && useradd -l -M --shell /usr/sbin/nologin --uid 42483 --gid 42483 cyborg     && groupadd --force --gid 42411 designate     && useradd -l -M --shell /usr/sbin/nologin --uid 42411 --gid 42411 designate     && groupadd --force --gid 42464 dragonflow     && useradd -l -M --shell /usr/sbin/nologin --uid 42464 --gid 42464 dragonflow     && groupadd --force --gid 42466 ec2api     && useradd -l -M --shell /usr/sbin/nologin --uid 42466 --gid 42466 ec2api     && groupadd --force --gid 42412 elasticsearch     && useradd -l -M --shell /usr/sbin/nologin --uid 42412 --gid 42412 elasticsearch     && groupadd --force --gid 42413 etcd     && useradd -l -M --shell /usr/sbin/nologin --uid 42413 --gid 42413 etcd     && groupadd --force --gid 42474 fluentd     && useradd -l -M --shell /usr/sbin/nologin --uid 42474 --gid 42474 fluentd     && groupadd --force --gid 42414 freezer     && useradd -l -M --shell /usr/sbin/nologin --uid 42414 --gid 42414 freezer     && groupadd --force --gid 42415 glance     && useradd -l -M --shell /usr/sbin/nologin --uid 42415 --gid 42415 glance     && groupadd --force --gid 42416 gnocchi     && useradd -l -M --shell /usr/sbin/nologin --uid 42416 --gid 42416 gnocchi     && groupadd --force --gid 42417 grafana     && useradd -l -M --shell /usr/sbin/nologin --uid 42417 --gid 42417 grafana     && groupadd --force --gid 42454 haproxy     && useradd -l -M --shell /usr/sbin/nologin --uid 42454 --gid 42454 haproxy     && groupadd --force --gid 42418 heat     && useradd -l -M --shell /usr/sbin/nologin --uid 42418 --gid 42418 heat     && groupadd --force --gid 42420 horizon     && useradd -l -M --shell /usr/sbin/nologin --uid 42420 --gid 42420 horizon     && groupadd --force --gid 42477 hugetlbfs     && useradd -l -M --shell /usr/sbin/nologin --uid 42477 --gid 42477 hugetlbfs     && groupadd --force --gid 42421 influxdb     && useradd -l -M --shell /usr/sbin/nologin --uid 42421 --gid 42421 influxdb     && groupadd --force --gid 42422 ironic     && useradd -l -M --shell /usr/sbin/nologin --uid 42422 --gid 42422 ironic     && groupadd --force --gid 42461 ironic-inspector     && useradd -l -M --shell /usr/sbin/nologin --uid 42461 --gid 42461 ironic-inspector     && groupadd --force --gid 42423 kafka     && useradd -l -M --shell /usr/sbin/nologin --uid 42423 --gid 42423 kafka     && groupadd --force --gid 42458 karbor     && useradd -l -M --shell /usr/sbin/nologin --uid 42458 --gid 42458 karbor     && groupadd --force --gid 42425 keystone     && useradd -l -M --shell /usr/sbin/nologin --uid 42425 --gid 42425 keystone     && groupadd --force --gid 42426 kibana     && useradd -l -M --shell /usr/sbin/nologin --uid 42426 --gid 42426 kibana     && groupadd --force --gid 42400 kolla     && useradd -l -M --shell /usr/sbin/nologin --uid 42400 --gid 42400 kolla     && groupadd --force --gid 42469 kuryr     && useradd -l -M --shell /usr/sbin/nologin --uid 42469 --gid 42469 kuryr     && groupadd --force --gid 42473 libvirt     && useradd -l -M --shell /usr/sbin/nologin --uid 42473 --gid 42473 libvirt     && groupadd --force --gid 42478 logstash     && useradd -l -M --shell /usr/sbin/nologin --uid 42478 --gid 42478 logstash     && groupadd --force --gid 42428 magnum     && useradd -l -M --shell /usr/sbin/nologin --uid 42428 --gid 42428 magnum     && groupadd --force --gid 42429 manila     && useradd -l -M --shell /usr/sbin/nologin --uid 42429 --gid 42429 manila     && groupadd --force --gid 42485 masakari     && useradd -l -M --shell /usr/sbin/nologin --uid 42485 --gid 42485 masakari     && groupadd --force --gid 42457 memcached     && useradd -l -M --shell /usr/sbin/nologin --uid 42457 --gid 42457 memcached     && groupadd --force --gid 42430 mistral     && useradd -l -M --shell /usr/sbin/nologin --uid 42430 --gid 42430 mistral     && groupadd --force --gid 42431 monasca     && useradd -l -M --shell /usr/sbin/nologin --uid 42431 --gid 42431 monasca     && groupadd --force --gid 65534 mongodb     && useradd -l -M --shell /usr/sbin/nologin --uid 42432 --gid 65534 mongodb     && groupadd --force --gid 42433 murano     && useradd -l -M --shell /usr/sbin/nologin --uid 42433 --gid 42433 murano     && groupadd --force --gid 42434 mysql     && useradd -l -M --shell /usr/sbin/nologin --uid 42434 --gid 42434 mysql     && groupadd --force --gid 42435 neutron     && useradd -l -M --shell /usr/sbin/nologin --uid 42435 --gid 42435 neutron     && groupadd --force --gid 42481 nfast     && useradd -l -M --shell /usr/sbin/nologin --uid 42481 --gid 42481 nfast     && groupadd --force --gid 42436 nova     && useradd -l -M --shell /usr/sbin/nologin --uid 42436 --gid 42436 nova     && groupadd --force --gid 42470 novajoin     && useradd -l -M --shell /usr/sbin/nologin --uid 42470 --gid 42470 novajoin     && groupadd --force --gid 42437 octavia     && useradd -l -M --shell /usr/sbin/nologin --uid 42437 --gid 42437 octavia     && groupadd --force --gid 42462 odl     && useradd -l -M --shell /usr/sbin/nologin --uid 42462 --gid 42462 odl     && groupadd --force --gid 42476 openvswitch     && useradd -l -M --shell /usr/sbin/nologin --uid 42476 --gid 42476 openvswitch     && groupadd --force --gid 42438 panko     && useradd -l -M --shell /usr/sbin/nologin --uid 42438 --gid 42438 panko     && groupadd --force --gid 42482 placement     && useradd -l -M --shell /usr/sbin/nologin --uid 42482 --gid 42482 placement     && groupadd --force --gid 42472 prometheus     && useradd -l -M --shell /usr/sbin/nologin --uid 42472 --gid 42472 prometheus     && groupadd --force --gid 42465 qdrouterd     && useradd -l -M --shell /usr/sbin/nologin --uid 42465 --gid 42465 qdrouterd     && groupadd --force --gid 42427 qemu     && useradd -l -M --shell /usr/sbin/nologin --uid 42427 --gid 42427 qemu     && groupadd --force --gid 42484 qinling     && useradd -l -M --shell /usr/sbin/nologin --uid 42484 --gid 42484 qinling     && groupadd --force --gid 42439 rabbitmq     && useradd -l -M --shell /usr/sbin/nologin --uid 42439 --gid 42439 rabbitmq     && groupadd --force --gid 42440 rally     && useradd -l -M --shell /usr/sbin/nologin --uid 42440 --gid 42440 rally     && groupadd --force --gid 42460 redis     && useradd -l -M --shell /usr/sbin/nologin --uid 42460 --gid 42460 redis     && groupadd --force --gid 42441 sahara     && useradd -l -M --shell /usr/sbin/nologin --uid 42441 --gid 42441 sahara     && groupadd --force --gid 42442 searchlight     && useradd -l -M --shell /usr/sbin/nologin --uid 42442 --gid 42442 searchlight     && groupadd --force --gid 42443 senlin     && useradd -l -M --shell /usr/sbin/nologin --uid 42443 --gid 42443 senlin     && groupadd --force --gid 42467 sensu     && useradd -l -M --shell /usr/sbin/nologin --uid 42467 --gid 42467 sensu     && groupadd --force --gid 42468 skydive     && useradd -l -M --shell /usr/sbin/nologin --uid 42468 --gid 42468 skydive     && groupadd --force --gid 42444 solum     && useradd -l -M --shell /usr/sbin/nologin --uid 42444 --gid 42444 solum     && groupadd --force --gid 42479 storm     && useradd -l -M --shell /usr/sbin/nologin --uid 42479 --gid 42479 storm     && groupadd --force --gid 42445 swift     && useradd -l -M --shell /usr/sbin/nologin --uid 42445 --gid 42445 swift     && groupadd --force --gid 42446 tacker     && useradd -l -M --shell /usr/sbin/nologin --uid 42446 --gid 42446 tacker     && groupadd --force --gid 42447 td-agent     && useradd -l -M --shell /usr/sbin/nologin --uid 42447 --gid 42447 td-agent     && groupadd --force --gid 42448 telegraf     && useradd -l -M --shell /usr/sbin/nologin --uid 42448 --gid 42448 telegraf     && groupadd --force --gid 42480 tempest     && useradd -l -M --shell /usr/sbin/nologin --uid 42480 --gid 42480 tempest     && groupadd --force --gid 42449 trove     && useradd -l -M --shell /usr/sbin/nologin --uid 42449 --gid 42449 trove     && groupadd --force --gid 42459 vitrage     && useradd -l -M --shell /usr/sbin/nologin --uid 42459 --gid 42459 vitrage     && groupadd --force --gid 42450 vmtp     && useradd -l -M --shell /usr/sbin/nologin --uid 42450 --gid 42450 vmtp     && groupadd --force --gid 42451 watcher     && useradd -l -M --shell /usr/sbin/nologin --uid 42451 --gid 42451 watcher     && groupadd --force --gid 42452 zaqar     && useradd -l -M --shell /usr/sbin/nologin --uid 42452 --gid 42452 zaqar     && groupadd --force --gid 42453 zookeeper     && useradd -l -M --shell /usr/sbin/nologin --uid 42453 --gid 42453 zookeeper     && groupadd --force --gid 42463 zun     && useradd -l -M --shell /usr/sbin/nologin --uid 42463 --gid 42463 zun
+INFO:kolla.common.utils.base: ---> Running in 2fd3e2defea1
+INFO:kolla.common.utils.base: ---> Removed intermediate container 2fd3e2defea1
+INFO:kolla.common.utils.base: ---> 3de0b0658264
+INFO:kolla.common.utils.base:Step 6/33 : LABEL kolla_version="10.4.0"
+INFO:kolla.common.utils.base: ---> Running in 759da0289cb5
+INFO:kolla.common.utils.base: ---> Removed intermediate container 759da0289cb5
+INFO:kolla.common.utils.base: ---> 71cc41b94a4b
+INFO:kolla.common.utils.base:Step 7/33 : ENV KOLLA_BASE_DISTRO=ubuntu     KOLLA_INSTALL_TYPE=source     KOLLA_INSTALL_METATYPE=mixed     KOLLA_DISTRO_PYTHON_VERSION=3.6     KOLLA_BASE_ARCH=x86_64
+INFO:kolla.common.utils.base: ---> Running in dc11a2532a55
+INFO:kolla.common.utils.base: ---> Removed intermediate container dc11a2532a55
+INFO:kolla.common.utils.base: ---> 8ae7224b293a
+INFO:kolla.common.utils.base:Step 8/33 : COPY kolla_bashrc /tmp/
+INFO:kolla.common.utils.base: ---> b02b84061cef
+INFO:kolla.common.utils.base:Step 9/33 : RUN cat /tmp/kolla_bashrc >> /etc/skel/.bashrc     && cat /tmp/kolla_bashrc >> /root/.bashrc
+INFO:kolla.common.utils.base: ---> Running in 8bcf23a18897
+INFO:kolla.common.utils.base: ---> Removed intermediate container 8bcf23a18897
+INFO:kolla.common.utils.base: ---> 73cc43056ffb
+INFO:kolla.common.utils.base:Step 10/33 : ENV PS1="$(tput bold)($(printenv KOLLA_SERVICE_NAME))$(tput sgr0)[$(id -un)@$(hostname -s) $(pwd)]$ "
+INFO:kolla.common.utils.base: ---> Running in a4475e2bcd7c
+INFO:kolla.common.utils.base: ---> Removed intermediate container a4475e2bcd7c
+INFO:kolla.common.utils.base: ---> 59a3a8459399
+INFO:kolla.common.utils.base:Step 11/33 : RUN apt-get update && apt-get -y install --no-install-recommends lsb-release && apt-get clean && rm -rf /var/lib/apt/lists/*
+INFO:kolla.common.utils.base: ---> Running in 91c229f75c50
+INFO:kolla.common.utils.base:Get:1 http://security.ubuntu.com/ubuntu bionic-security InRelease [102 kB]
+INFO:kolla.common.utils.base:Get:2 http://archive.ubuntu.com/ubuntu bionic InRelease [242 kB]
+INFO:kolla.common.utils.base:Get:3 http://security.ubuntu.com/ubuntu bionic-security/universe amd64 Packages [1622 kB]
+INFO:kolla.common.utils.base:Get:4 http://security.ubuntu.com/ubuntu bionic-security/restricted amd64 Packages [1658 kB]
+INFO:kolla.common.utils.base:Get:5 http://security.ubuntu.com/ubuntu bionic-security/multiverse amd64 Packages [23.5 kB]
+INFO:kolla.common.utils.base:Get:6 http://security.ubuntu.com/ubuntu bionic-security/main amd64 Packages [3328 kB]
+INFO:kolla.common.utils.base:Get:7 http://archive.ubuntu.com/ubuntu bionic-updates InRelease [102 kB]
+INFO:kolla.common.utils.base:Get:8 http://archive.ubuntu.com/ubuntu bionic-backports InRelease [102 kB]
+INFO:kolla.common.utils.base:Get:9 http://archive.ubuntu.com/ubuntu bionic/multiverse amd64 Packages [186 kB]
+INFO:kolla.common.utils.base:Get:10 http://archive.ubuntu.com/ubuntu bionic/main amd64 Packages [1344 kB]
+INFO:kolla.common.utils.base:Get:11 http://archive.ubuntu.com/ubuntu bionic/restricted amd64 Packages [13.5 kB]
+INFO:kolla.common.utils.base:Get:12 http://archive.ubuntu.com/ubuntu bionic/universe amd64 Packages [11.3 MB]
+INFO:kolla.common.utils.base:Get:13 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 Packages [3735 kB]
+INFO:kolla.common.utils.base:Get:14 http://archive.ubuntu.com/ubuntu bionic-updates/restricted amd64 Packages [1697 kB]
+INFO:kolla.common.utils.base:Get:15 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 Packages [2389 kB]
+INFO:kolla.common.utils.base:Get:16 http://archive.ubuntu.com/ubuntu bionic-updates/multiverse amd64 Packages [30.5 kB]
+INFO:kolla.common.utils.base:Get:17 http://archive.ubuntu.com/ubuntu bionic-backports/main amd64 Packages [63.4 kB]
+INFO:kolla.common.utils.base:Get:18 http://archive.ubuntu.com/ubuntu bionic-backports/universe amd64 Packages [20.5 kB]
+INFO:kolla.common.utils.base:Fetched 28.0 MB in 3s (8326 kB/s)
+INFO:kolla.common.utils.base:Reading package lists...
+INFO:kolla.common.utils.base:Reading package lists...
+INFO:kolla.common.utils.base:Building dependency tree...
+INFO:kolla.common.utils.base:Reading state information...
+INFO:kolla.common.utils.base:The following additional packages will be installed:
+INFO:kolla.common.utils.base:  distro-info-data libexpat1 libmpdec2 libpython3-stdlib libpython3.6-minimal
+INFO:kolla.common.utils.base:  libpython3.6-stdlib libreadline7 libsqlite3-0 libssl1.1 mime-support python3
+INFO:kolla.common.utils.base:  python3-minimal python3.6 python3.6-minimal readline-common
+INFO:kolla.common.utils.base:Suggested packages:
+INFO:kolla.common.utils.base:  lsb python3-doc python3-tk python3-venv python3.6-venv python3.6-doc
+INFO:kolla.common.utils.base:  binutils binfmt-support readline-doc
+INFO:kolla.common.utils.base:Recommended packages:
+INFO:kolla.common.utils.base:  file xz-utils
+INFO:kolla.common.utils.base:The following NEW packages will be installed:
+INFO:kolla.common.utils.base:  distro-info-data libexpat1 libmpdec2 libpython3-stdlib libpython3.6-minimal
+INFO:kolla.common.utils.base:  libpython3.6-stdlib libreadline7 libsqlite3-0 libssl1.1 lsb-release
+INFO:kolla.common.utils.base:  mime-support python3 python3-minimal python3.6 python3.6-minimal
+INFO:kolla.common.utils.base:  readline-common
+INFO:kolla.common.utils.base:0 upgraded, 16 newly installed, 0 to remove and 1 not upgraded.
+INFO:kolla.common.utils.base:Need to get 6327 kB of archives.
+INFO:kolla.common.utils.base:After this operation, 28.4 MB of additional disk space will be used.
+INFO:kolla.common.utils.base:Get:1 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libssl1.1 amd64 1.1.1-1ubuntu2.1~18.04.23 [1303 kB]
+INFO:kolla.common.utils.base:Get:2 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libpython3.6-minimal amd64 3.6.9-1~18.04ubuntu1.12 [533 kB]
+INFO:kolla.common.utils.base:Get:3 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libexpat1 amd64 2.2.5-3ubuntu0.9 [82.8 kB]
+INFO:kolla.common.utils.base:Get:4 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python3.6-minimal amd64 3.6.9-1~18.04ubuntu1.12 [1609 kB]
+INFO:kolla.common.utils.base:Get:5 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python3-minimal amd64 3.6.7-1~18.04 [23.7 kB]
+INFO:kolla.common.utils.base:Get:6 http://archive.ubuntu.com/ubuntu bionic/main amd64 mime-support all 3.60ubuntu1 [30.1 kB]
+INFO:kolla.common.utils.base:Get:7 http://archive.ubuntu.com/ubuntu bionic/main amd64 libmpdec2 amd64 2.4.2-1ubuntu1 [84.1 kB]
+INFO:kolla.common.utils.base:Get:8 http://archive.ubuntu.com/ubuntu bionic/main amd64 readline-common all 7.0-3 [52.9 kB]
+INFO:kolla.common.utils.base:Get:9 http://archive.ubuntu.com/ubuntu bionic/main amd64 libreadline7 amd64 7.0-3 [124 kB]
+INFO:kolla.common.utils.base:Get:10 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libsqlite3-0 amd64 3.22.0-1ubuntu0.7 [499 kB]
+INFO:kolla.common.utils.base:Get:11 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libpython3.6-stdlib amd64 3.6.9-1~18.04ubuntu1.12 [1713 kB]
+INFO:kolla.common.utils.base:Get:12 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python3.6 amd64 3.6.9-1~18.04ubuntu1.12 [203 kB]
+INFO:kolla.common.utils.base:Get:13 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libpython3-stdlib amd64 3.6.7-1~18.04 [7240 B]
+INFO:kolla.common.utils.base:Get:14 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 python3 amd64 3.6.7-1~18.04 [47.2 kB]
+INFO:kolla.common.utils.base:Get:15 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 distro-info-data all 0.37ubuntu0.21 [5204 B]
+INFO:kolla.common.utils.base:Get:16 http://archive.ubuntu.com/ubuntu bionic/main amd64 lsb-release all 9.20170808ubuntu1 [11.0 kB]
+INFO:kolla.common.utils.base:[91mperl: warning: Setting locale failed.
+INFO:kolla.common.utils.base:perl: warning: Please check that your locale settings:
+INFO:kolla.common.utils.base:	LANGUAGE = (unset),
+INFO:kolla.common.utils.base:	LC_ALL = (unset),
+INFO:kolla.common.utils.base:	LANG = "en_US.UTF-8"
+INFO:kolla.common.utils.base:    are supported and installed on your system.
+INFO:kolla.common.utils.base:perl: warning: Falling back to the standard locale ("C").
+INFO:kolla.common.utils.base:[0m
+INFO:kolla.common.utils.base:[91mdebconf: delaying package configuration, since apt-utils is not installed
+INFO:kolla.common.utils.base:[0m
+INFO:kolla.common.utils.base:Fetched 6327 kB in 3s (1852 kB/s)
+INFO:kolla.common.utils.base:Selecting previously unselected package libssl1.1:amd64.
+INFO:kolla.common.utils.base:(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%
+INFO:kolla.common.utils.base:(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%
+INFO:kolla.common.utils.base:(Reading database ... 100%(Reading database ... 4050 files and directories currently installed.)
+INFO:kolla.common.utils.base:Preparing to unpack .../libssl1.1_1.1.1-1ubuntu2.1~18.04.23_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libssl1.1:amd64 (1.1.1-1ubuntu2.1~18.04.23) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libpython3.6-minimal:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../libpython3.6-minimal_3.6.9-1~18.04ubuntu1.12_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libpython3.6-minimal:amd64 (3.6.9-1~18.04ubuntu1.12) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libexpat1:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../libexpat1_2.2.5-3ubuntu0.9_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libexpat1:amd64 (2.2.5-3ubuntu0.9) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package python3.6-minimal.
+INFO:kolla.common.utils.base:Preparing to unpack .../python3.6-minimal_3.6.9-1~18.04ubuntu1.12_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking python3.6-minimal (3.6.9-1~18.04ubuntu1.12) ...
+INFO:kolla.common.utils.base:Setting up libssl1.1:amd64 (1.1.1-1ubuntu2.1~18.04.23) ...
+INFO:kolla.common.utils.base:debconf: unable to initialize frontend: Dialog
+INFO:kolla.common.utils.base:debconf: (TERM is not set, so the dialog frontend is not usable.)
+INFO:kolla.common.utils.base:debconf: falling back to frontend: Readline
+INFO:kolla.common.utils.base:debconf: unable to initialize frontend: Readline
+INFO:kolla.common.utils.base:debconf: (Can't locate Term/ReadLine.pm in @INC (you may need to install the Term::ReadLine module) (@INC contains: /etc/perl /usr/local/lib/x86_64-linux-gnu/perl/5.26.1 /usr/local/share/perl/5.26.1 /usr/lib/x86_64-linux-gnu/perl5/5.26 /usr/share/perl5 /usr/lib/x86_64-linux-gnu/perl/5.26 /usr/share/perl/5.26 /usr/local/lib/site_perl /usr/lib/x86_64-linux-gnu/perl-base) at /usr/share/perl5/Debconf/FrontEnd/Readline.pm line 7.)
+INFO:kolla.common.utils.base:debconf: falling back to frontend: Teletype
+INFO:kolla.common.utils.base:Setting up libpython3.6-minimal:amd64 (3.6.9-1~18.04ubuntu1.12) ...
+INFO:kolla.common.utils.base:Setting up libexpat1:amd64 (2.2.5-3ubuntu0.9) ...
+INFO:kolla.common.utils.base:Setting up python3.6-minimal (3.6.9-1~18.04ubuntu1.12) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package python3-minimal.
+INFO:kolla.common.utils.base:(Reading database ... 
+INFO:kolla.common.utils.base:(Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%
+INFO:kolla.common.utils.base:(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%
+INFO:kolla.common.utils.base:(Reading database ... 100%(Reading database ... 4307 files and directories currently installed.)
+INFO:kolla.common.utils.base:Preparing to unpack .../0-python3-minimal_3.6.7-1~18.04_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking python3-minimal (3.6.7-1~18.04) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package mime-support.
+INFO:kolla.common.utils.base:Preparing to unpack .../1-mime-support_3.60ubuntu1_all.deb ...
+INFO:kolla.common.utils.base:Unpacking mime-support (3.60ubuntu1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libmpdec2:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../2-libmpdec2_2.4.2-1ubuntu1_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libmpdec2:amd64 (2.4.2-1ubuntu1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package readline-common.
+INFO:kolla.common.utils.base:Preparing to unpack .../3-readline-common_7.0-3_all.deb ...
+INFO:kolla.common.utils.base:Unpacking readline-common (7.0-3) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libreadline7:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../4-libreadline7_7.0-3_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libreadline7:amd64 (7.0-3) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libsqlite3-0:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../5-libsqlite3-0_3.22.0-1ubuntu0.7_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libsqlite3-0:amd64 (3.22.0-1ubuntu0.7) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libpython3.6-stdlib:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../6-libpython3.6-stdlib_3.6.9-1~18.04ubuntu1.12_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libpython3.6-stdlib:amd64 (3.6.9-1~18.04ubuntu1.12) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package python3.6.
+INFO:kolla.common.utils.base:Preparing to unpack .../7-python3.6_3.6.9-1~18.04ubuntu1.12_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking python3.6 (3.6.9-1~18.04ubuntu1.12) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libpython3-stdlib:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../8-libpython3-stdlib_3.6.7-1~18.04_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libpython3-stdlib:amd64 (3.6.7-1~18.04) ...
+INFO:kolla.common.utils.base:Setting up python3-minimal (3.6.7-1~18.04) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package python3.
+INFO:kolla.common.utils.base:(Reading database ... 
+INFO:kolla.common.utils.base:(Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%
+INFO:kolla.common.utils.base:(Reading database ... 75%
+INFO:kolla.common.utils.base:(Reading database ... 80%
+INFO:kolla.common.utils.base:(Reading database ... 85%
+INFO:kolla.common.utils.base:(Reading database ... 90%
+INFO:kolla.common.utils.base:(Reading database ... 95%
+INFO:kolla.common.utils.base:(Reading database ... 100%(Reading database ... 4765 files and directories currently installed.)
+INFO:kolla.common.utils.base:Preparing to unpack .../python3_3.6.7-1~18.04_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking python3 (3.6.7-1~18.04) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package distro-info-data.
+INFO:kolla.common.utils.base:Preparing to unpack .../distro-info-data_0.37ubuntu0.21_all.deb ...
+INFO:kolla.common.utils.base:Unpacking distro-info-data (0.37ubuntu0.21) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package lsb-release.
+INFO:kolla.common.utils.base:Preparing to unpack .../lsb-release_9.20170808ubuntu1_all.deb ...
+INFO:kolla.common.utils.base:Unpacking lsb-release (9.20170808ubuntu1) ...
+INFO:kolla.common.utils.base:Setting up readline-common (7.0-3) ...
+INFO:kolla.common.utils.base:Setting up mime-support (3.60ubuntu1) ...
+INFO:kolla.common.utils.base:Setting up libreadline7:amd64 (7.0-3) ...
+INFO:kolla.common.utils.base:Setting up distro-info-data (0.37ubuntu0.21) ...
+INFO:kolla.common.utils.base:Setting up libsqlite3-0:amd64 (3.22.0-1ubuntu0.7) ...
+INFO:kolla.common.utils.base:Setting up libmpdec2:amd64 (2.4.2-1ubuntu1) ...
+INFO:kolla.common.utils.base:Setting up libpython3.6-stdlib:amd64 (3.6.9-1~18.04ubuntu1.12) ...
+INFO:kolla.common.utils.base:Setting up python3.6 (3.6.9-1~18.04ubuntu1.12) ...
+INFO:kolla.common.utils.base:Setting up libpython3-stdlib:amd64 (3.6.7-1~18.04) ...
+INFO:kolla.common.utils.base:Setting up python3 (3.6.7-1~18.04) ...
+INFO:kolla.common.utils.base:running python rtupdate hooks for python3.6...
+INFO:kolla.common.utils.base:running python post-rtupdate hooks for python3.6...
+INFO:kolla.common.utils.base:Setting up lsb-release (9.20170808ubuntu1) ...
+INFO:kolla.common.utils.base:Processing triggers for libc-bin (2.27-3ubuntu1.6) ...
+INFO:kolla.common.utils.base: ---> Removed intermediate container 91c229f75c50
+INFO:kolla.common.utils.base: ---> 9b055b9c999d
+INFO:kolla.common.utils.base:Step 12/33 : RUN if [ $(lsb_release -r -s) != "18.04" ]; then         echo "Only release '18.04' is supported on ubuntu"; false; fi
+INFO:kolla.common.utils.base: ---> Running in d600089d166b
+INFO:kolla.common.utils.base: ---> Removed intermediate container d600089d166b
+INFO:kolla.common.utils.base: ---> 156a7b08d6d6
+INFO:kolla.common.utils.base:Step 13/33 : RUN cat /tmp/kolla_bashrc >> /etc/bash.bashrc     && sed -i -e s/LAST_SYSTEM_UID=999/LAST_SYSTEM_UID=59999/g /etc/adduser.conf
+INFO:kolla.common.utils.base: ---> Running in fd37f1886311
+INFO:kolla.common.utils.base: ---> Removed intermediate container fd37f1886311
+INFO:kolla.common.utils.base: ---> 0b9335382eae
+INFO:kolla.common.utils.base:Step 14/33 : ENV DEBIAN_FRONTEND noninteractive
+INFO:kolla.common.utils.base: ---> Running in d56494b201ae
+INFO:kolla.common.utils.base: ---> Removed intermediate container d56494b201ae
+INFO:kolla.common.utils.base: ---> d98daf6c2c3f
+INFO:kolla.common.utils.base:Step 15/33 : COPY dpkg_reducing_disk_footprint /etc/dpkg/dpkg.cfg.d/dpkg_reducing_disk_footprint
+INFO:kolla.common.utils.base: ---> 68f6c0390434
+INFO:kolla.common.utils.base:Step 16/33 : RUN apt-get update && apt-get -y install --no-install-recommends apt-transport-https ca-certificates curl dirmngr gnupg && apt-get clean && rm -rf /var/lib/apt/lists/*
+INFO:kolla.common.utils.base: ---> Running in 114acd3301a9
+INFO:kolla.common.utils.base:Get:1 http://security.ubuntu.com/ubuntu bionic-security InRelease [102 kB]
+INFO:kolla.common.utils.base:Get:2 http://archive.ubuntu.com/ubuntu bionic InRelease [242 kB]
+INFO:kolla.common.utils.base:Get:3 http://security.ubuntu.com/ubuntu bionic-security/restricted amd64 Packages [1658 kB]
+INFO:kolla.common.utils.base:Get:4 http://archive.ubuntu.com/ubuntu bionic-updates InRelease [102 kB]
+INFO:kolla.common.utils.base:Get:5 http://archive.ubuntu.com/ubuntu bionic-backports InRelease [102 kB]
+INFO:kolla.common.utils.base:Get:6 http://archive.ubuntu.com/ubuntu bionic/universe amd64 Packages [11.3 MB]
+INFO:kolla.common.utils.base:Get:7 http://security.ubuntu.com/ubuntu bionic-security/main amd64 Packages [3328 kB]
+INFO:kolla.common.utils.base:Get:8 http://security.ubuntu.com/ubuntu bionic-security/universe amd64 Packages [1622 kB]
+INFO:kolla.common.utils.base:Get:9 http://security.ubuntu.com/ubuntu bionic-security/multiverse amd64 Packages [23.5 kB]
+INFO:kolla.common.utils.base:Get:10 http://archive.ubuntu.com/ubuntu bionic/multiverse amd64 Packages [186 kB]
+INFO:kolla.common.utils.base:Get:11 http://archive.ubuntu.com/ubuntu bionic/main amd64 Packages [1344 kB]
+INFO:kolla.common.utils.base:Get:12 http://archive.ubuntu.com/ubuntu bionic/restricted amd64 Packages [13.5 kB]
+INFO:kolla.common.utils.base:Get:13 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 Packages [2389 kB]
+INFO:kolla.common.utils.base:Get:14 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 Packages [3735 kB]
+INFO:kolla.common.utils.base:Get:15 http://archive.ubuntu.com/ubuntu bionic-updates/multiverse amd64 Packages [30.5 kB]
+INFO:kolla.common.utils.base:Get:16 http://archive.ubuntu.com/ubuntu bionic-updates/restricted amd64 Packages [1697 kB]
+INFO:kolla.common.utils.base:Get:17 http://archive.ubuntu.com/ubuntu bionic-backports/universe amd64 Packages [20.5 kB]
+INFO:kolla.common.utils.base:Get:18 http://archive.ubuntu.com/ubuntu bionic-backports/main amd64 Packages [63.4 kB]
+INFO:kolla.common.utils.base:Fetched 28.0 MB in 3s (8669 kB/s)
+INFO:kolla.common.utils.base:Reading package lists...
+INFO:kolla.common.utils.base:Reading package lists...
+INFO:kolla.common.utils.base:Building dependency tree...
+INFO:kolla.common.utils.base:Reading state information...
+INFO:kolla.common.utils.base:The following additional packages will be installed:
+INFO:kolla.common.utils.base:  gnupg-l10n gnupg-utils gpg gpg-agent gpg-wks-client gpg-wks-server gpgconf
+INFO:kolla.common.utils.base:  gpgsm libasn1-8-heimdal libassuan0 libcurl4 libgssapi-krb5-2
+INFO:kolla.common.utils.base:  libgssapi3-heimdal libhcrypto4-heimdal libheimbase1-heimdal
+INFO:kolla.common.utils.base:  libheimntlm0-heimdal libhx509-5-heimdal libk5crypto3 libkeyutils1
+INFO:kolla.common.utils.base:  libkrb5-26-heimdal libkrb5-3 libkrb5support0 libksba8 libldap-2.4-2
+INFO:kolla.common.utils.base:  libldap-common libnghttp2-14 libnpth0 libpsl5 libroken18-heimdal librtmp1
+INFO:kolla.common.utils.base:  libsasl2-2 libsasl2-modules-db libwind0-heimdal openssl pinentry-curses
+INFO:kolla.common.utils.base:Suggested packages:
+INFO:kolla.common.utils.base:  dbus-user-session libpam-systemd pinentry-gnome3 tor parcimonie xloadimage
+INFO:kolla.common.utils.base:  scdaemon krb5-doc krb5-user pinentry-doc
+INFO:kolla.common.utils.base:Recommended packages:
+INFO:kolla.common.utils.base:  krb5-locales publicsuffix libsasl2-modules
+INFO:kolla.common.utils.base:The following NEW packages will be installed:
+INFO:kolla.common.utils.base:  apt-transport-https ca-certificates curl dirmngr gnupg gnupg-l10n
+INFO:kolla.common.utils.base:  gnupg-utils gpg gpg-agent gpg-wks-client gpg-wks-server gpgconf gpgsm
+INFO:kolla.common.utils.base:  libasn1-8-heimdal libassuan0 libcurl4 libgssapi-krb5-2 libgssapi3-heimdal
+INFO:kolla.common.utils.base:  libhcrypto4-heimdal libheimbase1-heimdal libheimntlm0-heimdal
+INFO:kolla.common.utils.base:  libhx509-5-heimdal libk5crypto3 libkeyutils1 libkrb5-26-heimdal libkrb5-3
+INFO:kolla.common.utils.base:  libkrb5support0 libksba8 libldap-2.4-2 libldap-common libnghttp2-14 libnpth0
+INFO:kolla.common.utils.base:  libpsl5 libroken18-heimdal librtmp1 libsasl2-2 libsasl2-modules-db
+INFO:kolla.common.utils.base:  libwind0-heimdal openssl pinentry-curses
+INFO:kolla.common.utils.base:0 upgraded, 40 newly installed, 0 to remove and 1 not upgraded.
+INFO:kolla.common.utils.base:Need to get 5013 kB of archives.
+INFO:kolla.common.utils.base:After this operation, 15.1 MB of additional disk space will be used.
+INFO:kolla.common.utils.base:Get:1 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 openssl amd64 1.1.1-1ubuntu2.1~18.04.23 [614 kB]
+INFO:kolla.common.utils.base:Get:2 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 ca-certificates all 20230311ubuntu0.18.04.1 [151 kB]
+INFO:kolla.common.utils.base:Get:3 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libkrb5support0 amd64 1.16-2ubuntu0.4 [30.9 kB]
+INFO:kolla.common.utils.base:Get:4 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libk5crypto3 amd64 1.16-2ubuntu0.4 [85.3 kB]
+INFO:kolla.common.utils.base:Get:5 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libkeyutils1 amd64 1.5.9-9.2ubuntu2.1 [8764 B]
+INFO:kolla.common.utils.base:Get:6 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libkrb5-3 amd64 1.16-2ubuntu0.4 [278 kB]
+INFO:kolla.common.utils.base:Get:7 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libgssapi-krb5-2 amd64 1.16-2ubuntu0.4 [122 kB]
+INFO:kolla.common.utils.base:Get:8 http://archive.ubuntu.com/ubuntu bionic/main amd64 libpsl5 amd64 0.19.1-5build1 [41.8 kB]
+INFO:kolla.common.utils.base:Get:9 http://archive.ubuntu.com/ubuntu bionic-updates/universe amd64 apt-transport-https all 1.6.17 [1692 B]
+INFO:kolla.common.utils.base:Get:10 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libroken18-heimdal amd64 7.5.0+dfsg-1ubuntu0.4 [42.3 kB]
+INFO:kolla.common.utils.base:Get:11 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libasn1-8-heimdal amd64 7.5.0+dfsg-1ubuntu0.4 [175 kB]
+INFO:kolla.common.utils.base:Get:12 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libheimbase1-heimdal amd64 7.5.0+dfsg-1ubuntu0.4 [30.3 kB]
+INFO:kolla.common.utils.base:Get:13 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libhcrypto4-heimdal amd64 7.5.0+dfsg-1ubuntu0.4 [85.9 kB]
+INFO:kolla.common.utils.base:Get:14 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libwind0-heimdal amd64 7.5.0+dfsg-1ubuntu0.4 [48.0 kB]
+INFO:kolla.common.utils.base:Get:15 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libhx509-5-heimdal amd64 7.5.0+dfsg-1ubuntu0.4 [107 kB]
+INFO:kolla.common.utils.base:Get:16 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libkrb5-26-heimdal amd64 7.5.0+dfsg-1ubuntu0.4 [207 kB]
+INFO:kolla.common.utils.base:Get:17 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libheimntlm0-heimdal amd64 7.5.0+dfsg-1ubuntu0.4 [14.8 kB]
+INFO:kolla.common.utils.base:Get:18 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libgssapi3-heimdal amd64 7.5.0+dfsg-1ubuntu0.4 [96.7 kB]
+INFO:kolla.common.utils.base:Get:19 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libsasl2-modules-db amd64 2.1.27~101-g0780600+dfsg-3ubuntu2.4 [15.0 kB]
+INFO:kolla.common.utils.base:Get:20 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libsasl2-2 amd64 2.1.27~101-g0780600+dfsg-3ubuntu2.4 [49.2 kB]
+INFO:kolla.common.utils.base:Get:21 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libldap-common all 2.4.45+dfsg-1ubuntu1.11 [15.8 kB]
+INFO:kolla.common.utils.base:Get:22 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libldap-2.4-2 amd64 2.4.45+dfsg-1ubuntu1.11 [154 kB]
+INFO:kolla.common.utils.base:Get:23 http://archive.ubuntu.com/ubuntu bionic/main amd64 libnghttp2-14 amd64 1.30.0-1ubuntu1 [77.8 kB]
+INFO:kolla.common.utils.base:Get:24 http://archive.ubuntu.com/ubuntu bionic/main amd64 librtmp1 amd64 2.4+20151223.gitfa8646d.1-1 [54.2 kB]
+INFO:kolla.common.utils.base:Get:25 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libcurl4 amd64 7.58.0-2ubuntu3.24 [221 kB]
+INFO:kolla.common.utils.base:Get:26 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 curl amd64 7.58.0-2ubuntu3.24 [159 kB]
+INFO:kolla.common.utils.base:Get:27 http://archive.ubuntu.com/ubuntu bionic/main amd64 libassuan0 amd64 2.5.1-2 [35.0 kB]
+INFO:kolla.common.utils.base:Get:28 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 gpgconf amd64 2.2.4-1ubuntu1.6 [124 kB]
+INFO:kolla.common.utils.base:Get:29 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 libksba8 amd64 1.3.5-2ubuntu0.18.04.2 [94.6 kB]
+INFO:kolla.common.utils.base:Get:30 http://archive.ubuntu.com/ubuntu bionic/main amd64 libnpth0 amd64 1.5-3 [7668 B]
+INFO:kolla.common.utils.base:Get:31 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 dirmngr amd64 2.2.4-1ubuntu1.6 [317 kB]
+INFO:kolla.common.utils.base:Get:32 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 gnupg-l10n all 2.2.4-1ubuntu1.6 [50.1 kB]
+INFO:kolla.common.utils.base:Get:33 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 gnupg-utils amd64 2.2.4-1ubuntu1.6 [128 kB]
+INFO:kolla.common.utils.base:Get:34 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 gpg amd64 2.2.4-1ubuntu1.6 [468 kB]
+INFO:kolla.common.utils.base:Get:35 http://archive.ubuntu.com/ubuntu bionic/main amd64 pinentry-curses amd64 1.1.0-1 [35.8 kB]
+INFO:kolla.common.utils.base:Get:36 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 gpg-agent amd64 2.2.4-1ubuntu1.6 [227 kB]
+INFO:kolla.common.utils.base:Get:37 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 gpg-wks-client amd64 2.2.4-1ubuntu1.6 [91.8 kB]
+INFO:kolla.common.utils.base:Get:38 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 gpg-wks-server amd64 2.2.4-1ubuntu1.6 [85.0 kB]
+INFO:kolla.common.utils.base:Get:39 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 gpgsm amd64 2.2.4-1ubuntu1.6 [215 kB]
+INFO:kolla.common.utils.base:Get:40 http://archive.ubuntu.com/ubuntu bionic-updates/main amd64 gnupg amd64 2.2.4-1ubuntu1.6 [249 kB]
+INFO:kolla.common.utils.base:[91mperl: warning: Setting locale failed.
+INFO:kolla.common.utils.base:perl: warning: Please check that your locale settings:
+INFO:kolla.common.utils.base:	LANGUAGE = (unset),
+INFO:kolla.common.utils.base:	LC_ALL = (unset),
+INFO:kolla.common.utils.base:	LANG = "en_US.UTF-8"
+INFO:kolla.common.utils.base:    are supported and installed on your system.
+INFO:kolla.common.utils.base:perl: warning: Falling back to the standard locale ("C").
+INFO:kolla.common.utils.base:[0m
+INFO:kolla.common.utils.base:[91mdebconf: delaying package configuration, since apt-utils is not installed
+INFO:kolla.common.utils.base:[0m
+INFO:kolla.common.utils.base:Fetched 5013 kB in 6s (818 kB/s)
+INFO:kolla.common.utils.base:Selecting previously unselected package openssl.
+INFO:kolla.common.utils.base:(Reading database ... 
+INFO:kolla.common.utils.base:(Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%
+INFO:kolla.common.utils.base:(Reading database ... 75%
+INFO:kolla.common.utils.base:(Reading database ... 80%
+INFO:kolla.common.utils.base:(Reading database ... 85%
+INFO:kolla.common.utils.base:(Reading database ... 90%
+INFO:kolla.common.utils.base:(Reading database ... 95%
+INFO:kolla.common.utils.base:(Reading database ... 100%(Reading database ... 4819 files and directories currently installed.)
+INFO:kolla.common.utils.base:Preparing to unpack .../00-openssl_1.1.1-1ubuntu2.1~18.04.23_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking openssl (1.1.1-1ubuntu2.1~18.04.23) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package ca-certificates.
+INFO:kolla.common.utils.base:Preparing to unpack .../01-ca-certificates_20230311ubuntu0.18.04.1_all.deb ...
+INFO:kolla.common.utils.base:Unpacking ca-certificates (20230311ubuntu0.18.04.1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libkrb5support0:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../02-libkrb5support0_1.16-2ubuntu0.4_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libkrb5support0:amd64 (1.16-2ubuntu0.4) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libk5crypto3:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../03-libk5crypto3_1.16-2ubuntu0.4_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libk5crypto3:amd64 (1.16-2ubuntu0.4) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libkeyutils1:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../04-libkeyutils1_1.5.9-9.2ubuntu2.1_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libkeyutils1:amd64 (1.5.9-9.2ubuntu2.1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libkrb5-3:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../05-libkrb5-3_1.16-2ubuntu0.4_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libkrb5-3:amd64 (1.16-2ubuntu0.4) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libgssapi-krb5-2:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../06-libgssapi-krb5-2_1.16-2ubuntu0.4_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libgssapi-krb5-2:amd64 (1.16-2ubuntu0.4) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libpsl5:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../07-libpsl5_0.19.1-5build1_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libpsl5:amd64 (0.19.1-5build1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package apt-transport-https.
+INFO:kolla.common.utils.base:Preparing to unpack .../08-apt-transport-https_1.6.17_all.deb ...
+INFO:kolla.common.utils.base:Unpacking apt-transport-https (1.6.17) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libroken18-heimdal:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../09-libroken18-heimdal_7.5.0+dfsg-1ubuntu0.4_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libroken18-heimdal:amd64 (7.5.0+dfsg-1ubuntu0.4) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libasn1-8-heimdal:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../10-libasn1-8-heimdal_7.5.0+dfsg-1ubuntu0.4_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libasn1-8-heimdal:amd64 (7.5.0+dfsg-1ubuntu0.4) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libheimbase1-heimdal:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../11-libheimbase1-heimdal_7.5.0+dfsg-1ubuntu0.4_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libheimbase1-heimdal:amd64 (7.5.0+dfsg-1ubuntu0.4) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libhcrypto4-heimdal:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../12-libhcrypto4-heimdal_7.5.0+dfsg-1ubuntu0.4_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libhcrypto4-heimdal:amd64 (7.5.0+dfsg-1ubuntu0.4) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libwind0-heimdal:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../13-libwind0-heimdal_7.5.0+dfsg-1ubuntu0.4_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libwind0-heimdal:amd64 (7.5.0+dfsg-1ubuntu0.4) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libhx509-5-heimdal:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../14-libhx509-5-heimdal_7.5.0+dfsg-1ubuntu0.4_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libhx509-5-heimdal:amd64 (7.5.0+dfsg-1ubuntu0.4) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libkrb5-26-heimdal:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../15-libkrb5-26-heimdal_7.5.0+dfsg-1ubuntu0.4_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libkrb5-26-heimdal:amd64 (7.5.0+dfsg-1ubuntu0.4) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libheimntlm0-heimdal:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../16-libheimntlm0-heimdal_7.5.0+dfsg-1ubuntu0.4_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libheimntlm0-heimdal:amd64 (7.5.0+dfsg-1ubuntu0.4) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libgssapi3-heimdal:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../17-libgssapi3-heimdal_7.5.0+dfsg-1ubuntu0.4_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libgssapi3-heimdal:amd64 (7.5.0+dfsg-1ubuntu0.4) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libsasl2-modules-db:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../18-libsasl2-modules-db_2.1.27~101-g0780600+dfsg-3ubuntu2.4_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libsasl2-modules-db:amd64 (2.1.27~101-g0780600+dfsg-3ubuntu2.4) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libsasl2-2:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../19-libsasl2-2_2.1.27~101-g0780600+dfsg-3ubuntu2.4_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libsasl2-2:amd64 (2.1.27~101-g0780600+dfsg-3ubuntu2.4) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libldap-common.
+INFO:kolla.common.utils.base:Preparing to unpack .../20-libldap-common_2.4.45+dfsg-1ubuntu1.11_all.deb ...
+INFO:kolla.common.utils.base:Unpacking libldap-common (2.4.45+dfsg-1ubuntu1.11) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libldap-2.4-2:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../21-libldap-2.4-2_2.4.45+dfsg-1ubuntu1.11_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libldap-2.4-2:amd64 (2.4.45+dfsg-1ubuntu1.11) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libnghttp2-14:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../22-libnghttp2-14_1.30.0-1ubuntu1_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libnghttp2-14:amd64 (1.30.0-1ubuntu1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package librtmp1:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../23-librtmp1_2.4+20151223.gitfa8646d.1-1_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking librtmp1:amd64 (2.4+20151223.gitfa8646d.1-1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libcurl4:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../24-libcurl4_7.58.0-2ubuntu3.24_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libcurl4:amd64 (7.58.0-2ubuntu3.24) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package curl.
+INFO:kolla.common.utils.base:Preparing to unpack .../25-curl_7.58.0-2ubuntu3.24_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking curl (7.58.0-2ubuntu3.24) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libassuan0:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../26-libassuan0_2.5.1-2_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libassuan0:amd64 (2.5.1-2) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package gpgconf.
+INFO:kolla.common.utils.base:Preparing to unpack .../27-gpgconf_2.2.4-1ubuntu1.6_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking gpgconf (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libksba8:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../28-libksba8_1.3.5-2ubuntu0.18.04.2_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libksba8:amd64 (1.3.5-2ubuntu0.18.04.2) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package libnpth0:amd64.
+INFO:kolla.common.utils.base:Preparing to unpack .../29-libnpth0_1.5-3_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking libnpth0:amd64 (1.5-3) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package dirmngr.
+INFO:kolla.common.utils.base:Preparing to unpack .../30-dirmngr_2.2.4-1ubuntu1.6_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking dirmngr (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package gnupg-l10n.
+INFO:kolla.common.utils.base:Preparing to unpack .../31-gnupg-l10n_2.2.4-1ubuntu1.6_all.deb ...
+INFO:kolla.common.utils.base:Unpacking gnupg-l10n (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package gnupg-utils.
+INFO:kolla.common.utils.base:Preparing to unpack .../32-gnupg-utils_2.2.4-1ubuntu1.6_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking gnupg-utils (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package gpg.
+INFO:kolla.common.utils.base:Preparing to unpack .../33-gpg_2.2.4-1ubuntu1.6_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking gpg (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package pinentry-curses.
+INFO:kolla.common.utils.base:Preparing to unpack .../34-pinentry-curses_1.1.0-1_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking pinentry-curses (1.1.0-1) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package gpg-agent.
+INFO:kolla.common.utils.base:Preparing to unpack .../35-gpg-agent_2.2.4-1ubuntu1.6_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking gpg-agent (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package gpg-wks-client.
+INFO:kolla.common.utils.base:Preparing to unpack .../36-gpg-wks-client_2.2.4-1ubuntu1.6_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking gpg-wks-client (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package gpg-wks-server.
+INFO:kolla.common.utils.base:Preparing to unpack .../37-gpg-wks-server_2.2.4-1ubuntu1.6_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking gpg-wks-server (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package gpgsm.
+INFO:kolla.common.utils.base:Preparing to unpack .../38-gpgsm_2.2.4-1ubuntu1.6_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking gpgsm (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Selecting previously unselected package gnupg.
+INFO:kolla.common.utils.base:Preparing to unpack .../39-gnupg_2.2.4-1ubuntu1.6_amd64.deb ...
+INFO:kolla.common.utils.base:Unpacking gnupg (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Setting up libnpth0:amd64 (1.5-3) ...
+INFO:kolla.common.utils.base:Setting up apt-transport-https (1.6.17) ...
+INFO:kolla.common.utils.base:Setting up libnghttp2-14:amd64 (1.30.0-1ubuntu1) ...
+INFO:kolla.common.utils.base:Setting up libldap-common (2.4.45+dfsg-1ubuntu1.11) ...
+INFO:kolla.common.utils.base:Setting up libpsl5:amd64 (0.19.1-5build1) ...
+INFO:kolla.common.utils.base:Setting up libsasl2-modules-db:amd64 (2.1.27~101-g0780600+dfsg-3ubuntu2.4) ...
+INFO:kolla.common.utils.base:Setting up libsasl2-2:amd64 (2.1.27~101-g0780600+dfsg-3ubuntu2.4) ...
+INFO:kolla.common.utils.base:Setting up libroken18-heimdal:amd64 (7.5.0+dfsg-1ubuntu0.4) ...
+INFO:kolla.common.utils.base:Setting up libksba8:amd64 (1.3.5-2ubuntu0.18.04.2) ...
+INFO:kolla.common.utils.base:Setting up librtmp1:amd64 (2.4+20151223.gitfa8646d.1-1) ...
+INFO:kolla.common.utils.base:Setting up libkrb5support0:amd64 (1.16-2ubuntu0.4) ...
+INFO:kolla.common.utils.base:Setting up gnupg-l10n (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Setting up libheimbase1-heimdal:amd64 (7.5.0+dfsg-1ubuntu0.4) ...
+INFO:kolla.common.utils.base:Setting up openssl (1.1.1-1ubuntu2.1~18.04.23) ...
+INFO:kolla.common.utils.base:Setting up libkeyutils1:amd64 (1.5.9-9.2ubuntu2.1) ...
+INFO:kolla.common.utils.base:Setting up ca-certificates (20230311ubuntu0.18.04.1) ...
+INFO:kolla.common.utils.base:Updating certificates in /etc/ssl/certs...
+INFO:kolla.common.utils.base:137 added, 0 removed; done.
+INFO:kolla.common.utils.base:Setting up libassuan0:amd64 (2.5.1-2) ...
+INFO:kolla.common.utils.base:Setting up libk5crypto3:amd64 (1.16-2ubuntu0.4) ...
+INFO:kolla.common.utils.base:Setting up libwind0-heimdal:amd64 (7.5.0+dfsg-1ubuntu0.4) ...
+INFO:kolla.common.utils.base:Setting up libasn1-8-heimdal:amd64 (7.5.0+dfsg-1ubuntu0.4) ...
+INFO:kolla.common.utils.base:Setting up gpgconf (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Setting up libhcrypto4-heimdal:amd64 (7.5.0+dfsg-1ubuntu0.4) ...
+INFO:kolla.common.utils.base:Setting up libhx509-5-heimdal:amd64 (7.5.0+dfsg-1ubuntu0.4) ...
+INFO:kolla.common.utils.base:Setting up gpgsm (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Setting up gnupg-utils (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Setting up pinentry-curses (1.1.0-1) ...
+INFO:kolla.common.utils.base:Setting up libkrb5-3:amd64 (1.16-2ubuntu0.4) ...
+INFO:kolla.common.utils.base:Setting up libkrb5-26-heimdal:amd64 (7.5.0+dfsg-1ubuntu0.4) ...
+INFO:kolla.common.utils.base:Setting up libheimntlm0-heimdal:amd64 (7.5.0+dfsg-1ubuntu0.4) ...
+INFO:kolla.common.utils.base:Setting up gpg (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Setting up gpg-agent (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Setting up gpg-wks-server (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Setting up libgssapi-krb5-2:amd64 (1.16-2ubuntu0.4) ...
+INFO:kolla.common.utils.base:Setting up libgssapi3-heimdal:amd64 (7.5.0+dfsg-1ubuntu0.4) ...
+INFO:kolla.common.utils.base:Setting up libldap-2.4-2:amd64 (2.4.45+dfsg-1ubuntu1.11) ...
+INFO:kolla.common.utils.base:Setting up dirmngr (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Setting up libcurl4:amd64 (7.58.0-2ubuntu3.24) ...
+INFO:kolla.common.utils.base:Setting up gpg-wks-client (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Setting up curl (7.58.0-2ubuntu3.24) ...
+INFO:kolla.common.utils.base:Setting up gnupg (2.2.4-1ubuntu1.6) ...
+INFO:kolla.common.utils.base:Processing triggers for libc-bin (2.27-3ubuntu1.6) ...
+INFO:kolla.common.utils.base:Processing triggers for ca-certificates (20230311ubuntu0.18.04.1) ...
+INFO:kolla.common.utils.base:Updating certificates in /etc/ssl/certs...
+INFO:kolla.common.utils.base:0 added, 0 removed; done.
+INFO:kolla.common.utils.base:Running hooks in /etc/ca-certificates/update.d...
+INFO:kolla.common.utils.base:done.
+INFO:kolla.common.utils.base: ---> Removed intermediate container 114acd3301a9
+INFO:kolla.common.utils.base: ---> 1ba5a4e6c86b
+INFO:kolla.common.utils.base:Step 17/33 : COPY sources.list.ubuntu /etc/apt/sources.list
+INFO:kolla.common.utils.base: ---> 874ad2430df4
+INFO:kolla.common.utils.base:Step 18/33 : COPY sources.list /etc/apt/sources.list.d/kolla-custom.list
+INFO:kolla.common.utils.base: ---> 7e80bffa4247
+INFO:kolla.common.utils.base:Step 19/33 : COPY apt_preferences.ubuntu /etc/apt/preferences
+INFO:kolla.common.utils.base: ---> 3350f5cbd271
+INFO:kolla.common.utils.base:Step 20/33 : COPY apt_preferences /etc/apt/preferences.d/kolla-custom
+INFO:kolla.common.utils.base: ---> 68337c3b001d
+INFO:kolla.common.utils.base:Step 21/33 : RUN apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 391A9AA2147192839E9DB0315EDB1B62EC4926EA              && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 46095ACC8548582C1A2699A9D27D666CD88E42B4              && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 49B07274951063870A8B7EAE7B8AA1A344C05248              && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 58118E89F3A912897C070ADBF76221572C52609D              && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 4D8EB5FDA37AB55F41A135203BF88A0C6A770882              && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 901F9177AB97ACBE              && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 A20F259AEB9C94BB              && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 F1656F24C74CD1D8              && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 F77F1EDA57EBB1CC              && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 F6609E60DC62814E
+INFO:kolla.common.utils.base: ---> Running in 03e9dc6c2c4f
+INFO:kolla.common.utils.base:[91mWarning: apt-key output should not be parsed (stdout is not a terminal)
+INFO:kolla.common.utils.base:[0m
+INFO:kolla.common.utils.base:Executing: /tmp/apt-key-gpghome.AQXw4dGKuz/gpg.1.sh --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 391A9AA2147192839E9DB0315EDB1B62EC4926EA
+INFO:kolla.common.utils.base:[91mgpg: keyserver receive failed: No data
+INFO:kolla.common.utils.base:[0m
+INFO:kolla.common.utils.base: ---> Removed intermediate container 03e9dc6c2c4f
+ERROR:kolla.common.utils.base:Error'd with the following message
+ERROR:kolla.common.utils.base:The command '/bin/sh -c apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 391A9AA2147192839E9DB0315EDB1B62EC4926EA              && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 46095ACC8548582C1A2699A9D27D666CD88E42B4              && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 49B07274951063870A8B7EAE7B8AA1A344C05248              && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 58118E89F3A912897C070ADBF76221572C52609D              && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 4D8EB5FDA37AB55F41A135203BF88A0C6A770882              && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 901F9177AB97ACBE              && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 A20F259AEB9C94BB              && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 F1656F24C74CD1D8              && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 F77F1EDA57EBB1CC              && apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 F6609E60DC62814E' returned a non-zero code: 2
+INFO:kolla.common.utils:Attempt number: 2 to run task: BuildTask(base) 
+INFO:kolla.common.utils.base:Building started at 2026-10-31 09:48:51.197160
+INFO:kolla.common.utils.base:Directory /tmp/kolla-2026-10-31_09-47-52_3ra8vq0q/docker/base/plugins already exist. Skipping.
+INFO:kolla.common.utils.base:Directory /tmp/kolla-2026-10-31_09-47-52_3ra8vq0q/docker/base/additions already exist. Skipping.
+INFO:kolla.common.utils.base:Step 1/33 : FROM ubuntu:18.04
+ERROR:kolla.common.utils.base:Error'd with the following message
+ERROR:kolla.common.utils.base:unknown: failed to resolve reference "docker.io/library/ubuntu:18.04": unexpected status from HEAD request to https://registry-1.docker.io/v2/library/ubuntu/manifests/18.04: 429 Too Many Requests
+INFO:kolla.common.utils:Attempt number: 3 to run task: BuildTask(base) 
+INFO:kolla.common.utils.base:Building started at 2026-10-31 09:48:52.047010
+INFO:kolla.common.utils.base:Directory /tmp/kolla-2026-10-31_09-47-52_3ra8vq0q/docker/base/plugins already exist. Skipping.
+INFO:kolla.common.utils.base:Directory /tmp/kolla-2026-10-31_09-47-52_3ra8vq0q/docker/base/additions already exist. Skipping.
+INFO:kolla.common.utils.base:Step 1/33 : FROM ubuntu:18.04
+ERROR:kolla.common.utils.base:Error'd with the following message
+ERROR:kolla.common.utils.base:unknown: failed to resolve reference "docker.io/library/ubuntu:18.04": unexpected status from HEAD request to https://registry-1.docker.io/v2/library/ubuntu/manifests/18.04: 429 Too Many Requests
+INFO:kolla.common.utils:Attempt number: 4 to run task: BuildTask(base) 
+INFO:kolla.common.utils.base:Building started at 2026-10-31 09:48:52.694461
+INFO:kolla.common.utils.base:Directory /tmp/kolla-2026-10-31_09-47-52_3ra8vq0q/docker/base/plugins already exist. Skipping.
+INFO:kolla.common.utils.base:Directory /tmp/kolla-2026-10-31_09-47-52_3ra8vq0q/docker/base/additions already exist. Skipping.
+INFO:kolla.common.utils.base:Step 1/33 : FROM ubuntu:18.04
+ERROR:kolla.common.utils.base:Error'd with the following message
+ERROR:kolla.common.utils.base:unknown: failed to resolve reference "docker.io/library/ubuntu:18.04": unexpected status from HEAD request to https://registry-1.docker.io/v2/library/ubuntu/manifests/18.04: 429 Too Many Requests
+INFO:kolla.common.utils:===========================
+INFO:kolla.common.utils:Images that failed to build
+INFO:kolla.common.utils:===========================
+ERROR:kolla.common.utils:aodh-base Failed with status: matched
+ERROR:kolla.common.utils:barbican-base Failed with status: matched
+ERROR:kolla.common.utils:base Failed with status: error
+ERROR:kolla.common.utils:bifrost-base Failed with status: matched
+ERROR:kolla.common.utils:blazar-base Failed with status: matched
+ERROR:kolla.common.utils:ceilometer-base Failed with status: matched
+ERROR:kolla.common.utils:cinder-base Failed with status: matched
+ERROR:kolla.common.utils:cloudkitty-base Failed with status: matched
+ERROR:kolla.common.utils:congress-base Failed with status: matched
+ERROR:kolla.common.utils:cyborg-base Failed with status: matched
+ERROR:kolla.common.utils:designate-base Failed with status: matched
+ERROR:kolla.common.utils:freezer-base Failed with status: matched
+ERROR:kolla.common.utils:glance-base Failed with status: matched
+ERROR:kolla.common.utils:gnocchi-base Failed with status: matched
+ERROR:kolla.common.utils:hacluster-base Failed with status: matched
+ERROR:kolla.common.utils:heat-base Failed with status: matched
+ERROR:kolla.common.utils:ironic-base Failed with status: matched
+ERROR:kolla.common.utils:karbor-base Failed with status: matched
+ERROR:kolla.common.utils:keystone-base Failed with status: matched
+ERROR:kolla.common.utils:kuryr-base Failed with status: matched
+ERROR:kolla.common.utils:magnum-base Failed with status: matched
+ERROR:kolla.common.utils:manila-base Failed with status: matched
+ERROR:kolla.common.utils:mariadb-base Failed with status: matched
+ERROR:kolla.common.utils:masakari-base Failed with status: matched
+ERROR:kolla.common.utils:mistral-base Failed with status: matched
+ERROR:kolla.common.utils:monasca-base Failed with status: matched
+ERROR:kolla.common.utils:murano-base Failed with status: matched
+ERROR:kolla.common.utils:neutron-base Failed with status: matched
+ERROR:kolla.common.utils:nova-base Failed with status: matched
+ERROR:kolla.common.utils:novajoin-base Failed with status: matched
+ERROR:kolla.common.utils:octavia-base Failed with status: matched
+ERROR:kolla.common.utils:openstack-base Failed with status: matched
+ERROR:kolla.common.utils:openvswitch-base Failed with status: matched
+ERROR:kolla.common.utils:ovn-base Failed with status: matched
+ERROR:kolla.common.utils:panko-base Failed with status: matched
+ERROR:kolla.common.utils:placement-base Failed with status: matched
+ERROR:kolla.common.utils:prometheus-base Failed with status: matched
+ERROR:kolla.common.utils:qinling-base Failed with status: matched
+ERROR:kolla.common.utils:redis-base Failed with status: matched
+ERROR:kolla.common.utils:rsyslog-base Failed with status: matched
+ERROR:kolla.common.utils:sahara-base Failed with status: matched
+ERROR:kolla.common.utils:searchlight-base Failed with status: matched
+ERROR:kolla.common.utils:senlin-base Failed with status: matched
+ERROR:kolla.common.utils:skydive-base Failed with status: matched
+ERROR:kolla.common.utils:solum-base Failed with status: matched
+ERROR:kolla.common.utils:storm-base Failed with status: matched
+ERROR:kolla.common.utils:swift-base Failed with status: matched
+ERROR:kolla.common.utils:tacker-base Failed with status: matched
+ERROR:kolla.common.utils:trove-base Failed with status: matched
+ERROR:kolla.common.utils:vitrage-base Failed with status: matched
+ERROR:kolla.common.utils:watcher-base Failed with status: matched
+ERROR:kolla.common.utils:zaqar-base Failed with status: matched
+ERROR:kolla.common.utils:zun-base Failed with status: matched
+INFO:kolla.common.utils:=========================================
+INFO:kolla.common.utils:Images not buildable due to build options
+INFO:kolla.common.utils:=========================================
+INFO:kolla.common.utils:qdrouterd
+INFO:kolla.common.utils:tripleoclient
+{"built": [], "failed": [{"name": "aodh-base", "status": "matched"}, {"name": "barbican-base", "status": "matched"}, {"name": "base", "status": "error"}, {"name": "bifrost-base", "status": "matched"}, {"name": "blazar-base", "status": "matched"}, {"name": "ceilometer-base", "status": "matched"}, {"name": "cinder-base", "status": "matched"}, {"name": "cloudkitty-base", "status": "matched"}, {"name": "congress-base", "status": "matched"}, {"name": "cyborg-base", "status": "matched"}, {"name": "designate-base", "status": "matched"}, {"name": "freezer-base", "status": "matched"}, {"name": "glance-base", "status": "matched"}, {"name": "gnocchi-base", "status": "matched"}, {"name": "hacluster-base", "status": "matched"}, {"name": "heat-base", "status": "matched"}, {"name": "ironic-base", "status": "matched"}, {"name": "karbor-base", "status": "matched"}, {"name": "keystone-base", "status": "matched"}, {"name": "kuryr-base", "status": "matched"}, {"name": "magnum-base", "status": "matched"}, {"name": "manila-base", "status": "matched"}, {"name": "mariadb-base", "status": "matched"}, {"name": "masakari-base", "status": "matched"}, {"name": "mistral-base", "status": "matched"}, {"name": "monasca-base", "status": "matched"}, {"name": "murano-base", "status": "matched"}, {"name": "neutron-base", "status": "matched"}, {"name": "nova-base", "status": "matched"}, {"name": "novajoin-base", "status": "matched"}, {"name": "octavia-base", "status": "matched"}, {"name": "openstack-base", "status": "matched"}, {"name": "openvswitch-base", "status": "matched"}, {"name": "ovn-base", "status": "matched"}, {"name": "panko-base", "status": "matched"}, {"name": "placement-base", "status": "matched"}, {"name": "prometheus-base", "status": "matched"}, {"name": "qinling-base", "status": "matched"}, {"name": "redis-base", "status": "matched"}, {"name": "rsyslog-base", "status": "matched"}, {"name": "sahara-base", "status": "matched"}, {"name": "searchlight-base", "status": "matched"}, {"name": "senlin-base", "status": "matched"}, {"name": "skydive-base", "status": "matched"}, {"name": "solum-base", "status": "matched"}, {"name": "storm-base", "status": "matched"}, {"name": "swift-base", "status": "matched"}, {"name": "tacker-base", "status": "matched"}, {"name": "trove-base", "status": "matched"}, {"name": "vitrage-base", "status": "matched"}, {"name": "watcher-base", "status": "matched"}, {"name": "zaqar-base", "status": "matched"}, {"name": "zun-base", "status": "matched"}], "not_matched": [{"name": "aodh-api"}, {"name": "aodh-evaluator"}, {"name": "aodh-expirer"}, {"name": "aodh-listener"}, {"name": "aodh-notifier"}, {"name": "barbican-api"}, {"name": "barbican-keystone-listener"}, {"name": "barbican-worker"}, {"name": "bifrost-deploy"}, {"name": "blazar-api"}, {"name": "blazar-manager"}, {"name": "ceilometer-central"}, {"name": "ceilometer-compute"}, {"name": "ceilometer-ipmi"}, {"name": "ceilometer-notification"}, {"name": "certmonger"}, {"name": "chrony"}, {"name": "cinder-api"}, {"name": "cinder-backup"}, {"name": "cinder-scheduler"}, {"name": "cinder-volume"}, {"name": "cloudkitty-api"}, {"name": "cloudkitty-processor"}, {"name": "collectd"}, {"name": "congress-api"}, {"name": "congress-datasource"}, {"name": "congress-policy-engine"}, {"name": "cron"}, {"name": "cyborg-agent"}, {"name": "cyborg-api"}, {"name": "cyborg-conductor"}, {"name": "designate-api"}, {"name": "designate-backend-bind9"}, {"name": "designate-central"}, {"name": "designate-mdns"}, {"name": "designate-producer"}, {"name": "designate-sink"}, {"name": "designate-worker"}, {"name": "dnsmasq"}, {"name": "ec2-api"}, {"name": "elasticsearch"}, {"name": "elasticsearch-curator"}, {"name": "etcd"}, {"name": "fluentd"}, {"name": "freezer-api"}, {"name": "freezer-scheduler"}, {"name": "glance-api"}, {"name": "glance-registry"}, {"name": "gnocchi-api"}, {"name": "gnocchi-metricd"}, {"name": "gnocchi-statsd"}, {"name": "grafana"}, {"name": "hacluster-corosync"}, {"name": "hacluster-pacemaker"}, {"name": "hacluster-pacemaker-remote"}, {"name": "hacluster-pcs"}, {"name": "haproxy"}, {"name": "heat-all"}, {"name": "heat-api"}, {"name": "heat-api-cfn"}, {"name": "heat-engine"}, {"name": "horizon"}, {"name": "influxdb"}, {"name": "ironic-api"}, {"name": "ironic-conductor"}, {"name": "ironic-inspector"}, {"name": "ironic-neutron-agent"}, {"name": "ironic-pxe"}, {"name": "iscsid"}, {"name": "kafka"}, {"name": "karbor-api"}, {"name": "karbor-operationengine"}, {"name": "karbor-protection"}, {"name": "keepalived"}, {"name": "keystone"}, {"name": "keystone-fernet"}, {"name": "keystone-ssh"}, {"name": "kibana"}, {"name": "kolla-toolbox"}, {"name": "kuryr-libnetwork"}, {"name": "logstash"}, {"name": "magnum-api"}, {"name": "magnum-conductor"}, {"name": "manila-api"}, {"name": "manila-data"}, {"name": "manila-scheduler"}, {"name": "manila-share"}, {"name": "mariadb"}, {"name": "mariadb-clustercheck"}, {"name": "mariadb-server"}, {"name": "masakari-api"}, {"name": "masakari-engine"}, {"name": "masakari-monitors"}, {"name": "memcached"}, {"name": "mistral-api"}, {"name": "mistral-engine"}, {"name": "mistral-event-engine"}, {"name": "mistral-executor"}, {"name": "monasca-agent"}, {"name": "monasca-api"}, {"name": "monasca-grafana"}, {"name": "monasca-notification"}, {"name": "monasca-persister"}, {"name": "monasca-thresh"}, {"name": "mongodb"}, {"name": "multipathd"}, {"name": "murano-api"}, {"name": "murano-engine"}, {"name": "neutron-bgp-dragent"}, {"name": "neutron-dhcp-agent"}, {"name": "neutron-infoblox-ipam-agent"}, {"name": "neutron-l3-agent"}, {"name": "neutron-linuxbridge-agent"}, {"name": "neutron-metadata-agent"}, {"name": "neutron-metadata-agent-ovn"}, {"name": "neutron-metering-agent"}, {"name": "neutron-mlnx-agent"}, {"name": "neutron-openvswitch-agent"}, {"name": "neutron-server"}, {"name": "neutron-server-opendaylight"}, {"name": "neutron-server-ovn"}, {"name": "neutron-sriov-agent"}, {"name": "nova-api"}, {"name": "nova-compute"}, {"name": "nova-compute-ironic"}, {"name": "nova-conductor"}, {"name": "nova-libvirt"}, {"name": "nova-mksproxy"}, {"name": "nova-novncproxy"}, {"name": "nova-scheduler"}, {"name": "nova-serialproxy"}, {"name": "nova-spicehtml5proxy"}, {"name": "nova-ssh"}, {"name": "novajoin-notifier"}, {"name": "novajoin-server"}, {"name": "octavia-api"}, {"name": "octavia-health-manager"}, {"name": "octavia-housekeeping"}, {"name": "octavia-worker"}, {"name": "opendaylight"}, {"name": "openvswitch-db-server"}, {"name": "openvswitch-netcontrold"}, {"name": "openvswitch-vswitchd"}, {"name": "ovn-controller"}, {"name": "ovn-nb-db-server"}, {"name": "ovn-northd"}, {"name": "ovn-sb-db-server"}, {"name": "ovsdpdk"}, {"name": "ovsdpdk-db"}, {"name": "ovsdpdk-vswitchd"}, {"name": "panko-api"}, {"name": "placement-api"}, {"name": "prometheus-alertmanager"}, {"name": "prometheus-blackbox-exporter"}, {"name": "prometheus-cadvisor"}, {"name": "prometheus-elasticsearch-exporter"}, {"name": "prometheus-haproxy-exporter"}, {"name": "prometheus-memcached-exporter"}, {"name": "prometheus-mtail"}, {"name": "prometheus-mysqld-exporter"}, {"name": "prometheus-node-exporter"}, {"name": "prometheus-openstack-exporter"}, {"name": "prometheus-server"}, {"name": "ptp"}, {"name": "qinling-api"}, {"name": "qinling-engine"}, {"name": "rabbitmq"}, {"name": "radvd"}, {"name": "rally"}, {"name": "redis"}, {"name": "redis-sentinel"}, {"name": "rsyslog"}, {"name": "sahara-api"}, {"name": "sahara-engine"}, {"name": "searchlight-api"}, {"name": "searchlight-listener"}, {"name": "senlin-api"}, {"name": "senlin-conductor"}, {"name": "senlin-engine"}, {"name": "senlin-health-manager"}, {"name": "skydive-agent"}, {"name": "skydive-analyzer"}, {"name": "solum-api"}, {"name": "solum-conductor"}, {"name": "solum-deployer"}, {"name": "solum-worker"}, {"name": "storm"}, {"name": "swift-account"}, {"name": "swift-container"}, {"name": "swift-object"}, {"name": "swift-object-expirer"}, {"name": "swift-proxy-server"}, {"name": "swift-rsyncd"}, {"name": "tacker-conductor"}, {"name": "tacker-server"}, {"name": "telegraf"}, {"name": "tempest"}, {"name": "tgtd"}, {"name": "trove-api"}, {"name": "trove-conductor"}, {"name": "trove-guestagent"}, {"name": "trove-taskmanager"}, {"name": "vitrage-api"}, {"name": "vitrage-graph"}, {"name": "vitrage-ml"}, {"name": "vitrage-notifier"}, {"name": "vitrage-persistor"}, {"name": "vmtp"}, {"name": "watcher-api"}, {"name": "watcher-applier"}, {"name": "watcher-engine"}, {"name": "zaqar-server"}, {"name": "zaqar-wsgi"}, {"name": "zookeeper"}, {"name": "zun-api"}, {"name": "zun-cni-daemon"}, {"name": "zun-compute"}, {"name": "zun-wsproxy"}], "skipped": [], "unbuildable": [{"name": "qdrouterd"}, {"name": "tripleoclient"}]}
+kolla-build exit: 1
++ echo 'kolla-build exit: 1'
+probe exit 0

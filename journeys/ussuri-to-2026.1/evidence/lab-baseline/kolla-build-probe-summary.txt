@@ -1,0 +1,27 @@
+# Track K probe: local kolla-build 10.4.0 (ubuntu:18.04, install_type=source), 2026-10-31, in python:3.8-buster with the host Docker socket
+# (sanitised: proxy loopback address/port removed; full logs are in lab/ussuri-db-lab/kolla-probe/*.log)
+
+## Run 1: pip install kolla==10.4.0 without constraints
+ImportError: cannot import name 'contextfilter' from 'jinja2'  -> Jinja2 3.1 removed it; install with -c upper-constraints-ussuri-eol.txt
+
+## Run 2: kolla-build base (published templates unchanged)
+INFO:kolla.common.utils.base:Step 20/33 : COPY apt_preferences /etc/apt/preferences.d/kolla-custom
+INFO:kolla.common.utils.base:Step 21/33 : RUN apt-key adv --no-tty --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 391A9AA2147192839E9DB0315EDB1B62EC4926EA              && apt-key adv --no-tty -
+INFO:kolla.common.utils.base:[91mgpg: keyserver receive failed: No data
+ERROR:kolla.common.utils:base Failed with status: error
+-> Step 21/33 (apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 ...) fails through the proxy
+
+## Run 3: base with a template override that drops custom sources.list, apt preferences and apt-key import
+INFO:kolla.common.utils.base:Successfully tagged ufj/ubuntu-source-base:ussuri-probe
+-> 'base' BUILT (308 MB) but it is NOT the published Kolla Ussuri base: no Ubuntu Cloud Archive (qemu/libvirt/OVS), no MariaDB/RabbitMQ/Docker/Grafana/Elastic repos
+
+## Run 3/4: openstack-base
+fatal: unable to access 'https://github.com/openstack/requirements/': Failed to connect to <proxy>: Connection refused'
+-> git clone of requirements@ussuri-eol fails from a container on the bridge network (proxy is a host loopback address)
+Run 4 (--network host): git clone succeeded; the Dockerfile step 'pip install -c /requirements/upper-constraints.txt virtualenv' then failed:
+INFO:kolla.common.utils.openstack-base:[91m  Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ProxyError('Cannot connect to proxy.', NewConne
+INFO:kolla.common.utils.openstack-base:[91m  Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ProxyError('Cannot connect to proxy.', NewConne
+-> pip inside the image-build container cannot reach the proxy (a host loopback address is not reachable from the build container network namespace; a reachable proxy would also need its CA inside the image). Not worked around further: the shortcut would have been to disable TLS verification, which was NOT done.
+
+## Network probes (see probe-kolla-build-network.txt): Ubuntu archive reachable; ubuntu-cloud.archive.canonical.com, dlm.mariadb.com, dl.cloudsmith.io,
+## tarballs.opendev.org, opendev.org, quay.io, CentOS mirrors, trunk.rdoproject.org: unreachable (HTTP 000).

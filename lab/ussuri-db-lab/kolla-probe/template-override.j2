@@ -1,0 +1,7 @@
+{# Probe deviation: this environment cannot reach the Ubuntu Cloud Archive, MariaDB, RabbitMQ/Erlang, Docker, Grafana or
+   Elastic apt repositories and cannot use hkp keyservers through the proxy. Drop the custom sources, preferences and
+   key import of the Kolla Ussuri 'base' image. The result is NOT equivalent to the published Kolla Ussuri base image. #}
+{% extends parent_template %}
+{% block base_ubuntu_package_sources_list %}{% endblock %}
+{% block base_ubuntu_package_apt_preferences %}{% endblock %}
+{% block base_ubuntu_package_key_installation %}{% endblock %}
