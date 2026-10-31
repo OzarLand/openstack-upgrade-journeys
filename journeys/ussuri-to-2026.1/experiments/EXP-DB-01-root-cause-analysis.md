@@ -59,6 +59,8 @@ So:
   `_messages_get_query`. `nova/db` 29.4.0 vs branch differs only in `service_destroy`. None of these changes a migration or an ODM.
   The Cinder ODM is the only material tag/branch divergence found.
 
+**Reconciliation with the Red Team's reading (Stage 5 §1.4).** The two explanations are the same mechanism, seen at different refs. The released code (cinder 22.3.0, equal here to `2023.1-eom`) calls `model_query` without `read_deleted`, so the admin context's default `read_deleted='no'` adds `deleted = false`. That is the Red Team's reading, and it is what the general log shows. The `read_deleted='yes'` the architect saw exists only at the `unmaintained/2023.1` branch head, through the unreleased fix `a3c90fb4c`.
+
 ### Classification
 
 **Upstream Cinder bug, not a lab artefact, and not specific to skipping releases.** It hits:
@@ -150,3 +152,18 @@ executed as a gate at H1. In R1o it ran in observe mode, so the run went on to t
 4. R0 amendments: A1–A6 have cited causes. Corrections: R-9's hop column; A6 is R0-only.
 5. C9: treat Cinder "Service UUIDs" for host-less error volumes as a declared, explained FAILURE or remediate it through the API.
    Re-run `keystone-status` with the key repositories mounted.
+
+## 6. Answers to the Red Team Stage 5 items owned by Agent 4 (2026-10-31)
+
+| Item | Answer | Where |
+|---|---|---|
+| RT-B-08 (Cinder) | Root cause confirmed in writing (§1). Remedies classified: (a) Cinder-only 2023.2 step with released 23.5.0: upstream fix, unsupported as a skip procedure but documented (**adopted, DR-004**); (b) branch build of 2023.1: unreleased code (rejected in DR-004); (c) SQL on `volumes`/`snapshots`: SC-HAND, would need its own decision record (not proposed); (d) `cinder-manage db purge`: an operational data-retention decision outside the migration (not a remedy). V-C1/V-C2 corrected as V-C1a/b, V-C2a/b | `declared-differences.md` §8.3; `fast-forward-checks.md` §4 PC-C1, PC-C1p |
+| RT-B-09 (amendments) | A1–A7 written with every condition, step-10 decision taken (**keep step 10**, so R0 stays valid; overriding it voids A5/A7 and requires a new R0) | `declared-differences.md` §8.1–8.2, §8.7 |
+| RT-B-10 (checks) | PC-C4, PC-V3 and the PC-Q5 remedy and diagnostic added. Runbook wording of the remedies is Agent 6's | `fast-forward-checks.md` §4 |
+| RT-B-06 (comparator) | My part is reviewing each changed comparator rule against the frozen list. Pending: it needs Agent 5's reconstruction and the comparator diff. Until then the R1c H4/H4r data result is unknown, as ruled | — |
+| RT-N-17 | Confirmed: `neutron@origin/stable/2026.1:neutron/cmd/upgrade_checks/checks.py:247-248` maps "Duplicated HA network per project check" to `self.extra_dhcp_options_check`. PC-Q6 (our own query) stays mandatory. Upstream report only with the owner's approval (as DR-004) | `fast-forward-checks.md` §4 PC-Q6 |
+| RT-N-22 | Pre-declared: EXP-DB-02 may differ only in the A1 CHECK set (predicted: `cinder.quota_usages.race_preventer`, created by legacy `141` under SQLAlchemy 1.3.23 at the Wallaby hop) and in A7-type enums until their converging revision | `declared-differences.md` §8.5 |
+| RT-N-23 | Grep done. The only realised case is A7. Candidates: `yoga/c181bb1d89e4` (`Enum(*VALID_DIRECTIONS_AND_ANY…)`), `2023.2/c33da356b165` (named constants), `db_const.*_FIELD_SIZE` lengths. Glance and Placement have none. S-2 is superseded accordingly | `declared-differences.md` §8.6, S-2 |
+| A4 conditions | Both definitions cited. Grep: no Cinder revision up to 2026.1 refers to a `quota_usages` constraint by name | `declared-differences.md` §8.2 |
+| A6 conditions | Inserting functions cited (`placement@9.0.0:placement/objects/consumer.py:27,37,40`, `project.py:24-36`, `user.py:24`); T0 prediction query defined | §8.2 |
+| A3 condition | `archive_deleted_rows` check defined on a disposable copy of H4r | §8.2 |

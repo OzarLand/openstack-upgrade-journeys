@@ -7,6 +7,7 @@
 | Model | Opus (claude-opus-5-5) |
 | Date | 2026-10-31 |
 | Status | `PROPOSED-UNVERIFIED` (from source; nothing executed) |
+| Amendments | **Amendment 1 (2026-10-31)**, §4: PC-C1 (superseded), PC-C4, PC-V3, PC-Q5 remedy, PC-E1 session capture, SC-ENGINE clean restart, PC-Q6 status. Items superseded in place are marked "→ superseded by Amendment 1" |
 | Applies to | Every lab run (T0 and before each hop) and the production pre-check list. Referenced from `declared-differences.md` |
 
 Every check here is **read-only** unless marked otherwise. A failed check is a **named stop condition**. The run (or
@@ -26,7 +27,7 @@ ad-hoc SQL edit during the window. On disposable *negative copies* the deliberat
 | PC-N2 | Cell mappings readable | `SELECT id, uuid, name FROM nova_api.cell_mappings;` (never select the URL columns into logs) | cell0 + every cell; the lab resolves their DB host (strategy §5.3) | STOP | ODMs `target_cell` through these URLs |
 | PC-N3 | No build requests | `SELECT COUNT(*) FROM nova_api.build_requests;` | 0 | STOP (`b30f573d3377` drops columns) | declared-differences R-3 |
 | PC-N4 | `compute_id` residue predicted | count instances (all, incl. deleted) whose (`host`,`node`) has no `compute_nodes` row | recorded (becomes N-R1) | — | `populate_instance_compute_id` |
-| PC-C1 | Cinder `use_quota` complete **before** any ≥ 2024.1 `db sync` (checked at H1, not at T0) | `SELECT COUNT(*) FROM cinder.volumes WHERE use_quota IS NULL; … snapshots …` | 0 after the 2023.1 ODM | **STOP before H2** | `9ab1b092a404`; and V-C9 then erases the `temporary` metadata |
+| PC-C1 | ~~Cinder `use_quota` complete **before** any ≥ 2024.1 `db sync` (checked at H1, not at T0)~~ → superseded by Amendment 1 / PC-C1 (gate after H1b) | `SELECT COUNT(*) FROM cinder.volumes WHERE use_quota IS NULL; … snapshots …` | 0 after the 2023.1 ODM | **STOP before H2** | `9ab1b092a404`; and V-C9 then erases the `temporary` metadata |
 | PC-C2 | Cinder transitional states | `SELECT status, migration_status, COUNT(*) FROM cinder.volumes WHERE deleted=0 GROUP BY 1,2;` | no `creating`, `attaching`, `detaching`, `migrating`, `backing-up`, …; `target:%` only if a migration is known stuck | STOP / explain | — |
 | PC-C3 | Predictions for declared transformations | `use_quota` split (V-C1), `default` quota classes present (R-5), `consistencygroups` rows (V-C6), `temporary` admin metadata (V-C9) | recorded in the run record before H1 | — | declared-differences §4–5 |
 | PC-K1 | No duplicate trusts | `SELECT trustor_user_id, trustee_user_id, project_id, impersonation, expires_at, COUNT(*) c FROM keystone.trust GROUP BY 1,2,3,4,5 HAVING c>1;` | empty | STOP (`b4f8b3f584e0` fails) | V11 |
@@ -35,10 +36,10 @@ ad-hoc SQL edit during the window. On disposable *negative copies* the deliberat
 | PC-Q2 | `portbindingports` empty | `SELECT COUNT(*) FROM neutron.portbindingports;` | 0 | STOP (table dropped) | `8160f7a9cebb` |
 | PC-Q3 | Legacy plugin tables empty | `COUNT(*)` for every table of `054e34dbe6b4` `TABLES_TO_DROP` that exists | 0 each | STOP | R-10 |
 | PC-Q4 | No duplicate segment ranges | `SELECT \`default\`, network_type, IFNULL(physical_network,''), minimum, maximum, COUNT(*) c FROM neutron.network_segment_ranges GROUP BY 1,2,3,4,5 HAVING c>1;` | empty | STOP (otherwise rows are **deleted** by `b1bca967e19d`) | R-11 |
-| PC-Q5 | No duplicate network segments | `SELECT network_id, network_type, physical_network, COUNT(*) c FROM neutron.networksegments WHERE physical_network IS NOT NULL GROUP BY 1,2,3 HAVING c>1;` | empty | STOP | `e981acd076d3`, `fc153938cdc1` |
+| PC-Q5 | No duplicate network segments (remedy and diagnostic: Amendment 1 / PC-Q5) | `SELECT network_id, network_type, physical_network, COUNT(*) c FROM neutron.networksegments WHERE physical_network IS NOT NULL GROUP BY 1,2,3 HAVING c>1;` | empty | STOP | `e981acd076d3`, `fc153938cdc1` |
 | PC-Q6 | No duplicate HA networks per project | `SELECT project_id, COUNT(*) c FROM neutron.ha_router_networks GROUP BY 1 HAVING c>1;` | empty | STOP | `682c319773d7` |
 | PC-Q7 | Port data formats | Ussuri-available checks plus the 2026.1 `neutron-status upgrade check` run **after** H4 (its port-MAC and binding-profile checks); fixes only with `neutron-sanitize-port-mac-addresses`, `neutron-sanitize-port-binding-profile-allocation`, `neutron-remove-duplicated-port-bindings` (shipped in 2026.1) | no FAILURE | STOP | `neutron@origin/stable/2026.1:neutron/cmd/upgrade_checks/checks.py` |
-| PC-E1 | Engine `sql_mode` recorded (RT-N-07) | `SELECT @@GLOBAL.sql_mode;` per engine version; inside every one-shot run, the session mode the tool uses (log `SELECT @@SESSION.sql_mode` through the same oslo.db engine, e.g. a one-line Python call with the service's config) | recorded; expected strict (`TRADITIONAL` from oslo.db) | STOP if a migration command runs under a non-strict session outside N2 | V17 |
+| PC-E1 | Engine `sql_mode` recorded (RT-N-07); session capture made mandatory per command by Amendment 1 / PC-E1 | `SELECT @@GLOBAL.sql_mode;` per engine version; inside every one-shot run, the session mode the tool uses (log `SELECT @@SESSION.sql_mode` through the same oslo.db engine, e.g. a one-line Python call with the service's config) | recorded; expected strict (`TRADITIONAL` from oslo.db) | STOP if a migration command runs under a non-strict session outside N2 | V17 |
 | PC-E2 | Sizes | `SELECT TABLE_SCHEMA, TABLE_NAME, TABLE_ROWS, DATA_LENGTH+INDEX_LENGTH FROM information_schema.TABLES ORDER BY 4 DESC LIMIT 30;` | recorded | — | DDL timing |
 
 ## 2. Config parity of the one-shot containers (RT-N-02)
@@ -99,6 +100,32 @@ stop condition SC-CP).
 | SC-DIFF | schema/row/fingerprint change not in `declared-differences.md` |
 | SC-IDEMP | any change between H4 and H4r |
 | SC-HAND | any need to stamp, edit bookkeeping tables or edit rows by hand |
-| SC-ENGINE | engine upgrade/check errors, crash recovery, corruption messages |
+| SC-ENGINE | engine upgrade/check errors, crash recovery, corruption messages (clean-restart condition added by Amendment 1 / SC-ENGINE) |
 
 Each stop is recorded with its evidence. Resuming is a new decision.
+
+## 4. Amendment 1 (2026-10-31)
+
+| Field | Value |
+|---|---|
+| Date | 2026-10-31 |
+| Author | Agent 4 (owner) |
+| Triggers | EXP-DB-01 R1o (Cinder failure at H2); EXP-DB-N1 (empty `alembic_version`); EXP-DB-01 C8/C9 findings; DR-004 |
+| Ruling references | `assessments/07-red-team-stage5-results-review.md`: RT-B-07 (unimplemented checks), RT-B-08 (Cinder), RT-B-10 (PC-C4, PC-V3, PC-Q5 remedy), RT-N-07/§6 (session `sql_mode`), RT-N-15 (SC-ENGINE), RT-N-17 (PC-Q6) |
+| Implementation rule | A check exists only when it is in the scripts (`ff/12-prechecks.sh`, `ff/40-checks.sh`, `ff/20-engine.sh`) and its output is in the evidence. Agent 5 implements it (RT-B-07). Proof for PC-C1: a dry run on baseline v2 must show PC-C1 **failing** after H1 and passing after H1b |
+
+| Id | Check | Command / query (read-only) | Pass | If it fails | Source |
+|---|---|---|---|---|---|
+| **PC-C1** (supersedes the §1 row) | Cinder `use_quota` complete, **hard gate after H1b and before any 2024.1 code** | `SELECT COUNT(*) FROM cinder.volumes WHERE use_quota IS NULL;` and the same for `cinder.snapshots`. **No `deleted` filter** | 0 and 0 | **STOP** (SC-PC-C1). Never fix by SQL (SC-HAND). Never purge as a fix: `cinder-manage db purge` is a separate data-retention decision with its own change record. Find why H1b did not migrate the rows | DR-004; `cinder@22.3.0:cinder/db/sqlalchemy/api.py:8707` vs `cinder@23.5.0:…:8708-8709` |
+| **PC-C1p** (prediction, T0) | Rows H1 will leave for H1b | `SELECT deleted, COUNT(*) FROM cinder.volumes GROUP BY deleted;` the same for `snapshots` | recorded: the deleted counts = expected NULLs after H1 (V-C1a/V-C2a) | — | declared-differences §8.3 |
+| **PC-C4** (new) | No non-deleted Cinder volume without `service_uuid` | `SELECT id, status, host IS NULL AS no_host FROM cinder.volumes WHERE deleted=0 AND service_uuid IS NULL;` | empty | **STOP before T0** (otherwise `cinder-status` "Service UUIDs" is a FAILURE at every hop: `cinder@origin/stable/2026.1:cinder/cmd/status.py:_check_service_uuid`). Remedy on Ussuri, through the API, with the volume owner's approval: rows with `host IS NULL` (never scheduled, typically `error`) are deleted (`openstack volume delete`); rows **with** a host: no supported Ussuri tool fills `service_uuid` (the Queens `service_uuids` online migration is no longer in the Ussuri list, `cinder@ussuri-eol:cinder/cmd/manage.py` `online_migrations` = untyped volumes/snapshots only), so escalate them individually; expected count 0, record it. Or the owner records an acceptance of the FAILURE per volume, and C9 lists it as declared. Re-run the query. No SQL edit | `status.py:_check_service_uuid` |
+| **PC-V3** (new) | No `alembic_version` left by an accidental newer-code run | `SELECT TABLE_SCHEMA FROM information_schema.TABLES WHERE TABLE_NAME='alembic_version' AND TABLE_SCHEMA IN ('nova','nova_cell0','nova_api','keystone','cinder');` | empty (Ussuri: these five are sqlalchemy-migrate only) | **STOP before the bridge.** A table here means newer code (≥ 2023.2) already ran `db sync` against the legacy DB. EXP-DB-N1 shows it leaves an empty `alembic_version`, and may leave partial tables if the first `CREATE TABLE` did not fail. The 2023.1 bridges would still treat an empty table as "not Alembic-controlled" (Red Team §3), but the state is untrusted: establish what ran (logs), compare the schema with the T0/backup schema dump, and **restore from the last backup taken before the touch**. Dropping the table by hand is SC-HAND | EXP-DB-N1; Red Team Stage 5 §3 |
+| **PC-Q5** remedy (amends §1 row) | Diagnostic (read-only): `SELECT s.network_id, s.network_type, s.physical_network, s.segmentation_id, s.segment_index, s.is_dynamic, (SELECT COUNT(*) FROM neutron.ml2_port_binding_levels l WHERE l.segment_id=s.id) AS bound_levels FROM neutron.networksegments s JOIN (SELECT network_id, network_type, physical_network FROM neutron.networksegments WHERE physical_network IS NOT NULL GROUP BY 1,2,3 HAVING COUNT(*)>1) d USING (network_id, network_type, physical_network) ORDER BY 1,5;` | — | Blocking for **every** path, S1 included (Yoga `e981acd076d3`). Remedy on Ussuri, through the API, as a separate reviewed change with the network owner: **static** segments (`is_dynamic=0`), re-model the network (e.g. a new network with one segment per physnet, ports moved; workload impact); **dynamic** segments (`is_dynamic=1`, hierarchical port binding), they follow port bindings, so plan the unbinding or removal of the bound ports. Re-run PC-Q5. No `networksegments` row edits by SQL; no upstream tool exists. If not remediable: escalate to the architect as a blocking decision | `neutron@origin/stable/2026.1:…/yoga/expand/e981acd076d3_*`, `2023.1/expand/fc153938cdc1_*`; `neutron@ussuri-eol:neutron/plugins/ml2/managers.py:120,214-218`; neutron-lib 2.3.0 `check_duplicate_segments` |
+| **PC-Q6** status | Duplicate HA networks per project | query of §1 (our own) | empty | as §1 | **Must stay our own query**: upstream `neutron-status` 2026.1 wires "Duplicated HA network per project check" to `extra_dhcp_options_check` (`neutron@origin/stable/2026.1:neutron/cmd/upgrade_checks/checks.py:247-248`), so the upstream check is never actually performed (RT-N-17) |
+| **PC-E1** (session capture, mandatory) | `sql_mode` of the session each migration tool uses | per hop and per service, inside the same one-shot image and config: `python3 -c` that builds the service's oslo.db engine from its config (`oslo_db.sqlalchemy.engines.create_engine(CONF.database.connection, mysql_sql_mode=CONF.database.mysql_sql_mode)`) and runs `SELECT @@SESSION.sql_mode` → `evidence/<run>/<hop>/sql-mode-<svc>.txt`; plus `@@GLOBAL.sql_mode` per engine step | session mode strict (contains `STRICT_TRANS_TABLES` or `TRADITIONAL`) for every migration command | STOP (SC-PC-E1) outside EXP-DB-N2, where the non-strict variant is deliberate | RT-N-07; Red Team Stage 5 §6 |
+
+**SC-ENGINE (amended).** After every engine step: `mariadb-upgrade` exit 0 **and** `mariadb-check --all-databases
+--check-upgrade` exit 0, **then a clean restart** of the server (stop, start), then a scan of the error log written
+**since that restart**. Any `[ERROR]` line there is SC-ENGINE. `[ERROR]` lines logged at the first start of a newer major
+**before** `mariadb-upgrade` (e.g. `Incorrect definition of table mysql.event`) are recorded but are not by themselves
+SC-ENGINE (Red Team RT-N-15 ruling).
