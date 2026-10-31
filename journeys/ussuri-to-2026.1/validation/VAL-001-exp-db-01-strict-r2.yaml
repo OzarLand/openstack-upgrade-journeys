@@ -22,7 +22,7 @@ laboratory_topology: >-
 dataset: "Tier A baseline v4 (synthetic, ~4,100 rows, created through Ussuri APIs; derivation v1 -> v4 in experiments/EXP-DB-00-baseline.md)"
 test_date: 2026-10-31
 run_window: "14:29:00Z - 14:40:13Z (673 s)"
-harness: "lab/ussuri-db-lab/ff at commit 2f3e48a364655d86acb1f0e21f70933fed4f16e6, clean tree (evidence/EXP-DB-01/strict-r2/harness.txt)"
+harness: "lab/ussuri-db-lab/ff at commit 2f3e48a364655d86acb1f0e21f70933fed4f16e6 (rewritten as b65f5326ee81, same tree: evidence/commit-sha-mapping.md), clean tree (evidence/EXP-DB-01/strict-r2/harness.txt)"
 responsible_agent: "agent:lab-engineer (Agent 5, Sonnet) executed; criteria pre-registered by Agent 7 (Red Team, Fable) and Agent 4 (Opus); harness and verdict checked by the architect (Agent 1, Opus)"
 independent_human_check: false
 evidence:
