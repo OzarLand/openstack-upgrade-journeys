@@ -4,22 +4,26 @@
 
 # 🧭 openstack-upgrade-journeys
 
-**Worked investigations of hard OpenStack upgrade paths: what is supported, what is only possible, what was tried in a
-lab, and what happened. The first one asks whether Kolla-Ansible Ussuri can reach OpenStack 2026.1 without deploying
-every release in between.**
+### Bringing legacy OpenStack clouds back to a modern release, safely and with evidence
+
+**Many production clouds still run OpenStack releases that went out of maintenance years ago. This project builds
+open, evidence-based paths to bring them back to a current release without losing a single VM, volume, network or
+user. The first journey takes a Kolla-Ansible Ussuri cloud (2020) to OpenStack 2026.1.**
 
 <p>
-  <img src="https://img.shields.io/badge/status-early%20investigation-orange.svg" alt="Status: early investigation">
-  <img src="https://img.shields.io/badge/validated%20procedures-0-lightgrey.svg" alt="0 validated procedures">
   <img src="https://img.shields.io/badge/journey-Ussuri%20%E2%86%92%202026.1-ED1944.svg" alt="Journey: Ussuri to 2026.1">
+  <img src="https://img.shields.io/badge/status-lab%20experiments-orange.svg" alt="Status: lab experiments">
+  <img src="https://img.shields.io/badge/lab--verified-database%20fast--forward-yellowgreen.svg" alt="Lab-verified: database fast-forward">
+  <img src="https://img.shields.io/badge/production--validated-0-lightgrey.svg" alt="0 production-validated procedures">
   <img src="https://img.shields.io/badge/deployment-Kolla--Ansible-informational.svg" alt="Deployment: Kolla-Ansible">
   <img src="https://img.shields.io/badge/written%20with-AI%20agents-8A2BE2.svg" alt="Written with AI agents">
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-Apache--2.0-blue.svg" alt="License: Apache-2.0"></a>
 </p>
 
 <p>
-  <a href="#-journeys"><b>Journeys</b></a> ·
-  <a href="#-how-claims-are-labelled"><b>Status labels</b></a> ·
+  <a href="#-why-this-project"><b>Why</b></a> ·
+  <a href="#-first-results-ussuri--20261"><b>First results</b></a> ·
+  <a href="#️-journeys"><b>Journeys</b></a> ·
   <a href="docs/validation-status.md"><b>Validation rules</b></a> ·
   <a href="#-contributing"><b>Contribute</b></a>
 </p>
@@ -28,33 +32,76 @@ every release in between.**
 
 ---
 
+Part of [OzarLand](https://github.com/OzarLand/ozarland): *a shared land for better OpenStack operations.*
+Led by Soufian Zaouam.
+
+## 🚀 Why this project
+
+Operators of older clouds all face the same wall. The official upgrade path moves one release at a time, or one SLURP
+step at a time. From Ussuri, that means **nine upgrades**, **eight intermediate deployments** and **several host
+operating-system changes** before reaching a maintained release. Many teams postpone it, and their platforms age
+further: security fixes stop, skills fade, and the gap keeps growing.
+
+This repository works on that problem in the open, with the community:
+
+- **One journey per gap.** Each journey covers a starting release and a deployment method, and asks a precise
+  question: *can we get there without deploying every release in between, and what is the safest way?*
+- **Evidence before advice.** Every claim carries its status: officially supported, technically possible but
+  unsupported, lab-verified, or not validated. Failed experiments are published too; they are knowledge.
+- **Reproducible laboratories.** Experiments run on copies of a preserved baseline. Their scripts and evidence are in
+  this repository, so anyone can re-run them.
+- **Independent review.** A separate red-team role challenges every proposal and every result before it is accepted.
+- **Workloads first.** VM identity, IP addresses, volumes, images, users and quotas must survive. A successful service
+  start is never mistaken for a successful migration.
+
+## 🔬 First results: Ussuri → 2026.1
+
+Work started on 2026-10-31. What is known so far:
+
+| Finding | Status |
+|---|---|
+| A single direct jump from Ussuri to 2026.1 is **impossible**: 2026.1 Nova, Keystone and Cinder cannot read a Ussuri database. | Confirmed in the lab |
+| The databases of every service **can** be brought from Ussuri to 2026.1 **without deploying any intermediate release**, by running the migration code of 2023.1, Cinder 2023.2, 2024.1, 2025.1 and 2026.1 offline. Zero unexpected schema or data difference. | Lab-verified, synthetic data, **unsupported upstream** |
+| 2026.1 services start on the migrated databases and find every existing resource again (servers, ports, volumes, images, users, trusts). | Lab-verified, synthetic data |
+| A Cinder bug breaks the **official** 2023.1 → 2024.1 upgrade for clouds with old deleted volumes; avoidance documented. | [Documented](journeys/ussuri-to-2026.1/troubleshooting/cinder-use-quota-null-blocks-2024.1-db-sync.md) |
+| Kolla-Ansible 2026.1 changes some data when deployed on existing databases (cells, admin password, endpoints); five mandatory steps identified. | Lab-verified for the commands, Kolla itself not yet run |
+
+Still ahead:
+
+- operations on existing resources and a rollback rehearsal;
+- a real Kolla-Ansible laboratory with real VMs;
+- a run on a sanitized production copy.
+
+Then comes the runbook. The full picture is in the [journey page](journeys/ussuri-to-2026.1/README.md) and the
+[progress report](journeys/ussuri-to-2026.1/reports/2026-10-31-progress-report-01.md).
+
 > [!WARNING]
-> **Nothing in this repository is a supported or tested upgrade procedure.** Upgrading across several OpenStack
-> releases at once is not what upstream OpenStack or Kolla-Ansible document or test. Read what is written here as
-> research notes. Do not run any step on a platform whose data you cannot afford to lose, and never on production
-> without your own backups, your own lab rehearsal and your own change review.
+> **Nothing here is a supported or production-validated procedure yet.** Upgrading across several OpenStack releases
+> at once is not what upstream OpenStack or Kolla-Ansible document or test. "Lab-verified" means a laboratory run with
+> stated limits: a container lab, synthetic data, no Kolla images and no real VMs. Never run a step on a platform
+> whose data you cannot afford to lose without your own backups, rehearsal and change review.
 
 > [!NOTE]
-> **Status: early (Stage 1, investigation).** No procedure here has been validated yet: the journey is being studied
-> from upstream source code and documentation, and the lab experiments are being designed. Reading code or
-> documentation is never counted as validation. This repository was created and is being written by a team of AI
-> agents (Claude) working from the OzarLand knowledge base and the upstream sources, under the direction of the
-> OzarLand owner. No human operator has confirmed anything yet. The agent team is listed in the
-> [journey page](journeys/ussuri-to-2026.1/README.md#the-agent-team).
+> **How this is built.** The investigation is carried out by a team of AI agents with separate roles: architect,
+> release compatibility, Kolla-Ansible, database and messaging, laboratory, operations, documentation and an
+> independent red team. They work from the upstream OpenStack sources and the
+> [OzarLand operator skills](https://github.com/OzarLand/openstack-operator-skills), under the direction of the
+> OzarLand owner. No human operator has confirmed a result on a real platform yet, and that is exactly the
+> contribution we are looking for.
 
-Part of [OzarLand](https://github.com/OzarLand/ozarland): *a shared land for better OpenStack operations.*
+## 🤝 Running an old cloud? Join in
 
-Operators with an old Kolla-Ansible deployment often ask the same question: "do I really have to deploy every
-release between mine and the current one?" The official answer covers one release at a time, or one SLURP step.
-Anything longer is unsupported, so the community has little to rely on. This repository collects, for each such
-journey, the evidence, the experiments, the decisions and, only when earned, the runbooks, with the validation
-status of each claim written next to it.
+- **Tell us your starting point:** release, deployment tool, backends, size. It shapes the next journeys.
+- **Re-run an experiment** on your own lab and report what you saw, whether it worked or failed.
+- **Share production experience** of long upgrades: what broke, what you would do differently.
+
+Start a thread in [OzarLand Discussions](https://github.com/OzarLand/ozarland/discussions) or open an issue here.
 
 ## 🗺️ Journeys
 
 | Journey | Question | Stage | Validated |
 |---|---|---|---|
-| [Ussuri → 2026.1](journeys/ussuri-to-2026.1/README.md) | Can an existing Kolla-Ansible Ussuri deployment reach 2026.1 in one journey? If not, what is the safest path with the fewest intermediate deployments? | 1: investigation | nothing |
+| [Ussuri → 2026.1](journeys/ussuri-to-2026.1/README.md) | Can an existing Kolla-Ansible Ussuri deployment reach 2026.1 in one journey? If not, what is the safest path with the fewest intermediate deployments? | Lab experiments | Database fast-forward lab-verified (narrow scope); nothing production-validated |
 
 More journeys (other start releases, other deployment methods) are welcome through an
 [*Ideas* discussion](https://github.com/OzarLand/ozarland/discussions/new?category=ideas); a journey is added when someone
