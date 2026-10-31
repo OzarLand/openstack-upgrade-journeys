@@ -1,4 +1,7 @@
+# Generated at run time: passwords, rendered configs, dumps and volume tarballs never go to git.
+.secrets/
+.run/
+backups/
 image/ca/*
 !image/ca/.keep
-secrets/
-*.env
+*.pyc
