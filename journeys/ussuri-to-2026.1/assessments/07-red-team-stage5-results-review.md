@@ -200,3 +200,35 @@ A strict pass obtained that way may carry `LAB-VALIDATED` with the ruling-4 scop
 - What the five live "undeclared" items of R1c H4/H4r were (RT-B-06).
 
 Decision support only. Nothing here was executed; all statements about code are `DOCUMENTED-UNVERIFIED` from source reading; the statuses I assign are judgements against the pre-registered criteria, not validations. State-changing remedies named above (API deletions, purges, restores) require the accountable owner's approval under the change process.
+
+---
+
+## Stage 5b — closure review (2026-10-31, same author and model)
+
+Inputs: `evidence/EXP-DB-01/r1c/INTEGRITY-NOTE.md` and `r1c/reconstruction/`; corrected records EXP-DB-00/R0/N1/01; `DR-004`; `experiments/EXP-DB-01-root-cause-analysis.md`; `declared-differences.md` §8–§9; `fast-forward-checks.md` §4; harness at `f29824c` (tree clean; d1/d2 ran on a dirty tree, which `00-version.sh` records and which a strict run now refuses); `evidence/EXP-DB-01-dryruns/d1`, `d2`; spot-checks in source (`nova@ussuri-eol:…/216_havana.py:48-60`, `_create_shadow_tables` reflects every table with no skip list). Nothing executed.
+
+### Closure of the Stage 5 blocking items
+
+| ID | Ruling | Grounds |
+|---|---|---|
+| RT-B-06 | **Closed** | The reconstruction reproduces every live `run.log` line (S1 for H1–H3, S2 for H4/H4r). The five live UNDECLARED items are `cisco_csr_identifier_map` and the four `nuage_*` tables — named verbatim in the frozen R-10 text, so the stop was a regex defect, not a data finding. The record now states the live figures; harness versioning (`00-version.sh`, strict refuses a dirty tree) and "live outputs immutable, re-analyses in separate directories" are in place and were followed for d2 (`recheck-comparator-sha-714c13df/`). |
+| RT-B-07 | **Closed** | d1 shows PC-C1 as a hard stop after H1 on exactly the predicted rows (volumes 3, snapshots 2); d2 shows PC-V3, PC-C4, PC-G1a, PC-O1 per cell, PC-Q3, PC-C1p, SC-ENGINE clean restart, `keystone-status` running. One wording point: the C9 line "1 tool errors" at H2+ is `neutron-status` exit 1 on the OVN *warning*; record it as a warning, not an error. |
+| RT-B-08 | **Closed as a decision, open as a result** | Root cause confirmed and sharper than my §1.4: the released cinder 22.3.0 lacks `read_deleted='yes'`; the fix (`a3c90fb4c`, bug #2070475) reached only `unmaintained/2023.1` after the last release and 2023.2 at 23.5.0. DR-004 (Cinder-only 23.5.0 step H1b + PC-C1 hard gate; purge rejected) is the right class of remedy: a released, pinned artefact, no hand edit. I accept the process correction of my Stage 3 V6 (read at branch head, not at the installed tag). d2 shows H1b doing what DR-004 says on v4 (3 deleted volumes, 2 deleted snapshots). Validation comes only from the strict run. H1b must carry **Technically possible but unsupported** on its own line, and EXP-RB-01's Cinder point of no return moves to "before H1b" (`89aa6f9639f9` now runs there), as §8.4 says. |
+| RT-B-09 | **Closed** | Step 10 kept with stated reasons (I accept; the cost is the declared transient A7). A1–A7 are in §8 with my conditions attached (A1 per-column list §8.7 with the 16 struck entries; A3's `archive_deleted_rows` check after H4r; A4's two citations and the grep; A6's T0 prediction). R0 and EXP-DB-01 records corrected. §8.5/§8.6 pre-declare the EXP-DB-02 and RT-N-23 classes. |
+| RT-B-10 | **Closed** | PC-C4, PC-V3, PC-Q5 remedy and PC-Q6 note are in `fast-forward-checks.md` §4 and implemented; v4 resolved the ERROR volume through the Ussuri API and d2's pre-checks pass on it. |
+
+### Amendment 2 (§9, `nova`/`nova_cell0.shadow_migrate_version`): **ACCEPT** as S-3.4
+
+Cause verified in source: the Havana squash's `_create_shadow_tables` reflects every table and has no skip list, so it shadowed sqlalchemy-migrate's own version table; no Nova Alembic revision through 2026.1 names it; `1b91788ec3a6` drops only `migrate_version`. It cannot hide a data defect (0 rows at T0 and at every hop, pinned by comparison B), and it is the normal state of every pre-Wallaby deployment, so Tier B will show it too. It was present in R0 and R1 all along (`EXP-DB-R0/H1/schema-nova.txt`, `r1c/H*/schema-nova.txt`: 6 lines each) and hidden by the substring filter; the prior records' "48 declared S-1 at H1" therefore contained 12 lines that were this table — footnote it in R0 and EXP-DB-01. Conditions: exact name, direction "only in migrated", `nova`/`nova_cell0` only, row count 0 at every hop; any row or any third database = stop.
+
+### The two §9.2 residual comparator gaps
+
+1. *The 16 struck A1 entries are not hop-gated.* **Not required before the strict run.** If one of those tables or columns were still present after H2, comparison A reports it independently ("table/column only in migrated", since the reference lacks it), so the gap cannot hide the failure it describes. Fix before EXP-DB-02.
+2. *N-3 accepts `updated_at` changes on any number of rows.* **Not required before the strict run**: it is the frozen N-3 as written. **Condition instead:** the strict record reconciles, per table, the N-3 row counts with the ODM "migrated" counts of the same hop (e.g. `cinder.volumes.updated_at` rows at H1 = non-deleted volumes migrated, at H1b = deleted volumes migrated; `nova.instances` = `populate_instance_compute_id` migrated). A mismatch is an undeclared write and a stop. Tighten the comparator before EXP-DB-02.
+
+### Conditions on the strict run of EXP-DB-01
+
+- Baseline **v4**, `H1B=1` (DR-004), strict mode only; harness at a committed clean tree at or after `f29824c` with Amendment 2 declared; `harness.txt` in the evidence; no harness file edited between run and record. An observe-mode run cannot carry a status.
+- Pass = all of: every command exit 0 and every ODM to exit 0 (Nova per cell, cell0 included); all PC-* pass including PC-C1 0/0 after H1b and PC-E1 session mode captured per hop and service; C4 0 undeclared with the declared set equal to §8.7 + A2/A3/A4 + A7 (H2 only, absent H3+) + S-1 + S-3.4 and nothing else; C5/C6 0 undeclared with the N-3 reconciliation above; targeted checks as §5 of the frozen list; C9 0 FAILURE with `keystone-status` run and the `neutron-status` OVN warning recorded; SC-ENGINE clean-restart scan clean at every step; H4r = H4 with zero differences; A3's `archive_deleted_rows` check after H4r.
+- A pass carries `LAB-VALIDATED` with the ruling-4 scope line, plus "procedure includes a Cinder-only 2023.2 step (DR-004), Technically possible but unsupported". Any stop → `FAILED`, recorded live, no re-analysis in place.
+- The d2 dry run already walked every hop on v4 with the only undeclared items being Amendment 2's 12 lines; it stays informational, as its README says.
