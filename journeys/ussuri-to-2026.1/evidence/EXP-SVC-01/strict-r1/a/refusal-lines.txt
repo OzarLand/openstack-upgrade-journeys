@@ -1,0 +1,6 @@
+2026-10-31 17:47:32.605 9 ERROR nova.utils [None req-48a00583-c4d9-4689-8941-62868da6c36e - - - - - -] Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but the minimum compute se
+2026-10-31 17:47:32.605 9 ERROR nova.utils     raise exception.TooOldComputeService(
+2026-10-31 17:47:43.536 1 CRITICAL nova [None req-a6676989-641b-44e4-bf8f-b4a857c1657c - - - - - -] Unhandled error: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.
+2026-10-31 17:47:43.536 1 ERROR nova     raise exception.TooOldComputeService(
+2026-10-31 17:47:53.318 1 CRITICAL nova [None req-73a98afe-9dfa-428a-b575-d0ed7ad0f417 - - - - - -] Unhandled error: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.
+2026-10-31 17:47:53.318 1 ERROR nova     raise exception.TooOldComputeService(

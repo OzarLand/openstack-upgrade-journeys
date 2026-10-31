@@ -96,3 +96,155 @@ SQL on the clone: forced_down=0 for ufj-compute2 (rows with version<72) -> 0
 API attempt (expected HTTP 500 ServiceTooOld) for ufj-compute3: rc=0
 SQL on the clone: forced_down=0 for ufj-compute3 (rows with version<72) -> 0
 [17:47:29] (a) restart control WITHOUT the workaround: expected refusal (min service version 51 of the unforced Ussuri rows)
+nova-api: 2026-10-31 17:47:32.605 9 ERROR nova.utils [None req-48a00583-c4d9-4689-8941-62868da6c36e - - - - - -] Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but the minimum 
+nova-api: 2026-10-31 17:47:32.605 9 ERROR nova.utils     raise exception.TooOldComputeService(
+nova-api: 2026-10-31 17:47:32.605 9 ERROR nova.utils nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.
+nova-api:     raise exception.TooOldComputeService(
+nova-api: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.
+nova-api: 2026-10-31 17:47:32.683 8 ERROR nova.utils [None req-6aa427ab-8a55-4cc6-9531-41304a1acc56 - - - - - -] Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but the minimum 
+nova-api: 2026-10-31 17:47:32.683 8 ERROR nova.utils     raise exception.TooOldComputeService(
+nova-api: 2026-10-31 17:47:32.683 8 ERROR nova.utils nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.
+nova-api:     raise exception.TooOldComputeService(
+nova-api: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.
+nova-conductor: 2026-10-31 17:47:43.536 1 CRITICAL nova [None req-a6676989-641b-44e4-bf8f-b4a857c1657c - - - - - -] Unhandled error: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.
+nova-conductor: 2026-10-31 17:47:43.536 1 ERROR nova     raise exception.TooOldComputeService(
+nova-conductor: 2026-10-31 17:47:43.536 1 ERROR nova nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.
+nova-scheduler: 2026-10-31 17:47:53.318 1 CRITICAL nova [None req-73a98afe-9dfa-428a-b575-d0ed7ad0f417 - - - - - -] Unhandled error: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.
+nova-scheduler: 2026-10-31 17:47:53.318 1 ERROR nova     raise exception.TooOldComputeService(
+nova-scheduler: 2026-10-31 17:47:53.318 1 ERROR nova nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.
+(containers: ufj-svc-nova-scheduler=Exited (1) 2 minutes ago ufj-svc-nova-conductor=Exited (1) 2 minutes ago ufj-svc-nova-api=Exited (3) 2 minutes ago )
+2026-10-31 17:47:32.605 9 ERROR nova.utils [None req-48a00583-c4d9-4689-8941-62868da6c36e - - - - - -] Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but the minimum compute se
+2026-10-31 17:47:32.605 9 ERROR nova.utils     raise exception.TooOldComputeService(
+2026-10-31 17:47:43.536 1 CRITICAL nova [None req-a6676989-641b-44e4-bf8f-b4a857c1657c - - - - - -] Unhandled error: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.
+2026-10-31 17:47:43.536 1 ERROR nova     raise exception.TooOldComputeService(
+2026-10-31 17:47:53.318 1 CRITICAL nova [None req-73a98afe-9dfa-428a-b575-d0ed7ad0f417 - - - - - -] Unhandled error: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.
+2026-10-31 17:47:53.318 1 ERROR nova     raise exception.TooOldComputeService(
+[17:50:28] (a) workaround set, restart
+[17:50:28] workaround flag on: 1 line(s) in nova.conf
+nova-api: 2026-10-31 17:50:30.334 7 WARNING nova.api.openstack.wsgi_app [None req-dccd60ce-cbe5-4193-bea6-9929f762a2d3 - - - - - -] Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epo
+nova-api: 2026-10-31 17:50:30.395 8 WARNING nova.api.openstack.wsgi_app [None req-eb6ad338-09e5-493d-9b53-9c2082220497 - - - - - -] Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epo
+nova-conductor: 2026-10-31 17:50:31.044 1 WARNING nova.service [None req-90656e9c-4a1a-4f6e-a8fc-a5530cebd124 - - - - - -] Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but th
+nova-scheduler: 2026-10-31 17:50:30.699 1 WARNING nova.service [None req-bea76703-5746-4e74-867b-c1ec96360a4e - - - - - -] Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but th
+(containers: ufj-svc-nova-scheduler=Up 16 seconds ufj-svc-nova-conductor=Up 16 seconds ufj-svc-nova-api=Up 16 seconds )
+
+===== nova-status upgrade check Check: Cells v2 Result: Success Check: Placement API Result: Success Check: Cinder API Result: Success Check: Policy File JSON to YAML Migration Result: Success Check: Older than N-1 computes Result: Failure Check: hw_machine_type unset Result: Warning Check: Service User Token Configuration Result: Success 
+===== exit code: 2 
+===== cinder-status upgrade check Check: Backup Driver Path Result: Success Check: Use of Policy File Result: Success Check: Removed Drivers Result: Success Check: Periodic Interval Use Result: Success Check: Service UUIDs Result: Success Check: Attachment specs Result: Success Check: Use of Nested Quota Driver Result: Success 
+===== exit code: 0 
+===== neutron-status --config-file neutron.conf upgrade check Check: Worker counts configured Result: Success Check: NIC Switch agent check kernel Result: Success Check: VLAN allocations valid segmentation ID check Result: Success Check: Policy File JSON to YAML Migration Result: Success Check: Port MAC address sanity check Result: Success Check: NetworkSegments unique constraint check Result: Success Check: Port Binding profile sanity check Result: Success Check: Floating IP inherits the QoS policy from the external network Result: Success Check: Port extra DHCP options check Result: Success Check: Duplicated HA network per project check Result: Success Check: OVN support for BM provisioning over IPv6 check Result: Warning Check: ML2/OVS IGMP Flood check Result: Success Check: Floating IP Port forwarding and OVN L3 plugin configuration Result: Success Check: Existing tags exceeds limit per resource Result: Success Check: RBAC policies with invalid target_project Result: Success 
+===== exit code: 1 
+===== placement-status upgrade check Check: Missing Root Provider IDs Result: Success Check: Incomplete Consumers Result: Success Check: Policy File JSON to YAML Migration Result: Success 
+===== exit code: 0 
+===== glance-status --config-file glance-api.conf upgrade check Check: Sheepdog Driver Removal Result: Success Check: Policy File JSON to YAML Migration Result: Success Check: Config option owner_is_tenant removal Result: Success 
+===== exit code: 0 
+===== keystone-status --config-file keystone.conf upgrade check (keys also mounted at /etc/keystone: the tool checks the default repository paths) Check: Check trust policies are not empty Result: Success Check: Check default roles are immutable Result: Success Check: Policy File JSON to YAML Migration Result: Success 
+===== exit code: 0
+server create -> exit 0 (flavor ufj-tiny, image ufj-image-public, host az1:ufj-compute1)
+server 21db7e2a-0cbc-4cb9-9edf-4668a9b573be
+status after wait: ACTIVE
+{  "OS-EXT-SRV-ATTR:host": "ufj-compute1",  "OS-EXT-STS:task_state": null,  "OS-EXT-STS:vm_state": "active",  "status": "ACTIVE"}
+
+op 'stop' (rc=0): expected 'None SHUTOFF' (task_state status), got 'None SHUTOFF' -> OK
+op 'start' (rc=0): expected 'None ACTIVE' (task_state status), got 'None ACTIVE' -> OK
+op 'reboot --hard' (rc=0): expected 'None ACTIVE' (task_state status), got 'None ACTIVE' -> OK
+op 'pause' (rc=0): expected 'None PAUSED' (task_state status), got 'None PAUSED' -> OK
+op 'unpause' (rc=0): expected 'None ACTIVE' (task_state status), got 'None ACTIVE' -> OK
+compute log (errors since 2026-10-31T17:50:28Z):
+nova-api: 2026-10-31 17:50:30.334 7 WARNING nova.api.openstack.wsgi_app [None req-dccd60ce-cbe5-4193-bea6-9929f762a2d3 - - - - - -] Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epo
+nova-api: 2026-10-31 17:50:30.395 8 WARNING nova.api.openstack.wsgi_app [None req-eb6ad338-09e5-493d-9b53-9c2082220497 - - - - - -] Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epo
+nova-api: 2026-10-31 17:51:19.062 7 INFO nova.compute.rpcapi [None req-27611503-e141-491c-8797-f5500efb0c72 - - - - - -] Automatically selected compute RPC version 5.11 from minimum service version 51
+nova-api: 2026-10-31 17:51:24.620 8 INFO nova.compute.rpcapi [None req-10610f77-eea8-4827-ae90-f0fca74fbdf0 - - - - - -] Automatically selected compute RPC version 5.11 from minimum service version 51
+nova-conductor: 2026-10-31 17:50:31.044 1 WARNING nova.service [None req-90656e9c-4a1a-4f6e-a8fc-a5530cebd124 - - - - - -] Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but th
+nova-conductor: 2026-10-31 17:51:06.585 7 INFO nova.compute.rpcapi [None req-9283b5c6-87dd-4dd8-b1fc-32d34c2dd499 - - - - - -] Automatically selected compute RPC version 5.11 from minimum service version 51
+nova-scheduler: 2026-10-31 17:50:30.699 1 WARNING nova.service [None req-bea76703-5746-4e74-867b-c1ec96360a4e - - - - - -] Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but th
+(containers: ufj-svc-nova-scheduler=Up 2 minutes ufj-svc-nova-conductor=Up 2 minutes ufj-svc-nova-api=Up 2 minutes )
+[17:53:12] (b) forced-down on ufj-compute2/3 through the 2026.1 API (ufj-compute1, 2026.1, stays up), then restart
+SQL on the clone: forced_down=1 for ufj-compute2 (rows with version<72) -> 1
+SQL on the clone: forced_down=1 for ufj-compute3 (rows with version<72) -> 1
+(containers: ufj-svc-nova-scheduler=Up 15 seconds ufj-svc-nova-conductor=Up 26 seconds ufj-svc-nova-api=Up 36 seconds )
+
+===== nova-status upgrade check Check: Cells v2 Result: Success Check: Placement API Result: Success Check: Cinder API Result: Success Check: Policy File JSON to YAML Migration Result: Success Check: Older than N-1 computes Result: Success Check: hw_machine_type unset Result: Warning Check: Service User Token Configuration Result: Success 
+===== exit code: 1 
+===== cinder-status upgrade check Check: Backup Driver Path Result: Success Check: Use of Policy File Result: Success Check: Removed Drivers Result: Success Check: Periodic Interval Use Result: Success Check: Service UUIDs Result: Success Check: Attachment specs Result: Success Check: Use of Nested Quota Driver Result: Success 
+===== exit code: 0 
+===== neutron-status --config-file neutron.conf upgrade check Check: Worker counts configured Result: Success Check: NIC Switch agent check kernel Result: Success Check: VLAN allocations valid segmentation ID check Result: Success Check: Policy File JSON to YAML Migration Result: Success Check: Port MAC address sanity check Result: Success Check: NetworkSegments unique constraint check Result: Success Check: Port Binding profile sanity check Result: Success Check: Floating IP inherits the QoS policy from the external network Result: Success Check: Port extra DHCP options check Result: Success Check: Duplicated HA network per project check Result: Success Check: OVN support for BM provisioning over IPv6 check Result: Warning Check: ML2/OVS IGMP Flood check Result: Success Check: Floating IP Port forwarding and OVN L3 plugin configuration Result: Success Check: Existing tags exceeds limit per resource Result: Success Check: RBAC policies with invalid target_project Result: Success 
+===== exit code: 1 
+===== placement-status upgrade check Check: Missing Root Provider IDs Result: Success Check: Incomplete Consumers Result: Success Check: Policy File JSON to YAML Migration Result: Success 
+===== exit code: 0 
+===== glance-status --config-file glance-api.conf upgrade check Check: Sheepdog Driver Removal Result: Success Check: Policy File JSON to YAML Migration Result: Success Check: Config option owner_is_tenant removal Result: Success 
+===== exit code: 0 
+===== keystone-status --config-file keystone.conf upgrade check (keys also mounted at /etc/keystone: the tool checks the default repository paths) Check: Check trust policies are not empty Result: Success Check: Check default roles are immutable Result: Success Check: Policy File JSON to YAML Migration Result: Success 
+===== exit code: 0
+server create -> exit 0 (flavor ufj-tiny, image ufj-image-public, host az1:ufj-compute1)
+server 9f88794d-6d9f-4837-8885-bc8f74195b2d
+status after wait: ACTIVE
+{  "OS-EXT-SRV-ATTR:host": "ufj-compute1",  "OS-EXT-STS:task_state": null,  "OS-EXT-STS:vm_state": "active",  "status": "ACTIVE"}
+
+op 'stop' (rc=0): expected 'None SHUTOFF' (task_state status), got 'None SHUTOFF' -> OK
+op 'start' (rc=0): expected 'None ACTIVE' (task_state status), got 'None ACTIVE' -> OK
+op 'reboot --hard' (rc=0): expected 'None ACTIVE' (task_state status), got 'None ACTIVE' -> OK
+op 'pause' (rc=0): expected 'None PAUSED' (task_state status), got 'None PAUSED' -> OK
+op 'unpause' (rc=0): expected 'None ACTIVE' (task_state status), got 'None ACTIVE' -> OK
+compute log (errors since 2026-10-31T17:53:12Z):
+nova-api: 2026-10-31 17:54:24.182 7 INFO nova.compute.rpcapi [None req-7ff59d93-ec8d-43d8-b8ca-a9e94ff7f4a1 - - - - - -] Automatically selected compute RPC version 6.5 from minimum service version 72
+nova-api: 2026-10-31 17:54:29.953 8 INFO nova.compute.rpcapi [None req-4e8b294f-cf89-490a-8f0a-aed229db12ad - - - - - -] Automatically selected compute RPC version 6.5 from minimum service version 72
+nova-conductor: 2026-10-31 17:54:13.131 7 INFO nova.compute.rpcapi [None req-1b29fb72-acf3-4df4-96b4-e043a0a4da1c - - - - - -] Automatically selected compute RPC version 6.5 from minimum service version 72
+(containers: ufj-svc-nova-scheduler=Up 2 minutes ufj-svc-nova-conductor=Up 2 minutes ufj-svc-nova-api=Up 3 minutes )
+[17:56:17] (c) 2026.1 computes adopt ufj-compute2/3; forced-down cleared; workaround removed; restart
+compute_id file: 1ffa4385-060e-4e69-84f7-0bb6ab09d0dd
+compute_nodes rows for ufj-compute2 (all, including deleted):
+id	uuid	host	hypervisor_hostname	service_id	deleted
+1	1ffa4385-060e-4e69-84f7-0bb6ab09d0dd	ufj-compute2	ufj-compute2	NULL	0
+services row:
+id	version	forced_down	disabled
+8	72	1	0
+compute log (node identity / adoption / errors):
+2026-10-31 17:56:23.264 1 INFO nova.virt.node [None req-51bb6163-eb10-4baa-a00b-c2ba3e226d7a - - - - - -] Wrote node identity 1ffa4385-060e-4e69-84f7-0bb6ab09d0dd to /var/lib/nova/compute_id
+2026-10-31 17:56:23.265 1 INFO nova.virt.node [None req-51bb6163-eb10-4baa-a00b-c2ba3e226d7a - - - - - -] Determined node identity 1ffa4385-060e-4e69-84f7-0bb6ab09d0dd from /var/lib/nova/compute_id
+placement resource provider of the node:
+1ffa4385-060e-4e69-84f7-0bb6ab09d0dd ufj-compute2
+compute_id file: 8130328a-9a79-4540-84eb-dc846acc3492
+compute_nodes rows for ufj-compute3 (all, including deleted):
+id	uuid	host	hypervisor_hostname	service_id	deleted
+3	8130328a-9a79-4540-84eb-dc846acc3492	ufj-compute3	ufj-compute3	NULL	0
+services row:
+id	version	forced_down	disabled
+10	72	1	0
+compute log (node identity / adoption / errors):
+2026-10-31 17:56:23.449 1 INFO nova.virt.node [None req-8379c335-159e-436b-866a-2e6b002a65b9 - - - - - -] Wrote node identity 8130328a-9a79-4540-84eb-dc846acc3492 to /var/lib/nova/compute_id
+2026-10-31 17:56:23.449 1 INFO nova.virt.node [None req-8379c335-159e-436b-866a-2e6b002a65b9 - - - - - -] Determined node identity 8130328a-9a79-4540-84eb-dc846acc3492 from /var/lib/nova/compute_id
+placement resource provider of the node:
+8130328a-9a79-4540-84eb-dc846acc3492 ufj-compute3
+compute service set --up ufj-compute2 nova-compute -> rc=0 
+compute service set --up ufj-compute3 nova-compute -> rc=0 
+[17:56:59] workaround flag off: 0 line(s) in nova.conf
+nova-api: 2026-10-31 17:57:24.722 7 INFO nova.compute.rpcapi [None req-c397aa9c-498a-4165-bf60-821befb42cea - - - - - -] Automatically selected compute RPC version 6.5 from minimum service version 72
+(containers: ufj-svc-nova-scheduler=Up 15 seconds ufj-svc-nova-conductor=Up 26 seconds ufj-svc-nova-api=Up 36 seconds )
+
+===== nova-status upgrade check Check: Cells v2 Result: Success Check: Placement API Result: Success Check: Cinder API Result: Success Check: Policy File JSON to YAML Migration Result: Success Check: Older than N-1 computes Result: Success Check: hw_machine_type unset Result: Warning Check: Service User Token Configuration Result: Success 
+===== exit code: 1 
+===== cinder-status upgrade check Check: Backup Driver Path Result: Success Check: Use of Policy File Result: Success Check: Removed Drivers Result: Success Check: Periodic Interval Use Result: Success Check: Service UUIDs Result: Success Check: Attachment specs Result: Success Check: Use of Nested Quota Driver Result: Success 
+===== exit code: 0 
+===== neutron-status --config-file neutron.conf upgrade check Check: Worker counts configured Result: Success Check: NIC Switch agent check kernel Result: Success Check: VLAN allocations valid segmentation ID check Result: Success Check: Policy File JSON to YAML Migration Result: Success Check: Port MAC address sanity check Result: Success Check: NetworkSegments unique constraint check Result: Success Check: Port Binding profile sanity check Result: Success Check: Floating IP inherits the QoS policy from the external network Result: Success Check: Port extra DHCP options check Result: Success Check: Duplicated HA network per project check Result: Success Check: OVN support for BM provisioning over IPv6 check Result: Warning Check: ML2/OVS IGMP Flood check Result: Success Check: Floating IP Port forwarding and OVN L3 plugin configuration Result: Success Check: Existing tags exceeds limit per resource Result: Success Check: RBAC policies with invalid target_project Result: Success 
+===== exit code: 1 
+===== placement-status upgrade check Check: Missing Root Provider IDs Result: Success Check: Incomplete Consumers Result: Success Check: Policy File JSON to YAML Migration Result: Success 
+===== exit code: 0 
+===== glance-status --config-file glance-api.conf upgrade check Check: Sheepdog Driver Removal Result: Success Check: Policy File JSON to YAML Migration Result: Success Check: Config option owner_is_tenant removal Result: Success 
+===== exit code: 0 
+===== keystone-status --config-file keystone.conf upgrade check (keys also mounted at /etc/keystone: the tool checks the default repository paths) Check: Check trust policies are not empty Result: Success Check: Check default roles are immutable Result: Success Check: Policy File JSON to YAML Migration Result: Success 
+===== exit code: 0
+server create -> exit 0 (flavor ufj-tiny, image ufj-image-public, host nova:ufj-compute2)
+server 8815548d-1869-416d-86a7-ffd8376a5a18
+status after wait: ACTIVE
+{  "OS-EXT-SRV-ATTR:host": "ufj-compute2",  "OS-EXT-STS:task_state": null,  "OS-EXT-STS:vm_state": "active",  "status": "ACTIVE"}
+
+op 'stop' (rc=0): expected 'None SHUTOFF' (task_state status), got 'None SHUTOFF' -> OK
+op 'start' (rc=0): expected 'None ACTIVE' (task_state status), got 'None ACTIVE' -> OK
+op 'reboot --hard' (rc=0): expected 'None ACTIVE' (task_state status), got 'None ACTIVE' -> OK
+op 'pause' (rc=0): expected 'None PAUSED' (task_state status), got 'None PAUSED' -> OK
+op 'unpause' (rc=0): expected 'None ACTIVE' (task_state status), got 'None ACTIVE' -> OK
+compute log (errors since 2026-10-31T17:56:59Z):
+nova-api: 2026-10-31 17:57:24.722 7 INFO nova.compute.rpcapi [None req-c397aa9c-498a-4165-bf60-821befb42cea - - - - - -] Automatically selected compute RPC version 6.5 from minimum service version 72
+nova-api: 2026-10-31 17:58:09.414 6 INFO nova.compute.rpcapi [None req-4dcf19c8-820b-4105-b72b-6803dbd91e44 - - - - - -] Automatically selected compute RPC version 6.5 from minimum service version 72
+nova-conductor: 2026-10-31 17:57:58.173 7 INFO nova.compute.rpcapi [None req-913a35f8-a792-49ee-9ab7-cbab2d858ff8 - - - - - -] Automatically selected compute RPC version 6.5 from minimum service version 72
+(containers: ufj-svc-nova-scheduler=Up 2 minutes ufj-svc-nova-conductor=Up 2 minutes ufj-svc-nova-api=Up 2 minutes )

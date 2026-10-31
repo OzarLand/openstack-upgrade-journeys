@@ -1,0 +1,11 @@
+server create -> exit 0 (flavor ufj-tiny, image ufj-image-public, host az1:ufj-compute1)
+server 9f88794d-6d9f-4837-8885-bc8f74195b2d
+status after wait: ACTIVE
+{  "OS-EXT-SRV-ATTR:host": "ufj-compute1",  "OS-EXT-STS:task_state": null,  "OS-EXT-STS:vm_state": "active",  "status": "ACTIVE"}
+
+op 'stop' (rc=0): expected 'None SHUTOFF' (task_state status), got 'None SHUTOFF' -> OK
+op 'start' (rc=0): expected 'None ACTIVE' (task_state status), got 'None ACTIVE' -> OK
+op 'reboot --hard' (rc=0): expected 'None ACTIVE' (task_state status), got 'None ACTIVE' -> OK
+op 'pause' (rc=0): expected 'None PAUSED' (task_state status), got 'None PAUSED' -> OK
+op 'unpause' (rc=0): expected 'None ACTIVE' (task_state status), got 'None ACTIVE' -> OK
+compute log (errors since 2026-10-31T17:53:12Z):
