@@ -1,0 +1,20 @@
+-- endpoints of service keystone
+id	interface	url	region_id	enabled
+08b17fd95d214be1bf4d10040e77c916	admin	http://ufj-keystone:5000/v3/	RegionOne	1
+5d7a40d0c4654a25a5ceb3bb1a5b7440	internal	http://ufj-keystone:5000/v3/	RegionOne	1
+e7d941b8f1ce4620ab5690095a65f9d8	public	http://ufj-keystone:5000/v3/	RegionOne	1
+-- implied_role
+prior_role	implied_role
+admin	member
+member	reader
+-- roles
+name	domain_id
+admin	<<null>>
+member	<<null>>
+reader	<<null>>
+-- admin user: enabled and password rows (ids and dates only)
+id	enabled	password_rows	last_pw
+294358f815ab42e88afd374c4624392a	1	1	2026-10-31 11:16:13
+-- regions
+id
+RegionOne

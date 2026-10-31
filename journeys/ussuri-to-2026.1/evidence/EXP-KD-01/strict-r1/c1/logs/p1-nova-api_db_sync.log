@@ -1,0 +1,2 @@
+2026-10-31 18:09:33.267 1 INFO alembic.runtime.migration [-] Context impl MySQLImpl.
+2026-10-31 18:09:33.268 1 INFO alembic.runtime.migration [-] Will assume non-transactional DDL.

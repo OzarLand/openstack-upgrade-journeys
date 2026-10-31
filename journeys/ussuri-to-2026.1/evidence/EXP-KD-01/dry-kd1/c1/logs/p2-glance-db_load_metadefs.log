@@ -1,0 +1,1 @@
+2026-10-31 18:05:32.483 1 ERROR glance.db.sqlalchemy.metadata [-] [Errno 2] No such file or directory: '/etc/glance/metadefs/': FileNotFoundError: [Errno 2] No such file or directory: '/etc/glance/metadefs/'

@@ -1,0 +1,1 @@
+nova-api: 2026-10-31 18:03:01.489 7 DEBUG nova.compute.rpcapi [None req-f09cc815-a010-4487-8fa6-3e8c052d4aed - - - - - -] Not caching compute RPC version_cap, because min service_version is 0. Please ensure a nova-compute service has been started. Defaulting to current version. _determine_version_ca

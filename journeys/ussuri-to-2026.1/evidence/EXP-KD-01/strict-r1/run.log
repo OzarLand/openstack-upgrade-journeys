@@ -1,0 +1,8 @@
+[18:09:08] reset: fresh clone of ufj-ff-derive-h4r-data
+cloned ufj-ff-derive-h4r-data -> ufj-svc-data
+11.4.13-MariaDB-ubu2404-log
+4.4.0
+[18:09:18] C-1 snapshot 0 (H4r as cloned)
+[18:09:20] C-1 pass 1: Kolla deploy-time commands
+SUMMARY declared=0 undeclared=0
+[18:09:50] C-1 pass 2: Kolla deploy-time commands

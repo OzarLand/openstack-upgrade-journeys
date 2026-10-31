@@ -1,0 +1,3 @@
+--transport-url not provided in the command line, using the value [DEFAULT]/transport_url from the configuration file
+--database_connection not provided in the command line, using the value [database]/connection from the configuration file
+The specified transport_url and/or database_connection combination already exists for another cell with uuid 3a38ca82-d40a-4fd8-bc63-dc4bdc851077.

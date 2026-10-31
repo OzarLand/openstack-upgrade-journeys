@@ -1,0 +1,6 @@
+harness commit: 2ce87a474023a66b18558f9665082a986a93f070
+lab/ files changed since that commit:
+script sha256: 7b3ccebc6ae0c3977fda0c4d1df20562e51d0fb15421f320934f9fa9ef741c92
+kolla-ansible wheel sha256: 010e077c95d172e152f253bba4c0af43b537c987439d1c4601e9edc6adaeac34
+image: sha256:9bdad819349b6bb9f9577cbc70579405579c1959b8543075a24366a6b8ff6d43
+label: strict-r1 part: all

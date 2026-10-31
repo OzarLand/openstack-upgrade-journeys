@@ -1,0 +1,10 @@
+nova-manage cell_v2 list_cells --verbose exit code 0 ; table lines: 7
+  +-------+--------------------------------------+-----------------------------------------------------------------+-----------------------------------------------------------------------------------+----------+
+  |  Name |                 UUID                 |                          Transport URL                          |                                Database Connection                                | Disabled |
+  +-------+--------------------------------------+-----------------------------------------------------------------+-----------------------------------------------------------------------------------+----------+
+  |       | b60929da-763b-4551-be6c-04e8702bfb3a |             rabbit://openstack:***@kd-other-host:5672/            |  mysql+pymysql://nova:***@ufj-mariadb/nova?charset=utf8&kd=1 |  False   |
+  | cell0 | 00000000-0000-0000-0000-000000000000 |                             none:///                            | mysql+pymysql://nova:***@ufj-mariadb/nova_cell0?charset=utf8 |  False   |
+  | cell1 | 3a38ca82-d40a-4fd8-bc63-dc4bdc851077 | rabbit://openstack:***@ufj-rabbitmq:5672// |    mysql+pymysql://nova:***@ufj-mariadb/nova?charset=utf8    |  False   |
+  +-------+--------------------------------------+-----------------------------------------------------------------+-----------------------------------------------------------------------------------+----------+
+extract_cell('') -> {'cell_name': None, 'cell_uuid': 'b60929da-763b-4551-be6c-04e8702bfb3a', 'cell_message_queue': 'rabbit://openstack:***@kd-other-host:5672/', 'cell_database': 'mysql+pymysql://nova:***@ufj-mariadb/nova?charset=utf8&kd=1', 'cell_disabled': 'False'}
+extract_cell('cell1') -> {'cell_name': 'cell1', 'cell_uuid': '3a38ca82-d40a-4fd8-bc63-dc4bdc851077', 'cell_message_queue': 'rabbit://openstack:***@ufj-rabbitmq:5672//', 'cell_database': 'mysql+pymysql://nova:***@ufj-mariadb/nova?charset=utf8', 'cell_disabled': 'False'}

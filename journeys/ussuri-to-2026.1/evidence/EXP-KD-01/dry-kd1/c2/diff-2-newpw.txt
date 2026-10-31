@@ -1,0 +1,5 @@
+UNDECLARED	-	row count keystone.password: 9 -> 10
+UNDECLARED	-	row count keystone.revocation_event: 1501 -> 1
+UNDECLARED	-	rows changed in keystone.password: 1
+UNDECLARED	-	rows changed in keystone.revocation_event: 1501
+SUMMARY declared=0 undeclared=4
