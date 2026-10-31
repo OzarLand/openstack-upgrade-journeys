@@ -3,3 +3,9 @@ server 4505c3a4-b15f-41f9-b007-68a91e597e67
 status after wait: ACTIVE
 {  "OS-EXT-SRV-ATTR:host": "ufj-compute1",  "OS-EXT-STS:task_state": null,  "OS-EXT-STS:vm_state": "active",  "status": "ACTIVE"}
 
+op 'stop' (rc=0): expected 'SHUTOFF None', got 'None SHUTOFF' -> FAIL
+op 'start' (rc=0): expected 'ACTIVE None', got 'None ACTIVE' -> FAIL
+op 'reboot --hard' (rc=0): expected 'ACTIVE None', got 'None ACTIVE' -> FAIL
+op 'pause' (rc=0): expected 'PAUSED None', got 'None PAUSED' -> FAIL
+op 'unpause' (rc=0): expected 'ACTIVE None', got 'None ACTIVE' -> FAIL
+compute log (errors since 2026-10-31T16:48:52Z):
