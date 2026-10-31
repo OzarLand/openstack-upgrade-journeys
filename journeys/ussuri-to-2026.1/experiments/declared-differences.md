@@ -6,7 +6,7 @@
 | Author | Agent 4 — Database and Messaging Specialist |
 | Model | Opus (claude-opus-5-5) |
 | Date | 2026-10-31 |
-| Amendments | **Amendment 1 (2026-10-31)**, §8: R0 items A1–A7 (Red Team Stage 5 rulings), Cinder hop H1b (DR-004), V-C1/V-C2 correction, step-10 decision, EXP-DB-02 pre-declaration. Items superseded in place are marked "~~…~~ → superseded by Amendment 1 / <id>"; nothing else in §0–§7 was changed |
+| Amendments | **Amendment 2 (2026-10-31, proposed, pending Red Team acceptance)**, §9: `shadow_migrate_version` (S-3.4) and comparator review. **Amendment 1 (2026-10-31)**, §8: R0 items A1–A7 (Red Team Stage 5 rulings), Cinder hop H1b (DR-004), V-C1/V-C2 correction, step-10 decision, EXP-DB-02 pre-declaration. Items superseded in place are marked "~~…~~ → superseded by Amendment 1 / <id>"; nothing else in §0–§7 was changed |
 | Status | `PROPOSED-UNVERIFIED`. The list is derived from migration source at `origin/stable/2026.1` and the bridge refs (`origin/unmaintained/2023.1`, `origin/unmaintained/2024.1`, `origin/stable/2025.1`). Nothing was executed. |
 | Applies to | EXP-DB-01 (S2c), EXP-DB-02 (DB-level staircase, final checkpoint and the matching release checkpoints), EXP-DB-03 (S2a, final checkpoint), the idempotency re-run, EXP-RB-01 (inverse: Ussuri restore must equal T0 exactly) |
 | Companion | `experiments/fast-forward-checks.md` (pre-checks, config parity, named stop conditions) |
@@ -378,3 +378,42 @@ on, removed with their table (R-10) or column (V-Q5). H2 = H3 = H4 = H4r (125), 
 | `nova` | `block_device_mapping`: delete_on_termination (CONSTRAINT_1), no_device (CONSTRAINT_2); `cells`: is_parent (CONSTRAINT_1); `dns_domains`: deleted (CONSTRAINT_1); `fixed_ips`: allocated (CONSTRAINT_1), leased (CONSTRAINT_2), reserved (CONSTRAINT_3); `floating_ips`: auto_assigned (CONSTRAINT_1); `instance_types`: disabled (CONSTRAINT_1), is_public (CONSTRAINT_2); `instances`: auto_disk_config (CONSTRAINT_2), disable_terminate (CONSTRAINT_4), locked (CONSTRAINT_1), shutdown_terminate (CONSTRAINT_3); `networks`: injected (CONSTRAINT_1), multi_host (CONSTRAINT_2); `services`: disabled (CONSTRAINT_1) | 17 |
 | `nova_api` | `flavors`: disabled (CONSTRAINT_1), is_public (CONSTRAINT_2) | 2 |
 | `nova_cell0` | `block_device_mapping`: delete_on_termination (CONSTRAINT_1), no_device (CONSTRAINT_2); `cells`: is_parent (CONSTRAINT_1); `dns_domains`: deleted (CONSTRAINT_1); `fixed_ips`: allocated (CONSTRAINT_1), leased (CONSTRAINT_2), reserved (CONSTRAINT_3); `floating_ips`: auto_assigned (CONSTRAINT_1); `instance_types`: disabled (CONSTRAINT_1), is_public (CONSTRAINT_2); `instances`: auto_disk_config (CONSTRAINT_2), disable_terminate (CONSTRAINT_4), locked (CONSTRAINT_1), shutdown_terminate (CONSTRAINT_3); `networks`: injected (CONSTRAINT_1), multi_host (CONSTRAINT_2); `services`: disabled (CONSTRAINT_1) | 17 |
+
+## 9. Amendment 2 (2026-10-31): proposed, pending Red Team acceptance
+
+| Field | Value |
+|---|---|
+| Date | 2026-10-31 |
+| Author | Agent 4 (owner of this list) |
+| Status | **Proposed, pending Red Team acceptance.** Until accepted, a run that shows the item is `FAILED` under rule 0.2 |
+| Trigger | Dry run `d2` of the corrected harness (commit `2a830e4`, baseline v4): 12 UNDECLARED schema lines at every hop, `nova.shadow_migrate_version` and `nova_cell0.shadow_migrate_version` only in the migrated schema (`evidence/EXP-DB-01-dryruns/d2/H*/schema-nova*.txt`, re-check `d2/recheck-comparator-sha-714c13df/`). The pre-`2a830e4` harness hid them under S-1 with a substring filter (`40-checks.sh` at `7b8e51e`, line 44: `grep -q "migrate_version"`) |
+| Rule 0.1 note | This is not a new R0 item. The table also exists in the R0 empty-schema calibration, where the same filter hid it. Amendment 2 is a correction of an observation that the harness defect hid, and is dated as such |
+
+### 9.1 S-3.4: `shadow_migrate_version` (nova, nova_cell0)
+
+| Field | Value |
+|---|---|
+| Declaration | Table `shadow_migrate_version` (`repository_id varchar(250) NOT NULL` PK, `repository_path text`, `version int`) exists **only in the migrated** `nova` and `nova_cell0` schemas at H1, H1b, H2, H3, H4, H4r: exactly the 6 lines per database seen in `d2` (table, 3 columns, PRIMARY index, PRIMARY key). **Rows: 0 at T0 and 0 at every hop** (comparison B; any row = stop). Not in `nova_api` (the API DB has no shadow tables) |
+| Cause (cited) | Created on Ussuri by the legacy Havana squash: `nova@ussuri-eol:nova/db/sqlalchemy/migrate_repo/versions/216_havana.py:48-82` `_create_shadow_tables()` does `meta.reflect(migrate_engine)` and creates `shadow_<name>` for **every** table, with **no skip list**, and is called at line 1532, when sqlalchemy-migrate's `migrate_version` table already exists. Present in the Ussuri baseline (`backups-v2/latest/schema-only.sql`, both `nova` and `nova_cell0`; no INSERT rows in the dump). The 2023.1 reference has none: it is built by `8f2f1571d55b` (no `migrate_version` exists in a fresh Alembic build). |
+| Why it is never dropped | `1b91788ec3a6` (`nova@origin/stable/2026.1:nova/db/main/migrations/versions/1b91788ec3a6_drop_legacy_migrate_version_table.py`) drops only `migrate_version` when present. No Nova Alembic revision up to 2026.1 mentions `shadow_migrate_version` (grep of every file under `nova/db/main/migrations/versions/`). It is an orphan: the legacy-era analogue of A2's `shadow_alembic_version` on the reference side |
+| Can it hide a data defect? | No. It is an empty table that nothing reads or writes. Its row count is compared with T0 (0) at every hop, and its existence is pinned by exact name |
+| Effect on later migrations | None found through 2026.1 (no revision refers to it). A future revision that reflected all `shadow_*` tables and expected each to mirror a live table could trip on it. That is the same exposure as every pre-Yoga deployment, so it is the normal production state, not a lab state |
+| Effect on `archive_deleted_rows` / purge | `nova@origin/stable/2026.1:nova/db/main/api.py`: `archive_deleted_rows` iterates the reflected tables and **skips every `shadow_*` table** (line ~4544). The live `migrate_version` it would pair with is dropped at H2, so nothing archives into it. `purge_shadow_tables` / `_purgeable_tables` includes it. It has no `deleted_at`/`updated_at`/`created_at`, so with `--before` the tool reports "Unable to purge table shadow_migrate_version because it has no timestamp column" and skips it; without `--before` it runs `DELETE` on an empty table. Harmless. Add it to the A3 condition check (archive + `purge --before`) and record the message |
+| Hops | H1–H4r; permanent (Tier B will have it too: every deployment created before Wallaby's squash ran 216) |
+| Accepted by / date | *pending Red Team* |
+
+### 9.2 Review of the old harness filters (what else could have been hidden)
+
+Reviewed: `lab/ussuri-db-lab/ff/40-checks.sh` and `ff/tools/compare.py` at `7b8e51e` (used for R0, R1, R1b, R1o, R1c) vs `2a830e4` (v2).
+
+| Old filter (at `7b8e51e`) | What it could hide | Effect on past evidence | v2 status |
+|---|---|---|---|
+| `40-checks.sh:44` substring `migrate_version` → DECLARED(S-1), any database, any hop | (a) `shadow_migrate_version` (realised, §9.1); (b) a `migrate_version` that should have been dropped at H2 but persisted in nova/cinder | (b) did not happen: `bookkeeping.txt` of R0/R1c records the drop from H2 (C3), and the d2 counts confirm it | fixed: exact table name, hop-gated (`classify_schema`) |
+| `40-checks.sh:45` (`PROVISIONAL`) regex: any `CHECK … in (0,1)` only in migrated → R0-A1 | any **new** Boolean CHECK on any column | none known; the R0/R1 sets equal the 141/125 list | fixed: exact per-column list `a1-checks.json` (141). **Residual gap:** the 16 struck entries (§8.7) are not hop-gated, so if one persisted after H2 it would still be DECLARED. Fix: declare them only at H1/H1b |
+| `40-checks.sh:46` substring `shadow_alembic_version`, either direction | the inverse case (only in migrated) | none observed | fixed: requires "only in reference", nova/nova_cell0 |
+| `40-checks.sh:47` any message on `column shadow_quota_usages.resource` | a different change to that column | none observed | fixed: direction of nullability checked |
+| `compare.py` data (old): `cinder.quota_classes` rows missing vs T0 accepted silently; R-5 accepted for any Δ 0..2; R-8 any count; R-9/R-10 only `hop >= 2` | lost quota-class rows; R-5/R-8 mismatches | R1c: R-5 = +2 matched the targeted check; no quota_class rows missing in d2 | fixed: missing rows always UNDECLARED; R-5/R-8 compared to T0 predictions (RT-N-21) |
+| `compare.py` N-3 (old and v2): `updated_at` changes accepted on any number of rows of the listed tables | an unexpected write that touched only `updated_at` | caught by the idempotency check H4r = H4 only for writes at 2026.1, not earlier hops | **residual**: acceptable under N-3 as frozen; tighten later (require each N-3 row to also carry a declared change, or be an ODM target) |
+| `compare.py` R-15 (both): any new table with 0 rows declared | an unexpected empty table | none harmful | as frozen (§4 R-15) |
+
+No other substring-based classification exists in v2. The two residuals are recorded here and are proposed for the next comparator change.
