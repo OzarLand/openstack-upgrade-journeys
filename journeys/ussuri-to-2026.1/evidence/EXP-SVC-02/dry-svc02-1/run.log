@@ -25,3 +25,7 @@ port-of-new-server-binding	INFO	86dd283b-d2f3-4efe-b5f4-c8ae056e141b DOWN
 volume-attach-a-vol2-to-a-vm2 (command rc=1)	INFO	BadRequestException: 400: Client Error for url: http://ufj-cinder-api:8776/v3/a7cec7ef1552403fbb23fc861b3e16eb/volumes/detail?name=a-vol2, Invalid filters name are found in query options. 
 volume-attached	FAIL	a-vol2 status No Volume found for a-vol2; attachments: No Volume found for a-vol2
 volume-detached	FAIL	a-vol2 status No Volume found for a-vol2
+volume-snapshot-of-old-volume	FAIL	snapshot BadRequestException: 400: Client Error for url: http://ufj-cinder-api:8776/v3/a7cec7ef1552403fbb23fc861b3e16eb/volumes/detail?name=a-vol2, Invalid filters name are found in query options. status usage: openstack volume snapshot show [-h] [-f {json,shell,table,value,yaml}]
+server-image-create (nova snapshot) of a-vm3, command rc=0	INFO	+------------------+--------------------------------------------------------------------------------------------------------------------------------------------
+server-image-status	INFO	active (fake driver uploads no data)
+[18:32:26] 6. resize

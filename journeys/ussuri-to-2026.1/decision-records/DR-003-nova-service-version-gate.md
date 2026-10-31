@@ -90,3 +90,22 @@ abort without skipping any check.
 
 EXP-SVC-01 should add a state **(d)**: all Ussuri rows forced-down, flag **not** set → services start, `nova-status` 0,
 no RPC cap cached; then one host re-registered and cleared → cap 6.x.
+
+## Update after EXP-SVC-01 and Red Team Stage 5c (2026-10-31)
+
+The decision stands. Its grounds are re-weighted by lab evidence:
+
+- **The RPC cap is not the main danger.** With the cap at 5.11, create, stop, start, reboot, pause and unpause worked,
+  because Nova 2026.1 still keeps a 5.x compatibility proxy (`_ComputeV5Proxy`, target 5.13, in
+  `nova/compute/manager.py`). The Red Team's Stage 3 prediction is refuted for these operations, and the Red Team
+  withdrew it. Some operations would still fail at 5.11, for example the cross-cell resize RPCs ("Compute too old").
+  The proxy is marked for removal upstream.
+- **The decisive ground is that there is no repair path after the bridge.** The 2026.1 API returns HTTP 500
+  `ServiceTooOld` for `PUT /os-services` on version-51 rows, in both directions. Forced-down must therefore be set on
+  **every** fenced Ussuri compute through the **Ussuri** API before the pre-bridge backup. This is new pre-check PC-N5,
+  a hard gate.
+- **The start-up gate and `nova-status`** (FAILURE blocks Kolla-Ansible) behave as designed.
+- **State (d), the preferred mechanism, is `LAB-VALIDATED`** in EXP-SVC-01's scope: no flag, the services start,
+  `nova-status` passes, and the cap is 6.5 after re-adoption.
+- **Never use SQL on the `services` table** in any run that sets a status. The lab constructed states (a) and (b)
+  with SQL on a disposable clone; the record declares this.

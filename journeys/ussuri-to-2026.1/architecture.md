@@ -123,6 +123,17 @@ inventories to 2026.1 Placement, and 5.x RPC would land on 6.x servers.
 - MariaDB: let Kolla bootstrap an empty Galera cluster, then restore the per-service dumps before any service
   bootstraps.
 
+**Mandatory Kolla-Ansible steps** (EXP-KD-01, `LAB-VALIDATED` for the commands run by hand; Red Team Stage 5c,
+KD-M1 to KD-M5):
+
+- **KD-M1:** set `nova_cell_name` to the name of the stored cell (read it with `nova-manage cell_v2 list_cells`).
+- **KD-M2:** before deploying, run `nova-manage cell_v2 update_cell` to set the new transport and database URLs.
+- **KD-M3:** after deploying, the cell mappings must be exactly cell0 plus one named cell. A NULL-named row is a stop
+  condition.
+- **KD-M4:** `keystone_admin_password` must equal the existing admin password. The role, implied-role and endpoint
+  changes made by `keystone-manage bootstrap` are declared in advance.
+- **KD-M5:** a second `deploy` must change nothing in the databases.
+
 **The Nova gate is two gates** (Red Team RT-B-01; decision DR-003). The service-version check refuses start-up, and
 the compute RPC version cap is computed from the same minimum-version query and cached per process. The sequence is:
 
