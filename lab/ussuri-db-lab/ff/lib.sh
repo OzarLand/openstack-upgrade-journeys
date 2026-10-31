@@ -32,6 +32,7 @@ ff_db_start() { # ff_db_start <image>
 ff_oneshot() {
   local rel=$1 svc=$2; shift 2; local extra=(); while [ "$1" != "--" ]; do extra+=("$1"); shift; done; shift
   local img="ufj-ff-$rel:1"; [ "$rel" = ussuri ] && img="$PYIMG_TAG"
+  local km=(); [ "$svc" = keystone ] && [ -d "$CFG_FF/keys" ] && km=(-v "$CFG_FF/keys:/var/lib/ufj/keys:ro" -v "$CFG_FF/keys/fernet-keys:/etc/keystone/fernet-keys:ro" -v "$CFG_FF/keys/credential-keys:/etc/keystone/credential-keys:ro")   # Fernet repository of the baseline (RT-N-16)
   docker run --rm --network "$NET_FF" --label org.ozarland.ufj=1 -v "$CFG_FF/etc/$svc:/etc/$svc:ro" -v "$CFG_FF/override:/etc/ff:ro" \
-    -v "$FF_DIR:/ffsrc:ro" "${extra[@]}" "$img" "$@"
+    -v "$FF_DIR:/ffsrc:ro" "${km[@]}" "${extra[@]}" "$img" "$@"
 }

@@ -96,3 +96,25 @@ Restorability: confirmed. Coverage: confirmed for the items marked covered in `c
 ## Status
 
 `LAB-VALIDATED` (scope above) for restorability and covered items; `Not validated` for the gap items; baseline v1 fails PC-Q5 (corrected in v2). Steps not run: Tier B comparison.
+
+## Baseline derivations and v4 (added 2026-10-31 after the Red Team Stage 5 review; RT-N-18, RT-B-08, RT-B-10)
+
+| Baseline | Derived from | Operation (all through supported Ussuri tools) | Row-count differences vs its parent | Status |
+|---|---|---|---|---|
+| **v1** `backups/latest` | built by `populate` + `coverage.sh` | - | - | the preserved baseline; fails PC-Q5 and PC-C4 (see below) |
+| v2 `backups-v2/` | v1 | API: network `ufj-multiseg` deleted and re-created with a VLAN and a VXLAN segment (PC-Q5 remedy) | `neutron.segmenthostmappings` 9 -> 6 (`baseline-v2/rowcount-diff-vs-v1.txt`) | derived; used by R1b, R1o |
+| v3 `backups-v3/` | v2 | `cinder-manage db purge 0` | `cinder.reservations` **50 -> 0**, `cinder.volumes` 9 -> 8 (the only soft-deleted volume), `cinder.volume_attachment` 4 -> 3 (`baseline-v3/rowcount-diff-vs-v2.txt`). The record of R1c did not mention the 50 reservations. The checklist item "volumes in deleted state" (count 1 -> 0) was lost | **withdrawn as evidence for Cinder** (a purge is a data-retention decision with its own change record, not a procedure step; DR-004) |
+| **v4** `backups-v4/` | v1 | see below | `evidence/EXP-DB-00/v4/rowcount-diff-vs-v1.txt` | derived; the baseline for the strict re-run |
+
+### v4 (Baseline for the strict re-run of EXP-DB-01)
+
+Started from v1 (restored into the lab from `backups/latest`, read-only use). Through the Ussuri API, as an operator would, recorded in `evidence/EXP-DB-00/v4/remedy-evidence.txt`:
+
+1. **PC-Q5 remedy**: the network `ufj-multiseg` (two `vlan/physnet1` segments) deleted and re-created with one VLAN and one VXLAN segment (impact: a lab network with no ports; `neutron.segmenthostmappings` 9 -> 6). PC-Q5 duplicates after: 0. This is the "re-model the network" remedy of `fast-forward-checks.md` for **static** segments; the dynamic-segment variant (hierarchical binding) is not exercised.
+2. **PC-C4 remedy**: the ERROR volume `a-boot` (never scheduled, `host` NULL, `service_uuid` NULL) deleted with `openstack volume delete`. Non-deleted volumes with `service_uuid` NULL after: 0. (It is now one more soft-deleted volume.)
+3. **Soft-deleted rows for the Cinder defect (DR-004)**: the existing snapshot `a-vol2-snap` deleted; a new volume `a-vol-del2` created, snapshotted (`a-snap-del2`) and both deleted. Result: **soft-deleted volumes 3** (`a-vol-deleted` from v1, `a-boot`, `a-vol-del2`) and **soft-deleted snapshots 2**, all untouched by any purge. Their `use_quota` is NULL after the 2023.1 `db sync` adds the column (the column does not exist on Ussuri; the 2023.1 ODM leaves deleted rows NULL, H1b migrates them). `cinder.reservations` 50 -> 74 and `quota_usages` 13 -> 19 are side effects of the API operations.
+4. Ussuri ODMs run again (`odm-T0.txt`: nova, placement, cinder exit 0), then captured (final stage only, computes stopped and forced down as in v1; `MANIFEST.sha256` verified; OpenStack dump sha256 `a811631e...`).
+
+Coverage counts (`evidence/EXP-DB-00/v4/coverage-counts-T0.tsv`): volumes available 4, in-use 3, error 0, deleted 3; snapshots non-deleted 1, deleted 2; `migration_status error` 1 (a non-deleted available volume, unchanged from v1); everything else as in v1 except the rows named above. Gap items unchanged from v1 (temporary admin metadata, `target:%`, PCI NULL uuid, HA router, DHCP ports, deleted instance with missing node).
+
+Findings kept from v1 that remain open: the C9 `cinder-status` FAILURE of v1 came from the ERROR volume; with PC-C4 resolved it can pass on its merits (to be shown by the strict re-run). Whether Kolla-Ansible 2026.1 aborts on `cinder-status` rc 2 is still to be cited (RT-N-19).

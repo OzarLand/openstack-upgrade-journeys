@@ -11,8 +11,15 @@ UPG=mariadb-upgrade; docker exec "$DB_FF" which mariadb-upgrade >/dev/null 2>&1 
 docker exec -e MYSQL_PWD="$DB_ROOT" "$DB_FF" $UPG -uroot > "$OUT/mariadb-upgrade.txt" 2>&1; rc_up=$?
 CHK=mariadb-check; docker exec "$DB_FF" which mariadb-check >/dev/null 2>&1 || CHK=mysqlcheck
 docker exec -e MYSQL_PWD="$DB_ROOT" "$DB_FF" $CHK -uroot --all-databases --check-upgrade > "$OUT/mariadb-check.txt" 2>&1; rc_ck=$?
-docker logs "$DB_FF" > "$OUT/errorlog-after.txt" 2>&1
-bad=$(grep -ciE "\[ERROR\]|crash recovery|corrupt|InnoDB: Database was not shut down normally" "$OUT/errorlog-after.txt")
-notok=$(grep -vE "OK$|^$|Phase|Running|Checking|mysql\.|Upgrading|Looking|Setting|This installation|Upgrade process|Processing" "$OUT/mariadb-check.txt" | grep -ciE "error|corrupt|warning|Needs upgrade|NOT OK")
-{ echo "image=$IMG version=$(ff_sql 'select version()')"; echo "start_seconds=$((t1-t0)) upgrade+check_seconds=$(( $(date +%s)-t1 ))"; echo "mariadb-upgrade exit=$rc_up; check exit=$rc_ck; errorlog error-like lines=$bad; check non-OK lines=$notok"; } | tee "$OUT/result.txt"
-[ $rc_up -eq 0 ] && [ $rc_ck -eq 0 ] || { echo "SC-ENGINE" | tee -a "$OUT/result.txt"; exit 1; }
+docker logs "$DB_FF" > "$OUT/errorlog-after-upgrade.txt" 2>&1
+pre_err=$(grep -ciE "\[ERROR\]|crash recovery|corrupt|InnoDB: Database was not shut down normally" "$OUT/errorlog-after-upgrade.txt")
+ff_sql "SELECT @@GLOBAL.sql_mode" > "$OUT/sql-mode-global.txt"
+# SC-ENGINE (Amendment 1): after mariadb-upgrade a CLEAN RESTART (stop, start), then scan the log written since that restart
+ff_sql "SET GLOBAL innodb_fast_shutdown=0" >/dev/null
+docker stop -t 600 "$DB_FF" >/dev/null; rs=$(date -u +%Y-%m-%dT%H:%M:%S.%NZ)
+docker start "$DB_FF" >/dev/null
+for i in $(seq 1 120); do docker exec -e MYSQL_PWD="$DB_ROOT" "$DB_FF" sh -c 'exec "$(command -v mariadb || command -v mysql)" -uroot -e "select 1"' >/dev/null 2>&1 && break; sleep 2; done
+docker logs --since "$rs" "$DB_FF" > "$OUT/errorlog-after-restart.txt" 2>&1
+post_err=$(grep -cE "\[ERROR\]" "$OUT/errorlog-after-restart.txt")
+{ echo "image=$IMG version=$(ff_sql 'select version()')"; echo "start_seconds=$((t1-t0)) upgrade+check_seconds=$(( $(date +%s)-t1 ))"; echo "mariadb-upgrade exit=$rc_up; check exit=$rc_ck"; echo "[ERROR]-like lines at first start (before mariadb-upgrade, recorded, not SC-ENGINE by themselves): $pre_err"; echo "[ERROR] lines in the log written since the clean restart after mariadb-upgrade (SC-ENGINE if > 0): $post_err"; } | tee "$OUT/result.txt"
+[ $rc_up -eq 0 ] && [ $rc_ck -eq 0 ] && [ "$post_err" = 0 ] || { echo "SC-ENGINE" | tee -a "$OUT/result.txt"; exit 1; }

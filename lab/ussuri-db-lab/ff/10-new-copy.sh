@@ -7,6 +7,7 @@
 docker inspect "$DB_FF" >/dev/null 2>&1 && die "run $RUN already exists: destroy it first (ff/99-destroy-run.sh $RUN)"
 docker network create "$NET_FF" >/dev/null; docker volume create "$VOL_FF" >/dev/null
 rm -rf "$CFG_FF"; mkdir -p "$CFG_FF/override"; tar -C "$CFG_FF" -xzf "$BASE_BACKUP/config/rendered-etc.tar.gz"   # -> $CFG_FF/etc/<svc>/
+mkdir -p "$CFG_FF/etc/keystone/fernet-keys" "$CFG_FF/etc/keystone/credential-keys" "$CFG_FF/keys"; tar -C "$CFG_FF/keys" -xzf "$BASE_BACKUP/volumes/ufj-keystone-keys.tar.gz"   # read-only Fernet/credential key repository for keystone-status (RT-N-16)
 chmod -R a+rX "$CFG_FF"
 T0=$(date +%s)
 if [ "$MODE" = baseline ]; then

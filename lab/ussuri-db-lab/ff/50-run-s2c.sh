@@ -8,18 +8,22 @@
 LOG="$RUN_EV/run.log"; exec > >(tee -a "$LOG") 2>&1
 echo "== run $RUN mode=$MODE observe=$OBS started $(date -u +%FT%TZ)"; T00=$(date +%s)
 STOPPED=0
-stopcheck() { # stopcheck <rc> <label>
+stopcheck() { # stopcheck <rc> <label>   (rc 3 = HARD stop: PC-C1 gate; ends the run even in observe mode)
+  if [ "$1" -eq 3 ]; then echo "!! HARD STOP at $2 (PC-C1)"; echo "RESULT hard-stop $2" > "$RUN_EV/result.txt"; exit 3; fi
   if [ "$1" -ne 0 ]; then echo "!! STOP CONDITION at $2"; STOPPED=1; [ $OBS = 1 ] || { echo "== run $RUN ended at $2 (strict)"; echo "RESULT strict-stop $2" > "$RUN_EV/result.txt"; exit 1; }; fi; }
+if [ $OBS = 0 ]; then "$FF_DIR/00-version.sh" "$RUN" --strict || exit 1; else "$FF_DIR/00-version.sh" "$RUN" >/dev/null; fi
 [ -d "$CFG_FF" ] && docker inspect "$DB_FF" >/dev/null 2>&1 || "$FF_DIR/10-new-copy.sh" "$RUN" "$MODE" || exit 1
-"$FF_DIR/40-checks.sh" "$RUN" 2023.1 0 --t0
+# pre-checks first (PC-V3, PC-G1a, PC-O1 run Ussuri tools on the copy; T0 is taken AFTER them), then the T0 snapshot
 [ "$MODE" = baseline ] && { "$FF_DIR/12-prechecks.sh" "$RUN" >/dev/null; rc=$?; grep -E "^FAIL" "$RUN_EV/prechecks.txt"; stopcheck $rc "pre-checks"; }
-hop() { # hop <engine-image|-> <release> <n>
+"$FF_DIR/40-checks.sh" "$RUN" 2023.1 0 --t0
+hop() { # hop <engine-image|-> <release> <n> [check-release]
   if [ "$1" != - ]; then "$FF_DIR/20-engine.sh" "$RUN" "$1" || { echo "!! SC-ENGINE"; echo "RESULT engine-stop $1" > "$RUN_EV/result.txt"; exit 1; }; fi
   "$FF_DIR/30-hop.sh" "$RUN" "$2" "$3" || { echo "!! SC-CMD in hop $3"; echo "RESULT command-stop hop $3" > "$RUN_EV/result.txt"; exit 1; }
-  "$FF_DIR/40-checks.sh" "$RUN" "$2" "$3"; stopcheck $? "checks after hop $3"
+  "$FF_DIR/40-checks.sh" "$RUN" "${4:-$2}" "$3"; stopcheck $? "checks after hop $3"
 }
 for img in mariadb:10.5 mariadb:10.6; do "$FF_DIR/20-engine.sh" "$RUN" $img || { echo "RESULT engine-stop $img" > "$RUN_EV/result.txt"; exit 1; }; done
 hop - 2023.1 1
+[ "${H1B:-1}" != 0 ] && hop - 2023.2 1b 2023.1   # DR-004: Cinder-only step with cinder 23.5.0, then the PC-C1 gate
 hop mariadb:10.11 2024.1 2
 hop - 2025.1 3
 hop mariadb:11.4 2026.1 4

@@ -1,0 +1,28 @@
+2026-10-31 13:22:05+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:10.6.28+maria~ubu2204 started.
+2026-10-31 13:22:05+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+2026-10-31 13:22:05+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:10.6.28+maria~ubu2204 started.
+2026-10-31 13:22:05+00:00 [Note] [Entrypoint]: MariaDB upgrade (mariadb-upgrade or creating healthcheck users) required, but skipped due to $MARIADB_AUTO_UPGRADE setting
+2026-10-31 13:22:05 0 [Warning] Could not increase number of max_open_files to more than 20000 (request: 33035)
+2026-10-31 13:22:05 0 [Note] Starting MariaDB 10.6.28-MariaDB-ubu2204-log source revision 210ab6edf47fa73f3b77e974ed2e9357ccdd051c server_uid yXiTdNi43rsF8e+Io3iMuQb1EZo= as process 1
+2026-10-31 13:22:05 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2026-10-31 13:22:05 0 [Note] InnoDB: Using transactional memory
+2026-10-31 13:22:05 0 [Note] InnoDB: Number of pools: 1
+2026-10-31 13:22:05 0 [Note] InnoDB: Using AVX512 instructions
+2026-10-31 13:22:05 0 [Warning] mariadbd: io_uring_queue_init() failed with EPERM: sysctl kernel.io_uring_disabled has the value 2, or 1 and the user of the process is not a member of sysctl kernel.io_uring_group. (see man 2 io_uring_setup).
+2026-10-31 13:22:05 0 [Warning] InnoDB: liburing disabled: falling back to innodb_use_native_aio=OFF
+2026-10-31 13:22:05 0 [Note] InnoDB: Initializing buffer pool, total size = 536870912, chunk size = 134217728
+2026-10-31 13:22:05 0 [Note] InnoDB: Completed initialization of buffer pool
+2026-10-31 13:22:05 0 [Note] InnoDB: 128 rollback segments are active.
+2026-10-31 13:22:05 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2026-10-31 13:22:05 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2026-10-31 13:22:05 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+2026-10-31 13:22:05 0 [Note] InnoDB: 10.6.28 started; log sequence number 23708196; transaction id 28748
+2026-10-31 13:22:05 0 [Note] Plugin 'FEEDBACK' is disabled.
+2026-10-31 13:22:05 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+2026-10-31 13:22:05 0 [Note] Server socket created on IP: '0.0.0.0'.
+2026-10-31 13:22:05 0 [Warning] Failed to create a socket for IPv6 '::': errno: 97.
+2026-10-31 13:22:05 0 [ERROR] Incorrect definition of table mysql.event: expected column 'definer' at position 3 to have type varchar(, found type char(141).
+2026-10-31 13:22:05 0 [ERROR] mariadbd: Event Scheduler: An error occurred when initializing system tables. Disabling the Event Scheduler.
+2026-10-31 13:22:05 0 [Note] mariadbd: ready for connections.
+Version: '10.6.28-MariaDB-ubu2204-log'  socket: '/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution
+2026-10-31 13:22:05 0 [Note] InnoDB: Buffer pool(s) load completed at 261031 13:22:05

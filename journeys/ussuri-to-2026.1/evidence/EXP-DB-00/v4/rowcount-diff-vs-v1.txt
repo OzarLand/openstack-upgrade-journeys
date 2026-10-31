@@ -1,0 +1,18 @@
+21,22c21,22
+< cinder	quota_usages	13
+< cinder	reservations	50
+---
+> cinder	quota_usages	19
+> cinder	reservations	74
+24c24
+< cinder	snapshots	2
+---
+> cinder	snapshots	3
+27c27
+< cinder	volumes	9
+---
+> cinder	volumes	10
+261c261
+< neutron	segmenthostmappings	9
+---
+> neutron	segmenthostmappings	6

@@ -1,0 +1,158 @@
+== run d2 mode=baseline observe=1 started 2026-10-31T13:25:20Z
+[13:25:28] copy equals the baseline (dump sha256 a811631efec5267f361fcb1f2c6a19fe642ca3c3b559680df5a90b8fc38d4733)
+[13:25:28] run d2 (baseline) ready: db=ufj-ff-d2-db net=ufj-ff-d2-net volume=ufj-ff-d2-data
+snapshot /snap/T0: 542 tables
+T0 snapshot 3 s
+image=mariadb:10.5 version=10.5.29-MariaDB-ubu2004-log
+start_seconds=5 upgrade+check_seconds=5
+mariadb-upgrade exit=0; check exit=0
+[ERROR]-like lines at first start (before mariadb-upgrade, recorded, not SC-ENGINE by themselves): 0
+[ERROR] lines in the log written since the clean restart after mariadb-upgrade (SC-ENGINE if > 0): 0
+image=mariadb:10.6 version=10.6.28-MariaDB-ubu2204-log
+start_seconds=3 upgrade+check_seconds=5
+mariadb-upgrade exit=0; check exit=0
+[ERROR]-like lines at first start (before mariadb-upgrade, recorded, not SC-ENGINE by themselves): 2
+[ERROR] lines in the log written since the clean restart after mariadb-upgrade (SC-ENGINE if > 0): 0
+keystone-db_sync	0	2.3
+nova-api_db_sync	0	2.5
+nova-db_sync-cell0	0	2.6
+nova-db_sync-cell1	0	2.6
+cinder-db_sync	0	2.2
+cinder-odm-1	0	2.2
+nova-odm-1	0	2.8
+nova-odm-cell0-1	0	2.8
+glance-db_sync	0	1.7
+placement-db_sync	0	1.4
+neutron-upgrade	0	3.0
+placement-odm-1	0	1.4
+total_seconds 36
+[PC-C1] use_quota NULL (deleted included): volumes=3 snapshots=2; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[V-C1a/V-C2a] H1 left exactly the predicted soft-deleted rows NULL (non-deleted rows set): PASS
+references built with release 2023.1
+snapshot /snap/H1: 1112 tables
+[C4] schema vs reference: 201 declared (ids: A1/S-3.1 x141; A2/S-3.2 x8; A3/S-3.3 x2; A4/S-N.1 x2; S-1a x36; S-1c/S-1d x12; ), 0 UNDECLARED
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=24 undeclared=0
+[C2] bookkeeping rows differing from the reference (migrate_version expected for keystone/glance): keystone.migrate_version glance.migrate_version nova_api.migrate_version nova.migrate_version nova_cell0.migrate_version cinder.migrate_version 
+[C9] status tools: 0 FAILURE results, 0 tool errors (exit 1 without a result table) - see status-tools.txt
+[C10] checks seconds: 67; hop timings in steps.tsv
+RESULT H1: PASS
+cinder-db_sync	0	1.6
+cinder-odm-1	0	1.8
+total_seconds 4
+[PC-C1] use_quota NULL (deleted included): volumes=0 snapshots=0; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[PC-C1] GATE PASS (0 and 0)
+references built with release 2023.1
+snapshot /snap/H1b: 1111 tables
+[C4] schema vs reference (cinder only, reference built by cinder 23.5.0): 32 declared (ids: A1/S-3.1 x30; A4/S-N.1 x2; ), 0 UNDECLARED
+[C5/C6] cinder vs T0: SUMMARY declared=5 undeclared=0; other databases H1b vs H1: SUMMARY declared=0 undeclared=0
+[C9] status tools: 0 FAILURE results, 0 tool errors (exit 1 without a result table) - see status-tools.txt
+[C10] checks seconds: 13; hop timings in steps.tsv
+RESULT H1b: PASS
+image=mariadb:10.11 version=10.11.19-MariaDB-ubu2204-log
+start_seconds=4 upgrade+check_seconds=5
+mariadb-upgrade exit=0; check exit=0
+[ERROR]-like lines at first start (before mariadb-upgrade, recorded, not SC-ENGINE by themselves): 0
+[ERROR] lines in the log written since the clean restart after mariadb-upgrade (SC-ENGINE if > 0): 0
+keystone-db_sync	0	2.1
+nova-api_db_sync	0	2.7
+nova-db_sync-cell0	0	2.7
+nova-db_sync-cell1	0	2.4
+cinder-db_sync	0	2.0
+cinder-odm-1	0	1.8
+nova-odm-1	0	2.8
+nova-odm-cell0-1	0	2.5
+glance-db_sync	0	1.7
+placement-db_sync	0	1.5
+neutron-upgrade	0	3.3
+placement-odm-1	0	1.4
+total_seconds 36
+[PC-C1] use_quota NULL (deleted included): volumes=0 snapshots=0; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[PC-C1] GATE PASS (0 and 0)
+references built with release 2024.1
+snapshot /snap/H2: 1006 tables
+[C4] schema vs reference: 150 declared (ids: A1/S-3.1 x125; A2/S-3.2 x8; A3/S-3.3 x2; A4/S-N.1 x2; A7/S-2.1 x1; S-1c/S-1d x12; ), 12 UNDECLARED
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=99 undeclared=0
+[C2] bookkeeping rows differing from the reference (migrate_version expected for keystone/glance): keystone.migrate_version glance.migrate_version 
+[C9] status tools: 0 FAILURE results, 1 tool errors (exit 1 without a result table) - see status-tools.txt
+[C10] checks seconds: 102; hop timings in steps.tsv
+RESULT H2: STOP (undeclared difference or failed check)
+!! STOP CONDITION at checks after hop 2
+keystone-db_sync	0	2.5
+nova-api_db_sync	0	3.1
+nova-db_sync-cell0	0	3.0
+nova-db_sync-cell1	0	3.0
+cinder-db_sync	0	2.0
+cinder-odm-1	0	2.3
+nova-odm-1	0	3.0
+nova-odm-cell0-1	0	3.2
+glance-db_sync	0	1.8
+placement-db_sync	0	1.7
+neutron-upgrade	0	3.3
+placement-odm-1	0	1.6
+total_seconds 42
+[PC-C1] use_quota NULL (deleted included): volumes=0 snapshots=0; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[PC-C1] GATE PASS (0 and 0)
+references built with release 2025.1
+snapshot /snap/H3: 1008 tables
+[C4] schema vs reference: 149 declared (ids: A1/S-3.1 x125; A2/S-3.2 x8; A3/S-3.3 x2; A4/S-N.1 x2; S-1c/S-1d x12; ), 12 UNDECLARED
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=101 undeclared=0
+[C2] bookkeeping rows differing from the reference (migrate_version expected for keystone/glance): keystone.migrate_version glance.migrate_version 
+[C9] status tools: 0 FAILURE results, 1 tool errors (exit 1 without a result table) - see status-tools.txt
+[C10] checks seconds: 79; hop timings in steps.tsv
+RESULT H3: STOP (undeclared difference or failed check)
+!! STOP CONDITION at checks after hop 3
+image=mariadb:11.4 version=11.4.13-MariaDB-ubu2404-log
+start_seconds=3 upgrade+check_seconds=6
+mariadb-upgrade exit=0; check exit=0
+[ERROR]-like lines at first start (before mariadb-upgrade, recorded, not SC-ENGINE by themselves): 0
+[ERROR] lines in the log written since the clean restart after mariadb-upgrade (SC-ENGINE if > 0): 0
+keystone-db_sync	0	2.9
+nova-api_db_sync	0	3.0
+nova-db_sync-cell0	0	3.0
+nova-db_sync-cell1	0	3.0
+cinder-db_sync	0	2.1
+cinder-odm-1	0	2.2
+nova-odm-1	0	3.2
+nova-odm-cell0-1	0	4.0
+glance-db_sync	0	1.9
+placement-db_sync	0	1.8
+neutron-upgrade	0	3.4
+placement-odm-1	0	1.7
+total_seconds 44
+[PC-C1] use_quota NULL (deleted included): volumes=0 snapshots=0; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[PC-C1] GATE PASS (0 and 0)
+references built with release 2026.1
+snapshot /snap/H4: 1008 tables
+[C4] schema vs reference: 149 declared (ids: A1/S-3.1 x125; A2/S-3.2 x8; A3/S-3.3 x2; A4/S-N.1 x2; S-1c/S-1d x12; ), 12 UNDECLARED
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=102 undeclared=0
+[C2] bookkeeping rows differing from the reference (migrate_version expected for keystone/glance): keystone.migrate_version glance.migrate_version 
+[C9] status tools: 0 FAILURE results, 1 tool errors (exit 1 without a result table) - see status-tools.txt
+[C10] checks seconds: 83; hop timings in steps.tsv
+RESULT H4: STOP (undeclared difference or failed check)
+!! STOP CONDITION at checks after hop 4
+keystone-db_sync	0	2.2
+nova-api_db_sync	0	2.9
+nova-db_sync-cell0	0	2.8
+nova-db_sync-cell1	0	2.9
+cinder-db_sync	0	2.1
+cinder-odm-1	0	2.1
+nova-odm-1	0	3.6
+nova-odm-cell0-1	0	3.6
+glance-db_sync	0	2.0
+placement-db_sync	0	1.9
+neutron-upgrade	0	3.1
+placement-odm-1	0	1.9
+total_seconds 42
+[PC-C1] use_quota NULL (deleted included): volumes=0 snapshots=0; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[PC-C1] GATE PASS (0 and 0)
+references built with release 2026.1
+snapshot /snap/H4r: 1008 tables
+[C4] schema vs reference: 149 declared (ids: A1/S-3.1 x125; A2/S-3.2 x8; A3/S-3.3 x2; A4/S-N.1 x2; S-1c/S-1d x12; ), 12 UNDECLARED
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=102 undeclared=0
+[IDEM] H4r vs H4 (no exclusions): SUMMARY declared=0 undeclared=0
+[C2] bookkeeping rows differing from the reference (migrate_version expected for keystone/glance): keystone.migrate_version glance.migrate_version 
+[C9] status tools: 0 FAILURE results, 1 tool errors (exit 1 without a result table) - see status-tools.txt
+[C10] checks seconds: 84; hop timings in steps.tsv
+RESULT H4r: STOP (undeclared difference or failed check)
+!! STOP CONDITION at checks after hop 5
+== run d2 finished 2026-10-31T13:37:09Z total 709 s, stop conditions hit: 1

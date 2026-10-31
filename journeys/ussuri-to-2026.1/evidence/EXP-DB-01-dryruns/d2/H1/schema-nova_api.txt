@@ -1,0 +1,9 @@
+DECLARED	S-1a	structural	table only in migrated: migrate_version
+DECLARED	S-1a	structural	column only in migrated: migrate_version.repository_id ['varchar(250)', 'NO', '', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED	S-1a	structural	column only in migrated: migrate_version.repository_path ['text', 'YES', 'NULL', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED	S-1a	structural	column only in migrated: migrate_version.version ['int(11)', 'YES', 'NULL', '', '', '']
+DECLARED	S-1a	structural	index only in migrated: migrate_version (('repository_id', ''),) (name PRIMARY)
+DECLARED	S-1a	structural	key/constraint only in migrated: migrate_version (('repository_id',), '', ('',), '', '') (name PRIMARY)
+DECLARED	A1/S-3.1	structural	CHECK only in migrated: flavors `disabled` in (0,1) (name CONSTRAINT_1)
+DECLARED	A1/S-3.1	structural	CHECK only in migrated: flavors `is_public` in (0,1) (name CONSTRAINT_2)
+SUMMARY declared=8 undeclared=0

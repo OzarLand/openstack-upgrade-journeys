@@ -1,0 +1,9 @@
+Running batches of 50 until complete.
+7 rows matched query volume_use_quota_online_data_migration, 7 migrated
+1 rows matched query snapshot_use_quota_online_data_migration, 1 migrated
++------------------------------------------+----------------+-------------+
+| Migration                                |   Total Needed |   Completed |
+|------------------------------------------+----------------+-------------|
+| snapshot_use_quota_online_data_migration |              1 |           1 |
+| volume_use_quota_online_data_migration   |              7 |           7 |
++------------------------------------------+----------------+-------------+

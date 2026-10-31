@@ -1,0 +1,162 @@
+== neutron-status upgrade check (2024.1)
+|   database.                                                           |
++-----------------------------------------------------------------------+
+| Check: NetworkSegments unique constraint check                        |
+| Result: Success                                                       |
+| Details: No networksegments sharing the same network_id, network_type |
+|   and physical_network found.                                         |
++-----------------------------------------------------------------------+
+| Check: Port Binding profile sanity check                              |
+| Result: Success                                                       |
+| Details: All ml2_port_bindings.profile rows are correctly formatted   |
+|   in the database.                                                    |
++-----------------------------------------------------------------------+
+| Check: Floating IP inherits the QoS policy from the external network  |
+| Result: Success                                                       |
+| Details: There are no external networks with QoS policies associated  |
+|   and floating IPs without.                                           |
++-----------------------------------------------------------------------+
+| Check: Port extra DHCP options check                                  |
+| Result: Success                                                       |
+| Details: There are no extra_dhcp_opts with the newline character in   |
+|   the option name or option value.                                    |
++-----------------------------------------------------------------------+
+| Check: Duplicated HA network per project check                        |
+| Result: Success                                                       |
+| Details: There are no extra_dhcp_opts with the newline character in   |
+|   the option name or option value.                                    |
++-----------------------------------------------------------------------+
+| Check: OVN support for BM provisioning over IPv6 check                |
+| Result: Warning                                                       |
+| Details: Failed to connect to OVN. Error: Could not retrieve schema   |
+|   from tcp:127.0.0.1:6641                                             |
++-----------------------------------------------------------------------+
+| Check: ML2/OVS IGMP Flood check                                       |
+| Result: Success                                                       |
+| Details: IGMP related traffic configuration is not affected.          |
++-----------------------------------------------------------------------+
+| Check: Floating IP Port forwarding and OVN L3 plugin configuration    |
+| Result: Success                                                       |
+| Details: No OVN L3 plugin enabled.                                    |
++-----------------------------------------------------------------------+
+exit=1
+== cinder-status upgrade check (2024.1)
++-----------------------------------+
+| Upgrade Check Results             |
++-----------------------------------+
+| Check: Backup Driver Path         |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Use of Policy File         |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Windows Driver Path        |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Removed Drivers            |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Periodic Interval Use      |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Service UUIDs              |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Attachment specs           |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Use of Nested Quota Driver |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+exit=0
+== keystone-status upgrade check (2024.1)
+  warnings.warn(deprecated_msg)
+/opt/ff/lib/python3.11/site-packages/oslo_policy/policy.py:814: UserWarning: Policy "identity:list_service_providers":"rule:admin_required" was deprecated in S in favor of "identity:list_service_providers":"rule:admin_required or (role:reader and system_scope:all)". Reason: The service provider API is now aware of system scope and default roles.. Either ensure your deployment is ready for the new default or copy/paste the deprecated policy into your policy file and maintain it manually.
+  warnings.warn(deprecated_msg)
+/opt/ff/lib/python3.11/site-packages/oslo_policy/policy.py:814: UserWarning: Policy "identity:get_service_provider":"rule:admin_required" was deprecated in S in favor of "identity:get_service_provider":"rule:admin_required or (role:reader and system_scope:all)". Reason: The service provider API is now aware of system scope and default roles.. Either ensure your deployment is ready for the new default or copy/paste the deprecated policy into your policy file and maintain it manually.
+  warnings.warn(deprecated_msg)
+/opt/ff/lib/python3.11/site-packages/oslo_policy/policy.py:814: UserWarning: Policy "identity:check_token":"rule:admin_or_token_subject" was deprecated in T in favor of "identity:check_token":"(role:reader and system_scope:all) or rule:token_subject". Reason: The token API is now aware of system scope and default roles.. Either ensure your deployment is ready for the new default or copy/paste the deprecated policy into your policy file and maintain it manually.
+  warnings.warn(deprecated_msg)
+/opt/ff/lib/python3.11/site-packages/oslo_policy/policy.py:814: UserWarning: Policy "identity:validate_token":"rule:service_admin_or_token_subject" was deprecated in T in favor of "identity:validate_token":"(role:reader and system_scope:all) or rule:service_role or rule:token_subject". Reason: The token API is now aware of system scope and default roles.. Either ensure your deployment is ready for the new default or copy/paste the deprecated policy into your policy file and maintain it manually.
+  warnings.warn(deprecated_msg)
+/opt/ff/lib/python3.11/site-packages/oslo_policy/policy.py:814: UserWarning: Policy "identity:revoke_token":"rule:admin_or_token_subject" was deprecated in T in favor of "identity:revoke_token":"(role:admin and system_scope:all) or rule:token_subject". Reason: The token API is now aware of system scope and default roles.. Either ensure your deployment is ready for the new default or copy/paste the deprecated policy into your policy file and maintain it manually.
+  warnings.warn(deprecated_msg)
+/opt/ff/lib/python3.11/site-packages/oslo_policy/policy.py:814: UserWarning: Policy "identity:list_trusts":"rule:admin_required" was deprecated in T in favor of "identity:list_trusts":"rule:admin_required or (role:reader and system_scope:all)". Reason: The trust API is now aware of system scope and default roles.. Either ensure your deployment is ready for the new default or copy/paste the deprecated policy into your policy file and maintain it manually.
+  warnings.warn(deprecated_msg)
+/opt/ff/lib/python3.11/site-packages/oslo_policy/policy.py:814: UserWarning: Policy "identity:list_roles_for_trust":"user_id:%(target.trust.trustor_user_id)s or user_id:%(target.trust.trustee_user_id)s" was deprecated in T in favor of "identity:list_roles_for_trust":"(rule:admin_required) or (role:reader and system_scope:all or user_id:%(target.trust.trustor_user_id)s or user_id:%(target.trust.trustee_user_id)s)". Reason: The trust API is now aware of system scope and default roles.. Either ensure your deployment is ready for the new default or copy/paste the deprecated policy into your policy file and maintain it manually.
+  warnings.warn(deprecated_msg)
+/opt/ff/lib/python3.11/site-packages/oslo_policy/policy.py:814: UserWarning: Policy "identity:get_role_for_trust":"user_id:%(target.trust.trustor_user_id)s or user_id:%(target.trust.trustee_user_id)s" was deprecated in T in favor of "identity:get_role_for_trust":"(rule:admin_required) or (role:reader and system_scope:all or user_id:%(target.trust.trustor_user_id)s or user_id:%(target.trust.trustee_user_id)s)". Reason: The trust API is now aware of system scope and default roles.. Either ensure your deployment is ready for the new default or copy/paste the deprecated policy into your policy file and maintain it manually.
+  warnings.warn(deprecated_msg)
+/opt/ff/lib/python3.11/site-packages/oslo_policy/policy.py:814: UserWarning: Policy "identity:delete_trust":"user_id:%(target.trust.trustor_user_id)s" was deprecated in T in favor of "identity:delete_trust":"rule:admin_required or user_id:%(target.trust.trustor_user_id)s". Reason: The trust API is now aware of system scope and default roles.. Either ensure your deployment is ready for the new default or copy/paste the deprecated policy into your policy file and maintain it manually.
+  warnings.warn(deprecated_msg)
+/opt/ff/lib/python3.11/site-packages/oslo_policy/policy.py:814: UserWarning: Policy "identity:get_trust":"user_id:%(target.trust.trustor_user_id)s or user_id:%(target.trust.trustee_user_id)s" was deprecated in T in favor of "identity:get_trust":"(rule:admin_required) or (role:reader and system_scope:all or user_id:%(target.trust.trustor_user_id)s or user_id:%(target.trust.trustee_user_id)s)". Reason: The trust API is now aware of system scope and default roles.. Either ensure your deployment is ready for the new default or copy/paste the deprecated policy into your policy file and maintain it manually.
+  warnings.warn(deprecated_msg)
+/opt/ff/lib/python3.11/site-packages/oslo_policy/policy.py:814: UserWarning: Policy "identity:get_user":"rule:admin_or_owner" was deprecated in S in favor of "identity:get_user":"(rule:admin_required) or (role:reader and system_scope:all) or (role:reader and token.domain.id:%(target.user.domain_id)s) or user_id:%(target.user.id)s". Reason: The user API is now aware of system scope and default roles.. Either ensure your deployment is ready for the new default or copy/paste the deprecated policy into your policy file and maintain it manually.
+  warnings.warn(deprecated_msg)
+/opt/ff/lib/python3.11/site-packages/oslo_policy/policy.py:814: UserWarning: Policy "identity:list_users":"rule:admin_required" was deprecated in S in favor of "identity:list_users":"(rule:admin_required) or (role:reader and system_scope:all) or (role:reader and domain_id:%(target.domain_id)s)". Reason: The user API is now aware of system scope and default roles.. Either ensure your deployment is ready for the new default or copy/paste the deprecated policy into your policy file and maintain it manually.
+  warnings.warn(deprecated_msg)
++-------------------------------------------+
+| Upgrade Check Results                     |
++-------------------------------------------+
+| Check: Check trust policies are not empty |
+| Result: Success                           |
+| Details: Trust policies are safe.         |
++-------------------------------------------+
+| Check: Check default roles are immutable  |
+| Result: Success                           |
+| Details: Default roles are immutable.     |
++-------------------------------------------+
+| Check: Policy File JSON to YAML Migration |
+| Result: Success                           |
+| Details: None                             |
++-------------------------------------------+
+exit=0
+== glance-status upgrade check (2024.1)
+This option is deprecated against new config option
+``enabled_backends`` which helps to configure multiple backend stores
+of different schemes.
+
+This option is scheduled for removal in the U development
+cycle.
+).  Its value may be silently ignored in the future.
++----------------------------------------------+
+| Upgrade Check Results                        |
++----------------------------------------------+
+| Check: Sheepdog Driver Removal               |
+| Result: Success                              |
+| Details: None                                |
++----------------------------------------------+
+| Check: Policy File JSON to YAML Migration    |
+| Result: Success                              |
+| Details: None                                |
++----------------------------------------------+
+| Check: Config option owner_is_tenant removal |
+| Result: Success                              |
+| Details: None                                |
++----------------------------------------------+
+exit=0
+== placement-status upgrade check (2024.1)
++-------------------------------------------+
+| Upgrade Check Results                     |
++-------------------------------------------+
+| Check: Missing Root Provider IDs          |
+| Result: Success                           |
+| Details: None                             |
++-------------------------------------------+
+| Check: Incomplete Consumers               |
+| Result: Success                           |
+| Details: None                             |
++-------------------------------------------+
+| Check: Policy File JSON to YAML Migration |
+| Result: Success                           |
+| Details: None                             |
++-------------------------------------------+
+exit=0

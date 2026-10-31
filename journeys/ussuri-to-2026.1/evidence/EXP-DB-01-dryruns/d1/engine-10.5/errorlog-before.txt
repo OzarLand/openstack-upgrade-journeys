@@ -1,0 +1,52 @@
+2026-10-31 13:21:19+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:10.3.39+maria~ubu2004 started.
+2026-10-31 13:21:19+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+2026-10-31 13:21:19+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:10.3.39+maria~ubu2004 started.
+2026-10-31 13:21:19+00:00 [Note] [Entrypoint]: MariaDB upgrade not required
+2026-10-31 13:21:19 0 [Note] Starting MariaDB 10.3.39-MariaDB-1:10.3.39+maria~ubu2004-log source revision ca001cf2048f0152689e1895e2dc15486dd0b1af as process 1
+2026-10-31 13:21:19 0 [Note] InnoDB: Using Linux native AIO
+2026-10-31 13:21:19 0 [Note] InnoDB: Mutexes and rw_locks use GCC atomic builtins
+2026-10-31 13:21:19 0 [Note] InnoDB: Uses event mutexes
+2026-10-31 13:21:19 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2026-10-31 13:21:19 0 [Note] InnoDB: Number of pools: 1
+2026-10-31 13:21:19 0 [Note] InnoDB: Using SSE2 crc32 instructions
+2026-10-31 13:21:19 0 [Note] InnoDB: Initializing buffer pool, total size = 512M, instances = 1, chunk size = 128M
+2026-10-31 13:21:19 0 [Note] InnoDB: Completed initialization of buffer pool
+2026-10-31 13:21:19 0 [Note] InnoDB: If the mysqld execution user is authorized, page cleaner thread priority can be changed. See the man page of setpriority().
+2026-10-31 13:21:19 0 [Note] InnoDB: 128 out of 128 rollback segments are active.
+2026-10-31 13:21:19 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2026-10-31 13:21:19 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2026-10-31 13:21:19 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+2026-10-31 13:21:19 0 [Note] InnoDB: Waiting for purge to start
+2026-10-31 13:21:19 0 [Note] InnoDB: 10.3.39 started; log sequence number 23708068; transaction id 28748
+2026-10-31 13:21:19 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+2026-10-31 13:21:19 0 [Note] Plugin 'FEEDBACK' is disabled.
+2026-10-31 13:21:19 0 [Warning] Failed to create a socket for IPv6 '::': errno: 97.
+2026-10-31 13:21:19 0 [Note] Server socket created on IP: '0.0.0.0'.
+2026-10-31 13:21:19 0 [Note] Reading of all Master_info entries succeeded
+2026-10-31 13:21:19 0 [Note] Added new Master_info '' to hash table
+2026-10-31 13:21:19 0 [Note] mysqld: ready for connections.
+Version: '10.3.39-MariaDB-1:10.3.39+maria~ubu2004-log'  socket: '/var/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution
+2026-10-31 13:21:20 0 [Note] InnoDB: Buffer pool(s) load completed at 261031 13:21:20
+2026-10-31 13:21:25 13 [Warning] Aborted connection 13 to db: 'glance' user: 'glance' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 13:21:27 17 [Warning] Aborted connection 17 to db: 'nova' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 13:21:27 14 [Warning] Aborted connection 14 to db: 'nova' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 13:21:27 16 [Warning] Aborted connection 16 to db: 'nova_cell0' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 13:21:27 15 [Warning] Aborted connection 15 to db: 'nova_api' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 13:21:30 21 [Warning] Aborted connection 21 to db: 'nova' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 13:21:30 18 [Warning] Aborted connection 18 to db: 'nova_cell0' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 13:21:30 20 [Warning] Aborted connection 20 to db: 'nova_cell0' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 13:21:30 19 [Warning] Aborted connection 19 to db: 'nova_api' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 13:21:32 22 [Warning] Aborted connection 22 to db: 'placement' user: 'placement' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 13:21:35 24 [Warning] Aborted connection 24 to db: 'cinder' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 13:21:35 23 [Warning] Aborted connection 23 to db: 'cinder' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 13:21:55 191 [Warning] Aborted connection 191 to db: 'unconnected' user: 'root' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 13:21:55 0 [Note] mysqld (initiated by: unknown): Normal shutdown
+2026-10-31 13:21:55 0 [Note] Event Scheduler: Purging the queue. 0 events
+2026-10-31 13:21:55 0 [Note] InnoDB: FTS optimize thread exiting.
+2026-10-31 13:21:55 0 [Note] InnoDB: Starting shutdown...
+2026-10-31 13:21:55 0 [Note] InnoDB: Dumping buffer pool(s) to /var/lib/mysql/ib_buffer_pool
+2026-10-31 13:21:55 0 [Note] InnoDB: Buffer pool(s) dump completed at 261031 13:21:55
+2026-10-31 13:21:56 0 [Note] InnoDB: Removed temporary tablespace data file: "ibtmp1"
+2026-10-31 13:21:56 0 [Note] InnoDB: Shutdown completed; log sequence number 23708077; transaction id 33993
+2026-10-31 13:21:56 0 [Note] mysqld: Shutdown complete
+

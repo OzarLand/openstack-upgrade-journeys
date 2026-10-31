@@ -90,3 +90,9 @@ Confirmed: a direct jump fails for Nova, Keystone and Cinder. The failure is an 
 ## Status
 
 `FAILED` (expected, negative): hypothesis confirmed. Not run: Glance, Placement, Neutron.
+
+## Corrections after the Red Team Stage 5 review (RT-N-20)
+
+* "Refuses" is the wrong verb: 2026.1 `db sync` has no legacy-detection branch; it reads `alembic_version` (absent), treats the schema as fresh and runs the initial revision.
+* The clean outcome (no partial schema) depended on the **first statement failing** (`CREATE TABLE cell_mappings` / `instances` / `application_credential` / `services` already existed). A future initial revision that began with a table absent at Ussuri would have left partially created tables, with no clean way back except a restore. This was luck of table order, not a safeguard.
+* The empty `alembic_version` left behind is now a pre-check, **PC-V3** (`fast-forward-checks.md` Amendment 1), implemented in `ff/12-prechecks.sh`.

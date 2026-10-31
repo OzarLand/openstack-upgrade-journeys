@@ -1,0 +1,16 @@
+Modules with known eventlet monkey patching issues were imported prior to eventlet monkey patching: urllib3. This warning can usually be ignored if the caller is only importing and not executing nova code.
+Running batches of 50 until complete
++-------------------------------------+--------------+-----------+
+|              Migration              | Total Needed | Completed |
++-------------------------------------+--------------+-----------+
+|     fill_virtual_interface_list     |      0       |     0     |
+|         migrate_empty_ratio         |      0       |     0     |
+|   migrate_quota_classes_to_api_db   |      0       |     0     |
+|    migrate_quota_limits_to_api_db   |      0       |     0     |
+|      migration_migrate_to_uuid      |      0       |     0     |
+|          populate_dev_uuids         |      0       |     0     |
+| populate_missing_availability_zones |      0       |     0     |
+|      populate_queued_for_delete     |      0       |     0     |
+|           populate_user_id          |      0       |     0     |
+|            populate_uuids           |      0       |     0     |
++-------------------------------------+--------------+-----------+

@@ -135,7 +135,10 @@ answers 429). Everything runs on **restored copies** (never on `backups/`); all 
 | `ff/20-engine.sh <run> mariadb:<ver>` | engine step: clean shutdown, new image on the datadir, `mariadb-upgrade`, `mariadb-check` |
 | `ff/30-hop.sh <run> <rel> <n>` | the db syncs and ODMs of one hop (order of assessments/04 section 3) |
 | `ff/40-checks.sh <run> <rel> <n>` | references `<db>_ref`, snapshots, comparisons A/B, versions, status tools |
-| `ff/50-run-s2c.sh <run> baseline|empty [--observe]` | whole S2c run (strict by default) |
+| `ff/50-run-s2c.sh <run> baseline|empty [--observe]` | whole S2c run (strict by default: refuses to start on an uncommitted harness, `ff/00-version.sh`); hops H1, H1b (cinder 23.5.0, DR-004), H2, H3, H4, H4r; `H1B=0` skips H1b (dry-run proof of the PC-C1 gate) |
+| `ff/00-version.sh <run> [--strict]` | harness commit, dirty flag, sha256 of every harness file and image id, into `<run>/harness.txt` |
+| `ff/30-hop.sh` | per command: PC-E1 session `sql_mode` (`tools/session_sqlmode.py`), Nova ODM per cell |
+| `ff/tools/compare.py` | comparator v2 = Amendment 1 of declared-differences.md section 8 (frozen artefact) |
 | `ff/52-run-n1.sh` | EXP-DB-N1 (2026.1 code against the Ussuri database) |
 | `ff/41-parity.sh`, `ff/46-targeted.sh`, `ff/47-engine-sqlmode.sh` | config parity, targeted value checks, sql_mode per engine |
 

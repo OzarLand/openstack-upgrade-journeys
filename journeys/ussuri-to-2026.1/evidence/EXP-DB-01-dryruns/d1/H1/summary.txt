@@ -1,0 +1,8 @@
+[PC-C1] use_quota NULL (deleted included): volumes=3 snapshots=2; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[PC-C1] GATE FAIL: STOP (SC-PC-C1, hard). Never fix by SQL, never purge.
+[C4] schema vs reference: 201 declared (ids: A1/S-3.1 x141; A2/S-3.2 x8; A3/S-3.3 x2; A4/S-N.1 x2; S-1a x36; S-1c/S-1d x12; ), 0 UNDECLARED
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=22 undeclared=2
+[C2] bookkeeping rows differing from the reference (migrate_version expected for keystone/glance): keystone.migrate_version glance.migrate_version nova_api.migrate_version nova.migrate_version nova_cell0.migrate_version cinder.migrate_version 
+[C9] status tools: 0 FAILURE results, 1 tool errors (exit 1 without a result table) - see status-tools.txt
+[C10] checks seconds: 77; hop timings in steps.tsv
+RESULT H1: HARD STOP (PC-C1)

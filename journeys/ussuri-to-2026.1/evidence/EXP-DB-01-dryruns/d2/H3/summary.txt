@@ -1,0 +1,8 @@
+[PC-C1] use_quota NULL (deleted included): volumes=0 snapshots=0; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[PC-C1] GATE PASS (0 and 0)
+[C4] schema vs reference: 149 declared (ids: A1/S-3.1 x125; A2/S-3.2 x8; A3/S-3.3 x2; A4/S-N.1 x2; S-1c/S-1d x12; ), 12 UNDECLARED
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=101 undeclared=0
+[C2] bookkeeping rows differing from the reference (migrate_version expected for keystone/glance): keystone.migrate_version glance.migrate_version 
+[C9] status tools: 0 FAILURE results, 1 tool errors (exit 1 without a result table) - see status-tools.txt
+[C10] checks seconds: 79; hop timings in steps.tsv
+RESULT H3: STOP (undeclared difference or failed check)
