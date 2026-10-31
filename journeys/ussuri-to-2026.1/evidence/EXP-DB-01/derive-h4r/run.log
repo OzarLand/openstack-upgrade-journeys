@@ -100,3 +100,5 @@ placement-odm-1	0	1.7
 total_seconds 41
 [PC-C1] use_quota NULL (deleted included): volumes=0 snapshots=0; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
 [PC-C1] GATE PASS (0 and 0)
+references built with release 2025.1
+snapshot /snap/H3: 1008 tables
