@@ -33,11 +33,11 @@ procedure is never presented as supported.
 
 ```mermaid
 flowchart LR
-    s1["Stage 1<br/>Investigate<br/>(sources, matrix, plans)"] --> s2["Stage 2<br/>Experiment in a lab<br/>(not started)"] --> s3["Stage 3<br/>Write runbooks from<br/>validated results<br/>(not started)"] --> s4["Stage 4<br/>Operators confirm<br/>on real platforms<br/>(not started)"]
+    s1["Stage 1<br/>Investigate<br/>(sources, matrix, plans)<br/>done"] --> s2["Stage 2<br/>Experiment in a lab<br/>(container lab done;<br/>Kolla lab and Tier B pending)"] --> s3["Stage 3<br/>Write runbooks from<br/>validated results<br/>(first draft, unverified steps marked)"] --> s4["Stage 4<br/>Operators confirm<br/>on real platforms<br/>(not started)"]
     classDef now fill:#fef3c7,stroke:#d97706,color:#78350f
     classDef todo fill:#f3f4f6,stroke:#9ca3af,color:#111827
-    class s1 now
-    class s2,s3,s4 todo
+    class s2,s3 now
+    class s1,s4 todo
 ```
 
 The stage names are a working outline for orientation; the architect owns the plan.
@@ -83,13 +83,14 @@ agent can make anything `PRODUCTION-VALIDATED`.
 | 2 | Release Compatibility Expert | Opus |
 | 3 | Kolla-Ansible Specialist | Opus |
 | 4 | Database and Messaging Specialist | Opus |
-| 5 | Laboratory and Automation Engineer | Sonnet |
+| 5 | Laboratory and Automation Engineer | Sonnet (Agent 5, Stages 4–5c); Fable (Agent 5b, from EXP-SVC-02) |
 | 6 | Operations and Reliability Expert | Sonnet |
 | 7 | Independent Red Team Reviewer | Fable |
-| 8 | Documentation and Community Engineer | Sonnet |
+| 8 | Documentation and Community Engineer | Sonnet (Stage 1); Fable (Agent 8b, session-1 closure) |
 | — | Inventory assistant | Haiku |
 
-Rationale and limits of this allocation: [DR-000](decision-records/DR-000-agent-team-and-model-allocation.md).
+Rationale and limits of this allocation, including the reduced Red Team independence once the lab and the Red Team
+shared a model: [DR-000](decision-records/DR-000-agent-team-and-model-allocation.md).
 
 ## Environment limits of this mission
 

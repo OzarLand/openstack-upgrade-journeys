@@ -63,16 +63,23 @@ Work started on 2026-10-31. What is known so far:
 | A single direct jump from Ussuri to 2026.1 is **impossible**: 2026.1 Nova, Keystone and Cinder cannot read a Ussuri database. | Confirmed in the lab |
 | The databases of every service **can** be brought from Ussuri to 2026.1 **without deploying any intermediate release**, by running the migration code of 2023.1, Cinder 2023.2, 2024.1, 2025.1 and 2026.1 offline. Zero unexpected schema or data difference. | Lab-verified, synthetic data, **unsupported upstream** |
 | 2026.1 services start on the migrated databases and find every existing resource again (servers, ports, volumes, images, users, trusts). | Lab-verified, synthetic data |
+| The usual operations on resources created under Ussuri **work** through the 2026.1 services: tokens for old users, stop/start, resize with attached volumes, detach and re-attach of an Ussuri-era volume attachment, snapshots, quota enforcement, ports and servers on an old network (22 of 22 operations). | Lab-verified, synthetic data, fake hypervisor (control path only) |
+| 2026.1 Cinder refuses Nova's volume detaches unless Keystone holds a `service` role that **no Ussuri database contains**; the deployment tool creates it, so its registration step must run before Nova and Cinder serve traffic. Failure signature: volumes stuck `detaching`, servers in `ERROR` after a resize, HTTP 409 `ConflictNovaUsingAttachment`. | Lab-verified; five more mandatory deployment steps (KD-M6 to KD-M10) |
 | A Cinder bug breaks the **official** 2023.1 → 2024.1 upgrade for clouds with old deleted volumes; avoidance documented. | [Documented](journeys/ussuri-to-2026.1/troubleshooting/cinder-use-quota-null-blocks-2024.1-db-sync.md) |
-| Kolla-Ansible 2026.1 changes some data when deployed on existing databases (cells, admin password, endpoints); five mandatory steps identified. | Lab-verified for the commands, Kolla itself not yet run |
+| Kolla-Ansible 2026.1 changes some data when deployed on existing databases (cells, admin password, endpoints); ten mandatory steps identified in total. | Lab-verified for the commands, Kolla itself not yet run |
+
+A first **draft runbook** exists: [database fast-forward (lab)](journeys/ussuri-to-2026.1/runbooks/ussuri-to-2026.1-database-fast-forward-lab-runbook.md).
+Every step carries its status; the steps never run anywhere (Kolla-Ansible itself, Galera, host OS, real computes,
+rollback) are marked so, and the page as a whole is **not** lab-verified.
 
 Still ahead:
 
-- operations on existing resources and a rollback rehearsal;
+- a rollback rehearsal from the pre-upgrade restore point;
 - a real Kolla-Ansible laboratory with real VMs;
 - a run on a sanitized production copy.
 
-Then comes the runbook. The full picture is in the [journey page](journeys/ussuri-to-2026.1/README.md) and the
+The full picture is in the [journey page](journeys/ussuri-to-2026.1/README.md), the
+[final report of session 1](journeys/ussuri-to-2026.1/reports/2026-10-31-final-report-session-1.md) and the
 [progress report](journeys/ussuri-to-2026.1/reports/2026-10-31-progress-report-01.md).
 
 > [!WARNING]
@@ -101,7 +108,7 @@ Start a thread in [OzarLand Discussions](https://github.com/OzarLand/ozarland/di
 
 | Journey | Question | Stage | Validated |
 |---|---|---|---|
-| [Ussuri → 2026.1](journeys/ussuri-to-2026.1/README.md) | Can an existing Kolla-Ansible Ussuri deployment reach 2026.1 in one journey? If not, what is the safest path with the fewest intermediate deployments? | Lab experiments | Database fast-forward lab-verified (narrow scope); nothing production-validated |
+| [Ussuri → 2026.1](journeys/ussuri-to-2026.1/README.md) | Can an existing Kolla-Ansible Ussuri deployment reach 2026.1 in one journey? If not, what is the safest path with the fewest intermediate deployments? | Lab experiments; first draft runbook | Database fast-forward, and 2026.1 services operating on the result, lab-verified (narrow scope); nothing production-validated |
 
 More journeys (other start releases, other deployment methods) are welcome through an
 [*Ideas* discussion](https://github.com/OzarLand/ozarland/discussions/new?category=ideas); a journey is added when someone

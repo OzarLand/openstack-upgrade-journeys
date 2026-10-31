@@ -111,3 +111,10 @@ Confirmed. Pre-existing Ussuri resources (users, credentials, servers, volumes w
 ## Status
 
 `LAB-VALIDATED` in the scope stated above, on `strict-r2` (harness commit `3ba36d8`, 22/22 OK). No item is FAILED; the `strict-r1` run is interrupted, not a result. Steps not run: none of the planned list. Validation record: to be assigned by the architect.
+
+## Corrections (2026-10-31, after Red Team Stage 5d; the text above is kept as written)
+
+* **RT-B-13, Kolla-Ansible version.** Wherever the text above cites "kolla-ansible 20.6.0 wheel (2026.1)" or "Kolla-Ansible 2026.1 (20.6.0)", read **kolla-ansible 22.2.0** (the 2026.1 series is 22.x; 20.x is 2025.1). The artefact the role defaults were read from is the same one EXP-KD-01 used: `kolla_ansible-22.2.0-py3-none-any.whl` from PyPI, sha256 `010e077c95d172e152f253bba4c0af43b537c987439d1c4601e9edc6adaeac34`; the Red Team re-read `roles/cinder/defaults/main.yml:330-333` and `roles/cinder/templates/cinder.conf.j2:133` at `kolla-ansible@origin/stable/2026.1` and found the role defaults identical, so the conclusion does not change.
+* **RT-N-32, partial grant set.** The lab granted the role `service` to **three** service users only (nova, cinder, neutron, `service-user-roles.txt`). Kolla-Ansible grants it to **every** service user it registers (glance, placement, cinder, nova, neutron and every other enabled service). Three were sufficient for the operations tested here; the grant set is partial and must be complete (all service users) in later runs (EXP-SVC-03 or K-01) and in the runbook step KD-M6.
+* **RT-N-31, wording.** Read "lab artefact" in the Cause and Conclusion sections as: *deploy-time Keystone state required by 2026.1 Cinder, created by Kolla-Ansible's `keystone-manage bootstrap` and `service-ks-register` tasks, absent from every Ussuri database; an ordering gate (KD-M6) in the procedure*, not a lab accident.
+* **RT-N-35, scope.** The application-credential token used a **new** credential of a pre-existing user; the pre-existing secrets were not retained by the baseline. This belongs in the scope table above.

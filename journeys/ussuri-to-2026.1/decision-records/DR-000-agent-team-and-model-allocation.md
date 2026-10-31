@@ -73,6 +73,18 @@ Updated as stages complete.
 | 4 | 5 | sonnet | `experiments/EXP-DB-*`, `evidence/`, `lab/ussuri-db-lab/ff/` |
 | 5 | 4 | opus | `experiments/EXP-DB-01-root-cause-analysis.md`, amendments to `declared-differences.md` |
 | 5 | 7 | fable | `assessments/07-red-team-stage5-results-review.md` (interrupted once by a usage limit and resumed in the same context) |
+| 4b | 5 | sonnet | `experiments/EXP-SVC-01-*`, `experiments/EXP-KD-01-*`, `evidence/EXP-SVC-01/`, `evidence/EXP-KD-01/`, `lab/ussuri-db-lab/svc/`; EXP-SVC-02 `strict-r1` started and interrupted (`evidence/EXP-SVC-02/strict-r1/INTERRUPTED.txt`). **Agent 5 was stopped by the owner for budget reasons.** |
+| 5c | 7 | fable | `assessments/07-red-team-stage5c-svc-kd-review.md` (EXP-SVC-01 and EXP-KD-01 accepted after corrections RT-B-11/12; KD-M1..KD-M5) |
+| 4b (cont.) | 5b | fable | Took over the lab from Agent 5: investigation of `strict-r1`, `experiments/EXP-SVC-02-*`, `evidence/EXP-SVC-02/strict-r2/` (22/22 OK) |
+| 5d | 7 | fable | `assessments/07-red-team-stage5d-svc02-review.md` (EXP-SVC-02 accepted; RT-B-13; KD-M6..KD-M10). **Same model as the lab agent 5b: separate contexts, no shared reasoning, but the model diversity of alternative 2 no longer holds for this review.** |
+| closure | 8b | fable | `runbooks/ussuri-to-2026.1-database-fast-forward-lab-runbook.md` (draft), `reports/2026-10-31-final-report-session-1.md`, updates to `HANDOFF.md`, `README.md`, this record, EXP-SVC-02 corrections |
+
+Change to the allocation (2026-10-31, owner decision): the Sonnet lab agent was stopped for budget reasons, and Fable
+took over the laboratory (Agent 5b) and the documentation (Agent 8b). Consequence for the Red Team: from Stage 5d the
+reviewer and the author of the record under review run on the same model. Independence now rests only on separate
+contexts and on the pre-registered criteria, which is the weaker form noted under "Risks and limitations". If the
+owner wants model diversity back for the next reviews, the Red Team role is re-run on Opus with a fresh context, and
+the switch is recorded here.
 
 Notes:
 - The inventory assistant (Haiku) made one call to create a remote session, which its task did not need. The call was
