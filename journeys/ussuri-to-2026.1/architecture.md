@@ -105,6 +105,24 @@ The alternative is to network-isolate those hosts from the control-plane VLAN. V
 list_consumers` is empty, and `docker ps` is checked on each host. Otherwise Ussuri `nova-compute` would write
 inventories to 2026.1 Placement, and 5.x RPC would land on 6.x servers.
 
+**Deploying 2026.1 with Kolla-Ansible on the migrated databases** (Agent 3,
+`assessments/03-kolla-deploy-on-migrated-databases.md`, source reading at `kolla-ansible@22.2.0`, `PROPOSED-UNVERIFIED`):
+
+- Use `kolla-ansible deploy`, not `upgrade`, on the new hosts.
+- `deploy` does **not** run `nova-status`, the Nova online data migrations or the Cinder online data migrations, so
+  the fast-forward must have completed them, and the operator runs `nova-status upgrade check` explicitly.
+- `deploy` **changes data on purpose**, so it is wrapped in a database diff before and after:
+  - it resets the admin and service-user passwords to the values in `passwords.yml`, re-enables a disabled admin and
+    updates endpoint URLs;
+  - it deletes the admin→member implied role;
+  - it rewrites the message-queue and database URLs of the cell mappings.
+- **The default cell name must match Kolla's lookup**, or `create_cell` may create a second mapping to the same
+  database.
+- **Kolla's "compute registered" wait is satisfied by the old forced-down rows**, so it proves nothing about the new
+  compute.
+- MariaDB: let Kolla bootstrap an empty Galera cluster, then restore the per-service dumps before any service
+  bootstraps.
+
 **The Nova gate is two gates** (Red Team RT-B-01; decision DR-003). The service-version check refuses start-up, and
 the compute RPC version cap is computed from the same minimum-version query and cached per process. The sequence is:
 
