@@ -65,3 +65,39 @@ nova-scheduler: 2026-10-31 16:48:55.400 1 WARNING nova.service [None req-a835b06
 ===== exit code: 0 
 ===== keystone-status --config-file keystone.conf upgrade check (keys also mounted at /etc/keystone: the tool checks the default repository paths) Check: Check trust policies are not empty Result: Success Check: Check default roles are immutable Result: Success Check: Policy File JSON to YAML Migration Result: Success 
 ===== exit code: 0
+server create -> exit 0 (flavor ufj-tiny, image ufj-image-public, host az1:ufj-compute1)
+server 4505c3a4-b15f-41f9-b007-68a91e597e67
+status after wait: ACTIVE
+{  "OS-EXT-SRV-ATTR:host": "ufj-compute1",  "OS-EXT-STS:task_state": null,  "OS-EXT-STS:vm_state": "active",  "status": "ACTIVE"}
+
+op 'stop' (rc=0): expected 'SHUTOFF None', got 'None SHUTOFF' -> FAIL
+op 'start' (rc=0): expected 'ACTIVE None', got 'None ACTIVE' -> FAIL
+op 'reboot --hard' (rc=0): expected 'ACTIVE None', got 'None ACTIVE' -> FAIL
+op 'pause' (rc=0): expected 'PAUSED None', got 'None PAUSED' -> FAIL
+op 'unpause' (rc=0): expected 'ACTIVE None', got 'None ACTIVE' -> FAIL
+compute log (errors since 2026-10-31T16:48:52Z):
+nova-api: 2026-10-31 16:48:54.693 7 WARNING nova.api.openstack.wsgi_app [None req-e0d27893-b484-4af7-914c-ca6069c13cee - - - - - -] Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epo
+nova-api: 2026-10-31 16:48:55.164 8 WARNING nova.api.openstack.wsgi_app [None req-7f026399-80cd-45b1-805c-b325b7ef7971 - - - - - -] Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epo
+nova-api: 2026-10-31 16:49:40.795 7 INFO nova.compute.rpcapi [None req-df6363dc-c1b7-4582-a076-327ee3d96e7f - - - - - -] Automatically selected compute RPC version 5.11 from minimum service version 51
+nova-api: 2026-10-31 16:51:31.370 8 INFO nova.compute.rpcapi [None req-5111934a-1b27-46bf-a0d9-dd10f772fea9 - - - - - -] Automatically selected compute RPC version 5.11 from minimum service version 51
+nova-conductor: 2026-10-31 16:48:55.199 1 WARNING nova.service [None req-a5e4a0f8-8812-496f-8be4-9ca0adcf119e - - - - - -] Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but th
+nova-conductor: 2026-10-31 16:49:30.010 8 INFO nova.compute.rpcapi [None req-b31c53ae-f05e-4a61-9866-960b7d280d6f - - - - - -] Automatically selected compute RPC version 5.11 from minimum service version 51
+nova-scheduler: 2026-10-31 16:48:55.400 1 WARNING nova.service [None req-a835b06e-bc28-4d97-9e76-59d340cc7340 - - - - - -] Current Nova version does not support computes older than Epoxy but the minimum compute service level in your system is 51 and the oldest supported service level is 68.: nova.exception.TooOldComputeService: Current Nova version does not support computes older than Epoxy but th
+(containers: ufj-svc-nova-scheduler=Up 11 minutes ufj-svc-nova-conductor=Up 11 minutes ufj-svc-nova-api=Up 11 minutes )
+[17:00:22] (b) forced-down on ufj-compute2/3 through the 2026.1 API (ufj-compute1, 2026.1, stays up), then restart
+SQL on the clone: forced_down=1 for ufj-compute2 (rows with version<72) -> 1
+SQL on the clone: forced_down=1 for ufj-compute3 (rows with version<72) -> 1
+(containers: ufj-svc-nova-scheduler=Up 15 seconds ufj-svc-nova-conductor=Up 26 seconds ufj-svc-nova-api=Up 36 seconds )
+
+===== nova-status upgrade check Check: Cells v2 Result: Success Check: Placement API Result: Success Check: Cinder API Result: Success Check: Policy File JSON to YAML Migration Result: Success Check: Older than N-1 computes Result: Success Check: hw_machine_type unset Result: Warning Check: Service User Token Configuration Result: Success 
+===== exit code: 1 
+===== cinder-status upgrade check Check: Backup Driver Path Result: Success Check: Use of Policy File Result: Success Check: Removed Drivers Result: Success Check: Periodic Interval Use Result: Success Check: Service UUIDs Result: Success Check: Attachment specs Result: Success Check: Use of Nested Quota Driver Result: Success 
+===== exit code: 0 
+===== neutron-status --config-file neutron.conf upgrade check Check: Worker counts configured Result: Success Check: NIC Switch agent check kernel Result: Success Check: VLAN allocations valid segmentation ID check Result: Success Check: Policy File JSON to YAML Migration Result: Success Check: Port MAC address sanity check Result: Success Check: NetworkSegments unique constraint check Result: Success Check: Port Binding profile sanity check Result: Success Check: Floating IP inherits the QoS policy from the external network Result: Success Check: Port extra DHCP options check Result: Success Check: Duplicated HA network per project check Result: Success Check: OVN support for BM provisioning over IPv6 check Result: Warning Check: ML2/OVS IGMP Flood check Result: Success Check: Floating IP Port forwarding and OVN L3 plugin configuration Result: Success Check: Existing tags exceeds limit per resource Result: Success Check: RBAC policies with invalid target_project Result: Success 
+===== exit code: 1 
+===== placement-status upgrade check Check: Missing Root Provider IDs Result: Success Check: Incomplete Consumers Result: Success Check: Policy File JSON to YAML Migration Result: Success 
+===== exit code: 0 
+===== glance-status --config-file glance-api.conf upgrade check Check: Sheepdog Driver Removal Result: Success Check: Policy File JSON to YAML Migration Result: Success Check: Config option owner_is_tenant removal Result: Success 
+===== exit code: 0 
+===== keystone-status --config-file keystone.conf upgrade check (keys also mounted at /etc/keystone: the tool checks the default repository paths) Check: Check trust policies are not empty Result: Success Check: Check default roles are immutable Result: Success Check: Policy File JSON to YAML Migration Result: Success 
+===== exit code: 0
