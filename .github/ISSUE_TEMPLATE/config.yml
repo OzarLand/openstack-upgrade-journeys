@@ -1,0 +1,17 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Ask the community (Q&A discussion)
+    url: https://github.com/OzarLand/ozarland/discussions/categories/q-a
+    about: A question about OpenStack upgrades rather than about this repository? Ask in Discussions.
+  - name: A credential, database dump or unredacted log published by mistake, or a procedure that could cause damage
+    url: https://github.com/OzarLand/openstack-upgrade-journeys/blob/main/SECURITY.md
+    about: Do not open a public issue. Revoke the credential first, then follow the security policy.
+  - name: A runbook for a single instance problem is wrong
+    url: https://github.com/OzarLand/openstack-vm-runbooks/issues/new/choose
+    about: Report it on the runbook's repository.
+  - name: A Kolla-Ansible deployment pattern or version note is wrong
+    url: https://github.com/OzarLand/kolla-ansible-deployment-patterns/issues/new/choose
+    about: Report it on that repository.
+  - name: Vulnerability in OpenStack itself
+    url: https://security.openstack.org/
+    about: Upstream vulnerabilities go to the OpenStack Vulnerability Management Team.

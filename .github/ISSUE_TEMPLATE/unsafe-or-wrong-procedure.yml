@@ -1,0 +1,58 @@
+name: Wrong or unsafe procedure
+description: A step, claim or status in this repository is wrong, unsafe, outdated, or marked as better tested than it is.
+title: "[procedure] "
+labels: ["kind/docs", "status/open", "risk/production-impact"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This is the most valuable report you can send. Remove hostnames, IPs, customer names and any secret before pasting.
+
+        **If following the step could lose data or break a platform before it is fixed, or if you found a secret, do not
+        use this form.** Use the [security policy](https://github.com/OzarLand/openstack-upgrade-journeys/blob/main/SECURITY.md).
+  - type: input
+    id: location
+    attributes:
+      label: File and step
+      description: Path and heading, or the ID (EXP-NNN, DR-NNN, VAL-NNN).
+    validations:
+      required: true
+  - type: dropdown
+    id: problem
+    attributes:
+      label: What is the problem?
+      options:
+        - A command or step is wrong or does not work as written
+        - A warning, precondition, backup or rollback is missing
+        - A claim contradicts upstream documentation or code
+        - A status is higher than the evidence (for example "validated" without a recorded run)
+        - Outdated: a newer release or version changed this
+        - Other (say in the details)
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What the page says, and what is wrong with it
+      description: Quote the relevant part.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What an experienced operator would do instead, and why
+      description: Links to upstream documentation, release notes, source (repo@ref:path) or a bug help.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Your environment, if you ran it
+      description: Releases, Kolla-Ansible version, topology in general terms. Leave empty if you only read it.
+  - type: checkboxes
+    id: redaction
+    attributes:
+      label: Redaction
+      options:
+        - label: This issue contains no credentials, keys, real hostnames, domains, IP or MAC addresses, customer or person names, database dumps or unredacted logs.
+          required: true

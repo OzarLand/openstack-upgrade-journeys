@@ -1,0 +1,60 @@
+# Copy to journeys/<journey>/validation/VAL-NNN.yaml, one file per execution. Numbers are never reused.
+# Rules: docs/validation-status.md. Never invent a value: write "unknown" or "not provided".
+# Keys marked [skills] are the same as in openstack-operator-skills validation/inventory.yaml
+# (docs/templates/validation-record.yaml there), so the record can be copied across when a skill cites it.
+
+validation_id: VAL-000                  # unique, never reused
+procedure: >-
+  The procedure, step or claim that was executed, in one or two sentences (EXP-NNN step numbers, runbook step).
+claim: >-                               # [skills] the statement that the result supports or refutes
+  One or two sentences.
+experiment: EXP-000                     # the experiment record this execution belongs to
+kind: procedure                         # [skills] procedure | diagnostic | behaviour | config-fact
+risk: state-changing                    # [skills] read-only | state-changing | destructive (highest step covered)
+evidence_class: Not validated           # Officially supported | Technically possible but unsupported | Experimentally validated | Not validated | Incompatible
+status: PROPOSED-UNVERIFIED             # [skills] PRODUCTION-VALIDATED | LAB-VALIDATED | DOCUMENTED-UNVERIFIED | PROPOSED-UNVERIFIED | NEEDS-REVALIDATION | FAILED
+
+versions:
+  openstack_release_from: unknown       # e.g. "ussuri"
+  openstack_release_to: unknown         # e.g. "2026.1"
+  kolla_ansible_from: unknown
+  kolla_ansible_to: unknown
+  container_images: unknown             # tags or digests; where they were obtained
+  host_os: unknown
+  database: unknown                     # MariaDB version
+  message_queue: unknown                # RabbitMQ version
+  network_backend: unknown              # ml2/ovs, ovn, ...
+  storage_backend: unknown
+
+lab_topology: >-
+  Nodes and roles in general terms (for example "1 controller, 1 compute, all VMs on one host, no hardware
+  virtualisation"). No names or addresses. Limitations of the lab (nested virtualisation, small data) listed here.
+test_date: unknown                      # YYYY-MM-DD, or period
+responsible_agent: unknown              # who answers for this record: agent:<name> or @handle
+executed_by: unknown                    # [skills] who ran it: agent:<name> or @handle
+independent_human_check: false          # [skills] true only if a human other than the author reproduced or reviewed the run
+
+evidence:                               # redacted text only; never dumps, images, archives or secrets
+  - journeys/ussuri-to-2026.1/evidence/EXP-000/
+  # - https://github.com/OzarLand/openstack-upgrade-journeys/pull/NN
+
+observed: >-                            # [skills] what was run and seen
+  What was executed and what the outputs showed. For an upgrade step: database, service and workload checks, before and
+  after.
+not_observed: >-                        # [skills] steps of the claim that were not run, or "none"
+  none
+result: not-run                         # pass | fail | partial | not-run
+result_summary: >-
+  One or two sentences: did the observed result match the expected result in the experiment?
+known_limitations: >-
+  What this does not show: other version pairs, other topologies, data volume, workloads, backends, production.
+
+# Unverified statuses only (remove for validated ones):
+missing_evidence: >-
+  The test that would validate it: environment, steps, expected result.
+
+# Validated, FAILED or NEEDS-REVALIDATION only:
+revalidate_when: >-
+  Changes that invalidate this evidence: another Kolla-Ansible or image build, another database or message-queue
+  version, changed procedure text, upstream behaviour change.
+# stale_reason: >-                      # NEEDS-REVALIDATION only: why the old evidence may no longer hold

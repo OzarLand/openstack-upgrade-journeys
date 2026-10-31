@@ -1,0 +1,43 @@
+# Secrets and credentials: never commit
+passwords.yml
+**/passwords.yml
+clouds.yaml
+secure.yaml
+*-openrc.sh
+openrc*
+*.pem
+*.key
+*.crt
+*.p12
+*.vault
+.env
+config.env
+*.keyring
+
+# Data: database dumps and backups contain tokens, hashes and ids
+*.sql
+*.sql.gz
+*.dump
+*.bak
+*.mysqldump
+
+# Large or binary artefacts: evidence is redacted text
+*.qcow2
+*.img
+*.raw
+*.iso
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+*.pcap
+
+# Local state and tooling
+.state/
+raw/
+**/evidence/**/raw/
+__pycache__/
+*.pyc
+.venv/
+.DS_Store
+*.swp

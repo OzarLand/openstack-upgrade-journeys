@@ -1,0 +1,81 @@
+name: Experiment report or validation evidence
+description: You ran a step or an experiment from this repository (or something like it), on a lab or on a real platform. It worked, failed or worked partly.
+title: "[evidence] "
+labels: ["kind/experience", "status/open"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you. Evidence is what moves a procedure from *unverified* to *validated*, and a failure is as useful as a
+        success (see [validation status](https://github.com/OzarLand/openstack-upgrade-journeys/blob/main/docs/validation-status.md)).
+
+        **Never paste credentials, `passwords.yml`, `clouds.yaml`, keys, real hostnames or addresses, database dumps or
+        unredacted logs.** Use placeholders such as `controller-1` and `192.0.2.10`. If you published a secret, revoke it
+        first and use the [security policy](https://github.com/OzarLand/openstack-upgrade-journeys/blob/main/SECURITY.md).
+  - type: input
+    id: item
+    attributes:
+      label: Item you ran
+      description: The ID or file (EXP-NNN, VAL-NNN, a runbook step), or "my own attempt".
+      placeholder: "EXP-003, or journeys/ussuri-to-2026.1/runbooks/..."
+  - type: dropdown
+    id: result
+    attributes:
+      label: What are you reporting?
+      options:
+        - It worked as written
+        - It worked only partly, or with changes
+        - It failed
+        - Something changed upstream (release, default, image availability) and an item needs revalidation
+    validations:
+      required: true
+  - type: dropdown
+    id: environment_kind
+    attributes:
+      label: Where did you run it?
+      options:
+        - Lab (disposable)
+        - Production or a copy of production data
+        - Staging
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Start and target OpenStack releases, Kolla-Ansible versions, deployment method, host OS, container engine, database and message queue versions, network and storage backends, topology in general terms (node counts, no names).
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps you ran, and steps you did not run
+      description: Exactly what was executed, in order, and what you skipped.
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: What you observed
+      description: Redacted output, timings, states, service and database checks. Say what matched the expected result and what did not.
+    validations:
+      required: true
+  - type: textarea
+    id: limits
+    attributes:
+      label: Limits, side effects and data affected
+      description: What you did not test, what was changed or lost, anything surprising, whether you could roll back.
+  - type: input
+    id: date
+    attributes:
+      label: Date of the run
+      description: YYYY-MM-DD
+    validations:
+      required: true
+  - type: checkboxes
+    id: redaction
+    attributes:
+      label: Redaction
+      options:
+        - label: This issue contains no credentials, keys, real hostnames, domains, IP or MAC addresses, customer or person names, database dumps or unredacted logs.
+          required: true
