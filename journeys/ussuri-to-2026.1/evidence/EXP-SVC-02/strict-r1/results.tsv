@@ -12,3 +12,4 @@ resize-of-Ussuri-created-server-a-vm1-with-attached-volume (rc=0)	FAIL	status ER
 fault-of-a-vm1-phase-A	INFO	ClientException: ConflictNovaUsingAttachment: Detach volume from instance 5bd66e93-1640-4bb0-8586-aeff76fca423 using the Compute API (HTTP 409) (Request-ID: req-84fa2606-436c-44
 role-service-granted-to-nova	INFO	admin nova@Default  service@Default   False service nova@Default  service@Default   False 
 volume-detach-of-Ussuri-attachment-a-vol1-from-a-vm1 after remedy (rc=1)	FAIL	volume status in-use ConflictException: 409: Client Error for url: http://ufj-nova-api:8774/v2.1/servers/5bd66e93-1640-4bb0-8586-aeff76fca423/os-volume_attachments/5897bc1
+resize-of-a-vm1 after remedy and detach (rc=1)	FAIL	status ERROR

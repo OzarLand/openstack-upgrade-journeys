@@ -22,3 +22,4 @@ fault-of-a-vm1-phase-A	INFO	ClientException: ConflictNovaUsingAttachment: Detach
 [19:08:48] 3B. remedy: create role 'service' and grant it to the nova service user in project service; restart the Nova computes and cinder-api; flush memcached
 role-service-granted-to-nova	INFO	admin nova@Default  service@Default   False service nova@Default  service@Default   False 
 volume-detach-of-Ussuri-attachment-a-vol1-from-a-vm1 after remedy (rc=1)	FAIL	volume status in-use ConflictException: 409: Client Error for url: http://ufj-nova-api:8774/v2.1/servers/5bd66e93-1640-4bb0-8586-aeff76fca423/os-volume_attachments/5897bc1
+resize-of-a-vm1 after remedy and detach (rc=1)	FAIL	status ERROR
