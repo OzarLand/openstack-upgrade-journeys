@@ -70,10 +70,10 @@ rec "stop-start-of-Ussuri-created-ACTIVE-server-a-vm3 (boot volume attached)" "$
 A server resize confirm a-migrate > "$OUT/confirm-migrate.txt" 2>&1; rc=$?
 st=$(waitfor 90 ACTIVE bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack server show $MIG -f value -c status'")
 rec "resize-confirm-of-Ussuri-created-VERIFY_RESIZE-server-a-migrate (rc=$rc)" "$([ "$st" = ACTIVE ] && echo OK || echo FAIL)" "status $st $(head -c 120 "$OUT/confirm-migrate.txt" | tr '\n' ' ')"
-A server add volume a-vm2 a-vol2 > "$OUT/attach.txt" 2>&1; rc=$?
+A server add volume a-vm2 "$RV" > "$OUT/attach.txt" 2>&1; rc=$?
 st=$(waitfor 90 in-use bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack volume show $RV -f value -c status'")
 rec "volume-attach-a-vol2-to-a-vm2 (rc=$rc)" "$([ "$st" = in-use ] && echo OK || echo FAIL)" "volume status $st $(head -c 120 "$OUT/attach.txt" | tr '\n' ' ')"
-A server remove volume a-vm2 a-vol2 > "$OUT/detach.txt" 2>&1; rc=$?
+A server remove volume a-vm2 "$RV" > "$OUT/detach.txt" 2>&1; rc=$?
 st=$(waitfor 90 available bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack volume show $RV -f value -c status'")
 rec "volume-detach-a-vol2-from-a-vm2 (rc=$rc)" "$([ "$st" = available ] && echo OK || echo FAIL)" "volume status $st $(head -c 120 "$OUT/detach.txt" | tr '\n' ' ')"
 A server resize --flavor ufj-small a-vm1 > "$OUT/resize-vm1.txt" 2>&1; rc=$?
@@ -89,7 +89,7 @@ rec "role-service-granted-to-nova" INFO "$(sosc role assignment list --user nova
 docker exec ufj-svc-client python -c "import socket;s=socket.create_connection(('ufj-memcached',11211));s.sendall(b'flush_all\r\n');print(s.recv(16))" > /dev/null 2>&1
 docker restart ufj-svc-compute1 ufj-svc-compute2 ufj-svc-compute3 ufj-svc-cinder-api ufj-svc-nova-api >/dev/null; sleep 25; swait http://ufj-nova-api:8774/ 90; swait http://ufj-cinder-api:8776/ 90
 sosc server set --state active a-vm1 > /dev/null 2>&1; sleep 3
-A server remove volume a-vm1 a-vol1 > "$OUT/detach-vm1-B.txt" 2>&1; rc=$?
+A server remove volume a-vm1 "$(vid a-vol1)" > "$OUT/detach-vm1-B.txt" 2>&1; rc=$?
 V1=$(vid a-vol1); st=$(waitfor 90 available bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack volume show $V1 -f value -c status'")
 rec "volume-detach-of-Ussuri-attachment-a-vol1-from-a-vm1 after remedy (rc=$rc)" "$([ "$st" = available ] && echo OK || echo FAIL)" "volume status $st $(head -c 150 "$OUT/detach-vm1-B.txt" | tr '\n' ' ')"
 A server resize --flavor ufj-small a-vm1 > "$OUT/resize-vm1-B.txt" 2>&1; rc=$?
@@ -100,8 +100,8 @@ A server resize --flavor ufj-small a-vm2 > "$OUT/resize-vm2.txt" 2>&1; rc=$?
 st=$(waitfor 120 VERIFY_RESIZE bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack server show $VM2 -f value -c status'")
 rec "resize-of-a-vm2-with-attached-encrypted-volume after remedy (rc=$rc)" "$([ "$st" = VERIFY_RESIZE ] && echo OK || echo FAIL)" "status $st"
 [ "$st" = VERIFY_RESIZE ] && A server resize confirm a-vm2 > /dev/null 2>&1
-A server add volume a-vm2 a-vol2 > /dev/null 2>&1; st=$(waitfor 90 in-use bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack volume show $RV -f value -c status'")
-A server remove volume a-vm2 a-vol2 > /dev/null 2>&1; st2=$(waitfor 90 available bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack volume show $RV -f value -c status'")
+A server add volume a-vm2 "$RV" > /dev/null 2>&1; st=$(waitfor 90 in-use bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack volume show $RV -f value -c status'")
+A server remove volume a-vm2 "$RV" > /dev/null 2>&1; st2=$(waitfor 90 available bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack volume show $RV -f value -c status'")
 rec "volume-attach-then-detach-a-vol2 after remedy" "$([ "$st" = in-use ] && [ "$st2" = available ] && echo OK || echo FAIL)" "attach -> $st, detach -> $st2"
 
 # ---- 4. snapshots
