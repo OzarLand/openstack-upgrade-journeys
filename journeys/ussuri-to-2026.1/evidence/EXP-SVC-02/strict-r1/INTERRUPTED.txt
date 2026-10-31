@@ -1,0 +1,1 @@
+INTERRUPTED at 2026-10-31T19:20:49Z on the owner's instruction (model change). Not a result: phase 3B (remedy) and later phases 4-6 were not completed. results.tsv holds phases 1-3A and part of 3B only.
