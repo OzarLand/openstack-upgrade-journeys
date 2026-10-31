@@ -82,6 +82,7 @@ os-vif==2.0.0
 os-win==5.0.2
 os-xenapi==0.3.4
 osc-lib==2.0.0
+osc-placement==2.0.0
 oslo.cache==2.3.1
 oslo.concurrency==4.0.3
 oslo.config==8.0.5
