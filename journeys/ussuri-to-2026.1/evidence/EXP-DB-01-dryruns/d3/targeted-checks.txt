@@ -1,0 +1,79 @@
+# targeted checks 2026-10-31T14:27:45Z on 11.4.13-MariaDB-ubu2404-log
+-- V-C1/V-C2 cinder use_quota distribution (volumes: value=count incl. deleted)
+   1=10
+-- V-C2 snapshots use_quota
+   1=3
+-- V-C3 volumes.use_quota nullable (expect NO)
+   NO
+-- R-5/V-C5 default quota classes backups/backup_gigabytes (expect 7 and 2500 = the cinder.conf values)
+   default/backups=7 deleted=0
+   default/backup_gigabytes=2500 deleted=0
+-- V-C6 consistencygroups rows (deleted flag)
+   quota_classes consistencygroups deleted=1
+-- V-C9 temporary admin metadata not deleted (expect 0)
+   0
+-- V-N2 instances.compute_id: NULL count (residue N-R1 predicted 1 = instances with host NULL) / total
+   1/11
+-- V-N2 instances with compute_id NULL: host
+   NULL
+-- V-N2 compute_id coverage matches compute_nodes (mismatch count, expect 0)
+   0
+-- V-N1 pci_devices NULL uuid
+   0
+-- V-N3 migrations.dest_compute_id not NULL (expect 0)
+   0
+-- V-Q4 portforwardings (new columns)
+   192.168.10.50:22-22 ext 2222-2222 tcp
+-- V-Q6 securitygroupdefaultrules
+   egress/IPv4/-
+   egress/IPv6/-
+   ingress/IPv4/-
+   ingress/IPv6/-
+-- V-Q7 porttrusted / profile of that port
+   aa5729b5-390f-43c7-8b82-e2a52d5d9f92 trusted=1 profile=[]
+-- V-Q8 tags charset and values (HEX)
+   utf8mb4_bin
+-- V-Q8 tags HEX(tag)
+   4D697865642D43617365
+   65787472612D746167
+   6C6162
+   70726F6A2D61
+   74C3A2672DC3BC6EC3AF
+   C38954C389
+-- V-Q9 network_segment_ranges physical_network (NULL must now be empty)
+   vlan/[physnet1]/300-310
+   vxlan/[]/2000-2100
+   vlan/[physnet1]/100-200
+   vxlan/[]/1-1000
+-- V-K1 keystone migrate_version / V-K2 mapping.schema_version
+   keystone=109
+   keystone_contract=79
+   keystone_data_migrate=79
+   keystone_expand=79
+-- V-K2 mapping schema_version
+   ufj-mapping 1.0
+-- V-G1 glance tasks new columns
+   7cf53cc4-ec7b-45be-97a8-9daee1ed1087 user_id=NULL image_id=NULL
+-- V-P1 placement consumers consumer_type_id NULL / total
+   12/12
+-- R-13 placement.consumer_types rows
+   0
+-- C8 sql_mode global / table check
+   STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+# ---- assertions (frozen list section 5; the verdict counts ASSERT-FAIL lines)
+ASSERT-PASS V-C1/V-C2 use_quota NULL rows (volumes+snapshots, deleted included) -> [0+0]
+ASSERT-PASS V-C3 volumes.use_quota NOT NULL -> [NO]
+ASSERT-PASS R-5 default backups=7 / backup_gigabytes=2500 present (CP-C1) -> [backups=7,backup_gigabytes=2500]
+ASSERT-PASS V-C9 temporary admin metadata not deleted -> [0]
+ASSERT-PASS V-N2 compute_id mismatches vs compute_nodes -> [0]
+ASSERT-PASS V-N2 compute_id NULL = instances with host NULL (residue N-R1) -> [1=1]
+ASSERT-PASS V-N1 pci_devices NULL uuid -> [0]
+ASSERT-PASS V-N3 migrations.dest_compute_id not NULL -> [0]
+ASSERT-PASS S-3.4 shadow_migrate_version rows (nova, nova_cell0) -> [0/0]
+ASSERT-PASS V-Q6 default SG rules -> [4]
+ASSERT-PASS V-Q7 porttrusted rows = ports that had a trusted profile -> [1]
+ASSERT-PASS V-Q8 tags collation -> [utf8mb4_bin]
+ASSERT-PASS V-Q9 network_segment_ranges.physical_network NULL -> [0]
+ASSERT-PASS V-K1 keystone expand/data_migrate/contract -> [keystone_contract=79,keystone_data_migrate=79,keystone_expand=79]
+ASSERT-PASS V-K2 mapping.schema_version -> [1.0]
+ASSERT-PASS R-13 placement.consumer_types rows -> [0]

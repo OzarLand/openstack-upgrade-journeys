@@ -59,6 +59,10 @@ for d in $( [ "$HOP" = 1b ] && echo cinder || echo "${OS_DBS[*]}" ); do
   grep -vE "^SUMMARY" "$OUT/schema-$d.txt" | awk -v d="$d" -F'\t' '{print $1"\t"d"\t"$2"\t"$3"\t"$4}' >> "$OUT/schema-diff.txt"
 done
 su=$(grep -c "^UNDECLARED" "$OUT/schema-diff.txt"); sd=$(grep -c "^DECLARED" "$OUT/schema-diff.txt")
+# the declared set must be exactly: A1 (8.7 list) + A2/A3/A4 + A7 (H2 only) + S-1 + S-3.4 (12 lines, nova and nova_cell0), and nothing else
+ids=$(grep '^DECLARED' "$OUT/schema-diff.txt" | cut -f3 | sort -u | tr '\n' ' ')
+for i in $ids; do case "$i" in A1/S-3.1|A2/S-3.2|A3/S-3.3|A4/S-N.1|S-1a|S-1c/S-1d|S-3.4) ;; A7/S-2.1) [ "$HOP" = 2 ] || { say "[C4] A7 declared outside H2: STOP"; STOP=1; } ;; *) say "[C4] unexpected declared id $i: STOP"; STOP=1;; esac; done
+n34=$(grep -c $'^DECLARED\t[a-z_0-9]*\tS-3.4' "$OUT/schema-diff.txt"); [ "$HOP" != 1b ] && [ "$n34" != 12 ] && { say "[C4] S-3.4 lines = $n34 (expected exactly 12): STOP"; STOP=1; }
 say "[C4] schema vs reference$( [ "$HOP" = 1b ] && echo ' (cinder only, reference built by cinder 23.5.0)'): $sd declared (ids: $(grep '^DECLARED' "$OUT/schema-diff.txt" | cut -f3 | sort | uniq -c | awk '{printf "%s x%s; ",$2,$1}')), $su UNDECLARED"; [ "$su" -gt 0 ] && STOP=1
 # ---- C5/C6 comparison B
 if [ "$HOP" = 1b ]; then
@@ -69,6 +73,10 @@ else
   cmp data --t0 /snap/T0 --now /snap/$H --hop $HOP --pred /snap/predictions.json > "$OUT/data-diff.txt" 2>&1; rcd=$?
   say "[C5/C6] counts+fingerprints vs T0: $(tail -1 "$OUT/data-diff.txt")"; [ $rcd -ne 0 ] && STOP=1
 fi
+# N-3 reconciliation: updated_at row counts of the N-3 tables vs the ODM migrated counts / predictions of THIS hop (consecutive snapshots)
+case "$HOP" in 1) PREV=T0;; 1b) PREV=H1;; 2) [ -d "$CFG_FF/snap/H1b" ] && PREV=H1b || PREV=H1;; 3) PREV=H2;; 4) PREV=H3;; 5) PREV=H4;; esac
+docker run --rm -v "$CFG_FF/snap":/snap -v "$FF_DIR":/ffsrc:ro -v "$OUT":/hop:ro "$TOOL_IMG" python /ffsrc/tools/reconcile_n3.py --prev /snap/$PREV --now /snap/$H --hopdir /hop --hop $HOP --pred /snap/predictions.json > "$OUT/n3-reconciliation.txt" 2>&1; rcn=$?
+say "[N-3] $(tail -1 "$OUT/n3-reconciliation.txt") (previous snapshot $PREV)"; [ $rcn -ne 0 ] && STOP=1
 if [ "$HOP" = 5 ]; then
   cmp same --a /snap/H4 --b /snap/H4r > "$OUT/idempotency-diff.txt" 2>&1; rci=$?
   say "[IDEM] H4r vs H4 (no exclusions): $(tail -1 "$OUT/idempotency-diff.txt")"; [ $rci -ne 0 ] && STOP=1
@@ -82,8 +90,10 @@ grep -q DIFFERENT "$OUT/bookkeeping.txt" && say "[C2] bookkeeping rows differing
    echo "== $tool upgrade check ($rr)"; ff_oneshot "$rr" "$svc" -- $tool $args upgrade check 2>&1 | ff_redact | grep -vE "WARNING|DEBUG|Deprecat" | tail -40; echo "exit=${PIPESTATUS[0]}"
  done
 } > "$OUT/status-tools.txt" 2>&1
-fails=$(grep -c "Result: Failure" "$OUT/status-tools.txt"); warns=$(grep -c "Result: Warning" "$OUT/status-tools.txt"); toolerr=$(awk '/^== /{t=$0; w=0} /Result: Warning/{w=1} /^exit=1$/{ if(!w) c++ } END{print c+0}' "$OUT/status-tools.txt")
-say "[C9] status tools: $fails FAILURE results, $warns warnings, $toolerr tool errors (exit 1 without any result) - see status-tools.txt"; [ "$fails" -gt 0 ] && { say "[C9] STOP: a status tool reports FAILURE"; STOP=1; }
+fails=$(grep -c "Result: Failure" "$OUT/status-tools.txt"); warns=$(grep -c "Result: Warning" "$OUT/status-tools.txt"); ovn=$(grep -c "OVN" "$OUT/status-tools.txt"); toolerr=$(awk '/^== /{t=$0; w=0} /Result: Warning/{w=1} /^exit=1$/{ if(!w) c++ } END{print c+0}' "$OUT/status-tools.txt")
+ksran=$(sed -n '/^== keystone-status/,/^== glance-status/p' "$OUT/status-tools.txt" | grep -c "Result: ")
+[ "$HOP" != 1b ] && [ "$ksran" = 0 ] && { say "[C9] keystone-status did not run (no result table): STOP"; STOP=1; }
+say "[C9] status tools: $fails FAILURE results; $warns warning result(s), of which OVN-related lines: $ovn (neutron-status exit 1 on the OVN warning is a WARNING, recorded, not a tool error); keystone-status results: $ksran; $toolerr real tool errors (exit 1 with no result at all; must be 0) - see status-tools.txt"; [ "$fails" -gt 0 ] && { say "[C9] STOP: a status tool reports FAILURE"; STOP=1; }; [ "$toolerr" -gt 0 ] && { say "[C9] STOP: a status tool failed to run"; STOP=1; }
 [ -s "$OUT/../sql-mode.tsv" ] || true
 say "[C10] checks seconds: $(( $(date +%s)-t0 )); hop timings in steps.tsv"
 say "RESULT $H: $([ $HARD = 1 ] && echo 'HARD STOP (PC-C1)' || { [ $STOP = 0 ] && echo PASS || echo 'STOP (undeclared difference or failed check)'; })"

@@ -1,0 +1,3 @@
+|          Migration          | Total Found | Completed |
+|    set_root_provider_ids    |      0      |     0     |
+| create_incomplete_consumers |      0      |     0     |

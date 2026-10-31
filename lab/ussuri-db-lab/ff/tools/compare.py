@@ -75,6 +75,7 @@ def classify_schema(db, cls, msg, hop):
         if db in ('keystone', 'glance'): return 'DECLARED', 'S-1c/S-1d'
         if db in ('nova', 'nova_api', 'nova_cell0', 'cinder') and h == 1: return 'DECLARED', 'S-1a'
         return 'UNDECLARED', '-'
+    if db in ('nova', 'nova_cell0') and re.search(r"only in migrated: shadow_migrate_version\b", msg): return 'DECLARED', 'S-3.4'
     m = re.match(r"CHECK only in migrated: (\w+) `(\w+)` in \(0,1\)", msg)
     if m: return ('DECLARED', 'A1/S-3.1') if (db, m.group(1), m.group(2)) in A1 else ('UNDECLARED', '-')
     if db in ('nova', 'nova_cell0') and 'shadow_alembic_version' in msg and 'only in reference' in msg: return 'DECLARED', 'A2/S-3.2'
@@ -163,6 +164,12 @@ def data(a):
                 c2 = ren.get(c, c)
                 if c2 in colsn and r0[key][c] != rn[key][c2]: changed_cols[(db, t, c)][key] += 1
         if add and len(add) != (cn[k] - c0[k]): U('row set changed in %s.%s: %d added / %d removed' % (db, t, len(add), len(miss)))
+    # S-3.4: shadow_migrate_version must have 0 rows at T0 and now (pinned at every hop)
+    for dbn in ('nova', 'nova_cell0'):
+        k = (dbn, 'shadow_migrate_version')
+        if k in c0 or k in cn:
+            if c0.get(k, 0) == 0 and cn.get(k, 0) == 0: D('S-3.4', '%s.shadow_migrate_version rows = 0 at T0 and now' % dbn)
+            else: U('%s.shadow_migrate_version has rows (T0 %s, now %s): S-3.4 pins 0' % (dbn, c0.get(k), cn.get(k)))
     cq_deleted = 0
     for (db, t, c), keys in sorted(changed_cols.items()):
         n = len(keys); ex = next(iter(keys))

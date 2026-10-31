@@ -125,3 +125,7 @@ The S2c code sequence runs end to end on the Tier A dataset, offline, with no ma
 3. C4 at H2 had 1 UNDECLARED difference (A7), not 0.
 4. The harness is now versioned (`ff/00-version.sh`): commit SHA and file hashes in `<run>/harness.txt`; strict runs refuse a dirty tree.
 5. Not yet implemented at the time of the runs above and implemented since (dry runs only, no strict re-run yet): PC-C1 hard gate, PC-C4, PC-V3, PC-Q3, PC-G1(a), PC-O1 per run (nova per cell), PC-E1 session capture per command, SC-ENGINE clean restart, keystone-status with the key repository, H1b.
+
+> **Footnote (Amendment 2, Red Team Stage 5b, 2026-10-31).** Of the "48 declared S-1" schema lines reported at H1 in this record (and in R0/R1b/R1c), **12 were `shadow_migrate_version`** (`nova` and `nova_cell0`: table, 3 columns, PRIMARY index, PRIMARY key), not `migrate_version`. The old shell filter matched the substring `migrate_version` and hid them under S-1. They are now declared as **S-3.4** (`declared-differences.md` section 9), pinned at 0 rows, and visible in the comparator output from `ff/tools/compare.py` v2 onward. No data was affected.
+
+> **H1b and the point of no return (DR-004).** The Cinder-only step H1b (cinder 23.5.0) is, on its own line, *Technically possible but unsupported*: it runs a 2023.2 Cinder schema migration (`89aa6f9639f9` drops `migrate_version`) on a database whose other services are at 2023.1. EXP-RB-01's Cinder point of no return therefore moves to **before H1b** (architecture note by the architect).

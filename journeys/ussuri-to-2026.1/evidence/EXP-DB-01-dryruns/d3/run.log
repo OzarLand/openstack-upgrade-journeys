@@ -1,0 +1,163 @@
+== run d3 mode=baseline observe=1 started 2026-10-31T14:13:47Z
+[14:14:01] copy equals the baseline (dump sha256 a811631efec5267f361fcb1f2c6a19fe642ca3c3b559680df5a90b8fc38d4733)
+[14:14:01] run d3 (baseline) ready: db=ufj-ff-d3-db net=ufj-ff-d3-net volume=ufj-ff-d3-data
+snapshot /snap/T0: 542 tables
+T0 snapshot 3 s
+image=mariadb:10.5 version=10.5.29-MariaDB-ubu2004-log
+start_seconds=10 upgrade+check_seconds=5
+mariadb-upgrade exit=0; check exit=0
+[ERROR]-like lines at first start (before mariadb-upgrade, recorded, not SC-ENGINE by themselves): 0
+[ERROR] lines in the log written since the clean restart after mariadb-upgrade (SC-ENGINE if > 0): 0
+image=mariadb:10.6 version=10.6.28-MariaDB-ubu2204-log
+start_seconds=10 upgrade+check_seconds=5
+mariadb-upgrade exit=0; check exit=0
+[ERROR]-like lines at first start (before mariadb-upgrade, recorded, not SC-ENGINE by themselves): 2
+[ERROR] lines in the log written since the clean restart after mariadb-upgrade (SC-ENGINE if > 0): 0
+keystone-db_sync	0	8.9
+nova-api_db_sync	0	7.3
+nova-db_sync-cell0	0	2.7
+nova-db_sync-cell1	0	2.4
+cinder-db_sync	0	3.6
+cinder-odm-1	0	2.2
+nova-odm-1	0	2.4
+nova-odm-cell0-1	0	2.7
+glance-db_sync	0	1.8
+placement-db_sync	0	1.7
+neutron-upgrade	0	6.0
+placement-odm-1	0	1.1
+total_seconds 61
+[PC-C1] use_quota NULL (deleted included): volumes=3 snapshots=2; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[V-C1a/V-C2a] H1 left exactly the predicted soft-deleted rows NULL (non-deleted rows set): PASS
+references built with release 2023.1
+snapshot /snap/H1: 1112 tables
+[C4] schema vs reference: 201 declared (ids: A1/S-3.1 x141; A2/S-3.2 x8; A3/S-3.3 x2; A4/S-N.1 x2; S-1a x24; S-1c/S-1d x12; S-3.4 x12; ), 0 UNDECLARED
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=26 undeclared=0
+[N-3] N3-RECONCILIATION PASS (previous snapshot T0)
+[C2] bookkeeping rows differing from the reference (migrate_version expected for keystone/glance): keystone.migrate_version glance.migrate_version nova_api.migrate_version nova.migrate_version nova_cell0.migrate_version cinder.migrate_version 
+[C9] status tools: 0 FAILURE results; 0 warning result(s), of which OVN-related lines: 2 (neutron-status exit 1 on the OVN warning is a WARNING, recorded, not a tool error); keystone-status results: 3; 0 real tool errors (exit 1 with no result at all; must be 0) - see status-tools.txt
+[C10] checks seconds: 70; hop timings in steps.tsv
+RESULT H1: PASS
+cinder-db_sync	0	6.1
+cinder-odm-1	0	1.9
+total_seconds 13
+[PC-C1] use_quota NULL (deleted included): volumes=0 snapshots=0; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[PC-C1] GATE PASS (0 and 0)
+references built with release 2023.1
+snapshot /snap/H1b: 1111 tables
+[C4] schema vs reference (cinder only, reference built by cinder 23.5.0): 32 declared (ids: A1/S-3.1 x30; A4/S-N.1 x2; ), 0 UNDECLARED
+[C5/C6] cinder vs T0: SUMMARY declared=5 undeclared=0; other databases H1b vs H1: SUMMARY declared=0 undeclared=0
+[N-3] N3-RECONCILIATION PASS (previous snapshot H1)
+[C9] status tools: 0 FAILURE results; 0 warning result(s), of which OVN-related lines: 0 (neutron-status exit 1 on the OVN warning is a WARNING, recorded, not a tool error); keystone-status results: 0; 0 real tool errors (exit 1 with no result at all; must be 0) - see status-tools.txt
+[C10] checks seconds: 14; hop timings in steps.tsv
+RESULT H1b: PASS
+image=mariadb:10.11 version=10.11.19-MariaDB-ubu2204-log
+start_seconds=4 upgrade+check_seconds=6
+mariadb-upgrade exit=0; check exit=0
+[ERROR]-like lines at first start (before mariadb-upgrade, recorded, not SC-ENGINE by themselves): 0
+[ERROR] lines in the log written since the clean restart after mariadb-upgrade (SC-ENGINE if > 0): 0
+keystone-db_sync	0	7.8
+nova-api_db_sync	0	9.6
+nova-db_sync-cell0	0	2.5
+nova-db_sync-cell1	0	2.4
+cinder-db_sync	0	3.1
+cinder-odm-1	0	2.0
+nova-odm-1	0	2.9
+nova-odm-cell0-1	0	2.6
+glance-db_sync	0	1.9
+placement-db_sync	0	1.5
+neutron-upgrade	0	4.7
+placement-odm-1	0	1.4
+total_seconds 62
+[PC-C1] use_quota NULL (deleted included): volumes=0 snapshots=0; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[PC-C1] GATE PASS (0 and 0)
+references built with release 2024.1
+snapshot /snap/H2: 1006 tables
+[C4] schema vs reference: 162 declared (ids: A1/S-3.1 x125; A2/S-3.2 x8; A3/S-3.3 x2; A4/S-N.1 x2; A7/S-2.1 x1; S-1c/S-1d x12; S-3.4 x12; ), 0 UNDECLARED
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=101 undeclared=0
+[N-3] N3-RECONCILIATION PASS (previous snapshot H1b)
+[C2] bookkeeping rows differing from the reference (migrate_version expected for keystone/glance): keystone.migrate_version glance.migrate_version 
+[C9] status tools: 0 FAILURE results; 1 warning result(s), of which OVN-related lines: 4 (neutron-status exit 1 on the OVN warning is a WARNING, recorded, not a tool error); keystone-status results: 3; 0 real tool errors (exit 1 with no result at all; must be 0) - see status-tools.txt
+[C10] checks seconds: 70; hop timings in steps.tsv
+RESULT H2: PASS
+keystone-db_sync	0	6.7
+nova-api_db_sync	0	6.9
+nova-db_sync-cell0	0	3.0
+nova-db_sync-cell1	0	3.0
+cinder-db_sync	0	2.7
+cinder-odm-1	0	2.1
+nova-odm-1	0	3.1
+nova-odm-cell0-1	0	2.7
+glance-db_sync	0	2.0
+placement-db_sync	0	1.5
+neutron-upgrade	0	4.9
+placement-odm-1	0	1.5
+total_seconds 59
+[PC-C1] use_quota NULL (deleted included): volumes=0 snapshots=0; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[PC-C1] GATE PASS (0 and 0)
+references built with release 2025.1
+snapshot /snap/H3: 1008 tables
+[C4] schema vs reference: 161 declared (ids: A1/S-3.1 x125; A2/S-3.2 x8; A3/S-3.3 x2; A4/S-N.1 x2; S-1c/S-1d x12; S-3.4 x12; ), 0 UNDECLARED
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=103 undeclared=0
+[N-3] N3-RECONCILIATION PASS (previous snapshot H2)
+[C2] bookkeeping rows differing from the reference (migrate_version expected for keystone/glance): keystone.migrate_version glance.migrate_version 
+[C9] status tools: 0 FAILURE results; 1 warning result(s), of which OVN-related lines: 4 (neutron-status exit 1 on the OVN warning is a WARNING, recorded, not a tool error); keystone-status results: 3; 0 real tool errors (exit 1 with no result at all; must be 0) - see status-tools.txt
+[C10] checks seconds: 78; hop timings in steps.tsv
+RESULT H3: PASS
+image=mariadb:11.4 version=11.4.13-MariaDB-ubu2404-log
+start_seconds=11 upgrade+check_seconds=5
+mariadb-upgrade exit=0; check exit=0
+[ERROR]-like lines at first start (before mariadb-upgrade, recorded, not SC-ENGINE by themselves): 0
+[ERROR] lines in the log written since the clean restart after mariadb-upgrade (SC-ENGINE if > 0): 0
+keystone-db_sync	0	10.6
+nova-api_db_sync	0	5.7
+nova-db_sync-cell0	0	2.6
+nova-db_sync-cell1	0	2.8
+cinder-db_sync	0	2.8
+cinder-odm-1	0	2.3
+nova-odm-1	0	3.1
+nova-odm-cell0-1	0	3.0
+glance-db_sync	0	1.9
+placement-db_sync	0	2.0
+neutron-upgrade	0	4.5
+placement-odm-1	0	1.7
+total_seconds 58
+[PC-C1] use_quota NULL (deleted included): volumes=0 snapshots=0; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[PC-C1] GATE PASS (0 and 0)
+references built with release 2026.1
+snapshot /snap/H4: 1008 tables
+[C4] schema vs reference: 161 declared (ids: A1/S-3.1 x125; A2/S-3.2 x8; A3/S-3.3 x2; A4/S-N.1 x2; S-1c/S-1d x12; S-3.4 x12; ), 0 UNDECLARED
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=104 undeclared=0
+[N-3] N3-RECONCILIATION PASS (previous snapshot H3)
+[C2] bookkeeping rows differing from the reference (migrate_version expected for keystone/glance): keystone.migrate_version glance.migrate_version 
+[C9] status tools: 0 FAILURE results; 1 warning result(s), of which OVN-related lines: 4 (neutron-status exit 1 on the OVN warning is a WARNING, recorded, not a tool error); keystone-status results: 3; 0 real tool errors (exit 1 with no result at all; must be 0) - see status-tools.txt
+[C10] checks seconds: 80; hop timings in steps.tsv
+RESULT H4: PASS
+keystone-db_sync	0	2.3
+nova-api_db_sync	0	2.6
+nova-db_sync-cell0	0	2.9
+nova-db_sync-cell1	0	2.8
+cinder-db_sync	0	2.1
+cinder-odm-1	0	2.1
+nova-odm-1	0	2.9
+nova-odm-cell0-1	0	3.0
+glance-db_sync	0	1.9
+placement-db_sync	0	1.6
+neutron-upgrade	0	3.0
+placement-odm-1	0	1.7
+total_seconds 40
+[PC-C1] use_quota NULL (deleted included): volumes=0 snapshots=0; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[PC-C1] GATE PASS (0 and 0)
+references built with release 2026.1
+snapshot /snap/H4r: 1008 tables
+[C4] schema vs reference: 161 declared (ids: A1/S-3.1 x125; A2/S-3.2 x8; A3/S-3.3 x2; A4/S-N.1 x2; S-1c/S-1d x12; S-3.4 x12; ), 0 UNDECLARED
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=104 undeclared=0
+[N-3] N3-RECONCILIATION PASS (previous snapshot H4)
+[IDEM] H4r vs H4 (no exclusions): SUMMARY declared=0 undeclared=0
+[C2] bookkeeping rows differing from the reference (migrate_version expected for keystone/glance): keystone.migrate_version glance.migrate_version 
+[C9] status tools: 0 FAILURE results; 1 warning result(s), of which OVN-related lines: 4 (neutron-status exit 1 on the OVN warning is a WARNING, recorded, not a tool error); keystone-status results: 3; 0 real tool errors (exit 1 with no result at all; must be 0) - see status-tools.txt
+[C10] checks seconds: 79; hop timings in steps.tsv
+RESULT H4r: PASS
+Cell 00000000-0000-0000-0000-000000000000(cell0): Unable to purge table shadow_migrate_version because it has no timestamp column
+Cell 3a38ca82-d40a-4fd8-bc63-dc4bdc851077(cell1): Unable to purge table shadow_migrate_version because it has no timestamp column
+A3 archive check: PASS
+== run d3 finished 2026-10-31T14:27:24Z total 817 s, stop conditions hit: 0

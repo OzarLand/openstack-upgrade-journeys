@@ -1,0 +1,5 @@
+image=mariadb:11.4 version=11.4.13-MariaDB-ubu2404-log
+start_seconds=11 upgrade+check_seconds=5
+mariadb-upgrade exit=0; check exit=0
+[ERROR]-like lines at first start (before mariadb-upgrade, recorded, not SC-ENGINE by themselves): 0
+[ERROR] lines in the log written since the clean restart after mariadb-upgrade (SC-ENGINE if > 0): 0

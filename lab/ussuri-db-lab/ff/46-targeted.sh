@@ -28,4 +28,23 @@ q "V-G1 glance tasks new columns" "SELECT CONCAT(id,' user_id=',IFNULL(user_id,'
 q "V-P1 placement consumers consumer_type_id NULL / total" "SELECT CONCAT(SUM(consumer_type_id IS NULL),'/',COUNT(*)) FROM placement.consumers"
 q "R-13 placement.consumer_types rows" "SELECT COUNT(*) FROM placement.consumer_types"
 q "C8 sql_mode global / table check" "SELECT @@GLOBAL.sql_mode"
+echo "# ---- assertions (frozen list section 5; the verdict counts ASSERT-FAIL lines)"
+as() { # as <label> <actual> <expected-regex>
+  if echo "$2" | grep -Eq "$3"; then echo "ASSERT-PASS $1 -> [$2]"; else echo "ASSERT-FAIL $1 -> [$2] expected /$3/"; fi; }
+NN=$(ff_sql "SELECT COUNT(*) FROM cinder.volumes WHERE use_quota IS NULL")+$(ff_sql "SELECT COUNT(*) FROM cinder.snapshots WHERE use_quota IS NULL"); as "V-C1/V-C2 use_quota NULL rows (volumes+snapshots, deleted included)" "$NN" '^0\+0$'
+as "V-C3 volumes.use_quota NOT NULL" "$(ff_sql "SELECT IS_NULLABLE FROM information_schema.COLUMNS WHERE TABLE_SCHEMA='cinder' AND TABLE_NAME='volumes' AND COLUMN_NAME='use_quota'")" '^NO$'
+as "R-5 default backups=7 / backup_gigabytes=2500 present (CP-C1)" "$(ff_sql "SELECT GROUP_CONCAT(CONCAT(resource,'=',hard_limit) ORDER BY resource) FROM cinder.quota_classes WHERE class_name='default' AND deleted=0 AND resource IN ('backups','backup_gigabytes')")" '^(backups=7,backup_gigabytes=2500|backup_gigabytes=2500,backups=7)$'
+as "V-C9 temporary admin metadata not deleted" "$(ff_sql "SELECT COUNT(*) FROM cinder.volume_admin_metadata WHERE \`key\`='temporary' AND deleted=0")" '^0$'
+as "V-N2 compute_id mismatches vs compute_nodes" "$(ff_sql "SELECT COUNT(*) FROM nova.instances i JOIN nova.compute_nodes c ON c.id=i.compute_id WHERE c.host<>i.host OR c.hypervisor_hostname<>i.node")" '^0$'
+as "V-N2 compute_id NULL = instances with host NULL (residue N-R1)" "$(ff_sql "SELECT CONCAT((SELECT COUNT(*) FROM nova.instances WHERE compute_id IS NULL),'=',(SELECT COUNT(*) FROM nova.instances WHERE host IS NULL))")" '^([0-9]+)=\1$'
+as "V-N1 pci_devices NULL uuid" "$(ff_sql "SELECT COUNT(*) FROM nova.pci_devices WHERE uuid IS NULL")" '^0$'
+as "V-N3 migrations.dest_compute_id not NULL" "$(ff_sql "SELECT COUNT(*) FROM nova.migrations WHERE dest_compute_id IS NOT NULL")" '^0$'
+as "S-3.4 shadow_migrate_version rows (nova, nova_cell0)" "$(ff_sql "SELECT CONCAT((SELECT COUNT(*) FROM nova.shadow_migrate_version),'/',(SELECT COUNT(*) FROM nova_cell0.shadow_migrate_version))")" '^0/0$'
+as "V-Q6 default SG rules" "$(ff_sql "SELECT COUNT(*) FROM neutron.securitygroupdefaultrules")" '^4$'
+as "V-Q7 porttrusted rows = ports that had a trusted profile" "$(ff_sql "SELECT COUNT(*) FROM neutron.porttrusted")" "^$(python3 -c "import json;print(json.load(open('$CFG_FF/snap/predictions.json'))['trusted_ports'])")\$"
+as "V-Q8 tags collation" "$(ff_sql "SELECT TABLE_COLLATION FROM information_schema.TABLES WHERE TABLE_SCHEMA='neutron' AND TABLE_NAME='tags'")" '^utf8mb4_bin$'
+as "V-Q9 network_segment_ranges.physical_network NULL" "$(ff_sql "SELECT COUNT(*) FROM neutron.network_segment_ranges WHERE physical_network IS NULL")" '^0$'
+as "V-K1 keystone expand/data_migrate/contract" "$(ff_sql "SELECT GROUP_CONCAT(CONCAT(repository_id,'=',version) ORDER BY repository_id) FROM keystone.migrate_version WHERE repository_id<>'keystone'")" '^keystone_contract=79,keystone_data_migrate=79,keystone_expand=79$'
+as "V-K2 mapping.schema_version" "$(ff_sql "SELECT GROUP_CONCAT(DISTINCT schema_version) FROM keystone.mapping")" '^(1.0)?$'
+as "R-13 placement.consumer_types rows" "$(ff_sql "SELECT COUNT(*) FROM placement.consumer_types")" '^0$'
 } > "$O" 2>&1; cat "$O"

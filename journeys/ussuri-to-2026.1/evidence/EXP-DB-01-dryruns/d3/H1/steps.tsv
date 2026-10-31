@@ -1,0 +1,13 @@
+keystone-db_sync	0	8.9
+nova-api_db_sync	0	7.3
+nova-db_sync-cell0	0	2.7
+nova-db_sync-cell1	0	2.4
+cinder-db_sync	0	3.6
+cinder-odm-1	0	2.2
+nova-odm-1	0	2.4
+nova-odm-cell0-1	0	2.7
+glance-db_sync	0	1.8
+placement-db_sync	0	1.7
+neutron-upgrade	0	6.0
+placement-odm-1	0	1.1
+total_seconds 61

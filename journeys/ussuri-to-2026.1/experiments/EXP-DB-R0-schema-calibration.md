@@ -102,3 +102,5 @@ On an empty schema the whole S2c code path works: 5 hops, all commands exit 0 in
 ## Status
 
 `LAB-VALIDATED` (scope above) for the calibration; amendments `PROPOSED-UNVERIFIED`.
+
+> **Footnote (Amendment 2, Red Team Stage 5b, 2026-10-31).** Of the "48 declared S-1" schema lines reported at H1 in this record (and in R0/R1b/R1c), **12 were `shadow_migrate_version`** (`nova` and `nova_cell0`: table, 3 columns, PRIMARY index, PRIMARY key), not `migrate_version`. The old shell filter matched the substring `migrate_version` and hid them under S-1. They are now declared as **S-3.4** (`declared-differences.md` section 9), pinned at 0 rows, and visible in the comparator output from `ff/tools/compare.py` v2 onward. No data was affected.
