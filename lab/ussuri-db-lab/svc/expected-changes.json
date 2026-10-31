@@ -1,0 +1,5 @@
+{
+  "ports": {
+    "binding:profile.trusted": "neutron migration 5bcb7b31ec7d (2024.2) moves binding:profile.trusted into table porttrusted; the key is returned as port.trusted only when the ML2 extension driver port_trusted is enabled (not in the Ussuri ml2_conf.ini): found in dry run dry-f2-1, DB value porttrusted=1 verified"
+  }
+}

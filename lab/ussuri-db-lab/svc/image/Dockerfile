@@ -2,5 +2,5 @@
 FROM ufj-ff-2026.1:1
 COPY ca/ /tmp/ca/
 ARG PIP_CERT=
-RUN /opt/ff/bin/pip install --no-cache-dir -c /build/upper-constraints.txt gunicorn python-openstackclient osc-placement \
+RUN /opt/ff/bin/pip install --no-cache-dir -c /build/upper-constraints.txt gunicorn pymemcache python-memcached python-openstackclient osc-placement \
  && /opt/ff/bin/pip freeze > /opt/ff/pip-freeze-svc.txt

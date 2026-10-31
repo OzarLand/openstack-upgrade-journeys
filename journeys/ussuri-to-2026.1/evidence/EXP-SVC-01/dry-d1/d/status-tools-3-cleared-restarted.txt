@@ -1,0 +1,111 @@
+===== nova-status upgrade check 
++---------------------------------------------------------------------+
+| Upgrade Check Results                                               |
++---------------------------------------------------------------------+
+| Check: Cells v2                                                     |
+| Result: Success                                                     |
+| Details: None                                                       |
++---------------------------------------------------------------------+
+| Check: Placement API                                                |
+| Result: Success                                                     |
+| Details: None                                                       |
++---------------------------------------------------------------------+
+| Check: Cinder API                                                   |
+| Result: Success                                                     |
+| Details: None                                                       |
++---------------------------------------------------------------------+
+| Check: Policy File JSON to YAML Migration                           |
+| Result: Success                                                     |
+| Details: None                                                       |
++---------------------------------------------------------------------+
+| Check: Older than N-1 computes                                      |
+| Result: Success                                                     |
+| Details: None                                                       |
++---------------------------------------------------------------------+
+| Check: hw_machine_type unset                                        |
+| Result: Warning                                                     |
+| Details:  Instances found without hw_machine_type set. This warning |
+|   can be ignored if your environment does not contain               |
+|   libvirt based compute hosts. Use the `nova-manage libvirt         |
+|   list_unset_machine_type` command to list these instances.         |
+|   For more details see the following:                               |
+|   https://docs.openstack.org/nova/latest/admin/hw-machine-          |
+|   type.html                                                         |
++---------------------------------------------------------------------+
+| Check: Service User Token Configuration                             |
+| Result: Success                                                     |
+| Details: None                                                       |
++---------------------------------------------------------------------+
+===== exit code: 1
+===== cinder-status upgrade check 
++-----------------------------------+
+| Upgrade Check Results             |
++-----------------------------------+
+| Check: Backup Driver Path         |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Use of Policy File         |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Removed Drivers            |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Periodic Interval Use      |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Service UUIDs              |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Attachment specs           |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Use of Nested Quota Driver |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+===== exit code: 0
+===== neutron-status upgrade check --config-file /etc/neutron/neutron.conf 
+usage: neutron-status [-h] [--config-dir DIR] [--config-file PATH] [--debug]
+                      [--log-config-append PATH]
+                      [--log-date-format DATE_FORMAT] [--log-dir LOG_DIR]
+                      [--log-file PATH] [--nodebug] [--nouse-journal]
+                      [--nouse-json] [--nouse-syslog]
+                      [--shell_completion SHELL_COMPLETION]
+                      [--state_path STATE_PATH]
+                      [--syslog-log-facility SYSLOG_LOG_FACILITY]
+                      [--use-journal] [--use-json] [--use-syslog]
+                      {upgrade} ...
+neutron-status: error: unrecognized arguments: --config-file /etc/neutron/neutron.conf
+===== exit code: 2
+===== placement-status upgrade check 
++-------------------------------------------+
+| Upgrade Check Results                     |
++-------------------------------------------+
+| Check: Missing Root Provider IDs          |
+| Result: Success                           |
+| Details: None                             |
++-------------------------------------------+
+| Check: Incomplete Consumers               |
+| Result: Success                           |
+| Details: None                             |
++-------------------------------------------+
+| Check: Policy File JSON to YAML Migration |
+| Result: Success                           |
+| Details: None                             |
++-------------------------------------------+
+===== exit code: 0
+===== keystone-status upgrade check 
+/etc/keystone/fernet-keys/ does not exist
+===== exit code: 1
+===== glance-status upgrade check --config-file /etc/glance/glance-api.conf 
+usage: glance-status [-h] [--config-dir DIR] [--config-file PATH]
+                     [--shell_completion SHELL_COMPLETION]
+                     {upgrade} ...
+glance-status: error: unrecognized arguments: --config-file /etc/glance/glance-api.conf
+===== exit code: 2

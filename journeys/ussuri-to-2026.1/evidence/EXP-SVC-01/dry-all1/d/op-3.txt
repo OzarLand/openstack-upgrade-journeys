@@ -1,0 +1,6 @@
+server create -> exit 0 (flavor ufj-tiny, image ufj-image-public, host az1:ufj-compute1)
+server 8497ccf3-3d5d-4a72-9da5-bd3f9754eb98
+status after wait: ACTIVE
+{  "OS-EXT-SRV-ATTR:host": "ufj-compute1",  "OS-EXT-STS:task_state": null,  "OS-EXT-STS:vm_state": "active",  "status": "ACTIVE"}
+
+compute log (errors since 2026-10-31T16:04:14Z):

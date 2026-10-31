@@ -1,0 +1,37 @@
+Sat Oct 31 15:27:44 UTC 2026
+== running before
+ufj-ff-derive-h4r-db Up 31 seconds
+ufj-cinder-volume Up 14 minutes
+ufj-cinder-scheduler Up 14 minutes
+ufj-cinder-api Up 14 minutes
+ufj-neutron Up 14 minutes
+ufj-nova-scheduler Up 14 minutes
+ufj-nova-conductor Up 14 minutes
+ufj-nova-api Up 14 minutes
+ufj-placement Up 14 minutes
+ufj-glance Up 14 minutes
+ufj-client Up 14 minutes
+ufj-static Up 14 minutes
+ufj-keystone Up 14 minutes
+ufj-memcached Up 14 minutes
+ufj-rabbitmq Up 14 minutes
+ufj-mariadb Up 14 minutes
+== running after stopping the Ussuri lab
+ufj-ff-derive-h4r-db Up 42 seconds
+== Ussuri-lab containers (all states)
+ufj-ff-derive-h4r-db Up 42 seconds
+ufj-cinder-volume Exited (137) Less than a second ago
+ufj-cinder-scheduler Exited (0) 9 seconds ago
+ufj-cinder-api Exited (0) 10 seconds ago
+ufj-neutron Exited (137) Less than a second ago
+ufj-nova-scheduler Exited (137) Less than a second ago
+ufj-nova-conductor Exited (137) Less than a second ago
+ufj-nova-api Exited (0) 10 seconds ago
+ufj-placement Exited (0) 9 seconds ago
+ufj-glance Exited (0) 10 seconds ago
+ufj-client Exited (137) Less than a second ago
+ufj-static Exited (137) Less than a second ago
+ufj-keystone Exited (0) 8 seconds ago
+ufj-memcached Exited (0) 10 seconds ago
+ufj-rabbitmq Exited (0) 9 seconds ago
+ufj-mariadb Exited (0) 8 seconds ago

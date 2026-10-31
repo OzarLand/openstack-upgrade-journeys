@@ -1,0 +1,15 @@
+Configuration changes between the rendered Ussuri configs (backups-v4/latest/config/rendered-etc.tar.gz) and the 2026.1 runtime.
+Everything else is taken over unchanged. Secrets are not listed.
+1. keystone.conf [cache] backend: oslo_cache.memcache_pool -> dogpile.cache.pymemcache   (plugin removed; "Couldn't find cache plugin to load")
+2. api-paste.ini of nova, cinder, neutron and glance-api-paste.ini: replaced by the files shipped in the 2026.1 image (/opt/ff/etc/<svc>/)
+3. neutron.conf: ml2_conf.ini appended (one file for neutron-rpc-server and the gunicorn WSGI app)
+4. image ufj-svc-2026.1:1 additionally contains pymemcache and python-memcached (u-c pinned): dogpile pymemcache backend (keystone) and keystonemiddleware token cache (oslo_cache._memcache_pool imports memcache)
+5. nova.conf [filter_scheduler] enabled_filters: AvailabilityZoneFilter removed (class no longer exists in 2026.1: SchedulerHostFilterNotFound; AZ handling is in placement)
+6. nova.conf, neutron.conf, cinder.conf, glance-api.conf: [oslo_messaging_rabbit] rabbit_quorum_queue=true, rabbit_transient_quorum_queue=true, use_queue_manager=true, amqp_durable_queues=true
+   (RabbitMQ 4.4.0 refuses the Ussuri-style transient non-exclusive queues: "Queue.declare: (541) INTERNAL_ERROR - Feature transient_nonexcl_queues is deprecated")
+7. nova.conf: [service_user] section added (send_service_user_token=true, nova service credentials from [keystone_authtoken]); without it `nova-status upgrade check` reports
+   "Service User Token Configuration: Failure" in 2026.1 (not part of the DR-003 gate, a 2026.1 requirement absent from Ussuri configs)
+8. nova.conf: [DEFAULT] debug = true (so that the DEBUG line "Not caching compute RPC version_cap, because min service_version is 0" of state (d) is visible)
+9. svc/wsgi/nt_app.py: imports neutron.db.migration.models.head (all model modules) and calls sqlalchemy.orm.configure_mappers() before neutron.wsgi.api. Without it the first GET /v2.0/ports in a worker -> 500 AttributeError: type object Port has no attribute port_forwardings (then distributed_port_binding): db_base_plugin_v2.get_ports reads backrefs of model modules that the wsgi path does not import before any query ran
+10. nova-compute.conf (2026.1 computes): compute_driver = ufj_fake2026.UfjFake2026Driver (svc/ufj_fake2026.py, lab code: FakeDriver whose node uuid is the compute_id file, like a real single-node driver; the stock FakeDriver cannot adopt an existing compute_nodes row) and empty [database]/[api_database] connections (a 2026.1 compute has no database access)
+11. nova.conf: [upgrade_levels] compute = auto (Kolla-Ansible templates it in nova.conf.j2; without it Nova 2026.1 sends the current compute RPC version and never computes the cap from the minimum service version, which is the second gate of DR-003)

@@ -1,0 +1,59 @@
+[15:48:56] reset: fresh clone of ufj-ff-derive-h4r-data
+cloned ufj-ff-derive-h4r-data -> ufj-svc-data
+11.4.13-MariaDB-ubu2404-log
+4.4.0
+control plane answering
+[15:49:17] (d) d1: Ussuri rows forced-down, no flag, 2026.1 control plane started
+(containers: ufj-svc-nova-scheduler=Up 12 seconds ufj-svc-nova-conductor=Up 12 seconds ufj-svc-nova-api=Up 13 seconds )
+
+===== nova-status upgrade check  | Check: Cells v2                                                     | | Result: Success                                                     | | Check: Placement API                                                | | Result: Success                                                     | | Check: Cinder API                                                   | | Result: Success                                                     | | Check: Policy File JSON to YAML Migration                           | | Result: Success                                                     | | Check: Older than N-1 computes                                      | | Result: Success                                                     | | Check: hw_machine_type unset                                        | | Result: Warning                                                     | | Check: Service User Token Configuration                             | | Result: Success                                                     | 
+===== exit code: 1 
+===== cinder-status upgrade check  | Check: Backup Driver Path         | | Result: Success                   | | Check: Use of Policy File         | | Result: Success                   | | Check: Removed Drivers            | | Result: Success                   | | Check: Periodic Interval Use      | | Result: Success                   | | Check: Service UUIDs              | | Result: Success                   | | Check: Attachment specs           | | Result: Success                   | | Check: Use of Nested Quota Driver | | Result: Success                   | 
+===== exit code: 0 
+===== neutron-status upgrade check --config-file /etc/neutron/neutron.conf  
+===== exit code: 2 
+===== placement-status upgrade check  | Check: Missing Root Provider IDs          | | Result: Success                           | | Check: Incomplete Consumers               | | Result: Success                           | | Check: Policy File JSON to YAML Migration | | Result: Success                           | 
+===== exit code: 0 
+===== keystone-status upgrade check  
+===== exit code: 1 
+===== glance-status upgrade check --config-file /etc/glance/glance-api.conf  
+===== exit code: 2
+[15:49:35] F2 read-back (state d1)
+current  counts: {"agents": 3, "aggregates": 2, "cinder_quotas": 4, "compute_services": 5, "domains": 3, "endpoints": 18, "flavors": 7, "floatingips": 3, "group_memberships": 1, "groups": 1, "hypervisors": 3, "images": 5, "keypairs": 3, "networks": 5, "neutron_quotas": 4, "nova_quotas": 4, "placemen
+declared differences: 1   UNDECLARED differences: 0
+RESULT: PASS
+keystone: 0
+glance: 0
+placement: 0
+nova-api: 2
+neutron: 0
+cinder-api: 0
+[15:49:44] (d) d2: re-register one host (ufj-compute1, 2026.1 fake compute)
+compute_id file: ffb37850-5050-44a3-b7df-6b126b1b0140
+compute_nodes rows for ufj-compute1 (all, including deleted):
+id	uuid	host	hypervisor_hostname	service_id	deleted
+2	ffb37850-5050-44a3-b7df-6b126b1b0140	ufj-compute1	ufj-compute1	NULL	0
+services row:
+id	version	forced_down	disabled
+9	72	1	0
+compute log (node identity / adoption / errors):
+2026-10-31 15:49:48.805 1 DEBUG oslo_service.backend._eventlet.service [None req-26bc6c67-93c0-4b8f-b060-abf22a6c8532 - - - - - -] logging_exception_prefix       = %(asctime)s.%(msecs)03d %(process)d ERROR %(name)s %(instance)s log_opt_values /opt/ff/lib/python3.12/site-packages/oslo_config/cfg.py:2995
+2026-10-31 15:49:49.940 1 INFO nova.virt.node [None req-60ecba8d-fe56-4f82-a2eb-ba2c1ff708a1 - - - - - -] Wrote node identity ffb37850-5050-44a3-b7df-6b126b1b0140 to /var/lib/nova/compute_id
+2026-10-31 15:49:49.941 1 INFO nova.virt.node [None req-60ecba8d-fe56-4f82-a2eb-ba2c1ff708a1 - - - - - -] Determined node identity ffb37850-5050-44a3-b7df-6b126b1b0140 from /var/lib/nova/compute_id
+placement resource provider of the node:
+ffb37850-5050-44a3-b7df-6b126b1b0140 ufj-compute1
+[15:50:22] (d) clear forced-down on ufj-compute1 (after verification), restart nova-api/conductor/scheduler once
+(containers: ufj-svc-nova-scheduler=Up 5 seconds ufj-svc-nova-conductor=Up 16 seconds ufj-svc-nova-api=Up 26 seconds )
+
+===== nova-status upgrade check  | Check: Cells v2                                                     | | Result: Success                                                     | | Check: Placement API                                                | | Result: Success                                                     | | Check: Cinder API                                                   | | Result: Success                                                     | | Check: Policy File JSON to YAML Migration                           | | Result: Success                                                     | | Check: Older than N-1 computes                                      | | Result: Success                                                     | | Check: hw_machine_type unset                                        | | Result: Warning                                                     | | Check: Service User Token Configuration                             | | Result: Success                                                     | 
+===== exit code: 1 
+===== cinder-status upgrade check  | Check: Backup Driver Path         | | Result: Success                   | | Check: Use of Policy File         | | Result: Success                   | | Check: Removed Drivers            | | Result: Success                   | | Check: Periodic Interval Use      | | Result: Success                   | | Check: Service UUIDs              | | Result: Success                   | | Check: Attachment specs           | | Result: Success                   | | Check: Use of Nested Quota Driver | | Result: Success                   | 
+===== exit code: 0 
+===== neutron-status upgrade check --config-file /etc/neutron/neutron.conf  
+===== exit code: 2 
+===== placement-status upgrade check  | Check: Missing Root Provider IDs          | | Result: Success                           | | Check: Incomplete Consumers               | | Result: Success                           | | Check: Policy File JSON to YAML Migration | | Result: Success                           | 
+===== exit code: 0 
+===== keystone-status upgrade check  
+===== exit code: 1 
+===== glance-status upgrade check --config-file /etc/glance/glance-api.conf  
+===== exit code: 2

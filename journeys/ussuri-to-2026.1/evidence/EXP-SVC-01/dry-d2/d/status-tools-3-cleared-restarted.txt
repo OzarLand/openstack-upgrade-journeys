@@ -1,0 +1,205 @@
+===== nova-status upgrade check
++---------------------------------------------------------------------+
+| Upgrade Check Results                                               |
++---------------------------------------------------------------------+
+| Check: Cells v2                                                     |
+| Result: Success                                                     |
+| Details: None                                                       |
++---------------------------------------------------------------------+
+| Check: Placement API                                                |
+| Result: Success                                                     |
+| Details: None                                                       |
++---------------------------------------------------------------------+
+| Check: Cinder API                                                   |
+| Result: Success                                                     |
+| Details: None                                                       |
++---------------------------------------------------------------------+
+| Check: Policy File JSON to YAML Migration                           |
+| Result: Success                                                     |
+| Details: None                                                       |
++---------------------------------------------------------------------+
+| Check: Older than N-1 computes                                      |
+| Result: Success                                                     |
+| Details: None                                                       |
++---------------------------------------------------------------------+
+| Check: hw_machine_type unset                                        |
+| Result: Warning                                                     |
+| Details:  Instances found without hw_machine_type set. This warning |
+|   can be ignored if your environment does not contain               |
+|   libvirt based compute hosts. Use the `nova-manage libvirt         |
+|   list_unset_machine_type` command to list these instances.         |
+|   For more details see the following:                               |
+|   https://docs.openstack.org/nova/latest/admin/hw-machine-          |
+|   type.html                                                         |
++---------------------------------------------------------------------+
+| Check: Service User Token Configuration                             |
+| Result: Success                                                     |
+| Details: None                                                       |
++---------------------------------------------------------------------+
+===== exit code: 1
+===== cinder-status upgrade check
++-----------------------------------+
+| Upgrade Check Results             |
++-----------------------------------+
+| Check: Backup Driver Path         |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Use of Policy File         |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Removed Drivers            |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Periodic Interval Use      |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Service UUIDs              |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Attachment specs           |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Use of Nested Quota Driver |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+===== exit code: 0
+===== neutron-status --config-file neutron.conf upgrade check
+Unable to open stream to tcp:127.0.0.1:6641 to retrieve schema: Connection refused
++-----------------------------------------------------------------------+
+| Upgrade Check Results                                                 |
++-----------------------------------------------------------------------+
+| Check: Worker counts configured                                       |
+| Result: Success                                                       |
+| Details: Number of workers already defined in config                  |
++-----------------------------------------------------------------------+
+| Check: NIC Switch agent check kernel                                  |
+| Result: Success                                                       |
+| Details: No NIC Switch agents detected.                               |
++-----------------------------------------------------------------------+
+| Check: VLAN allocations valid segmentation ID check                   |
+| Result: Success                                                       |
+| Details: All 'ml2_vlan_allocations' registers have a valid            |
+|   segmentation ID.                                                    |
++-----------------------------------------------------------------------+
+| Check: Policy File JSON to YAML Migration                             |
+| Result: Success                                                       |
+| Details: None                                                         |
++-----------------------------------------------------------------------+
+| Check: Port MAC address sanity check                                  |
+| Result: Success                                                       |
+| Details: All port MAC addresses are correctly formatted in the        |
+|   database.                                                           |
++-----------------------------------------------------------------------+
+| Check: NetworkSegments unique constraint check                        |
+| Result: Success                                                       |
+| Details: No networksegments sharing the same network_id, network_type |
+|   and physical_network found.                                         |
++-----------------------------------------------------------------------+
+| Check: Port Binding profile sanity check                              |
+| Result: Success                                                       |
+| Details: All ml2_port_bindings.profile rows are correctly formatted   |
+|   in the database.                                                    |
++-----------------------------------------------------------------------+
+| Check: Floating IP inherits the QoS policy from the external network  |
+| Result: Success                                                       |
+| Details: There are no external networks with QoS policies associated  |
+|   and floating IPs without.                                           |
++-----------------------------------------------------------------------+
+| Check: Port extra DHCP options check                                  |
+| Result: Success                                                       |
+| Details: There are no extra_dhcp_opts with the newline character in   |
+|   the option name or option value.                                    |
++-----------------------------------------------------------------------+
+| Check: Duplicated HA network per project check                        |
+| Result: Success                                                       |
+| Details: There are no extra_dhcp_opts with the newline character in   |
+|   the option name or option value.                                    |
++-----------------------------------------------------------------------+
+| Check: OVN support for BM provisioning over IPv6 check                |
+| Result: Warning                                                       |
+| Details: Failed to connect to OVN. Error: Could not retrieve schema   |
+|   from tcp:127.0.0.1:6641                                             |
++-----------------------------------------------------------------------+
+| Check: ML2/OVS IGMP Flood check                                       |
+| Result: Success                                                       |
+| Details: IGMP related traffic configuration is not affected.          |
++-----------------------------------------------------------------------+
+| Check: Floating IP Port forwarding and OVN L3 plugin configuration    |
+| Result: Success                                                       |
+| Details: No OVN L3 plugin enabled.                                    |
++-----------------------------------------------------------------------+
+| Check: Existing tags exceeds limit per resource                       |
+| Result: Success                                                       |
+| Details: Number of tags for each resource is below the limit of 50.   |
++-----------------------------------------------------------------------+
+| Check: RBAC policies with invalid target_project                      |
+| Result: Success                                                       |
+| Details: All RBAC policies have a valid target_project value.         |
++-----------------------------------------------------------------------+
+===== exit code: 1
+===== placement-status upgrade check
++-------------------------------------------+
+| Upgrade Check Results                     |
++-------------------------------------------+
+| Check: Missing Root Provider IDs          |
+| Result: Success                           |
+| Details: None                             |
++-------------------------------------------+
+| Check: Incomplete Consumers               |
+| Result: Success                           |
+| Details: None                             |
++-------------------------------------------+
+| Check: Policy File JSON to YAML Migration |
+| Result: Success                           |
+| Details: None                             |
++-------------------------------------------+
+===== exit code: 0
+===== glance-status --config-file glance-api.conf upgrade check
+Deprecated: Option "stores" from group "glance_store" is deprecated for removal (
+This option is deprecated against new config option
+``enabled_backends`` which helps to configure multiple backend stores
+of different schemes.
+
+This option is scheduled for removal in the U development
+cycle.
+).  Its value may be silently ignored in the future.
++----------------------------------------------+
+| Upgrade Check Results                        |
++----------------------------------------------+
+| Check: Sheepdog Driver Removal               |
+| Result: Success                              |
+| Details: None                                |
++----------------------------------------------+
+| Check: Policy File JSON to YAML Migration    |
+| Result: Success                              |
+| Details: None                                |
++----------------------------------------------+
+| Check: Config option owner_is_tenant removal |
+| Result: Success                              |
+| Details: None                                |
++----------------------------------------------+
+===== exit code: 0
+===== keystone-status --config-file keystone.conf upgrade check (keys also mounted at /etc/keystone: the tool checks the default repository paths)
++-------------------------------------------+
+| Upgrade Check Results                     |
++-------------------------------------------+
+| Check: Check trust policies are not empty |
+| Result: Success                           |
+| Details: Trust policies are safe.         |
++-------------------------------------------+
+| Check: Check default roles are immutable  |
+| Result: Success                           |
+| Details: Default roles are immutable.     |
++-------------------------------------------+
+| Check: Policy File JSON to YAML Migration |
+| Result: Success                           |
+| Details: None                             |
++-------------------------------------------+
+===== exit code: 0

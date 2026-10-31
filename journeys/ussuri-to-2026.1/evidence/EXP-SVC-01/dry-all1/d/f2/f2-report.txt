@@ -1,0 +1,35 @@
+F2 read-back through the 2026.1 APIs against the T0 inventory (2026-10-31T13:14:25.236919Z)
+baseline counts: {"agents": 3, "aggregates": 2, "cinder_quotas": 4, "compute_services": 5, "domains": 3, "endpoints": 18, "flavors": 7, "floatingips": 3, "group_memberships": 1, "groups": 1, "hypervisors": 3, "images": 5, "keypairs": 3, "networks": 5, "neutron_quotas": 4, "nova_quotas": 4, "placement_resource_providers": 4, "ports": 22, "projects": 4, "rbac_policies": 8, "regions": 1, "role_assignments": 12, "roles": 3, "routers": 2, "security_group_rules": 24, "security_groups": 6, "server_groups": 2, "servers": 11, "services": 6, "snapshots": 1, "subnetpools": 2, "subnets": 5, "users": 9, "volume_services": 3, "volume_types": 3, "volumes": 7}
+current  counts: {"agents": 3, "aggregates": 2, "cinder_quotas": 4, "compute_services": 5, "domains": 3, "endpoints": 18, "flavors": 7, "floatingips": 3, "group_memberships": 1, "groups": 1, "hypervisors": 3, "images": 5, "keypairs": 3, "networks": 5, "neutron_quotas": 4, "nova_quotas": 4, "placement_resource_providers": 4, "ports": 22, "projects": 4, "rbac_policies": 8, "regions": 1, "role_assignments": 12, "roles": 3, "routers": 2, "security_group_rules": 24, "security_groups": 6, "server_groups": 2, "servers": 11, "services": 6, "snapshots": 1, "subnetpools": 2, "subnets": 5, "users": 9, "volume_services": 3, "volume_types": 3, "volumes": 7}
+declared differences: 1   UNDECLARED differences: 0
+--- differences
+declared   ports aa5729b5-390f-43c7-8b82-e2a52d5d9f92 .binding:profile.trusted missing: "true" -> null [neutron migration 5bcb7b31ec7d (2024.2) moves binding:profile.trusted into table porttrusted; the key is returned as port.trusted only when the ML2 extension driver port_trusted is enabled (not in the Ussuri ml2_conf.ini): found in dry run dry-f2-1, DB value porttrusted=1 verified]
+--- new objects (present now, not in T0): 0
+--- fields added by the 2026.1 APIs (field: number of objects)
+  floatingips: port_forwardings.id(1), port_forwardings.internal_port_id(1)
+  networks: qinq(5), vlan_transparent(5)
+  security_group_rules: belongs_to_default_sg(24), normalized_cidr(24), remote_address_group_id(24)
+  security_groups: security_group_rules.belongs_to_default_sg(24), security_group_rules.normalized_cidr(24), security_group_rules.remote_address_group_id(24), security_group_rules.standard_attr_id(24), shared(6)
+  servers: fault(2)
+  subnets: router:external(5)
+--- functional checks (inventory.py)
+  [PASS] auth alice: token issued
+  [PASS] auth bob: token issued
+  [PASS] image data md5 == glance checksum (3 images): all equal
+  [PASS] servers present with same status: 11/11 servers, statuses ['ACTIVE', 'ERROR', 'SHUTOFF', 'VERIFY_RESIZE']
+  [PASS] write test (create/delete network as alice): 3f894823-9661-4948-bdcc-2a49c7863e9c
+  [PASS] nova-compute service rows present (fenced baseline: state not required): 3 computes: [('ufj-compute1', 'down'), ('ufj-compute2', 'down'), ('ufj-compute3', 'down')]
+--- extra read-backs
+  [PASS] trusts listed by admin (HTTP 200): 3 of T0 trusts 3 present of 3 listed
+  [PASS] trust 1645ab9c show: HTTP 200
+  [PASS] trust 043cf636 show: HTTP 200
+  [PASS] trust f9312a88 show: HTTP 200
+  [PASS] application credentials of alice (HTTP 200): 3 listed
+  [PASS] application credentials of bob (HTTP 200): 1 listed
+  [PASS] T0 application credentials present: 3 of 3
+  [PASS] credentials list (HTTP 200), blobs decrypt (ec2 JSON with access+secret; others non-empty): by type {'ec2': 1, 'totp': 1}; undecryptable []; blob sha256 of ec2/totp not recorded
+  [PASS] federation identity_providers (HTTP 200): have ['ufj-idp']
+  [PASS] federation mappings (HTTP 200): have ['ufj-mapping']
+  [PASS] federation service_providers (HTTP 200): have ['ufj-sp']
+  [PASS] federation protocol saml2 (HTTP 200): ok
+RESULT: PASS

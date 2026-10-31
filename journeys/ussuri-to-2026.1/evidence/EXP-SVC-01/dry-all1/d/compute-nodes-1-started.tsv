@@ -1,0 +1,4 @@
+id	uuid	host	hypervisor_hostname	service_id	deleted	mapped
+1	1ffa4385-060e-4e69-84f7-0bb6ab09d0dd	ufj-compute2	ufj-compute2	NULL	0	1
+2	ffb37850-5050-44a3-b7df-6b126b1b0140	ufj-compute1	ufj-compute1	NULL	0	1
+3	8130328a-9a79-4540-84eb-dc846acc3492	ufj-compute3	ufj-compute3	NULL	0	1

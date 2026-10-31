@@ -1,0 +1,1 @@
+(containers: ufj-svc-nova-scheduler=Up About a minute ufj-svc-nova-conductor=Up 2 minutes ufj-svc-nova-api=Up 2 minutes )
