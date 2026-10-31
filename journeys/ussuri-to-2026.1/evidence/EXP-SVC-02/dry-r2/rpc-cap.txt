@@ -1,0 +1,4 @@
+nova-api: 2026-10-31 19:32:02.963 7 INFO nova.compute.rpcapi  Automatically selected compute RPC version 6.5 from minimum service version 72
+nova-api: 2026-10-31 19:32:35.579 8 INFO nova.compute.rpcapi  Automatically selected compute RPC version 6.5 from minimum service version 72
+nova-conductor: 2026-10-31 19:33:05.239 8 INFO nova.compute.rpcapi  Automatically selected compute RPC version 6.5 from minimum service version 72
+nova-conductor: 2026-10-31 19:33:10.892 7 INFO nova.compute.rpcapi  Automatically selected compute RPC version 6.5 from minimum service version 72

@@ -1,0 +1,2 @@
+id	attach_status	attach_mode	has_connector	has_conn_info	created_at
+6cf9ef2e-1dc4-414b-8823-877916dbfbf4	attached	rw	1	1	2026-10-31 11:22:29

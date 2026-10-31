@@ -1,0 +1,28 @@
+token-password-alice	OK	token scoped to project a7cec7ef1552403fbb23fc861b3e16eb
+token-password-bob	OK	token scoped to project 3d064405fa2447cf9aa98184a4348f36
+token-application-credential-alice (NEW credential of a pre-existing user; the secrets of the pre-existing credentials were not retained by the baseline, so they cannot be used)	OK	token scoped to project a7cec7ef1552403fbb23fc861b3e16eb
+application-credentials-of-alice-listed (pre-existing)	OK	3 listed
+ec2-credentials-alice-list-with-secret	OK	1 ec2 credential(s) listed with access and decrypted secret (values not recorded)
+totp-credential-decrypts	OK	totp credential e9f31d171b954c08a0a7472520a7567f; blob returned (not recorded)
+stop-start-of-Ussuri-created-ACTIVE-server-a-vm3 (boot volume attached)	OK	after stop SHUTOFF, after start ACTIVE
+resize-confirm-of-Ussuri-created-VERIFY_RESIZE-server-a-migrate (rc=0)	OK	status ACTIVE 
+volume-detach-of-Ussuri-era-attachment-a-vol1-from-a-vm1 (rc=0)	OK	volume status available 
+volume-re-attach-a-vol1-to-a-vm1 (rc=0)	OK	volume status in-use +-----------------------+--------------------------------------+ | Field                 | Value                        
+volume-attach-a-vol2-to-a-vm2 (rc=0)	OK	volume status in-use +-----------------------+--------------------------------------+ | Field                 | Value                        
+volume-detach-a-vol2-from-a-vm2 (rc=0)	OK	volume status available 
+resize-of-Ussuri-created-server-a-vm1-with-attached-volume-a-vol1 (rc=0)	OK	status VERIFY_RESIZE 
+resize-confirm-a-vm1	OK	status ACTIVE; flavor {'name': 'ufj.small', 'original_name': 'ufj.small', 'descrip
+resize-of-Ussuri-created-server-a-vm2-with-attached-encrypted-volume (rc=0)	OK	status VERIFY_RESIZE 
+resize-confirm-a-vm2	OK	status ACTIVE; flavor {'name': 'ufj.medium', 'original_name': 'ufj.medium', 'descr
+cinder-api-service-token-warnings-since-T0	INFO	0 line(s) (expected 0 with the service role)
+volume-snapshot-of-old-volume	OK	snapshot fa93b416-edaa-419d-99f1-62296217fe95 status available
+server-image-create (nova snapshot) of a-vm3, command rc=0	INFO	command accepted
+server-image-status	INFO	active (fake driver uploads no data)
+quota-bob-before	INFO	instances 5 instances_used 1 
+quota-bob-after-4-creates	INFO	instances 5 instances_used 5 
+quota-bob-6th-server-refused	OK	ForbiddenException: 403: Client Error for url: http://ufj-nova-api:8774/v2.1/servers, Quota exceeded for instances: Requested 1, but already used 5 of 5 instances 
+quota-alice-volume-495G-refused	OK	HttpException: 413: Client Error for url: http://ufj-cinder-api:8776/v3/a7cec7ef1552403fbb23fc861b3e16eb/volumes, VolumeSizeExceedsAvailableQuota: Requested volume or snapshot exceeds allowed gigabytes quota. Requested 495G, quota is 500G and 37G has been consumed. 
+quota-alice-volume-1G-accepted	OK	volume ec1adf26-c7a2-4d38-b6a6-8cbfe5e5337f
+port-create-on-old-network-a-net1	OK	2200eb15-111c-479c-b06d-c9ad4a6cbd26 DOWN 
+server-create-old-network-old-image-old-flavor	OK	2fe0bd37-85c6-41e1-b0d1-809e91d485dd status ACTIVE; ufj-compute1 {'a-net1': ['192.168.10.97']} 
+port-binding-of-new-server	INFO	ovs	ufj-compute1 

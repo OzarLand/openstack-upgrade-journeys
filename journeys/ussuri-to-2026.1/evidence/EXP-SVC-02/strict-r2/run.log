@@ -1,0 +1,66 @@
+[19:37:18] reset and start the 2026.1 stack (state d), then re-adopt the three hosts and restart the Nova control services once (DR-003 steps 4-5)
+keystone-manage bootstrap: exit 0
+admin manager member reader service 
+nova: admin service 
+cinder: admin service 
+neutron: admin service 
+control plane answering
+ufj-compute2 enabled up
+ufj-compute1 enabled up
+ufj-compute3 enabled up
+[19:39:21] roles after bootstrap: manager admin reader service member ; nova user in project service: admin nova@Default  service@Default   False service nova@Default  service@Default   False 
+[19:39:23] 1. tokens (6.5 cap: all compute rows are version 72)
+token-password-alice	OK	token scoped to project a7cec7ef1552403fbb23fc861b3e16eb
+token-password-bob	OK	token scoped to project 3d064405fa2447cf9aa98184a4348f36
+token-application-credential-alice (NEW credential of a pre-existing user; the secrets of the pre-existing credentials were not retained by the baseline, so they cannot be used)	OK	token scoped to project a7cec7ef1552403fbb23fc861b3e16eb
+application-credentials-of-alice-listed (pre-existing)	OK	3 listed
+[19:39:33] 2. credentials
+ec2-credentials-alice-list-with-secret	OK	1 ec2 credential(s) listed with access and decrypted secret (values not recorded)
+totp-credential-decrypts	OK	totp credential e9f31d171b954c08a0a7472520a7567f; blob returned (not recorded)
+[19:39:41] 3. pre-existing resources, as migrated (flavors: a-vm1 {'name': 'ufj.tiny', 'original_name': 'u; a-vm2 {'name': 'ufj.small', 'original_name': ')
+stop-start-of-Ussuri-created-ACTIVE-server-a-vm3 (boot volume attached)	OK	after stop SHUTOFF, after start ACTIVE
+resize-confirm-of-Ussuri-created-VERIFY_RESIZE-server-a-migrate (rc=0)	OK	status ACTIVE 
+volume-detach-of-Ussuri-era-attachment-a-vol1-from-a-vm1 (rc=0)	OK	volume status available 
+volume-re-attach-a-vol1-to-a-vm1 (rc=0)	OK	volume status in-use +-----------------------+--------------------------------------+ | Field                 | Value                        
+volume-attach-a-vol2-to-a-vm2 (rc=0)	OK	volume status in-use +-----------------------+--------------------------------------+ | Field                 | Value                        
+volume-detach-a-vol2-from-a-vm2 (rc=0)	OK	volume status available 
+resize-of-Ussuri-created-server-a-vm1-with-attached-volume-a-vol1 (rc=0)	OK	status VERIFY_RESIZE 
+resize-confirm-a-vm1	OK	status ACTIVE; flavor {'name': 'ufj.small', 'original_name': 'ufj.small', 'descrip
+resize-of-Ussuri-created-server-a-vm2-with-attached-encrypted-volume (rc=0)	OK	status VERIFY_RESIZE 
+resize-confirm-a-vm2	OK	status ACTIVE; flavor {'name': 'ufj.medium', 'original_name': 'ufj.medium', 'descr
+cinder-api-service-token-warnings-since-T0	INFO	0 line(s) (expected 0 with the service role)
+[19:41:42] 4. snapshots
+volume-snapshot-of-old-volume	OK	snapshot c12ce95c-5f94-40da-b355-794e97d81288 status available
+server-image-create (nova snapshot) of a-vm3, command rc=0	INFO	command accepted
+server-image-status	INFO	active (fake driver uploads no data)
+[19:42:10] 5. quota
+quota-bob-before	INFO	instances 5 instances_used 1 
+quota-bob-after-4-creates	INFO	instances 5 instances_used 5 
+quota-bob-6th-server-refused	OK	ForbiddenException: 403: Client Error for url: http://ufj-nova-api:8774/v2.1/servers, Quota exceeded for instances: Requested 1, but already used 5 of 5 instances 
+quota-alice-volume-495G-refused	OK	HttpException: 413: Client Error for url: http://ufj-cinder-api:8776/v3/a7cec7ef1552403fbb23fc861b3e16eb/volumes, VolumeSizeExceedsAvailableQuota: Requested volume or snapshot exceeds allowed gigabytes quota. Requested 495G, quota is 500G and 37G has been consumed. 
+quota-alice-volume-1G-accepted	OK	volume 785922b3-a26c-4c88-9efe-22f3ba7a0a8d
+[19:42:51] 6. network
+port-create-on-old-network-a-net1	OK	d4734d93-9356-41f7-8656-c71bf1ba799d DOWN 
+server-create-old-network-old-image-old-flavor	OK	cde63627-7587-487b-9d9b-49517ccbad81 status ACTIVE; ufj-compute1 {'a-net1': ['192.168.10.116']} 
+port-binding-of-new-server	INFO	ovs	ufj-compute1 
+[19:43:06] cleanup and log scan
+nova-api: 2026-10-31 19:39:13.444 7 INFO nova.compute.rpcapi  Automatically selected compute RPC version 6.5 from minimum service version 72
+nova-api: 2026-10-31 19:39:58.556 8 INFO nova.compute.rpcapi  Automatically selected compute RPC version 6.5 from minimum service version 72
+nova-conductor: 2026-10-31 19:40:19.365 7 INFO nova.compute.rpcapi  Automatically selected compute RPC version 6.5 from minimum service version 72
+nova-conductor: 2026-10-31 19:41:10.860 6 INFO nova.compute.rpcapi  Automatically selected compute RPC version 6.5 from minimum service version 72
+nova-api: http500-lines=0 error-lines=0 object-version-errors=0
+nova-conductor: http500-lines=0 error-lines=0 object-version-errors=0
+nova-scheduler: http500-lines=0 error-lines=0 object-version-errors=0
+neutron: http500-lines=0 error-lines=0 object-version-errors=0
+neutron-rpc: http500-lines=0 error-lines=0 object-version-errors=0
+cinder-api: http500-lines=0 error-lines=0 object-version-errors=0
+cinder-scheduler: http500-lines=0 error-lines=0 object-version-errors=0
+cinder-volume: http500-lines=0 error-lines=0 object-version-errors=0
+glance: http500-lines=0 error-lines=0 object-version-errors=0
+keystone: http500-lines=0 error-lines=0 object-version-errors=0
+placement: http500-lines=0 error-lines=0 object-version-errors=0
+compute1: http500-lines=0 error-lines=0 object-version-errors=0
+compute2: http500-lines=0 error-lines=0 object-version-errors=0
+compute3: http500-lines=0 error-lines=0 object-version-errors=0
+SUMMARY ok=22 fail=0
+[19:43:29] done: strict-r2

@@ -1,0 +1,18 @@
+== before, 2026-10-31T19:37:18Z
+non-OK lines: 0
+OK lines: 21
+sha256sum: /o/derive-h4r-datadir-mariadb11.4.tgz: No such file or directory
+/o/derive-h4r-datadir-mariadb11.4.tgz: FAILED open or read
+sha256sum: WARNING: 1 listed file could not be read
+derive-h4r-datadir-mariadb11.4.tgz
+derive-h4r-datadir-mariadb11.4.tgz.sha256
+r1c-H4r-openstack.sql.gz
+r1c-snap
+ufj-ff-derive-h4r-data 2026-10-31T15:14:46Z
+== after, 2026-10-31T19:43:29Z
+non-OK lines: 0
+OK lines: 21
+sha256sum: /o/derive-h4r-datadir-mariadb11.4.tgz: No such file or directory
+/o/derive-h4r-datadir-mariadb11.4.tgz: FAILED open or read
+sha256sum: WARNING: 1 listed file could not be read
+== archive check after the run, 2026-10-31T19:43:49Z: recorded c57a988c1eaed8fc5309efb8f4ab88bd050c44123ebae63a601a8b104b6b2526 computed c57a988c1eaed8fc5309efb8f4ab88bd050c44123ebae63a601a8b104b6b2526 MATCH (the .sha256 file names the container path /o/, hence the two 'FAILED open' lines above)
