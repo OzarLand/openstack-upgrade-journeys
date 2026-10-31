@@ -24,11 +24,12 @@ procedure is never presented as supported.
 
 | | |
 |---|---|
-| **Stage** | 4–5: laboratory experiments and independent review (see the [progress report](reports/2026-10-31-progress-report-01.md)) |
-| **Validated procedures** | `LAB-VALIDATED`: 1, the database fast-forward EXP-DB-01, within a narrow container-lab scope ([VAL-001](validation/VAL-001-exp-db-01-strict-r2.yaml)). `PRODUCTION-VALIDATED`: 0 |
-| **Experiments run** | EXP-DB-00 baseline (LAB-VALIDATED for restorability); EXP-DB-N1, the direct jump (FAILED, as predicted); R0 calibration; EXP-DB-01 (FAILED first, then strict run R2 passed) |
-| **Answer to the question** | Partial. A single direct jump is **incompatible**. The databases of every service can be walked offline through 2023.1 → (Cinder 2023.2) → 2024.1 → 2025.1 → 2026.1 code without deploying those releases. That is lab-validated on a synthetic dataset only and is **technically possible but unsupported**. Service start, workloads, Kolla-Ansible and production data are not yet shown. |
-| **Last updated** | 2026-10-31 |
+| **Stage** | 5 (independent review of the service-level results) and the first draft runbook; end of session 1 (see the [final report](reports/2026-10-31-final-report-session-1.md) and the [progress report](reports/2026-10-31-progress-report-01.md)) |
+| **Validated procedures** | `LAB-VALIDATED`, narrow container-lab scope: the database fast-forward ([VAL-001](validation/VAL-001-exp-db-01-strict-r2.yaml)); 2026.1 services starting on the result and reading back every resource ([EXP-SVC-01](experiments/EXP-SVC-01-2026.1-services-on-h4r.md)); operations on Ussuri-created resources ([EXP-SVC-02](experiments/EXP-SVC-02-operations-on-old-resources.md)); the database effect of Kolla's deploy-time commands ([EXP-KD-01](experiments/EXP-KD-01-kolla-deploy-time-on-h4r.md)). Validation ids for the last three are pending. `PRODUCTION-VALIDATED`: 0 |
+| **Experiments run** | EXP-DB-00 baseline (LAB-VALIDATED for restorability); EXP-DB-N1, the direct jump (FAILED, as predicted); R0 calibration; EXP-DB-01 (FAILED first, then strict run R2 passed); EXP-SVC-01, EXP-KD-01, EXP-SVC-02 (LAB-VALIDATED, Red Team Stages 5c and 5d) |
+| **Runbook** | [Draft](runbooks/ussuri-to-2026.1-database-fast-forward-lab-runbook.md), every step tagged. Page status `PROPOSED-UNVERIFIED`: Kolla-Ansible, Galera, host OS, real computes and rollback were never run |
+| **Answer to the question** | Partial. A single direct jump is **incompatible**. The databases of every service can be walked offline through 2023.1 → (Cinder 2023.2) → 2024.1 → 2025.1 → 2026.1 code without deploying those releases; 2026.1 services then start on the result, find every existing resource and operate on it. All of that is lab-validated on a synthetic dataset with fake hypervisors only and is **technically possible but unsupported**. Kolla-Ansible itself, real computes, rollback and production data are not shown. |
+| **Last updated** | 2026-10-31 (end of session 1) |
 
 ```mermaid
 flowchart LR
@@ -100,7 +101,12 @@ from it, so some evidence comes from upstream git repositories only. Details are
 ## Open questions / what is not yet known
 
 - Whether the database fast-forward works on a real (production-copy) dataset, with Kolla images and Galera: unknown (Tier B not run).
+- Whether Kolla-Ansible 22.x `deploy` on the migrated databases behaves as the source reading says (routes M1/M2,
+  KD-M1..KD-M10, the order of `service-ks-register` before Nova and Cinder serve traffic): unknown until a Kolla lab runs (K-01..K-08).
+- Whether a rollback from the pre-bridge restore point works (EXP-RB-01): never run.
+- Whether os-brick on a real compute consumes the Ussuri-era `connection_info`, and whether instances restart under the new QEMU: unknown (fake hypervisor only).
+- Equality with the supported staircase (EXP-DB-02/03) and the engine line E2: not run.
 - Ussuri Kolla images: not anonymously pullable from Docker Hub as observed here (HTTP 401). An operator must hold a private mirror;
   availability elsewhere is not established.
-- Whether any path preserves running workloads and data: unknown until an experiment shows it.
+- Whether any path preserves running workloads and data: unknown until an experiment with a real data plane shows it.
 - Which of these pages another team has run: none so far.
