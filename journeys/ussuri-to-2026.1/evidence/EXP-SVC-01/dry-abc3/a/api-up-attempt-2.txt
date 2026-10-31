@@ -1,0 +1,3 @@
+Failed to set service state to up
+Compute service nova-compute of host ufj-compute2 failed to set.
+RESP BODY: {"computeFault": {"code": 500, "message": "Unexpected API Error. Please report this at http://bugs.launchpad.net/nova/ and attach the Nova API log if possible.\n<class 'nova.exception.ServiceTooOld'>"}}

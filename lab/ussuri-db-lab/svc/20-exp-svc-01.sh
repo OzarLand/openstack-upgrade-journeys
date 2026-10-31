@@ -36,6 +36,10 @@ status_all() { # status_all <state> <tag> : every *-status upgrade check with th
 svcset() { # svcset up|down <host> : forced-down through the 2026.1 API; on failure the HTTP error body is logged
   out=$(sosc compute service set --$1 $2 nova-compute 2>&1); rc=$?; echo "compute service set --$1 $2 nova-compute -> rc=$rc $out" | tee -a "$OUT/run.log"
   if [ $rc != 0 ]; then sosc --debug compute service set --$1 $2 nova-compute 2>&1 | grep -E "RESP BODY|HTTP/1.1\" [45]" | cut -c1-400 | tee -a "$OUT/run.log"; fi; }
+sqlforce() { # sqlforce 0|1 <host> : LAB DEVIATION on the disposable clone. The 2026.1 API cannot modify an Ussuri row (PUT /os-services -> HTTP 500 nova.exception.ServiceTooOld),
+  # so the gate state is built by one UPDATE of the forced_down column, which is the only column the Ussuri API force-down call changes.
+  sdb -e "update nova.services set forced_down=$1 where host='$2' and \`binary\`='nova-compute' and version<72" | tee -a "$OUT/run.log"
+  echo "SQL on the clone: forced_down=$1 for $2 (rows with version<72) -> $(sdb -N -e "select forced_down from nova.services where host='$2' and \`binary\`='nova-compute'")" | tee -a "$OUT/run.log"; }
 flag() { # flag on|off : [workarounds] disable_compute_service_check_for_ffu in nova.conf (edited in place)
   python3 - "$1" "$NOVA_CONF" <<'PY'
 import sys,re
@@ -105,7 +109,7 @@ run_abc() {
   st=a; mkdir -p "$OUT/a" "$OUT/b" "$OUT/c"; reset; "$STK" up | tee -a "$OUT/run.log"; waitapi
   note "(a) start 2026.1 compute ufj-compute1, then clear forced-down on all three Ussuri rows through the 2026.1 API"
   "$STK" computes 1; register_wait 1; sleep 15; adoption a 1
-  for h in 1 2 3; do svcset up ufj-compute$h; done
+  svcset up ufj-compute1; for h in 2 3; do sosc compute service set --up ufj-compute$h nova-compute >> "$OUT/a/api-up-attempt-$h.txt" 2>&1; echo "API attempt (expected HTTP 500 ServiceTooOld) for ufj-compute$h: rc=$?" | tee -a "$OUT/run.log"; sosc --debug compute service set --up ufj-compute$h nova-compute 2>&1 | grep -E 'ServiceTooOld' | cut -c1-300 >> "$OUT/a/api-up-attempt-$h.txt"; sqlforce 0 ufj-compute$h; done
   rows a 1-unforced; sosc compute service list --long -f value -c Binary -c Host -c Status -c State -c "Forced Down" > "$OUT/a/api-service-list-1.txt" 2>&1
   note "(a) restart control WITHOUT the workaround: expected refusal (min service version 51 of the unforced Ussuri rows)"
   T=$(now); ctl_restart; sleep 10; rpc_lines a 2-restart-no-flag "$T"
@@ -116,7 +120,7 @@ run_abc() {
   rpc_lines a 3-flag-restarted "$T"; status_all a 3-flag-restarted; op a 3 ufj-compute1 "$T"
   # ---- (b)
   note "(b) forced-down on ufj-compute2/3 through the 2026.1 API (ufj-compute1, 2026.1, stays up), then restart"
-  for h in 2 3; do svcset down ufj-compute$h; done
+  for h in 2 3; do sqlforce 1 ufj-compute$h; done
   rows b 1-forced-down; T=$(now); ctl_restart; sleep 10; rows b 2-restarted
   rpc_lines b 2-restarted "$T"; status_all b 2-restarted; op b 2 ufj-compute1 "$T"
   # ---- (c)
