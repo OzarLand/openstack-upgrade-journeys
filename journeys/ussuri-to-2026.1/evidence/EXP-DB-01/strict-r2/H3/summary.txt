@@ -1,0 +1,9 @@
+[PC-C1] use_quota NULL (deleted included): volumes=0 snapshots=0; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[PC-C1] GATE PASS (0 and 0)
+[C4] schema vs reference: 161 declared (ids: A1/S-3.1 x125; A2/S-3.2 x8; A3/S-3.3 x2; A4/S-N.1 x2; S-1c/S-1d x12; S-3.4 x12; ), 0 UNDECLARED
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=103 undeclared=0
+[N-3] N3-RECONCILIATION PASS (previous snapshot H2)
+[C2] bookkeeping rows differing from the reference (migrate_version expected for keystone/glance): keystone.migrate_version glance.migrate_version 
+[C9] status tools: 0 FAILURE results; 1 warning result(s), of which OVN-related lines: 4 (neutron-status exit 1 on the OVN warning is a WARNING, recorded, not a tool error); keystone-status results: 3; 0 real tool errors (exit 1 with no result at all; must be 0) - see status-tools.txt
+[C10] checks seconds: 72; hop timings in steps.tsv
+RESULT H3: PASS

@@ -1,0 +1,34 @@
+PASS  every command exit 0 and every ODM (Nova per cell incl. cell0, Cinder, Placement) ends at exit 0, at all hops
+PASS  all PC-* pass (PC-V3, G1a, O1 per cell, C4, Q3, Q5, Q6, E1 ...)
+PASS  PC-C1 gate 0/0 after H1b (deleted rows included)
+PASS  PC-E1 session sql_mode captured per command at every hop and strict
+PASS  H1 C4 schema vs reference: 0 UNDECLARED, declared set = 8.7 + A2/A3/A4 + A7(H2) + S-1 + S-3.4
+PASS  H1 C5/C6: 0 undeclared
+PASS  H1 N-3 reconciliation with the ODM migrated counts
+PASS  H1 C9: 0 FAILURE, no tool error, keystone-status ran
+PASS  H1b C4 schema vs reference: 0 UNDECLARED, declared set = 8.7 + A2/A3/A4 + A7(H2) + S-1 + S-3.4
+PASS  H1b C5/C6: 0 undeclared (cinder; other databases identical to H1)
+PASS  H1b N-3 reconciliation with the ODM migrated counts
+PASS  H1b C9: 0 FAILURE, no tool error, keystone-status ran
+PASS  H2 C4 schema vs reference: 0 UNDECLARED, declared set = 8.7 + A2/A3/A4 + A7(H2) + S-1 + S-3.4
+PASS  H2 C5/C6: 0 undeclared
+PASS  H2 N-3 reconciliation with the ODM migrated counts
+PASS  H2 C9: 0 FAILURE, no tool error, keystone-status ran
+PASS  H3 C4 schema vs reference: 0 UNDECLARED, declared set = 8.7 + A2/A3/A4 + A7(H2) + S-1 + S-3.4
+PASS  H3 C5/C6: 0 undeclared
+PASS  H3 N-3 reconciliation with the ODM migrated counts
+PASS  H3 C9: 0 FAILURE, no tool error, keystone-status ran
+PASS  H4 C4 schema vs reference: 0 UNDECLARED, declared set = 8.7 + A2/A3/A4 + A7(H2) + S-1 + S-3.4
+PASS  H4 C5/C6: 0 undeclared
+PASS  H4 N-3 reconciliation with the ODM migrated counts
+PASS  H4 C9: 0 FAILURE, no tool error, keystone-status ran
+PASS  H4r C4 schema vs reference: 0 UNDECLARED, declared set = 8.7 + A2/A3/A4 + A7(H2) + S-1 + S-3.4
+PASS  H4r C5/C6: 0 undeclared
+PASS  H4r N-3 reconciliation with the ODM migrated counts
+PASS  H4r C9: 0 FAILURE, no tool error, keystone-status ran
+PASS  H4r == H4: zero differences (no exclusions)
+PASS  SC-ENGINE: mariadb-upgrade/check exit 0 and clean-restart scan clean at every engine step
+PASS  targeted checks (frozen list section 5): no ASSERT-FAIL
+PASS  A3 archive_deleted_rows check on a disposable copy of H4r (exit 0/1, no error), purge message recorded
+PASS  baseline v4, H1b enabled, harness committed (see harness.txt)
+VERDICT: PASS - eligible for LAB-VALIDATED with the ruling-4 scope line plus 'procedure includes a Cinder-only 2023.2 step (DR-004), Technically possible but unsupported'. Commit 2f3e48a364655d86acb1f0e21f70933fed4f16e6.

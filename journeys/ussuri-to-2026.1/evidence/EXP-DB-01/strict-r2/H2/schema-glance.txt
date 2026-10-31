@@ -1,0 +1,8 @@
+DECLARED	S-1c/S-1d	structural	table only in migrated: migrate_version
+DECLARED	S-1c/S-1d	structural	column only in migrated: migrate_version.repository_id ['varchar(250)', 'NO', '', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED	S-1c/S-1d	structural	column only in migrated: migrate_version.repository_path ['text', 'YES', 'NULL', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED	S-1c/S-1d	structural	column only in migrated: migrate_version.version ['int(11)', 'YES', 'NULL', '', '', '']
+DECLARED	S-1c/S-1d	structural	index only in migrated: migrate_version (('repository_id', ''),) (name PRIMARY)
+DECLARED	S-1c/S-1d	structural	key/constraint only in migrated: migrate_version (('repository_id',), '', ('',), '', '') (name PRIMARY)
+DECLARED	A1/S-3.1	structural	CHECK only in migrated: images `os_hidden` in (0,1) (name CONSTRAINT_4)
+SUMMARY declared=7 undeclared=0

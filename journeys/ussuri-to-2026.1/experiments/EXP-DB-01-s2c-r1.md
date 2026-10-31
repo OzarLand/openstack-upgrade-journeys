@@ -129,3 +129,41 @@ The S2c code sequence runs end to end on the Tier A dataset, offline, with no ma
 > **Footnote (Amendment 2, Red Team Stage 5b, 2026-10-31).** Of the "48 declared S-1" schema lines reported at H1 in this record (and in R0/R1b/R1c), **12 were `shadow_migrate_version`** (`nova` and `nova_cell0`: table, 3 columns, PRIMARY index, PRIMARY key), not `migrate_version`. The old shell filter matched the substring `migrate_version` and hid them under S-1. They are now declared as **S-3.4** (`declared-differences.md` section 9), pinned at 0 rows, and visible in the comparator output from `ff/tools/compare.py` v2 onward. No data was affected.
 
 > **H1b and the point of no return (DR-004).** The Cinder-only step H1b (cinder 23.5.0) is, on its own line, *Technically possible but unsupported*: it runs a 2023.2 Cinder schema migration (`89aa6f9639f9` drops `migrate_version`) on a database whose other services are at 2023.1. EXP-RB-01's Cinder point of no return therefore moves to **before H1b** (architecture note by the architect).
+
+## Strict run R2 (harness 2f3e48a)
+
+| | |
+|---|---|
+| **Run id / date** | `strict-r2`, 2026-10-31 14:29:00Z - 14:40:13Z (673 s) |
+| **Executor** | agent:Agent 5 (Sonnet). Harness commit `2f3e48a364655d86acb1f0e21f70933fed4f16e6`, clean tree (`uncommitted harness changes: 0`, `strict-r2/harness.txt` with the sha256 of every harness file and the image ids). No harness file was touched during or after the run |
+| **Mode** | strict: baseline v4, `H1B=1`, refuses on a dirty tree, verdict by `ff/55-verdict.sh` exactly per the Red Team Stage 5b pass list; no in-place re-analysis |
+| **Status** | **`LAB-VALIDATED`** - every item of the verdict script passed (33 PASS, 0 FAIL, `strict-r2/verdict.txt`) |
+| **Evidence** | `evidence/EXP-DB-01/strict-r2/` (`run.log`, `harness.txt`, `prechecks.txt`, `pc-o1/`, `T0/`, `H1 H1b H2 H3 H4 H4r/` with `steps.tsv`, `sql-mode.tsv`, `odm-*.txt`, `schema-diff.txt`, `data-diff.txt`, `n3-reconciliation.txt`, `status-tools.txt`, `summary.txt`, `engine-*/`, `targeted-checks.txt`, `A3/`, `verdict.txt`, `result.txt`) |
+
+### Scope of this result (mandatory)
+
+| | |
+|---|---|
+| **Dataset tier** | Tier A (synthetic, created through the Ussuri APIs with the fake virt driver); baseline **v4** (`backups-v4/latest`, dump sha256 `a811631e...`, derived from v1 by supported API operations only, see EXP-DB-00) |
+| **Code source and digests** | PyPI under each release's upper-constraints: `pip-freeze-{2023.1,2023.2,2024.1,2025.1,2026.1}.txt`, `uc-ref-*.txt`, image ids in `strict-r2/harness.txt`; keystone 23.0.2/25.0.0/27.1.0/29.1.0, glance 26.1.0/28.2.0/30.2.0/32.0.0, placement 9.0.0/11.0.1/13.0.1/15.0.0, nova 27.5.1/29.4.0/31.3.1/33.0.2, neutron 22.2.1/24.2.2/26.0.6/28.0.2, cinder 22.3.0/24.5.0/26.4.0/28.0.0, **plus cinder 23.5.0 (Python 3.10, `requirements@2023.2-eol`) for H1b** |
+| **Database engine and path** | E1 stepwise on library images: 10.3.39 -> 10.5.29 -> 10.6.28 (H1, H1b) -> 10.11.19 (H2, H3) -> 11.4.13 (H4, H4r); `mariadb-upgrade` and `mariadb-check` exit 0 and a clean restart with 0 `[ERROR]` lines after each step; digests in `image-digests.txt` |
+| **Topology** | one-shot containers with the rendered baseline config + override (connection and unreachable `transport_url`), standalone MariaDB with the alias `ufj-mariadb`; no services, no RabbitMQ, no Galera, no Kolla images, no Kolla-Ansible, no data plane |
+| **Status line** | `LAB-VALIDATED` — scope: database schema and data migration Ussuri -> 2026.1 by the S2c code sequence, using upstream service code installed from PyPI under each release's upper-constraints, standalone MariaDB library images (no Galera), synthetic Tier A dataset generated through Ussuri APIs with the fake virt driver, no Kolla images, no Kolla-Ansible, no data plane. **The procedure includes a Cinder-only 2023.2 step (cinder 23.5.0, DR-004), Technically possible but unsupported** |
+| **Classification of the procedure itself** | Technically possible but unsupported |
+| **This result does NOT show** | Kolla image behaviour; Galera; production data or production-scale durations (about 4,100 rows); live instances; libvirt reconciliation; RabbitMQ; host OS; services started on the migrated databases (EXP-SVC-01); rollback (EXP-RB-01); engine line E2; equality with the staircase (EXP-DB-02/03); baselines with HA routers, DHCP ports, PCI devices, temporary Cinder metadata, deleted instances whose node row is gone (coverage gaps of EXP-DB-00); Tier B |
+
+### Results
+
+* **Pre-checks** (`prechecks.txt`): all PC-* pass on v4 including PC-V3, PC-G1(a), PC-O1 for Nova cell1, Nova cell0, Placement and Cinder (Ussuri tools, exit 0), PC-C4 (empty), PC-Q3, PC-Q5 (0), PC-Q6, PC-E1; T0 predictions recorded (`T0` snapshot after them).
+* **C1**: every command of every hop exit 0, every ODM loop ended at exit 0 (Nova per cell including cell0, Cinder, Placement). Hop command totals: H1 36 s, H1b 5 s, H2 33 s, H3 41 s, H4 40 s, H4r 40 s (about 4,100 rows; not extrapolable).
+* **H1b / PC-C1**: H1 migrated the non-deleted rows (7 volumes, 1 snapshot) and left exactly the predicted soft-deleted rows NULL (3 volumes, 2 snapshots: V-C1a/V-C2a). **H1b (cinder 23.5.0) migrated the 3 deleted volumes and 2 deleted snapshots**; the PC-C1 gate then read 0 and 0 (deleted included) and `9ab1b092a404` ran at H2 without error. This is the DR-004 hypothesis confirmed on this dataset.
+* **C4** schema vs a fresh same-server reference: 0 UNDECLARED at every checkpoint; declared set exactly A1 (141 at H1, 30 Cinder at H1b, 125 from H2), A2, A3, A4, S-1 (H1), A7 (H2 only), S-3.4 (12 lines), S-1c/S-1d. **C5/C6** 0 undeclared at every checkpoint (H4: 104 declared); H1b: other databases identical to H1. **N-3 reconciliation** PASS at every hop (e.g. H2 `nova.instances` 10 rows = ODM migrated 10; Cinder quota tables sum 1 = predicted V-C6 rows). Nova ODM residue N-R1: `populate_instance_compute_id` 1 found / 0 migrated in cell1 and 3 found / 0 migrated in cell0 on every run H2..H4r, exit 0 (the four ERROR instances without host).
+* **C9**: 0 FAILURE at every hop; `keystone-status` ran (3 results); `neutron-status` exit 1 recorded as the OVN warning. **PC-E1**: session `sql_mode` strict for every command (`sql-mode.tsv`). **SC-ENGINE**: clean.
+* **Targeted checks** (`targeted-checks.txt`): 16 ASSERT-PASS, 0 FAIL (use_quota no NULL and NOT NULL; R-5 7/2500; compute_id mismatches 0, NULL = host-NULL instances; V-Q6/7/8/9; V-K1 079; mapping 1.0; `shadow_migrate_version` 0 rows).
+* **Idempotency**: H4r == H4, 0 differences with no exclusions.
+* **A3 / S-3.4 check** on a disposable copy of H4r: `archive_deleted_rows` exit 1 (cell1), 1 (cell0), 0 (all cells), no error; `purge --before` printed "Unable to purge table shadow_migrate_version because it has no timestamp column" for both cells (`A3/`).
+* **Baselines**: sha256 of the 47 files of `backups/latest` and `latest-pre-forced-down` identical before and after (`baseline-checksums-strict-before.txt`, `-strict-after.txt`); `backups-v4` MANIFEST verified before and after.
+
+### Conclusion
+
+On baseline v4 the S2c sequence with the Cinder-only 2023.2 step runs end to end with no manual edit, passing every pre-registered check, the zero-undeclared comparisons, the N-3 reconciliation and the idempotency re-run. Remaining unknown: everything under "does NOT show" - in particular services on the result (EXP-SVC-01), rollback, E2, the staircase differential, Galera and Tier B. Previous sections of this record (FAILED R1 family) are unchanged and stay as history.

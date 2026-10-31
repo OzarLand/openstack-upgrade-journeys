@@ -1,0 +1,2 @@
+Cell 00000000-0000-0000-0000-000000000000(cell0): Unable to purge table shadow_migrate_version because it has no timestamp column
+Cell 3a38ca82-d40a-4fd8-bc63-dc4bdc851077(cell1): Unable to purge table shadow_migrate_version because it has no timestamp column

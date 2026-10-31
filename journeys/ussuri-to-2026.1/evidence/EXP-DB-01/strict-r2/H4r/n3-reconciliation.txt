@@ -1,0 +1,15 @@
+OK   cinder.quota_classes updated_at rows changed: 0, expected from this hop's ODM/prediction: 0
+OK   cinder.quota_usages updated_at rows changed: 0, expected from this hop's ODM/prediction: 0
+OK   cinder.quotas updated_at rows changed: 0, expected from this hop's ODM/prediction: 0
+OK   cinder.reservations updated_at rows changed: 0, expected from this hop's ODM/prediction: 0
+OK   cinder.snapshots updated_at rows changed: 0, expected from this hop's ODM/prediction: 0
+OK   cinder.volume_admin_metadata updated_at rows changed: 0, expected from this hop's ODM/prediction: 0
+OK   cinder.volumes updated_at rows changed: 0, expected from this hop's ODM/prediction: 0
+SKIP neutron.ml2_port_bindings (no updated_at / table absent in one snapshot)
+SKIP neutron.network_segment_ranges (no updated_at / table absent in one snapshot)
+SKIP neutron.ports (no updated_at / table absent in one snapshot)
+OK   neutron.standardattributes updated_at rows changed: 0, expected from this hop's ODM/prediction: 0
+SKIP neutron.tags (no updated_at / table absent in one snapshot)
+OK   nova.instances updated_at rows changed: 0, expected from this hop's ODM/prediction: 0
+OK   nova.pci_devices updated_at rows changed: 0, expected from this hop's ODM/prediction: 0
+N3-RECONCILIATION PASS

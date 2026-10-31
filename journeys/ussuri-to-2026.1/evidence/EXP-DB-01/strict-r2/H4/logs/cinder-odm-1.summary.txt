@@ -1,0 +1,2 @@
+| Migration                                      |   Total Needed |   Completed |
+| remove_temporary_admin_metadata_data_migration |              0 |           0 |

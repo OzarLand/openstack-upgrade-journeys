@@ -1,0 +1,6 @@
+DECLARED	R-2/N-6	cinder.alembic_version new bookkeeping table (1 rows)
+DECLARED	R-4/R-12/R-13/R-14/R-15	new empty table cinder.default_volume_types
+DECLARED	AM1-H1b-S/R-1	cinder.migrate_version dropped
+DECLARED	N-3	cinder.snapshots.updated_at changed on 3 rows
+DECLARED	N-3	cinder.volumes.updated_at changed on 10 rows
+SUMMARY declared=5 undeclared=0

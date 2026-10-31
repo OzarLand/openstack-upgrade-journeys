@@ -1,0 +1,32 @@
+2026-10-31 14:29:39+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:10.5.29+maria~ubu2004 started.
+2026-10-31 14:29:40+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+2026-10-31 14:29:40+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:10.5.29+maria~ubu2004 started.
+2026-10-31 14:29:40+00:00 [Note] [Entrypoint]: MariaDB upgrade (mysql_upgrade or creating healthcheck users) required, but skipped due to $MARIADB_AUTO_UPGRADE setting
+2026-10-31 14:29:40 0 [Warning] Could not increase number of max_open_files to more than 20000 (request: 33035)
+2026-10-31 14:29:40 0 [Note] Starting MariaDB 10.5.29-MariaDB-ubu2004-log source revision c461188ca6ad6ec3a54201eb87ebd75797d296df server_uid tXtnZ1PUd8rixWY+1kamLHG9CB0= as process 1
+2026-10-31 14:29:40 0 [Note] InnoDB: Uses event mutexes
+2026-10-31 14:29:40 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2026-10-31 14:29:40 0 [Note] InnoDB: Number of pools: 1
+2026-10-31 14:29:40 0 [Note] InnoDB: Using crc32 + pclmulqdq instructions
+2026-10-31 14:29:40 0 [Note] InnoDB: Using Linux native AIO
+2026-10-31 14:29:40 0 [Note] InnoDB: Initializing buffer pool, total size = 536870912, chunk size = 134217728
+2026-10-31 14:29:40 0 [Note] InnoDB: Completed initialization of buffer pool
+2026-10-31 14:29:40 0 [Note] InnoDB: Upgrading redo log: 100663296 bytes; LSN=23708077
+2026-10-31 14:29:40 0 [Note] InnoDB: Starting to delete and rewrite log file.
+2026-10-31 14:29:40 0 [Note] InnoDB: Setting log file ./ib_logfile101 size to 100663296 bytes
+2026-10-31 14:29:40 0 [Note] InnoDB: Renaming log file ./ib_logfile101 to ./ib_logfile0
+2026-10-31 14:29:40 0 [Note] InnoDB: New log file created, LSN=23708077
+2026-10-31 14:29:40 0 [Note] InnoDB: 128 rollback segments are active.
+2026-10-31 14:29:40 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2026-10-31 14:29:40 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2026-10-31 14:29:40 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+2026-10-31 14:29:40 0 [Note] InnoDB: 10.5.29 started; log sequence number 23708077; transaction id 28748
+2026-10-31 14:29:40 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+2026-10-31 14:29:40 0 [Note] Plugin 'FEEDBACK' is disabled.
+2026-10-31 14:29:40 0 [Warning] Failed to create a socket for IPv6 '::': errno: 97.
+2026-10-31 14:29:40 0 [Note] Server socket created on IP: '0.0.0.0'.
+2026-10-31 14:29:40 0 [Note] Reading of all Master_info entries succeeded
+2026-10-31 14:29:40 0 [Note] Added new Master_info '' to hash table
+2026-10-31 14:29:40 0 [Note] mysqld: ready for connections.
+Version: '10.5.29-MariaDB-ubu2004-log'  socket: '/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution
+2026-10-31 14:29:40 0 [Note] InnoDB: Buffer pool(s) load completed at 261031 14:29:40

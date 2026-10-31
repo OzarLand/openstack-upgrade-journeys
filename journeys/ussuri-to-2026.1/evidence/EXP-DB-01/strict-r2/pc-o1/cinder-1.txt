@@ -1,0 +1,4 @@
+| Migration                               |   Total Needed |   Completed |
+|-----------------------------------------+----------------+-------------|
+| untyped_snapshots_online_data_migration |              0 |           0 |
+| untyped_volumes_online_data_migration   |              0 |           0 |
