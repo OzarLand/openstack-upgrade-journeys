@@ -21,8 +21,9 @@ user. The first journey takes a Kolla-Ansible Ussuri cloud (2020) to OpenStack 2
 </p>
 
 <p>
-  <a href="#-why-this-project"><b>Why</b></a> ·
-  <a href="#-first-results-ussuri--20261"><b>First results</b></a> ·
+  <a href="#-the-gap"><b>The gap</b></a> ·
+  <a href="#-how-a-journey-works"><b>Method</b></a> ·
+  <a href="#-ussuri--20261-what-the-lab-showed"><b>Results</b></a> ·
   <a href="#️-journeys"><b>Journeys</b></a> ·
   <a href="docs/validation-status.md"><b>Validation rules</b></a> ·
   <a href="#-contributing"><b>Contribute</b></a>
@@ -35,139 +36,162 @@ user. The first journey takes a Kolla-Ansible Ussuri cloud (2020) to OpenStack 2
 Part of [OzarLand](https://github.com/OzarLand/ozarland): *a shared land for better OpenStack operations.*
 Led by Soufian Zaouam.
 
-## 🚀 Why this project
+## 🚀 The gap
 
-Operators of older clouds all face the same wall. The official upgrade path moves one release at a time, or one SLURP
-step at a time. From Ussuri, that means **nine upgrades**, **eight intermediate deployments** and **several host
-operating-system changes** before reaching a maintained release. Many teams postpone it, and their platforms age
-further: security fixes stop, skills fade, and the gap keeps growing.
+Upstream upgrades one release at a time, or one SLURP step. From Ussuri that is nine upgrades and three host OS
+changes before a maintained release, so many clouds stay where they are. This project looks for a safer, shorter way,
+in the open, with evidence.
 
-This repository works on that problem in the open, with the community:
+```mermaid
+flowchart LR
+    U["Ussuri<br/>2020"] --> V[Victoria] --> W[Wallaby] --> X[Xena] --> Y[Yoga] --> Z[Zed] --> A["2023.1"]
+    A --> C["2024.1"] --> E["2025.1"] --> G["2026.1"]
+    U -. "the question:<br/>one journey?" .-> G
+    classDef old fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    classDef mid fill:#f3f4f6,stroke:#9ca3af,color:#111827
+    classDef new fill:#dcfce7,stroke:#16a34a,color:#14532d
+    class U old
+    class V,W,X,Y,Z,A,C,E mid
+    class G new
+```
 
-- **One journey per gap.** Each journey covers a starting release and a deployment method, and asks a precise
-  question: *can we get there without deploying every release in between, and what is the safest way?*
-- **Evidence before advice.** Every claim carries its status: officially supported, technically possible but
-  unsupported, lab-verified, or not validated. Failed experiments are published too; they are knowledge.
-- **Reproducible laboratories.** Experiments run on copies of a preserved baseline. Their scripts and evidence are in
-  this repository, so anyone can re-run them.
-- **Independent review.** A separate red-team role challenges every proposal and every result before it is accepted.
-- **Workloads first.** VM identity, IP addresses, volumes, images, users and quotas must survive. A successful service
-  start is never mistaken for a successful migration.
+## 🔄 How a journey works
 
-## 🔬 First results: Ussuri → 2026.1
+```mermaid
+flowchart LR
+    I["🔍 Investigate<br/>upstream sources,<br/>compatibility matrix"] --> P["📐 Propose<br/>strategies and<br/>experiments"]
+    P --> R["🛡️ Red team<br/>challenges before<br/>anything runs"]
+    R --> L["🧪 Lab<br/>copies of a preserved<br/>baseline, frozen criteria"]
+    L --> R2["🛡️ Red team<br/>challenges the<br/>results"]
+    R2 --> D["📘 Runbook<br/>only from what<br/>passed, status on<br/>every step"]
+    L -. "failed runs are<br/>published too" .-> D
+    classDef neutral fill:#f3f4f6,stroke:#9ca3af,color:#111827
+    classDef red fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    classDef lab fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    classDef go fill:#dcfce7,stroke:#16a34a,color:#14532d
+    class I,P neutral
+    class R,R2 red
+    class L lab
+    class D go
+```
 
-Work started on 2026-10-31. What is known so far:
+## 🔬 Ussuri → 2026.1: what the lab showed
+
+The databases of every service reach 2026.1 **without deploying any intermediate release**: the migration code of a
+few releases runs offline, on copies, with the services stopped. 2026.1 then starts on the result and operates every
+pre-existing resource. Lab-verified on a container lab with synthetic data; **unsupported upstream; not for
+production.**
+
+```mermaid
+flowchart LR
+    subgraph stop["Control plane stopped, computes fenced"]
+      U["Ussuri DBs<br/>MariaDB 10.3"] -->|"2023.1 code<br/>bridge to Alembic"| H1["2023.1"]
+      H1 -->|"Cinder 23.5.0 only<br/>(use_quota fix)"| H1b["2023.2"]
+      H1b -->|"2024.1 code"| H2["2024.1"] -->|"2025.1 code"| H3["2025.1"] -->|"2026.1 code"| H4["2026.1 DBs<br/>MariaDB 11.4"]
+    end
+    H4 --> S["2026.1 services<br/>fresh RabbitMQ 4"]
+    S --> F["Every old resource<br/>read back and operated<br/>(servers, volumes,<br/>networks, users)"]
+    N["❌ 2026.1 code<br/>directly on Ussuri"] -. "refused:<br/>no legacy path" .-> U
+    classDef old fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    classDef mid fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef ok fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef no fill:#f3f4f6,stroke:#9ca3af,color:#6b7280,stroke-dasharray: 4 4
+    class U old
+    class H1,H1b,H2,H3 mid
+    class H4,S,F ok
+    class N no
+```
 
 | Finding | Status |
 |---|---|
-| A single direct jump from Ussuri to 2026.1 is **impossible**: 2026.1 Nova, Keystone and Cinder cannot read a Ussuri database. | Confirmed in the lab |
-| The databases of every service **can** be brought from Ussuri to 2026.1 **without deploying any intermediate release**, by running the migration code of 2023.1, Cinder 2023.2, 2024.1, 2025.1 and 2026.1 offline. Zero unexpected schema or data difference. | Lab-verified, synthetic data, **unsupported upstream** |
-| 2026.1 services start on the migrated databases and find every existing resource again (servers, ports, volumes, images, users, trusts). | Lab-verified, synthetic data |
-| The usual operations on resources created under Ussuri **work** through the 2026.1 services: tokens for old users, stop/start, resize with attached volumes, detach and re-attach of an Ussuri-era volume attachment, snapshots, quota enforcement, ports and servers on an old network (22 of 22 operations). | Lab-verified, synthetic data, fake hypervisor (control path only) |
-| 2026.1 Cinder refuses Nova's volume detaches unless Keystone holds a `service` role that **no Ussuri database contains**; the deployment tool creates it, so its registration step must run before Nova and Cinder serve traffic. Failure signature: volumes stuck `detaching`, servers in `ERROR` after a resize, HTTP 409 `ConflictNovaUsingAttachment`. | Lab-verified; five more mandatory deployment steps (KD-M6 to KD-M10) |
-| A Cinder bug breaks the **official** 2023.1 → 2024.1 upgrade for clouds with old deleted volumes; avoidance documented. | [Documented](journeys/ussuri-to-2026.1/troubleshooting/cinder-use-quota-null-blocks-2024.1-db-sync.md) |
-| Kolla-Ansible 2026.1 changes some data when deployed on existing databases (cells, admin password, endpoints); ten mandatory steps identified in total. | Lab-verified for the commands, Kolla itself not yet run |
+| A direct jump is impossible: 2026.1 Nova, Keystone and Cinder cannot read a Ussuri database | Confirmed in the lab |
+| Database fast-forward Ussuri → 2026.1 with no intermediate deployment, zero unexpected schema or data change | Lab-verified, synthetic data, unsupported upstream |
+| 2026.1 services start on the result and operate old servers, volumes, networks and users | Lab-verified, synthetic data |
+| A Cinder bug breaks the **official** 2023.1 → 2024.1 upgrade for clouds with old deleted volumes | [Documented](journeys/ussuri-to-2026.1/troubleshooting/cinder-use-quota-null-blocks-2024.1-db-sync.md) |
+| Kolla-Ansible 2026.1 changes data when deployed on existing databases; ten mandatory steps identified | Lab-verified for the commands; Kolla itself not run |
 
-A first **draft runbook** exists: [database fast-forward (lab)](journeys/ussuri-to-2026.1/runbooks/ussuri-to-2026.1-database-fast-forward-lab-runbook.md).
-Every step carries its status; the steps never run anywhere (Kolla-Ansible itself, Galera, host OS, real computes,
-rollback) are marked so, and the page as a whole is **not** lab-verified.
-
-Still ahead:
-
-- a rollback rehearsal from the pre-upgrade restore point;
-- a real Kolla-Ansible laboratory with real VMs;
-- a run on a sanitized production copy.
-
-The full picture is in the [journey page](journeys/ussuri-to-2026.1/README.md), the
-[final report of session 1](journeys/ussuri-to-2026.1/reports/2026-10-31-final-report-session-1.md) and the
-[progress report](journeys/ussuri-to-2026.1/reports/2026-10-31-progress-report-01.md).
+Not yet done: rollback rehearsal, a real Kolla-Ansible lab with real VMs, a run on a production copy. Details:
+[journey page](journeys/ussuri-to-2026.1/README.md) ·
+[final report](journeys/ussuri-to-2026.1/reports/2026-10-31-final-report-session-1.md) ·
+[draft runbook](journeys/ussuri-to-2026.1/runbooks/ussuri-to-2026.1-database-fast-forward-lab-runbook.md).
 
 > [!WARNING]
-> **Nothing here is a supported or production-validated procedure yet.** Upgrading across several OpenStack releases
-> at once is not what upstream OpenStack or Kolla-Ansible document or test. "Lab-verified" means a laboratory run with
-> stated limits: a container lab, synthetic data, no Kolla images and no real VMs. Never run a step on a platform
-> whose data you cannot afford to lose without your own backups, rehearsal and change review.
-
-> [!NOTE]
-> **How this is built.** The investigation is carried out by a team of AI agents with separate roles: architect,
-> release compatibility, Kolla-Ansible, database and messaging, laboratory, operations, documentation and an
-> independent red team. They work from the upstream OpenStack sources and the
-> [OzarLand operator skills](https://github.com/OzarLand/openstack-operator-skills), under the direction of the
-> OzarLand owner. No human operator has confirmed a result on a real platform yet, and that is exactly the
-> contribution we are looking for.
-
-## 🤝 Running an old cloud? Join in
-
-- **Tell us your starting point:** release, deployment tool, backends, size. It shapes the next journeys.
-- **Re-run an experiment** on your own lab and report what you saw, whether it worked or failed.
-- **Share production experience** of long upgrades: what broke, what you would do differently.
-
-Start a thread in [OzarLand Discussions](https://github.com/OzarLand/ozarland/discussions) or open an issue here.
-
-## 🗺️ Journeys
-
-| Journey | Question | Stage | Validated |
-|---|---|---|---|
-| [Ussuri → 2026.1](journeys/ussuri-to-2026.1/README.md) | Can an existing Kolla-Ansible Ussuri deployment reach 2026.1 in one journey? If not, what is the safest path with the fewest intermediate deployments? | Lab experiments; first draft runbook | Database fast-forward, and 2026.1 services operating on the result, lab-verified (narrow scope); nothing production-validated |
-
-More journeys (other start releases, other deployment methods) are welcome through an
-[*Ideas* discussion](https://github.com/OzarLand/ozarland/discussions/new?category=ideas); a journey is added when someone
-is ready to investigate it.
+> **Nothing here is a supported or production-validated procedure.** Never run a step on a platform whose data you
+> cannot afford to lose without your own backups, your own rehearsal and your own change review.
 
 ## 🏷️ How claims are labelled
 
-Two vocabularies are used, and they answer different questions.
+Every step and every result carries one of these statuses. Reading code or documentation never counts as validation.
 
-**What a claim is** (evidence class), for statements about what is possible:
-*Officially supported*, *Technically possible but unsupported*, *Experimentally validated* (only when run in a lab with
-recorded evidence), *Not validated*, *Incompatible*.
-
-**How well a procedure or experiment has been tested** (validation status), written next to every step:
-
-| Status | In one line | OzarLand page status |
-|---|---|---|
-| `PROPOSED-UNVERIFIED` | An idea written here; nobody ran it | `draft` |
-| `DOCUMENTED-UNVERIFIED` | Taken from upstream docs or code; nobody ran it | `draft` |
-| `LAB-VALIDATED` | Run on a lab, result recorded with evidence | `lab-verified` |
-| `PRODUCTION-VALIDATED` | A human operator, not the author, confirmed it on a real platform | `validated` |
-| `NEEDS-REVALIDATION` | Was validated, something changed | `experimental` |
-| `FAILED` | Run and did not work as written; the failure is kept as a warning | not published as a procedure |
-
-Definitions, evidence rules and the mapping to the other OzarLand repositories are in
-[`docs/validation-status.md`](docs/validation-status.md). Today every count is zero.
-
-## 🗂️ Repository layout
-
-```text
-journeys/<from>-to-<to>/
-  README.md                the journey: question, status, map of documents
-  compatibility-matrix.md  what is supported or not, release by release
-  dependency-graph.md      what must move before what
-  assessments/             specialist reports, one per agent and topic
-  decision-records/        DR-NNN: one decision, its alternatives and dissent
-  experiments/             EXP-NNN: hypothesis, steps, evidence, conclusion
-  validation/              VAL-NNN.yaml: structured result of one validation
-  evidence/                redacted outputs referenced by experiments
-  runbooks/                steps to follow, only built from validated knowledge
-  rollback/                what can be undone, and from which point it cannot
-  troubleshooting/         symptoms met during the journey
-  lessons-learned.md
-docs/
-  validation-status.md     status definitions, evidence rules, mapping
-  templates/               experiment, decision, validation record, runbook step
+```mermaid
+flowchart LR
+    P["🧪 PROPOSED-UNVERIFIED<br/><i>an idea, nobody ran it</i>"] --> L
+    D["📄 DOCUMENTED-UNVERIFIED<br/><i>from docs or code</i>"] --> L
+    L["🟩 LAB-VALIDATED<br/><i>ran on a lab, evidence kept</i>"] --> PR["🟦 PRODUCTION-VALIDATED<br/><i>a human operator confirmed it</i>"]
+    L -. "something changed" .-> N["🔁 NEEDS-REVALIDATION"]
+    L -. "did not work" .-> F["🟥 FAILED<br/><i>kept as a warning</i>"]
+    classDef grey fill:#f3f4f6,stroke:#9ca3af,color:#111827
+    classDef green fill:#dcfce7,stroke:#16a34a,color:#14532d
+    classDef blue fill:#dbeafe,stroke:#2563eb,color:#1e3a8a
+    classDef amber fill:#fef3c7,stroke:#d97706,color:#78350f
+    classDef red fill:#fee2e2,stroke:#dc2626,color:#7f1d1d
+    class P,D grey
+    class L green
+    class PR blue
+    class N amber
+    class F red
 ```
+
+Claims about what is *possible* use a second vocabulary: officially supported, technically possible but unsupported,
+experimentally validated, not validated, incompatible. Rules and mapping to the other OzarLand repositories:
+[`docs/validation-status.md`](docs/validation-status.md).
+
+## 🗺️ Journeys
+
+| Journey | Question | Stage |
+|---|---|---|
+| [Ussuri → 2026.1](journeys/ussuri-to-2026.1/README.md) | Can a Kolla-Ansible Ussuri cloud reach 2026.1 in one journey, and what is the safest path with the fewest intermediate deployments? | Lab experiments; draft runbook; nothing production-validated |
+
+Another starting release or deployment method? Propose it in an
+[*Ideas* discussion](https://github.com/OzarLand/ozarland/discussions/new?category=ideas).
+
+## 🗂️ Inside a journey
+
+```mermaid
+flowchart TD
+    J["journeys/&lt;from&gt;-to-&lt;to&gt;/"] --> A["assessments/<br/>one report per specialist"]
+    J --> DR["decision-records/<br/>DR-NNN, with dissent"]
+    J --> EX["experiments/<br/>EXP-NNN: hypothesis,<br/>steps, conclusion"]
+    EX --> EV["evidence/<br/>redacted outputs"]
+    EX --> VA["validation/<br/>VAL-NNN.yaml"]
+    VA --> RB["runbooks/<br/>only from validated steps"]
+    J --> TS["troubleshooting/<br/>symptoms met on the way"]
+    J --> RP["reports/<br/>progress and final"]
+    classDef neutral fill:#f3f4f6,stroke:#9ca3af,color:#111827
+    classDef go fill:#dcfce7,stroke:#16a34a,color:#14532d
+    class J,A,DR,EX,EV,VA,TS,RP neutral
+    class RB go
+```
+
+Laboratory scripts live in [`lab/`](lab/), templates in [`docs/templates/`](docs/templates/).
 
 ## 🤝 Contributing
 
-The most valuable contribution is **evidence**: you ran a step of an experiment on a lab or on a real platform, and
-it worked, failed or worked partly. Second: a step or a claim that is wrong or unsafe.
+The most valuable contribution is **evidence**: you ran a step on a lab or a real platform and it worked, failed or
+worked partly. Then: a wrong or unsafe step, or your own starting point for a next journey.
 
-- Report a run: [experiment report or validation evidence](https://github.com/OzarLand/openstack-upgrade-journeys/issues/new?template=experiment-report.yml)
-- Report a wrong or unsafe procedure: [wrong or unsafe procedure](https://github.com/OzarLand/openstack-upgrade-journeys/issues/new?template=unsafe-or-wrong-procedure.yml)
-- Anything else, and the rules (sign-off, one topic per pull request, redaction): [CONTRIBUTING.md](CONTRIBUTING.md)
+- [Report a run](https://github.com/OzarLand/openstack-upgrade-journeys/issues/new?template=experiment-report.yml) ·
+  [Report a wrong or unsafe procedure](https://github.com/OzarLand/openstack-upgrade-journeys/issues/new?template=unsafe-or-wrong-procedure.yml) ·
+  [CONTRIBUTING.md](CONTRIBUTING.md)
+- Never publish credentials, real hostnames, database dumps or unredacted logs
+  ([sensitive data](https://github.com/OzarLand/ozarland/blob/main/docs/conventions/sensitive-data.md)).
 
-Never publish credentials, real hostnames or addresses, database dumps or unredacted logs
-([sensitive data](https://github.com/OzarLand/ozarland/blob/main/docs/conventions/sensitive-data.md)).
+> [!NOTE]
+> The investigation is carried out by a team of AI agents with separate roles (architect, compatibility,
+> Kolla-Ansible, databases, laboratory, operations, documentation, and an independent red team), working from the
+> upstream sources and the [OzarLand operator skills](https://github.com/OzarLand/openstack-operator-skills), under
+> the direction of the OzarLand owner. No human operator has confirmed a result on a real platform yet; that is the
+> contribution we are looking for.
 
 ## 🌍 Part of OzarLand
 
