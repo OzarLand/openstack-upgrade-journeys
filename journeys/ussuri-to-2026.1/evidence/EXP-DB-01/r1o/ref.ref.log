@@ -1,0 +1,7 @@
+2026-10-31 12:29:08.231 1 INFO cinder.db.migration [-] Applying migration(s)[00m
+2026-10-31 12:29:08.233 1 INFO alembic.runtime.migration [-] Context impl MySQLImpl.[00m
+2026-10-31 12:29:08.234 1 INFO alembic.runtime.migration [-] Will assume non-transactional DDL.[00m
+2026-10-31 12:29:08.243 1 INFO alembic.runtime.migration [-] Running upgrade  -> 921e1a36b076, Initial migration.[00m
+2026-10-31 12:29:08.681 1 INFO alembic.runtime.migration [-] Running upgrade 921e1a36b076 -> c92a3e68beed, Make shared_targets nullable[00m
+2026-10-31 12:29:08.695 1 INFO alembic.runtime.migration [-] Running upgrade c92a3e68beed -> daa98075b90d, Add resource indexes[00m
+2026-10-31 12:29:08.749 1 INFO cinder.db.migration [-] Migration(s) applied[00m

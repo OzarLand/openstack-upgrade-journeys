@@ -1,0 +1,129 @@
+== run r1c mode=baseline observe=1 started 2026-10-31T12:33:50Z
+[12:33:58] copy equals the baseline (dump sha256 2507887b769bd193a53311939902787530fe72d550556dec70e54eb4f3cb0fcc)
+[12:33:58] run r1c (baseline) ready: db=ufj-ff-r1c-db net=ufj-ff-r1c-net volume=ufj-ff-r1c-data
+snapshot /snap/T0: 542 tables
+T0 snapshot 3 s
+image=mariadb:10.5 version=10.5.29-MariaDB-ubu2004-log
+start_seconds=5 upgrade+check_seconds=1
+mariadb-upgrade exit=0; check exit=0; errorlog error-like lines=0; check non-OK lines=0
+image=mariadb:10.6 version=10.6.28-MariaDB-ubu2204-log
+start_seconds=3 upgrade+check_seconds=2
+mariadb-upgrade exit=0; check exit=0; errorlog error-like lines=2; check non-OK lines=0
+keystone-db_sync	0	2.2
+nova-api_db_sync	0	2.7
+nova-db_sync-cell0	0	2.2
+nova-db_sync-cell1	0	2.5
+cinder-db_sync	0	2.0
+cinder-odm-1	0	2.0
+nova-odm-1	0	2.5
+glance-db_sync	0	1.7
+placement-db_sync	0	1.4
+neutron-upgrade	0	3.2
+placement-odm-1	0	1.5
+total_seconds 24
+references built with release 2023.1
+snapshot /snap/H1: 1112 tables
+[C4] schema vs reference: 48 declared, 153 proposed (R0, not yet accepted), 0 UNDECLARED differences (structural: 0, name-only: 0)
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=23 proposed=1 undeclared=0
+[C2] bookkeeping rows differ from the reference: keystone.migrate_version migrated=[keystone/109;keystone_contract/79;keystone_data_migrate/79;keystone_expand/79] reference=[absent] DIFFERENT;glance.migrate_version migrated=[Glance Migrations/0] reference=[absent] DIFFERENT;nova_api.migrate_version migrated=[nova_api/87] reference=[absent] DIFFERENT;nova.migrate_version migrated=[nova/422] reference=[absent] DIFFERENT;nova_cell0.migrate_version migrated=[nova/422] reference=[absent] DIFFERENT;cinder.migrate_version migrated=[cinder/145] reference=[absent] DIFFERENT;
+[C9] status tools: 1 FAILURE lines (see status-tools.txt)
+[C9] STOP: a status tool reports FAILURE
+[C10] snapshot+checks seconds: 72; hop timings in steps.tsv
+RESULT H1: STOP (undeclared difference or failed check)
+!! STOP CONDITION at checks after hop 1
+image=mariadb:10.11 version=10.11.19-MariaDB-ubu2204-log
+start_seconds=3 upgrade+check_seconds=3
+mariadb-upgrade exit=0; check exit=0; errorlog error-like lines=0; check non-OK lines=0
+keystone-db_sync	0	2.2
+nova-api_db_sync	0	2.5
+nova-db_sync-cell0	0	2.4
+nova-db_sync-cell1	0	2.5
+cinder-db_sync	0	2.0
+cinder-odm-1	0	1.9
+nova-odm-1	0	2.7
+glance-db_sync	0	1.7
+placement-db_sync	0	1.3
+neutron-upgrade	0	3.0
+placement-odm-1	0	1.5
+total_seconds 23
+references built with release 2024.1
+snapshot /snap/H2: 1006 tables
+[C4] schema vs reference: 24 declared, 137 proposed (R0, not yet accepted), 1 UNDECLARED differences (structural: 1, name-only: 0)
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=100 proposed=0 undeclared=0
+[C2] bookkeeping rows differ from the reference: keystone.migrate_version migrated=[keystone/109;keystone_contract/79;keystone_data_migrate/79;keystone_expand/79] reference=[absent] DIFFERENT;glance.migrate_version migrated=[Glance Migrations/0] reference=[absent] DIFFERENT;
+[C9] status tools: 1 FAILURE lines (see status-tools.txt)
+[C9] STOP: a status tool reports FAILURE
+[C10] snapshot+checks seconds: 72; hop timings in steps.tsv
+RESULT H2: STOP (undeclared difference or failed check)
+!! STOP CONDITION at checks after hop 2
+keystone-db_sync	0	2.8
+nova-api_db_sync	0	2.7
+nova-db_sync-cell0	0	2.9
+nova-db_sync-cell1	0	3.1
+cinder-db_sync	0	2.4
+cinder-odm-1	0	2.1
+nova-odm-1	0	3.3
+glance-db_sync	0	2.1
+placement-db_sync	0	1.8
+neutron-upgrade	0	2.9
+placement-odm-1	0	1.7
+total_seconds 28
+references built with release 2025.1
+snapshot /snap/H3: 1008 tables
+[C4] schema vs reference: 24 declared, 137 proposed (R0, not yet accepted), 0 UNDECLARED differences (structural: 0, name-only: 0)
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=102 proposed=0 undeclared=0
+[C2] bookkeeping rows differ from the reference: keystone.migrate_version migrated=[keystone/109;keystone_contract/79;keystone_data_migrate/79;keystone_expand/79] reference=[absent] DIFFERENT;glance.migrate_version migrated=[Glance Migrations/0] reference=[absent] DIFFERENT;
+[C9] status tools: 1 FAILURE lines (see status-tools.txt)
+[C9] STOP: a status tool reports FAILURE
+[C10] snapshot+checks seconds: 77; hop timings in steps.tsv
+RESULT H3: STOP (undeclared difference or failed check)
+!! STOP CONDITION at checks after hop 3
+image=mariadb:11.4 version=11.4.13-MariaDB-ubu2404-log
+start_seconds=5 upgrade+check_seconds=3
+mariadb-upgrade exit=0; check exit=0; errorlog error-like lines=0; check non-OK lines=0
+keystone-db_sync	0	2.4
+nova-api_db_sync	0	3.1
+nova-db_sync-cell0	0	2.7
+nova-db_sync-cell1	0	3.1
+cinder-db_sync	0	2.1
+cinder-odm-1	0	2.0
+nova-odm-1	0	3.3
+glance-db_sync	0	1.9
+placement-db_sync	0	1.8
+neutron-upgrade	0	3.2
+placement-odm-1	0	1.6
+total_seconds 27
+references built with release 2026.1
+snapshot /snap/H4: 1008 tables
+[C4] schema vs reference: 24 declared, 137 proposed (R0, not yet accepted), 0 UNDECLARED differences (structural: 0, name-only: 0)
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=98 proposed=0 undeclared=5
+[C2] bookkeeping rows differ from the reference: keystone.migrate_version migrated=[keystone/109;keystone_contract/79;keystone_data_migrate/79;keystone_expand/79] reference=[absent] DIFFERENT;glance.migrate_version migrated=[Glance Migrations/0] reference=[absent] DIFFERENT;
+[C9] status tools: 1 FAILURE lines (see status-tools.txt)
+[C9] STOP: a status tool reports FAILURE
+[C10] snapshot+checks seconds: 82; hop timings in steps.tsv
+RESULT H4: STOP (undeclared difference or failed check)
+!! STOP CONDITION at checks after hop 4
+keystone-db_sync	0	2.6
+nova-api_db_sync	0	3.0
+nova-db_sync-cell0	0	3.3
+nova-db_sync-cell1	0	3.2
+cinder-db_sync	0	2.1
+cinder-odm-1	0	2.4
+nova-odm-1	0	3.2
+glance-db_sync	0	2.0
+placement-db_sync	0	1.8
+neutron-upgrade	0	3.0
+placement-odm-1	0	1.6
+total_seconds 29
+references built with release 2026.1
+snapshot /snap/H4r: 1008 tables
+[C4] schema vs reference: 24 declared, 137 proposed (R0, not yet accepted), 0 UNDECLARED differences (structural: 0, name-only: 0)
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=98 proposed=0 undeclared=5
+[IDEM] H4r vs H4: SUMMARY declared=0 proposed=0 undeclared=0
+[C2] bookkeeping rows differ from the reference: keystone.migrate_version migrated=[keystone/109;keystone_contract/79;keystone_data_migrate/79;keystone_expand/79] reference=[absent] DIFFERENT;glance.migrate_version migrated=[Glance Migrations/0] reference=[absent] DIFFERENT;
+[C9] status tools: 1 FAILURE lines (see status-tools.txt)
+[C9] STOP: a status tool reports FAILURE
+[C10] snapshot+checks seconds: 81; hop timings in steps.tsv
+RESULT H4r: STOP (undeclared difference or failed check)
+!! STOP CONDITION at checks after hop 5
+== run r1c finished 2026-10-31T12:43:05Z total 555 s, stop conditions hit: 1

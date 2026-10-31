@@ -1,0 +1,10 @@
+cinder	35
+glance	15
+keystone	49
+mysql	31
+neutron	179
+nova	110
+nova_api	32
+nova_cell0	110
+performance_schema	52
+placement	12

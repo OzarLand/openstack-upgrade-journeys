@@ -7,7 +7,7 @@
 B=$(readlink -f "${1:-$BACKUP_DIR/latest}"); [ -f "$B/MANIFEST.sha256" ] || die "no baseline at $B"
 (cd "$B" && sha256sum --quiet -c MANIFEST.sha256) || die "baseline manifest check failed: refusing to restore"
 T0=$(date +%s)
-mapfile -t OLD < <(docker ps -a --format '{{.Names}}' | grep -E '^ufj-' || true); [ ${#OLD[@]} -gt 0 ] && docker rm -f "${OLD[@]}" >/dev/null
+mapfile -t OLD < <(docker ps -a --format '{{.Names}}' | grep -E '^ufj-' | grep -vE '^ufj-ff-' || true); [ ${#OLD[@]} -gt 0 ] && docker rm -f "${OLD[@]}" >/dev/null
 for v in ufj-mariadb-data ufj-keystone-keys ufj-glance-images ufj-rabbitmq-data; do docker volume rm "$v" >/dev/null 2>&1 || true; docker volume create "$v" >/dev/null; done
 docker network inspect "$NET" >/dev/null 2>&1 || docker network create "$NET" >/dev/null
 mkdir -p "$SECRETS_DIR" "$RUN_DIR"; chmod 700 "$SECRETS_DIR"

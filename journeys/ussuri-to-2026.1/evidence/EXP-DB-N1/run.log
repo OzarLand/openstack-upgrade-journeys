@@ -1,0 +1,85 @@
+[12:10:54] copy equals the baseline (dump sha256 cec9cd76b9f77c362020ba4811bdb79029d7236c8a78804b59729af21d129c6b)
+[12:10:54] run n1 (baseline) ready: db=ufj-ff-n1-db net=ufj-ff-n1-net volume=ufj-ff-n1-data
+image=mariadb:11.4 version=11.4.13-MariaDB-ubu2404-log
+start_seconds=5 upgrade+check_seconds=2
+mariadb-upgrade exit=0; check exit=0; errorlog error-like lines=2; check non-OK lines=0
+nova-api_db_sync	exit=255
+--- last lines of nova-api_db_sync
+	uuid VARCHAR(36) NOT NULL, 
+	name VARCHAR(255), 
+	transport_url TEXT, 
+	database_connection TEXT, 
+	disabled BOOL, 
+	PRIMARY KEY (id), 
+	CONSTRAINT uniq_cell_mappings0uuid UNIQUE (uuid)
+)ENGINE=InnoDB CHARSET=utf8
+
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+nova-db_sync-cell0	exit=255
+--- last lines of nova-db_sync-cell0
+	deleted INTEGER, 
+	locked_by ENUM('owner','admin'), 
+	cleaned INTEGER, 
+	ephemeral_key_uuid VARCHAR(36), 
+	hidden BOOL, 
+	PRIMARY KEY (id), 
+	CONSTRAINT uniq_instances0uuid UNIQUE (uuid)
+)CHARSET=utf8 ENGINE=InnoDB
+
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+nova-db_sync-cell1	exit=255
+--- last lines of nova-db_sync-cell1
+	deleted INTEGER, 
+	locked_by ENUM('owner','admin'), 
+	cleaned INTEGER, 
+	ephemeral_key_uuid VARCHAR(36), 
+	hidden BOOL, 
+	PRIMARY KEY (id), 
+	CONSTRAINT uniq_instances0uuid UNIQUE (uuid)
+)ENGINE=InnoDB CHARSET=utf8
+
+]
+(Background on this error at: https://sqlalche.me/e/20/e3q8)
+
+keystone-db_sync	exit=1
+--- last lines of keystone-db_sync
+2026-10-31 12:11:11.966 1 ERROR keystone 	user_id VARCHAR(64) NOT NULL, 
+2026-10-31 12:11:11.966 1 ERROR keystone 	project_id VARCHAR(64), 
+2026-10-31 12:11:11.966 1 ERROR keystone 	expires_at BIGINT, 
+2026-10-31 12:11:11.966 1 ERROR keystone 	`system` VARCHAR(64), 
+2026-10-31 12:11:11.966 1 ERROR keystone 	unrestricted BOOL, 
+2026-10-31 12:11:11.966 1 ERROR keystone 	PRIMARY KEY (internal_id), 
+2026-10-31 12:11:11.966 1 ERROR keystone 	CONSTRAINT duplicate_app_cred_constraint UNIQUE (user_id, name)
+2026-10-31 12:11:11.966 1 ERROR keystone )CHARSET=utf8 ENGINE=InnoDB
+2026-10-31 12:11:11.966 1 ERROR keystone 
+2026-10-31 12:11:11.966 1 ERROR keystone ]
+2026-10-31 12:11:11.966 1 ERROR keystone (Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-10-31 12:11:11.966 1 ERROR keystone 
+cinder-db_sync	exit=1
+--- last lines of cinder-db_sync
+2026-10-31 12:11:14.181 1 ERROR cinder 	object_current_version VARCHAR(36), 
+2026-10-31 12:11:14.181 1 ERROR cinder 	replication_status VARCHAR(36), 
+2026-10-31 12:11:14.181 1 ERROR cinder 	frozen BOOL, 
+2026-10-31 12:11:14.181 1 ERROR cinder 	active_backend_id VARCHAR(255), 
+2026-10-31 12:11:14.181 1 ERROR cinder 	cluster_name VARCHAR(255), 
+2026-10-31 12:11:14.181 1 ERROR cinder 	uuid VARCHAR(36), 
+2026-10-31 12:11:14.181 1 ERROR cinder 	PRIMARY KEY (id)
+2026-10-31 12:11:14.181 1 ERROR cinder )ENGINE=InnoDB CHARSET=utf8
+2026-10-31 12:11:14.181 1 ERROR cinder 
+2026-10-31 12:11:14.181 1 ERROR cinder ]
+2026-10-31 12:11:14.181 1 ERROR cinder (Background on this error at: https://sqlalche.me/e/20/e3q8)
+2026-10-31 12:11:14.181 1 ERROR cinder 
+nova.migrate_version: nova/407
+nova.alembic_version: NULL
+nova_api.migrate_version: nova_api/72
+nova_api.alembic_version: NULL
+nova_cell0.migrate_version: nova/407
+nova_cell0.alembic_version: NULL
+keystone.migrate_version: keystone/109;keystone_contract/78;keystone_data_migrate/78;keystone_expand/78
+keystone.alembic_version: NULL
+cinder.migrate_version: cinder/136
+cinder.alembic_version: NULL

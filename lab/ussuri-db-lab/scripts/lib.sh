@@ -5,7 +5,7 @@ set -euo pipefail
 LAB_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 SECRETS_DIR="$LAB_DIR/.secrets"      # git-ignored: passwords.env
 RUN_DIR="$LAB_DIR/.run"              # git-ignored: rendered config files (contain passwords)
-BACKUP_DIR="$LAB_DIR/backups"        # git-ignored: dumps and tarballs (contain credentials hashes, fernet keys)
+BACKUP_DIR="${BACKUP_DIR:-$LAB_DIR/backups}"        # git-ignored: dumps and tarballs (contain credentials hashes, fernet keys)
 EVIDENCE_DIR="${EVIDENCE_DIR:-$LAB_DIR/../../journeys/ussuri-to-2026.1/evidence/lab-baseline}"
 PYIMG_TAG="ufj-ussuri-py38:1"
 NET="ufj-net"
@@ -67,7 +67,7 @@ except Exception: raise SystemExit(1)" >/dev/null 2>&1 && return 0; sleep 1; don
 }
 
 # Containers that write to MariaDB (everything labelled ufj except the infra containers and the client)
-service_containers() { docker ps --filter label=org.ozarland.ufj=1 --format '{{.Names}}' | grep -vE '^ufj-(mariadb|rabbitmq|memcached|client|static|restore-.*)$' | sort; }
+service_containers() { docker ps --filter label=org.ozarland.ufj=1 --format '{{.Names}}' | grep -vE '^ufj-(mariadb|rabbitmq|memcached|client|static|restore-.*|ff-.*)$' | sort; }
 # SQL helpers working on any running MariaDB container: $1 = container, password in $2
 sql_tables() { docker exec -e MYSQL_PWD="$2" "$1" mysql -uroot -N -e "SELECT table_schema, table_name FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema NOT IN ('information_schema','performance_schema') ORDER BY 1,2"; }
 sql_rowcounts() { # container pw -> TSV db table rows (exact COUNT(*))

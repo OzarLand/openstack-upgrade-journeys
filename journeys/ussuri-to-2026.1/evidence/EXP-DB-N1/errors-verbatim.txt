@@ -1,0 +1,20 @@
+=== nova-api_db_sync (exit=255)
+An error has occurred:
+pymysql.err.OperationalError: (1050, "Table 'cell_mappings' already exists")
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1050, "Table 'cell_mappings' already exists")
+=== nova-db_sync-cell0 (exit=255)
+An error has occurred:
+pymysql.err.OperationalError: (1050, "Table 'instances' already exists")
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1050, "Table 'instances' already exists")
+=== nova-db_sync-cell1 (exit=255)
+An error has occurred:
+pymysql.err.OperationalError: (1050, "Table 'instances' already exists")
+sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1050, "Table 'instances' already exists")
+=== keystone-db_sync (exit=1)
+2026-10-31 12:11:11.966 1 CRITICAL keystone [-] Unhandled error: sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1050, "Table 'application_credential' already exists")
+2026-10-31 12:11:11.966 1 ERROR keystone pymysql.err.OperationalError: (1050, "Table 'application_credential' already exists")
+2026-10-31 12:11:11.966 1 ERROR keystone sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1050, "Table 'application_credential' already exists")
+=== cinder-db_sync (exit=1)
+2026-10-31 12:11:14.181 1 CRITICAL cinder [-] Unhandled error: sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1050, "Table 'services' already exists")
+2026-10-31 12:11:14.181 1 ERROR cinder pymysql.err.OperationalError: (1050, "Table 'services' already exists")
+2026-10-31 12:11:14.181 1 ERROR cinder sqlalchemy.exc.OperationalError: (pymysql.err.OperationalError) (1050, "Table 'services' already exists")

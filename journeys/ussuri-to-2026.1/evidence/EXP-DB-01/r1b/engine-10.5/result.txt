@@ -1,0 +1,3 @@
+image=mariadb:10.5 version=10.5.29-MariaDB-ubu2004-log
+start_seconds=5 upgrade+check_seconds=2
+mariadb-upgrade exit=0; check exit=0; errorlog error-like lines=0; check non-OK lines=0

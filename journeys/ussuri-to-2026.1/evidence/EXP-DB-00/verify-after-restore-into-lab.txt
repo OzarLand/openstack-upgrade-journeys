@@ -1,0 +1,10 @@
+# inventory verify 2026-10-31T11:47:07.733541
+differences: 0
+functional checks:
+  [PASS] auth alice: token issued
+  [PASS] auth bob: token issued
+  [PASS] image data md5 == glance checksum (3 images): all equal
+  [PASS] servers present with same status: 11/11 servers, statuses ['ACTIVE', 'ERROR', 'SHUTOFF', 'VERIFY_RESIZE']
+  [PASS] write test (create/delete network as alice): 36babd9d-c069-432c-b3ea-8809ac286552
+  [PASS] nova-compute service rows present (fenced baseline: state not required): 3 computes: [('ufj-compute1', 'down'), ('ufj-compute2', 'down'), ('ufj-compute3', 'down')]
+RESULT: PASS - baseline reproduced

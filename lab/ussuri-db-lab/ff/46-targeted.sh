@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+# Targeted value checks of declared transformations (declared-differences.md section 5), read-only, on the run's current DB.
+# usage: 46-targeted.sh <run> <T0-snapshot-source-run-or-self>   -> evidence/EXP-DB-01/<run>/targeted-checks.txt
+. "$(dirname "$0")/lib.sh"; ff_vars "${1:?run}"; set +e; O="$RUN_EV/targeted-checks.txt"
+q() { echo "-- $1"; ff_sql "$2" | sed 's/^/   /'; }
+{
+echo "# targeted checks $(date -u +%FT%TZ) on $(ff_sql 'select version()')"
+q "V-C1/V-C2 cinder use_quota distribution (volumes: value=count incl. deleted)" "SELECT CONCAT(IFNULL(use_quota,'NULL'),'=',COUNT(*)) FROM cinder.volumes GROUP BY use_quota"
+q "V-C2 snapshots use_quota" "SELECT CONCAT(IFNULL(use_quota,'NULL'),'=',COUNT(*)) FROM cinder.snapshots GROUP BY use_quota"
+q "V-C3 volumes.use_quota nullable (expect NO)" "SELECT IS_NULLABLE FROM information_schema.COLUMNS WHERE TABLE_SCHEMA='cinder' AND TABLE_NAME='volumes' AND COLUMN_NAME='use_quota'"
+q "R-5/V-C5 default quota classes backups/backup_gigabytes (expect 7 and 2500 = the cinder.conf values)" "SELECT CONCAT(class_name,'/',resource,'=',hard_limit,' deleted=',deleted) FROM cinder.quota_classes WHERE resource IN ('backups','backup_gigabytes')"
+q "V-C6 consistencygroups rows (deleted flag)" "SELECT CONCAT('quota_classes ',resource,' deleted=',deleted) FROM cinder.quota_classes WHERE resource='consistencygroups'"
+q "V-C9 temporary admin metadata not deleted (expect 0)" "SELECT COUNT(*) FROM cinder.volume_admin_metadata WHERE \`key\`='temporary' AND deleted=0"
+q "V-N2 instances.compute_id: NULL count (residue N-R1 predicted 1 = instances with host NULL) / total" "SELECT CONCAT(SUM(compute_id IS NULL),'/',COUNT(*)) FROM nova.instances"
+q "V-N2 instances with compute_id NULL: host" "SELECT IFNULL(host,'NULL') FROM nova.instances WHERE compute_id IS NULL"
+q "V-N2 compute_id coverage matches compute_nodes (mismatch count, expect 0)" "SELECT COUNT(*) FROM nova.instances i JOIN nova.compute_nodes c ON c.id=i.compute_id WHERE c.host<>i.host OR c.hypervisor_hostname<>i.node"
+q "V-N1 pci_devices NULL uuid" "SELECT COUNT(*) FROM nova.pci_devices WHERE uuid IS NULL"
+q "V-N3 migrations.dest_compute_id not NULL (expect 0)" "SELECT COUNT(*) FROM nova.migrations WHERE dest_compute_id IS NOT NULL"
+q "V-Q4 portforwardings (new columns)" "SELECT CONCAT(internal_ip_address,':',internal_port_start,'-',internal_port_end,' ext ',external_port_start,'-',external_port_end,' ',protocol) FROM neutron.portforwardings"
+q "V-Q6 securitygroupdefaultrules" "SELECT CONCAT(direction,'/',ethertype,'/',IFNULL(protocol,'-')) FROM neutron.securitygroupdefaultrules ORDER BY 1"
+q "V-Q7 porttrusted / profile of that port" "SELECT CONCAT(p.port_id,' trusted=',p.trusted,' profile=[',b.profile,']') FROM neutron.porttrusted p JOIN neutron.ml2_port_bindings b ON b.port_id=p.port_id"
+q "V-Q8 tags charset and values (HEX)" "SELECT CONCAT(TABLE_COLLATION) FROM information_schema.TABLES WHERE TABLE_SCHEMA='neutron' AND TABLE_NAME='tags'"
+q "V-Q8 tags HEX(tag)" "SELECT HEX(tag) FROM neutron.tags ORDER BY tag"
+q "V-Q9 network_segment_ranges physical_network (NULL must now be empty)" "SELECT CONCAT(network_type,'/[',IFNULL(physical_network,'NULL'),']/',minimum,'-',maximum) FROM neutron.network_segment_ranges"
+q "V-K1 keystone migrate_version / V-K2 mapping.schema_version" "SELECT CONCAT(repository_id,'=',version) FROM keystone.migrate_version"
+q "V-K2 mapping schema_version" "SELECT CONCAT(id,' ',schema_version) FROM keystone.mapping"
+q "V-G1 glance tasks new columns" "SELECT CONCAT(id,' user_id=',IFNULL(user_id,'NULL'),' image_id=',IFNULL(image_id,'NULL')) FROM glance.tasks"
+q "V-P1 placement consumers consumer_type_id NULL / total" "SELECT CONCAT(SUM(consumer_type_id IS NULL),'/',COUNT(*)) FROM placement.consumers"
+q "R-13 placement.consumer_types rows" "SELECT COUNT(*) FROM placement.consumer_types"
+q "C8 sql_mode global / table check" "SELECT @@GLOBAL.sql_mode"
+} > "$O" 2>&1; cat "$O"

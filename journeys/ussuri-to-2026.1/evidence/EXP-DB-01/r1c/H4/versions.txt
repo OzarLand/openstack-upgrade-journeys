@@ -1,0 +1,25 @@
+== nova api_db version
+cdeec0c85668
+== nova db version cell1
+2903cd72dc14
+== nova db version cell0
+2903cd72dc14
+== keystone db_version
+742c857f1dfb
+== cinder db version
+9c74c1c6971f
+== glance db version
+2024_1_contract01
+== glance db check (exit)
+exit=0
+== placement db version
+a082b8bb98d0
+== neutron current
+Running current for neutron ...
+5c85685d616d (head)
+b1bca967e19d (head)
+OK
+== neutron has_offline_migrations (exit)
+exit=0
+== neutron check_migration (exit)
+exit=0

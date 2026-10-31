@@ -1,0 +1,4 @@
+# schema nova_api vs nova_api_ref
+structural	CHECK only in migrated: flavors `disabled` in (0,1) (name CONSTRAINT_1)
+structural	CHECK only in migrated: flavors `is_public` in (0,1) (name CONSTRAINT_2)
+SUMMARY structural=2 name-only=0

@@ -1,0 +1,71 @@
+item	result	detail
+trust	OK	trust 1645ab9cd4a1495d9dd11d86028e354a impersonation=True expires_at=None
+trust	OK	trust 043cf636de3a4082be5561ae43109734 impersonation=False expires_at=None
+appcred-bob	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): id=7a786a2474a048808f9566790df5e325, name=ufj
+appcred-alice-restricted	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): id=46badc483ec14a288448e6c9d6e4b267, name=ufj
+ec2-credential	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): 
+totp-credential	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): id=e9f31d171b954c08a0a7472520a7567f
+revoke_token	OK	revoked a token (status 204)
+federation-idp	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): id=ufj
+federation-mapping	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): id=ufj
+federation-protocol	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): id=saml2
+cinder_group_quota	OK	groups=7 backups=11 (consistencygroups is not an accepted quota key in the v3 API) on a7cec7ef1552403fbb23fc861b3e16eb
+volume-deleted	OK	 
+volume-migrate-attempt	OK	 
+cinder-temporary-volume	NOT COVERED	no API path creates volume_admin_metadata temporary=True without a working backup/attach data path (see report) 
+multisegment	OK	network 8ff7cc14-311f-4c6a-b86e-64c495ef8ca7 segments=2
+segment-range-null-physnet	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): id=763cd768
+port-binding-profile	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): binding_profile=pci_slot='0000:00:03.0',
+network-tags	OK	 
+ha-router	NOT COVERED	needs L3 agents (min_l3_agents_per_router) and l3_ha=true; no L3 agent in this lab 
+glance_multilocation	OK	image f4956087-2143-4057-9a7e-8a5710277f82 locations=2 status=active
+glance_task	OK	task 7cf53cc4-ec7b-45be-97a8-9daee1ed1087 status=pending
+server-a-numa	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): 
+server-a-pinned	OK	Error creating server: a pinned Error creating server 
+server-a-huge-error	OK	ERROR 
+server-on-compute3	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): OS EXT SRV ATTR:host=ufj
+server-a-stopped	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): 
+server-a-resize	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): 
+resize-request	OK	 
+resize-confirm	OK	The confirm option has been deprecated. Please use the 'openstack server resize confirm' command instead. 
+server-a-migrate	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): 
+migrate-request	OK	Complete 
+server-a-del-soft	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): 
+server-a-del-archived	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): 
+delete-soft	OK	 
+force_delete	OK	force-deleted a-del-archived 44246a81-39da-4d4c-bc99-f0444d2ddb5a
+server-group-affinity	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): id=991385fc, name=b
+nova-quota-api	OK	 
+placement_nested	OK	nested provider 605ece78-6d47-5c57-ae87-d44ac8966e0e parent ffb37850-5050-44a3-b7df-6b126b1b0140 trait CUSTOM_UFJ_LAB
+placement_consumer	OK	manual consumer 5d3a4db6-4fd9-5b2b-9044-22c76281cfd7 (no instance, microversion 1.28, no consumer type)
+trust	OK	trust f9312a886d7844d7ae36bf5ba51e50a5 impersonation=False expires_at=2031-01-01T00:00:00.000000Z
+project-tags	OK	 
+appcred_access_rules	OK	application credential with access rule 7e05e6de9ace4870bd9724b6811f125f
+service_provider	OK	service provider ufj-sp
+many_revocations	OK	revoked 1500 tokens
+encrypted-volume-type	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): id=2822dc3f, name=ufj
+encrypted-volume	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): id=4c9b3409, name=a
+encrypted-volume-attach	OK	 
+cinder_groups	OK	group 9a23a452-2ab6-40b5-8141-b5330db6cecb; consistencygroup ac5bb6ff-63ec-404d-aef0-eb60e02b8e10
+cinder-default-quota-classes	OK	see coverage counts T0.tsv (quota_classes) 
+community_image	OK	community image f2ffe885-b964-456b-bc11-186bb18dd70b
+hidden_image	OK	hidden image 613b21a7-1687-41ae-a7ff-744b46704a02
+create_console	OK	console for a-vm1 (url host only: http://127.0.0.1:6080/vnc_auto.html)
+port-forwarding	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): id=2bb1d304
+port-trusted-profile	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): binding_profile=trusted='true'
+qos-policy	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): id=39946477, name=ufj
+rbac	OK	rbac 88b16cf8-a48b-456a-a9cd-942851674e58 on qos_policy ufj-qos -> ufj-proj-b
+rbac	OK	rbac e18b3be2-8254-4bbf-88a0-29f99fe9ae1a on security_group a-web -> ufj-proj-b
+subnetpool-rbac-project	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): id=017500b1
+rbac	OK	rbac ff728002-d58d-4a50-b695-b7efcca4da53 on subnetpool ufj-pool-priv -> ufj-proj-b
+address-scope	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): id=83e4ca56, name=ufj
+rbac	OK	rbac 284af5ff-1539-4bba-a9a7-4af107a4f9ae on address_scope ufj-scope -> ufj-proj-b
+tags-nonascii	OK	 
+server-bfv-to-delete	OK	created (output reduced to identifiers; the raw client output contained secrets and was removed): 
+force_delete	OK	force-deleted a-del-bfv d306ee8b-ba82-4b56-bc35-6f7c40f8487e
+not-covered	deleted instance (deleted<>0 in nova.instances) whose compute_nodes row is gone	NOT COVERED	archiving moves deleted instances to shadow_instances; a compute service can only be deleted through the API when no live instance is on it, and a fourth fake compute received live instances from the scheduler (tried, removed). The live-instance residue case IS covered: a-on-compute3 is on ufj-compute3
+not-covered	pci_devices row with NULL uuid	NOT COVERED	the fake driver reports no PCI devices
+not-covered	volume_admin_metadata temporary=True (non-deleted and deleted)	NOT COVERED	only created internally by backup/migration data paths (attach/copy), unavailable with the fake driver and without cinder-backup
+not-covered	nova legacy-cell-DB quotas	NOT COVERED (by design)	the Ussuri API writes quotas to the API DB; legacy rows would need SQL
+not-covered	DHCP ports	NOT COVERED	no DHCP agent in the lab, so neutron never creates network:dhcp ports
+not-covered	libvirt blobs, PCI/SR-IOV, OVN, real Ceph/LVM connection info	NOT COVERED	fake driver, no datapath (Tier B only)

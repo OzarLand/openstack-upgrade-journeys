@@ -1,0 +1,3 @@
+| Migration                                |   Total Needed |   Completed |
+| snapshot_use_quota_online_data_migration |              0 |           0 |
+| volume_use_quota_online_data_migration   |              0 |           0 |

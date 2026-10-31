@@ -7,3 +7,8 @@ image/ca/*
 *.pyc
 kolla-probe/ca-bundle.crt
 kolla-probe/upper-constraints.txt
+ff/image/*/ca/
+backups-v2/
+backups-v3/
+backups-ff/
+ff/image/*/build.log

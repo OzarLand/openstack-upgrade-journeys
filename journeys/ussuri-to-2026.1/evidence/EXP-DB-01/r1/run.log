@@ -1,0 +1,6 @@
+== run r1 mode=baseline observe=0 started 2026-10-31T12:02:54Z
+snapshot /snap/T0: 542 tables
+T0 snapshot 3 s
+FAIL PC-Q5 duplicate network segments (physnet not NULL) -> [1] expected /^0$/
+!! STOP CONDITION at pre-checks
+== run r1 ended at pre-checks (strict)

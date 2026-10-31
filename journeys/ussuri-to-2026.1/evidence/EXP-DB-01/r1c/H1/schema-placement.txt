@@ -1,0 +1,2 @@
+# schema placement vs placement_ref
+SUMMARY structural=0 name-only=0

@@ -12,6 +12,7 @@ case "${1:-}" in
   restore-test) shift; exec "$D/80-restore-test.sh" "$@";;
   restore)      shift; exec "$D/85-restore-into-lab.sh" "$@";;
   destroy)      shift; exec "$D/99-destroy.sh" "$@";;
+  ff)           shift; exec "$(dirname "$0")/ff/${1:?script}" "${@:2}";;
   status)       docker ps -a --filter name='^ufj-' --format 'table {{.Names}}\t{{.Status}}'; docker volume ls -q | grep '^ufj-';;
   *) echo "usage: $0 build|up|populate|versions|capture|verify|restore-test|restore|destroy|status|all"; exit 2;;
 esac

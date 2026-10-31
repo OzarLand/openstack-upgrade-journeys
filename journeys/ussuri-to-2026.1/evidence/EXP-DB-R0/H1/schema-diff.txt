@@ -1,0 +1,201 @@
+DECLARED(S-1)	keystone	structural	table only in migrated: migrate_version
+DECLARED(S-1)	keystone	structural	column only in migrated: migrate_version.repository_id ['varchar(250)', 'NO', '', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	keystone	structural	column only in migrated: migrate_version.repository_path ['text', 'YES', 'NULL', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	keystone	structural	column only in migrated: migrate_version.version ['int(11)', 'YES', 'NULL', '', '', '']
+DECLARED(S-1)	keystone	structural	index only in migrated: migrate_version (('repository_id', ''),) (name PRIMARY)
+DECLARED(S-1)	keystone	structural	key/constraint only in migrated: migrate_version (('repository_id',), '', ('',), '', '') (name PRIMARY)
+UNDECLARED	keystone	structural	CHECK only in migrated: assignment `inherited` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	keystone	structural	CHECK only in migrated: endpoint `enabled` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	keystone	structural	CHECK only in migrated: identity_provider `enabled` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	keystone	structural	CHECK only in migrated: project `enabled` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	keystone	structural	CHECK only in migrated: service `enabled` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	keystone	structural	CHECK only in migrated: service_provider `enabled` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	keystone	structural	CHECK only in migrated: system_assignment `inherited` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	keystone	structural	CHECK only in migrated: token `valid` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	keystone	structural	CHECK only in migrated: trust `impersonation` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	keystone	structural	CHECK only in migrated: user `enabled` in (0,1) (name CONSTRAINT_1)
+DECLARED(S-1)	glance	structural	table only in migrated: migrate_version
+DECLARED(S-1)	glance	structural	column only in migrated: migrate_version.repository_id ['varchar(250)', 'NO', '', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	glance	structural	column only in migrated: migrate_version.repository_path ['text', 'YES', 'NULL', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	glance	structural	column only in migrated: migrate_version.version ['int(11)', 'YES', 'NULL', '', '', '']
+DECLARED(S-1)	glance	structural	index only in migrated: migrate_version (('repository_id', ''),) (name PRIMARY)
+DECLARED(S-1)	glance	structural	key/constraint only in migrated: migrate_version (('repository_id',), '', ('',), '', '') (name PRIMARY)
+UNDECLARED	glance	structural	CHECK only in migrated: images `os_hidden` in (0,1) (name CONSTRAINT_4)
+DECLARED(S-1)	nova_api	structural	table only in migrated: migrate_version
+DECLARED(S-1)	nova_api	structural	column only in migrated: migrate_version.repository_id ['varchar(250)', 'NO', '', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	nova_api	structural	column only in migrated: migrate_version.repository_path ['text', 'YES', 'NULL', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	nova_api	structural	column only in migrated: migrate_version.version ['int(11)', 'YES', 'NULL', '', '', '']
+DECLARED(S-1)	nova_api	structural	index only in migrated: migrate_version (('repository_id', ''),) (name PRIMARY)
+DECLARED(S-1)	nova_api	structural	key/constraint only in migrated: migrate_version (('repository_id',), '', ('',), '', '') (name PRIMARY)
+UNDECLARED	nova_api	structural	CHECK only in migrated: flavors `disabled` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	nova_api	structural	CHECK only in migrated: flavors `is_public` in (0,1) (name CONSTRAINT_2)
+DECLARED(S-1)	nova	structural	table only in migrated: migrate_version
+UNDECLARED	nova	structural	table only in reference: shadow_alembic_version
+DECLARED(S-1)	nova	structural	table only in migrated: shadow_migrate_version
+DECLARED(S-1)	nova	structural	column only in migrated: migrate_version.repository_id ['varchar(250)', 'NO', '', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	nova	structural	column only in migrated: migrate_version.repository_path ['text', 'YES', 'NULL', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	nova	structural	column only in migrated: migrate_version.version ['int(11)', 'YES', 'NULL', '', '', '']
+UNDECLARED	nova	structural	column only in reference: shadow_alembic_version.version_num ['varchar(32)', 'NO', '', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	nova	structural	column only in migrated: shadow_migrate_version.repository_id ['varchar(250)', 'NO', '', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	nova	structural	column only in migrated: shadow_migrate_version.repository_path ['text', 'YES', 'NULL', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	nova	structural	column only in migrated: shadow_migrate_version.version ['int(11)', 'YES', 'NULL', '', '', '']
+UNDECLARED	nova	structural	column shadow_quota_usages.resource migrated=['varchar(255)', 'YES', 'NULL', 'utf8mb3', 'utf8mb3_general_ci', ''] reference=['varchar(255)', 'NO', '', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	nova	structural	index only in migrated: migrate_version (('repository_id', ''),) (name PRIMARY)
+UNDECLARED	nova	structural	index only in reference: shadow_alembic_version (('version_num', ''),) (name PRIMARY)
+DECLARED(S-1)	nova	structural	index only in migrated: shadow_migrate_version (('repository_id', ''),) (name PRIMARY)
+DECLARED(S-1)	nova	structural	key/constraint only in migrated: migrate_version (('repository_id',), '', ('',), '', '') (name PRIMARY)
+UNDECLARED	nova	structural	key/constraint only in reference: shadow_alembic_version (('version_num',), '', ('',), '', '') (name PRIMARY)
+DECLARED(S-1)	nova	structural	key/constraint only in migrated: shadow_migrate_version (('repository_id',), '', ('',), '', '') (name PRIMARY)
+UNDECLARED	nova	structural	CHECK only in migrated: block_device_mapping `delete_on_termination` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	nova	structural	CHECK only in migrated: block_device_mapping `no_device` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	nova	structural	CHECK only in migrated: cells `is_parent` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	nova	structural	CHECK only in migrated: dns_domains `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	nova	structural	CHECK only in migrated: fixed_ips `allocated` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	nova	structural	CHECK only in migrated: fixed_ips `leased` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	nova	structural	CHECK only in migrated: fixed_ips `reserved` in (0,1) (name CONSTRAINT_3)
+UNDECLARED	nova	structural	CHECK only in migrated: floating_ips `auto_assigned` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	nova	structural	CHECK only in migrated: instance_types `disabled` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	nova	structural	CHECK only in migrated: instance_types `is_public` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	nova	structural	CHECK only in migrated: instances `auto_disk_config` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	nova	structural	CHECK only in migrated: instances `disable_terminate` in (0,1) (name CONSTRAINT_4)
+UNDECLARED	nova	structural	CHECK only in migrated: instances `locked` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	nova	structural	CHECK only in migrated: instances `shutdown_terminate` in (0,1) (name CONSTRAINT_3)
+UNDECLARED	nova	structural	CHECK only in migrated: networks `injected` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	nova	structural	CHECK only in migrated: networks `multi_host` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	nova	structural	CHECK only in migrated: services `disabled` in (0,1) (name CONSTRAINT_1)
+DECLARED(S-1)	nova_cell0	structural	table only in migrated: migrate_version
+UNDECLARED	nova_cell0	structural	table only in reference: shadow_alembic_version
+DECLARED(S-1)	nova_cell0	structural	table only in migrated: shadow_migrate_version
+DECLARED(S-1)	nova_cell0	structural	column only in migrated: migrate_version.repository_id ['varchar(250)', 'NO', '', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	nova_cell0	structural	column only in migrated: migrate_version.repository_path ['text', 'YES', 'NULL', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	nova_cell0	structural	column only in migrated: migrate_version.version ['int(11)', 'YES', 'NULL', '', '', '']
+UNDECLARED	nova_cell0	structural	column only in reference: shadow_alembic_version.version_num ['varchar(32)', 'NO', '', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	nova_cell0	structural	column only in migrated: shadow_migrate_version.repository_id ['varchar(250)', 'NO', '', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	nova_cell0	structural	column only in migrated: shadow_migrate_version.repository_path ['text', 'YES', 'NULL', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	nova_cell0	structural	column only in migrated: shadow_migrate_version.version ['int(11)', 'YES', 'NULL', '', '', '']
+UNDECLARED	nova_cell0	structural	column shadow_quota_usages.resource migrated=['varchar(255)', 'YES', 'NULL', 'utf8mb3', 'utf8mb3_general_ci', ''] reference=['varchar(255)', 'NO', '', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	nova_cell0	structural	index only in migrated: migrate_version (('repository_id', ''),) (name PRIMARY)
+UNDECLARED	nova_cell0	structural	index only in reference: shadow_alembic_version (('version_num', ''),) (name PRIMARY)
+DECLARED(S-1)	nova_cell0	structural	index only in migrated: shadow_migrate_version (('repository_id', ''),) (name PRIMARY)
+DECLARED(S-1)	nova_cell0	structural	key/constraint only in migrated: migrate_version (('repository_id',), '', ('',), '', '') (name PRIMARY)
+UNDECLARED	nova_cell0	structural	key/constraint only in reference: shadow_alembic_version (('version_num',), '', ('',), '', '') (name PRIMARY)
+DECLARED(S-1)	nova_cell0	structural	key/constraint only in migrated: shadow_migrate_version (('repository_id',), '', ('',), '', '') (name PRIMARY)
+UNDECLARED	nova_cell0	structural	CHECK only in migrated: block_device_mapping `delete_on_termination` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	nova_cell0	structural	CHECK only in migrated: block_device_mapping `no_device` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	nova_cell0	structural	CHECK only in migrated: cells `is_parent` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	nova_cell0	structural	CHECK only in migrated: dns_domains `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	nova_cell0	structural	CHECK only in migrated: fixed_ips `allocated` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	nova_cell0	structural	CHECK only in migrated: fixed_ips `leased` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	nova_cell0	structural	CHECK only in migrated: fixed_ips `reserved` in (0,1) (name CONSTRAINT_3)
+UNDECLARED	nova_cell0	structural	CHECK only in migrated: floating_ips `auto_assigned` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	nova_cell0	structural	CHECK only in migrated: instance_types `disabled` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	nova_cell0	structural	CHECK only in migrated: instance_types `is_public` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	nova_cell0	structural	CHECK only in migrated: instances `auto_disk_config` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	nova_cell0	structural	CHECK only in migrated: instances `disable_terminate` in (0,1) (name CONSTRAINT_4)
+UNDECLARED	nova_cell0	structural	CHECK only in migrated: instances `locked` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	nova_cell0	structural	CHECK only in migrated: instances `shutdown_terminate` in (0,1) (name CONSTRAINT_3)
+UNDECLARED	nova_cell0	structural	CHECK only in migrated: networks `injected` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	nova_cell0	structural	CHECK only in migrated: networks `multi_host` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	nova_cell0	structural	CHECK only in migrated: services `disabled` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: address_scopes `shared` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: agents `admin_state_up` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: agents `resources_synced` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	neutron	structural	CHECK only in migrated: bgp_speakers `advertise_floating_ip_host_routes` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: bgp_speakers `advertise_tenant_networks` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	neutron	structural	CHECK only in migrated: brocadeports `admin_state_up` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: cisco_hosting_devices `admin_state_up` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: cisco_ml2_n1kv_vlan_allocations `allocated` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: cisco_ml2_n1kv_vxlan_allocations `allocated` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: cisco_ml2_nexusport_bindings `is_provider_vlan` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: cisco_router_mappings `auto_schedule` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: externalnetworks `is_default` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: firewall_policies `audited` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	neutron	structural	CHECK only in migrated: firewall_policies `shared` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: firewall_rules `enabled` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	neutron	structural	CHECK only in migrated: firewall_rules `shared` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: firewalls `admin_state_up` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	neutron	structural	CHECK only in migrated: firewalls `shared` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: flavors `enabled` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: healthmonitors `admin_state_up` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: ipsec_site_connections `admin_state_up` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: logs `enabled` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: maclearningstates `mac_learning_enabled` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: members `admin_state_up` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: meteringlabelrules `excluded` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: meteringlabels `shared` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: ml2_brocadeports `admin_state_up` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: ml2_geneve_allocations `allocated` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: ml2_gre_allocations `allocated` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: ml2_nexus_vxlan_allocations `allocated` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: ml2_ucsm_port_profiles `created_on_ucs` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: ml2_vlan_allocations `allocated` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: ml2_vxlan_allocations `allocated` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: network_segment_ranges `default` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: network_segment_ranges `shared` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	neutron	structural	CHECK only in migrated: networkgateways `default` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: networks `admin_state_up` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: networks `vlan_transparent` in (0,1) (name CONSTRAINT_3)
+UNDECLARED	neutron	structural	CHECK only in migrated: networksecuritybindings `port_security_enabled` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: networksegments `is_dynamic` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: nsxv_router_ext_attributes `distributed` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: nsxv_router_ext_attributes `service_router` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	neutron	structural	CHECK only in migrated: nuage_subnet_l2dom_mapping `nuage_managed_subnet` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: pools `admin_state_up` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: ports `admin_state_up` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: portsecuritybindings `port_security_enabled` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: portuplinkstatuspropagation `propagate_uplink_status` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: qosqueues `default` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: quotausages `dirty` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: router_extra_attributes `distributed` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: router_extra_attributes `ha` in (0,1) (name CONSTRAINT_3)
+UNDECLARED	neutron	structural	CHECK only in migrated: router_extra_attributes `service_router` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	neutron	structural	CHECK only in migrated: routers `admin_state_up` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: routers `enable_snat` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	neutron	structural	CHECK only in migrated: securitygroups `stateful` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: serviceprofiles `enabled` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: subnet_dns_publish_fixed_ips `dns_publish_fixed_ip` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: subnetpools `is_default` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	neutron	structural	CHECK only in migrated: subnetpools `shared` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: subnets `enable_dhcp` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: subnets `in_use` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	neutron	structural	CHECK only in migrated: trunks `admin_state_up` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: vips `admin_state_up` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	neutron	structural	CHECK only in migrated: vpnservices `admin_state_up` in (0,1) (name CONSTRAINT_1)
+DECLARED(S-1)	cinder	structural	table only in migrated: migrate_version
+DECLARED(S-1)	cinder	structural	column only in migrated: migrate_version.repository_id ['varchar(250)', 'NO', '', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	cinder	structural	column only in migrated: migrate_version.repository_path ['text', 'YES', 'NULL', 'utf8mb3', 'utf8mb3_general_ci', '']
+DECLARED(S-1)	cinder	structural	column only in migrated: migrate_version.version ['int(11)', 'YES', 'NULL', '', '', '']
+DECLARED(S-1)	cinder	structural	index only in migrated: migrate_version (('repository_id', ''),) (name PRIMARY)
+UNDECLARED	cinder	name-only	index name quota_usages (('project_id', ''), ('resource', ''), ('race_preventer', '')) migrated=quota_usages_project_id_key reference=project_id
+DECLARED(S-1)	cinder	structural	key/constraint only in migrated: migrate_version (('repository_id',), '', ('',), '', '') (name PRIMARY)
+UNDECLARED	cinder	name-only	constraint name quota_usages ('project_id', 'resource', 'race_preventer') migrated=quota_usages_project_id_key reference=project_id
+UNDECLARED	cinder	structural	CHECK only in migrated: attachment_specs `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: backup_metadata `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: clusters `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: clusters `disabled` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	cinder	structural	CHECK only in migrated: clusters `frozen` in (0,1) (name CONSTRAINT_3)
+UNDECLARED	cinder	structural	CHECK only in migrated: group_type_specs `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: group_types `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: group_types `is_public` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	cinder	structural	CHECK only in migrated: group_volume_type_mapping `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: groups `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: messages `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: quotas `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: services `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: services `disabled` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	cinder	structural	CHECK only in migrated: services `frozen` in (0,1) (name CONSTRAINT_3)
+UNDECLARED	cinder	structural	CHECK only in migrated: snapshot_metadata `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: snapshots `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: transfers `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: transfers `no_snapshots` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	cinder	structural	CHECK only in migrated: volume_admin_metadata `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: volume_attachment `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: volume_metadata `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: volume_type_extra_specs `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: volume_types `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: volume_types `is_public` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	cinder	structural	CHECK only in migrated: volumes `bootable` in (0,1) (name CONSTRAINT_2)
+UNDECLARED	cinder	structural	CHECK only in migrated: volumes `deleted` in (0,1) (name CONSTRAINT_1)
+UNDECLARED	cinder	structural	CHECK only in migrated: volumes `multiattach` in (0,1) (name CONSTRAINT_3)
+UNDECLARED	cinder	structural	CHECK only in migrated: volumes `shared_targets` in (0,1) (name CONSTRAINT_4)
+UNDECLARED	cinder	structural	CHECK only in migrated: workers `deleted` in (0,1) (name CONSTRAINT_1)

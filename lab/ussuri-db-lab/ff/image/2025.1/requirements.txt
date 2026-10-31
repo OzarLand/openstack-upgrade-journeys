@@ -1,0 +1,7 @@
+keystone==27.1.0
+glance==30.2.0
+openstack-placement==13.0.1
+nova==31.3.1
+neutron==26.0.6
+cinder==26.4.0
+PyMySQL

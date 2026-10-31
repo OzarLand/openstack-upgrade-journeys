@@ -1,0 +1,18 @@
+# schema keystone vs keystone_ref
+structural	table only in migrated: migrate_version
+structural	column only in migrated: migrate_version.repository_id ['varchar(250)', 'NO', '', 'utf8mb3', 'utf8mb3_general_ci', '']
+structural	column only in migrated: migrate_version.repository_path ['text', 'YES', 'NULL', 'utf8mb3', 'utf8mb3_general_ci', '']
+structural	column only in migrated: migrate_version.version ['int(11)', 'YES', 'NULL', '', '', '']
+structural	index only in migrated: migrate_version (('repository_id', ''),) (name PRIMARY)
+structural	key/constraint only in migrated: migrate_version (('repository_id',), '', ('',), '', '') (name PRIMARY)
+structural	CHECK only in migrated: assignment `inherited` in (0,1) (name CONSTRAINT_1)
+structural	CHECK only in migrated: endpoint `enabled` in (0,1) (name CONSTRAINT_1)
+structural	CHECK only in migrated: identity_provider `enabled` in (0,1) (name CONSTRAINT_1)
+structural	CHECK only in migrated: project `enabled` in (0,1) (name CONSTRAINT_1)
+structural	CHECK only in migrated: service `enabled` in (0,1) (name CONSTRAINT_1)
+structural	CHECK only in migrated: service_provider `enabled` in (0,1) (name CONSTRAINT_1)
+structural	CHECK only in migrated: system_assignment `inherited` in (0,1) (name CONSTRAINT_1)
+structural	CHECK only in migrated: token `valid` in (0,1) (name CONSTRAINT_1)
+structural	CHECK only in migrated: trust `impersonation` in (0,1) (name CONSTRAINT_1)
+structural	CHECK only in migrated: user `enabled` in (0,1) (name CONSTRAINT_1)
+SUMMARY structural=16 name-only=0

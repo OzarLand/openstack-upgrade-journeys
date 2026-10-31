@@ -1,0 +1,33 @@
+== run r1b mode=baseline observe=0 started 2026-10-31T12:25:21Z
+[12:25:27] copy equals the baseline (dump sha256 8d4b9695b7affe7126a398fcd9db94e1009e4057d8008f882c1a99e429905294)
+[12:25:27] run r1b (baseline) ready: db=ufj-ff-r1b-db net=ufj-ff-r1b-net volume=ufj-ff-r1b-data
+snapshot /snap/T0: 542 tables
+T0 snapshot 3 s
+image=mariadb:10.5 version=10.5.29-MariaDB-ubu2004-log
+start_seconds=5 upgrade+check_seconds=2
+mariadb-upgrade exit=0; check exit=0; errorlog error-like lines=0; check non-OK lines=0
+image=mariadb:10.6 version=10.6.28-MariaDB-ubu2204-log
+start_seconds=3 upgrade+check_seconds=2
+mariadb-upgrade exit=0; check exit=0; errorlog error-like lines=2; check non-OK lines=0
+keystone-db_sync	0	2.5
+nova-api_db_sync	0	2.4
+nova-db_sync-cell0	0	2.7
+nova-db_sync-cell1	0	2.7
+cinder-db_sync	0	2.1
+cinder-odm-1	0	1.8
+nova-odm-1	0	2.8
+glance-db_sync	0	1.5
+placement-db_sync	0	1.5
+neutron-upgrade	0	3.3
+placement-odm-1	0	1.5
+total_seconds 25
+references built with release 2023.1
+snapshot /snap/H1: 1112 tables
+[C4] schema vs reference: 48 declared, 153 UNDECLARED differences (structural: 151, name-only: 2)
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=23 undeclared=1
+[C2] bookkeeping rows differ from the reference: keystone.migrate_version migrated=[keystone/109;keystone_contract/79;keystone_data_migrate/79;keystone_expand/79] reference=[absent] DIFFERENT;glance.migrate_version migrated=[Glance Migrations/0] reference=[absent] DIFFERENT;nova_api.migrate_version migrated=[nova_api/87] reference=[absent] DIFFERENT;nova.migrate_version migrated=[nova/422] reference=[absent] DIFFERENT;nova_cell0.migrate_version migrated=[nova/422] reference=[absent] DIFFERENT;cinder.migrate_version migrated=[cinder/145] reference=[absent] DIFFERENT;
+[C9] status tools: 1 FAILURE lines (see status-tools.txt)
+[C10] snapshot+checks seconds: 75; hop timings in steps.tsv
+RESULT H1: STOP (undeclared difference or failed check)
+!! STOP CONDITION at checks after hop 1
+== run r1b ended at checks after hop 1 (strict)

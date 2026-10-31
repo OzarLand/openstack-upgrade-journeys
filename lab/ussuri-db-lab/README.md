@@ -120,3 +120,24 @@ API inventory (no passwords, no key material, no tokens).
 * Concurrency: there is no lock; run one script at a time.
 * Fake compute: server state lives in the database and in the FakeDriver's memory. After a `nova-compute` restart the
   driver forgets its guests; the database still says ACTIVE (this is the baseline's truth).
+
+## Fast-forward experiments (`ff/`, Stage 4)
+
+One-shot images per release (`ff/build-release-image.sh <2023.1|2024.1|2025.1|2026.1>`, Python 3.10/3.11/3.12/3.12, PyPI under each
+release's upper-constraints), MariaDB 10.3 -> 10.5 -> 10.6 -> 10.11 -> 11.4 (`ff/pull-images.sh` pulls via mirror.gcr.io when Docker Hub
+answers 429). Everything runs on **restored copies** (never on `backups/`); all objects are named `ufj-ff-<run>-*`.
+
+| Script | Purpose |
+|---|---|
+| `ff/05-baseline-checksum.sh before|after` | sha256 of every file of the preserved baselines |
+| `ff/10-new-copy.sh <run> baseline|empty` | isolated copy (`BASE_BACKUP=` picks the baseline) or empty Ussuri schema (R0) |
+| `ff/12-prechecks.sh <run>` | PC-* pre-checks (read-only) |
+| `ff/20-engine.sh <run> mariadb:<ver>` | engine step: clean shutdown, new image on the datadir, `mariadb-upgrade`, `mariadb-check` |
+| `ff/30-hop.sh <run> <rel> <n>` | the db syncs and ODMs of one hop (order of assessments/04 section 3) |
+| `ff/40-checks.sh <run> <rel> <n>` | references `<db>_ref`, snapshots, comparisons A/B, versions, status tools |
+| `ff/50-run-s2c.sh <run> baseline|empty [--observe]` | whole S2c run (strict by default) |
+| `ff/52-run-n1.sh` | EXP-DB-N1 (2026.1 code against the Ussuri database) |
+| `ff/41-parity.sh`, `ff/46-targeted.sh`, `ff/47-engine-sqlmode.sh` | config parity, targeted value checks, sql_mode per engine |
+
+`ufj.sh ff <script> [args]` runs one of them. Disposable runs are removed with `docker rm -f ufj-ff-<run>-db; docker volume rm ufj-ff-<run>-data`.
+Baselines v2 (`backups-v2/`) and v3 (`backups-v3/`) are corrected derivatives of the preserved baseline, see EXP-DB-01.

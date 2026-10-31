@@ -1,0 +1,2 @@
+ufj-multiseg	vlan	physnet1	151	0
+ufj-multiseg	vlan	physnet1	150	0

@@ -1,0 +1,20 @@
+Running batches of 50 until complete
+2026-10-31 12:36:12.663 1 ERROR nova.objects.instance [None req-5562f38f-75fc-4884-855e-26f9a4a5b5df - - - - - -] [instance: 00000000-0000-0000-0000-000000000000] Unable to migrate instance because host None with node None not found: nova.exception.ComputeHostNotFound: Compute host None could not be found.[00m
+11 rows matched query populate_instance_compute_id, 10 migrated
+2026-10-31 12:36:12.728 1 ERROR nova.objects.instance [None req-5562f38f-75fc-4884-855e-26f9a4a5b5df - - - - - -] [instance: 00000000-0000-0000-0000-000000000000] Unable to migrate instance because host None with node None not found: nova.exception.ComputeHostNotFound: Compute host None could not be found.[00m
+1 rows matched query populate_instance_compute_id, 0 migrated
++-------------------------------------+--------------+-----------+
+|              Migration              | Total Needed | Completed |
++-------------------------------------+--------------+-----------+
+|     fill_virtual_interface_list     |      0       |     0     |
+|         migrate_empty_ratio         |      0       |     0     |
+|   migrate_quota_classes_to_api_db   |      0       |     0     |
+|    migrate_quota_limits_to_api_db   |      0       |     0     |
+|      migration_migrate_to_uuid      |      0       |     0     |
+|          populate_dev_uuids         |      0       |     0     |
+|     populate_instance_compute_id    |      12      |     10    |
+| populate_missing_availability_zones |      0       |     0     |
+|      populate_queued_for_delete     |      0       |     0     |
+|           populate_user_id          |      0       |     0     |
+|            populate_uuids           |      0       |     0     |
++-------------------------------------+--------------+-----------+

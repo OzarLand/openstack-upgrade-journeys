@@ -1,0 +1,1 @@
+RESULT strict-stop checks after hop 1

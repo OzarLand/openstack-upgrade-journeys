@@ -1,0 +1,10 @@
+# schema nova_api vs nova_api_ref
+structural	table only in migrated: migrate_version
+structural	column only in migrated: migrate_version.repository_id ['varchar(250)', 'NO', '', 'utf8mb3', 'utf8mb3_general_ci', '']
+structural	column only in migrated: migrate_version.repository_path ['text', 'YES', 'NULL', 'utf8mb3', 'utf8mb3_general_ci', '']
+structural	column only in migrated: migrate_version.version ['int(11)', 'YES', 'NULL', '', '', '']
+structural	index only in migrated: migrate_version (('repository_id', ''),) (name PRIMARY)
+structural	key/constraint only in migrated: migrate_version (('repository_id',), '', ('',), '', '') (name PRIMARY)
+structural	CHECK only in migrated: flavors `disabled` in (0,1) (name CONSTRAINT_1)
+structural	CHECK only in migrated: flavors `is_public` in (0,1) (name CONSTRAINT_2)
+SUMMARY structural=8 name-only=0

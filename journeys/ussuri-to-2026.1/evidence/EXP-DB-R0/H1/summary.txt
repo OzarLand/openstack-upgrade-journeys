@@ -1,0 +1,6 @@
+[C4] schema vs reference: 48 declared, 153 UNDECLARED differences (structural: 151, name-only: 2)
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=568 undeclared=9
+[C2] bookkeeping rows differ from the reference: keystone.migrate_version migrated=[keystone/109;keystone_contract/79;keystone_data_migrate/79;keystone_expand/79] reference=[absent] DIFFERENT;glance.migrate_version migrated=[Glance Migrations/0] reference=[absent] DIFFERENT;nova_api.migrate_version migrated=[nova_api/87] reference=[absent] DIFFERENT;nova.migrate_version migrated=[nova/422] reference=[absent] DIFFERENT;nova_cell0.migrate_version migrated=[nova/422] reference=[absent] DIFFERENT;cinder.migrate_version migrated=[cinder/145] reference=[absent] DIFFERENT;
+[C9] status tools: 0 FAILURE lines (see status-tools.txt)
+[C10] snapshot+checks seconds: 68; hop timings in steps.tsv
+RESULT H1: STOP (undeclared difference or failed check)

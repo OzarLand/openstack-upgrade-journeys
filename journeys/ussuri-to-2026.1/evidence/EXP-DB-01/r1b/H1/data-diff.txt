@@ -1,0 +1,25 @@
+DECLARED	R-2/N-6	cinder.alembic_version new bookkeeping table (1 rows)
+DECLARED	R-4/R-12/R-13/R-14/R-15	new empty table cinder.default_volume_types
+DECLARED	R-2/N-6	keystone.alembic_version new bookkeeping table (2 rows)
+DECLARED	R-4/R-12/R-13/R-14/R-15	new empty table neutron.address_associations
+DECLARED	R-4/R-12/R-13/R-14/R-15	new empty table neutron.address_groups
+DECLARED	R-4/R-12/R-13/R-14/R-15	new empty table neutron.addressgrouprbacs
+DECLARED	R-4/R-12/R-13/R-14/R-15	new empty table neutron.local_ip_associations
+DECLARED	R-4/R-12/R-13/R-14/R-15	new empty table neutron.local_ips
+DECLARED	R-4/R-12/R-13/R-14/R-15	new empty table neutron.ndp_proxies
+UNDECLARED	-	table dropped: neutron.portbindingports (T0 rows 0)
+DECLARED	R-4/R-12/R-13/R-14/R-15	new empty table neutron.portdeviceprofiles
+DECLARED	R-4/R-12/R-13/R-14/R-15	new empty table neutron.portnumaaffinitypolicies
+DECLARED	R-4/R-12/R-13/R-14/R-15	new empty table neutron.qos_minimum_packet_rate_rules
+DECLARED	R-4/R-12/R-13/R-14/R-15	new empty table neutron.qos_packet_rate_limit_rules
+DECLARED	R-4/R-12/R-13/R-14/R-15	new empty table neutron.router_ndp_proxy_state
+DECLARED	R-2/N-6	nova.alembic_version new bookkeeping table (1 rows)
+DECLARED	R-2/N-6	nova_api.alembic_version new bookkeeping table (1 rows)
+DECLARED	R-2/N-6	nova_cell0.alembic_version new bookkeeping table (1 rows)
+DECLARED	R-4/R-12/R-13/R-14/R-15	new empty table placement.consumer_types
+DECLARED	V-Q4	portforwardings.external_port split
+DECLARED	V-Q4	portforwardings.socket split
+DECLARED	V-N6	dropped columns of build_requests (0 rows at T0)
+DECLARED	N-3	cinder.snapshots.updated_at changed on 2 rows
+DECLARED	N-3	cinder.volumes.updated_at changed on 8 rows
+SUMMARY declared=23 undeclared=1

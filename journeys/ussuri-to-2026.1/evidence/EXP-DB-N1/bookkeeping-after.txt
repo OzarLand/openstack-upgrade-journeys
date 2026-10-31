@@ -1,0 +1,10 @@
+nova.migrate_version: nova/407
+nova.alembic_version: NULL
+nova_api.migrate_version: nova_api/72
+nova_api.alembic_version: NULL
+nova_cell0.migrate_version: nova/407
+nova_cell0.alembic_version: NULL
+keystone.migrate_version: keystone/109;keystone_contract/78;keystone_data_migrate/78;keystone_expand/78
+keystone.alembic_version: NULL
+cinder.migrate_version: cinder/136
+cinder.alembic_version: NULL

@@ -32,8 +32,9 @@ def j(r):
 
 def multisegment():
     n = ad('network')
+    # NOT two VLAN segments on the same physnet: that violates pre-check PC-Q5 (neutron e981acd076d3 unique constraint)
     segs = [{'provider:network_type': 'vlan', 'provider:physical_network': 'physnet1', 'provider:segmentation_id': 150},
-            {'provider:network_type': 'vlan', 'provider:physical_network': 'physnet1', 'provider:segmentation_id': 151}]
+            {'provider:network_type': 'vxlan', 'provider:segmentation_id': 500}]
     net = j(n.post('/v2.0/networks', json={'network': {'name': 'ufj-multiseg', 'segments': segs}}))['network']
     return 'network %s segments=%d' % (net['id'], len(net.get('segments', [])))
 

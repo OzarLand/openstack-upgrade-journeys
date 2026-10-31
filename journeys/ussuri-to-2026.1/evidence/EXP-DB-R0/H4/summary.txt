@@ -1,0 +1,6 @@
+[C4] schema vs reference: 24 declared, 137 UNDECLARED differences (structural: 135, name-only: 2)
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=98 undeclared=2
+[C2] bookkeeping rows differ from the reference: keystone.migrate_version migrated=[keystone/109;keystone_contract/79;keystone_data_migrate/79;keystone_expand/79] reference=[absent] DIFFERENT;glance.migrate_version migrated=[Glance Migrations/0] reference=[absent] DIFFERENT;
+[C9] status tools: 0 FAILURE lines (see status-tools.txt)
+[C10] snapshot+checks seconds: 86; hop timings in steps.tsv
+RESULT H4: STOP (undeclared difference or failed check)

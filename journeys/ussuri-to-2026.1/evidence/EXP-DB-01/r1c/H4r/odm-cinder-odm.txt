@@ -1,0 +1,9 @@
+Running batches of 50 until complete.
+2026-10-31 12:41:31.946 1 WARNING py.warnings [None req-f3f5f578-14ba-4b13-9fd9-4f81953aeb88 - - - - - -] /opt/ff/lib/python3.12/site-packages/cinder/db/sqlalchemy/api.py:8666: SAWarning: Coercing Subquery object into a select() for use in IN(); please pass a select() construct explicitly
+  filter(admin_meta_table.id.in_(ids_query)).\
+
++------------------------------------------------+----------------+-------------+
+| Migration                                      |   Total Needed |   Completed |
+|------------------------------------------------+----------------+-------------|
+| remove_temporary_admin_metadata_data_migration |              0 |           0 |
++------------------------------------------------+----------------+-------------+

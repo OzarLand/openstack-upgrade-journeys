@@ -1,0 +1,12 @@
+22c22
+< cinder	reservations	50
+---
+> cinder	reservations	0
+27c27
+< cinder	volumes	9
+---
+> cinder	volumes	8
+29c29
+< cinder	volume_attachment	4
+---
+> cinder	volume_attachment	3

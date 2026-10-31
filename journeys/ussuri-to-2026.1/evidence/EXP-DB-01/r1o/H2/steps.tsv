@@ -1,0 +1,5 @@
+keystone-db_sync	0	2.1
+nova-api_db_sync	0	2.3
+nova-db_sync-cell0	0	2.4
+nova-db_sync-cell1	0	2.5
+cinder-db_sync	1	1.8

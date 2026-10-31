@@ -1,0 +1,57 @@
+# versions recorded 2026-10-31T11:42:09Z
+host os:      Ubuntu 24.04.5 LTS
+host kernel:  6.18.44-fc-v185
+host python:  Python 3.13.18
+docker:       client 29.9.2 / server 29.9.2
+cpu/mem:      4 vCPU, 15 GB RAM
+kvm:          absent; /lib/modules: absent
+mariadb:      10.3.39-MariaDB-1:10.3.39+maria~ubu2004-log (image mariadb:10.3, sha256:4f08c16ef56f)
+rabbitmq:     3.8.34 (Erlang/OTP 24)
+memcached:    memcached 1.5.22
+app python:   Python 3.8.17
+app image:    ufj-ussuri-py38:1 sha256:b41f58ff9360
+--- service packages (pip, ussuri-eol constraints)
+alembic==1.4.2
+cinder==16.4.2
+eventlet==0.26.1
+glance==20.2.0
+gunicorn==20.0.4
+keystone==17.0.1
+keystonemiddleware==9.0.0
+neutron==16.4.2
+neutron-lib==2.3.0
+nova==21.2.4
+openstack-placement==3.0.1
+os-brick==3.0.8
+os-vif==2.0.0
+osc-placement==2.0.0
+oslo.config==8.0.5
+oslo.db==8.1.1
+oslo.messaging==12.1.6
+PyMySQL==0.9.3
+python-openstackclient==5.2.0
+SQLAlchemy==1.3.16
+sqlalchemy-migrate==0.13.0
+taskflow==4.1.0
+--- running containers
+ufj-cinder-api	ufj-ussuri-py38:1	Up 23 minutes
+ufj-cinder-scheduler	ufj-ussuri-py38:1	Up 23 minutes
+ufj-cinder-volume	ufj-ussuri-py38:1	Up 23 minutes
+ufj-client	ufj-ussuri-py38:1	Up 25 minutes
+ufj-compute1	ufj-ussuri-py38:1	Up 23 minutes
+ufj-compute2	ufj-ussuri-py38:1	Up 23 minutes
+ufj-compute3	ufj-ussuri-py38:1	Up 23 minutes
+ufj-fake-agent1	ufj-ussuri-py38:1	Up 23 minutes
+ufj-fake-agent2	ufj-ussuri-py38:1	Up 23 minutes
+ufj-fake-agent3	ufj-ussuri-py38:1	Up 23 minutes
+ufj-glance	ufj-ussuri-py38:1	Up 23 minutes
+ufj-keystone	ufj-ussuri-py38:1	Up 25 minutes
+ufj-mariadb	mariadb:10.3	Up 26 minutes
+ufj-memcached	memcached:1.5	Up 26 minutes
+ufj-neutron	ufj-ussuri-py38:1	Up 23 minutes
+ufj-nova-api	ufj-ussuri-py38:1	Up 23 minutes
+ufj-nova-conductor	ufj-ussuri-py38:1	Up 23 minutes
+ufj-nova-scheduler	ufj-ussuri-py38:1	Up 23 minutes
+ufj-placement	ufj-ussuri-py38:1	Up 23 minutes
+ufj-rabbitmq	rabbitmq:3.8-management	Up 26 minutes
+ufj-static	ufj-ussuri-py38:1	Up 25 minutes

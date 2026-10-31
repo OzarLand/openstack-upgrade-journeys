@@ -1,0 +1,31 @@
+== cinder
+  CP DEFAULT.quota_backups = 7
+  CP DEFAULT.quota_backup_gigabytes = 2500
+  keys that differ from the rendered file (must be override keys only): ['DEFAULT.transport_url']
+  override keys: ['DEFAULT.transport_url', 'database.connection', 'database.transport_url']
+== nova
+  CP DEFAULT.default_availability_zone = (not set in the file: code default)
+  CP DEFAULT.cpu_allocation_ratio = (not set in the file: code default)
+  CP DEFAULT.ram_allocation_ratio = (not set in the file: code default)
+  CP DEFAULT.disk_allocation_ratio = (not set in the file: code default)
+  CP DEFAULT.initial_cpu_allocation_ratio = (not set in the file: code default)
+  CP DEFAULT.initial_ram_allocation_ratio = (not set in the file: code default)
+  CP DEFAULT.initial_disk_allocation_ratio = (not set in the file: code default)
+  keys that differ from the rendered file (must be override keys only): ['DEFAULT.transport_url']
+  override keys: ['DEFAULT.transport_url', 'api_database.connection', 'api_database.transport_url', 'database.connection', 'database.transport_url']
+== placement
+  CP placement.incomplete_consumer_project_id = (not set in the file: code default)
+  CP placement.incomplete_consumer_user_id = (not set in the file: code default)
+  keys that differ from the rendered file (must be override keys only): []
+  override keys: ['placement_database.connection']
+== neutron
+  CP DEFAULT.core_plugin = ml2
+  CP DEFAULT.service_plugins = router,segments,network_segment_range,qos,port_forwarding
+  keys that differ from the rendered file (must be override keys only): ['DEFAULT.transport_url']
+  override keys: ['DEFAULT.transport_url', 'database.connection', 'database.transport_url']
+== neutron sub-projects installed in the one-shot images (CP-Q1: must equal the baseline = none)
+2023.1: 
+2024.1: 
+2025.1: 
+2026.1: 
+ussuri baseline: 

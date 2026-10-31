@@ -1,0 +1,2 @@
+# proof the Ussuri fake computes and agents are stopped, 2026-10-31T12:04:40Z
+running ufj-compute/agent containers now: 0

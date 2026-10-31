@@ -1,0 +1,16 @@
++------------------------------+-------------------------+
+| Table                        | Number of Rows Archived |
++------------------------------+-------------------------+
+| API_DB.instance_group_member | 0                       |
+| API_DB.instance_mappings     | 2                       |
+| API_DB.request_specs         | 2                       |
+| block_device_mapping         | 2                       |
+| instance_actions             | 6                       |
+| instance_actions_events      | 6                       |
+| instance_extra               | 2                       |
+| instance_id_mappings         | 2                       |
+| instance_info_caches         | 2                       |
+| instance_system_metadata     | 20                      |
+| instances                    | 2                       |
+| virtual_interfaces           | 2                       |
++------------------------------+-------------------------+

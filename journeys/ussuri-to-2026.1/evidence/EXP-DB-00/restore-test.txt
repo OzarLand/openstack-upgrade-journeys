@@ -1,0 +1,18 @@
+# restore test of /home/user/openstack-upgrade-journeys/lab/ussuri-db-lab/backups/baseline-20261031T114357Z-final at 2026-10-31T11:45:51Z
+manifest check: OK
+== A. logical restore (all-databases.sql.gz into an empty mariadb:10.3)
+logical restore took 10 s
+[logical] row counts identical for 571 tables (excluding the two InnoDB statistics tables)
+[logical] note: InnoDB statistics tables differ in row count (engine-maintained): mysql innodb_index_stats 4305;mysql innodb_table_stats 512;
+[logical] CHECKSUM TABLE identical for 542 OpenStack tables
+[logical] note: mysql.* system tables differ (grants/stats; not part of the OpenStack baseline)
+[logical] sha256 of OpenStack dump identical: cec9cd76b9f77c362020ba4811bdb79029d7236c8a78804b59729af21d129c6b
+[logical] RESULT: PASS
+== B. physical restore (cold tarball of ufj-mariadb-data into a new volume)
+physical restore took 5 s
+[physical] row counts identical for 571 tables (excluding the two InnoDB statistics tables)
+[physical] CHECKSUM TABLE identical for 542 OpenStack tables
+[physical] mysql.* system table checksums identical
+[physical] sha256 of OpenStack dump identical: cec9cd76b9f77c362020ba4811bdb79029d7236c8a78804b59729af21d129c6b
+[physical] RESULT: PASS
+OVERALL: PASS

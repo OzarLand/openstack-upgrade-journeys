@@ -1,0 +1,62 @@
+# prechecks 2026-10-31T12:34:01Z on 10.3.39-MariaDB-1:10.3.39+maria~ubu2004-log
+PASS PC-V1a nova/nova_cell0 migrate_version >= 401 -> [407;407]
+PASS PC-V1b nova_api migrate_version >= 66 -> [72]
+PASS PC-V1c keystone repos (record 078/079) -> [keystone=109;keystone_contract=78;keystone_data_migrate=78;keystone_expand=78]
+PASS PC-V1d cinder >= 134 -> [136]
+PASS PC-V2a glance alembic head -> [ussuri_contract01]
+PASS PC-V2b placement alembic head -> [b5c396305c25]
+PASS PC-V2c neutron alembic heads recorded -> [5c85685d616d;d8bdf05313f4]
+PASS PC-G1b glance image_locations with a backend key -> [0]
+PASS PC-G2 leftover triggers glance/keystone -> [0]
+PASS PC-N1a in-flight nova work -> [0]
+PASS PC-N1b migrations in non-final status (recorded) -> [confirmed=1;finished=1]
+PASS PC-N2 cell mappings (names only) -> [1 cell0;2 cell1]
+PASS PC-N3 build requests -> [0]
+PASS PC-N4 compute_id residue predicted (instances incl. deleted without compute_nodes row, host not NULL) -> [0]
+PASS PC-N4b instances with host NULL (their compute_id stays NULL) -> [1]
+PASS PC-C2 cinder transitional states -> [0]
+PASS PC-C3a cinder default quota_classes present -> []
+PASS PC-C3b cinder consistencygroups rows (V-C6 prediction) -> [1/0/0/0]
+PASS PC-C3c cinder temporary admin metadata (V-C9 prediction) -> [0]
+PASS PC-K1 duplicate trusts -> [0]
+PASS PC-K2 password hashers (prefix: count) -> [$2b$=9]
+PASS PC-Q1 duplicate neutron quotas -> [0]
+PASS PC-Q2 portbindingports -> [0]
+PASS PC-Q4 duplicate segment ranges -> [0]
+PASS PC-Q5 duplicate network segments (physnet not NULL) -> [0]
+PASS PC-Q6 duplicate HA networks per project -> [0]
+PASS PC-E1 @@GLOBAL.sql_mode -> [STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION]
+PASS R-8-pred ports with trusted profile (predicts neutron.porttrusted rows) -> [1]
+PASS V-Q1-pred dhcp ports with device_id like ovnmeta (V-Q1) -> [0]
+-- PC-E2 largest tables
+keystone	revocation_event	1397	393216
+nova	instances	11	212992
+nova_cell0	instances	3	212992
+nova_cell0	fixed_ips	0	180224
+nova	fixed_ips	0	180224
+glance	images	6	147456
+nova_api	resource_providers	0	147456
+nova_cell0	networks	0	131072
+nova	networks	0	131072
+nova_api	request_specs	12	114688
+-- charsets (non-utf8 tables)
+nova	resource_providers	latin1_swedish_ci
+nova	allocations	latin1_swedish_ci
+nova	resource_provider_aggregates	latin1_swedish_ci
+nova	inventories	latin1_swedish_ci
+nova_api	projects	latin1_swedish_ci
+nova_api	resource_providers	latin1_swedish_ci
+nova_api	placement_aggregates	latin1_swedish_ci
+nova_api	allocations	latin1_swedish_ci
+nova_api	resource_provider_aggregates	latin1_swedish_ci
+nova_api	inventories	latin1_swedish_ci
+nova_api	resource_provider_traits	latin1_swedish_ci
+nova_api	resource_classes	latin1_swedish_ci
+nova_api	users	latin1_swedish_ci
+nova_api	consumers	latin1_swedish_ci
+nova_api	traits	latin1_swedish_ci
+nova_cell0	resource_providers	latin1_swedish_ci
+nova_cell0	allocations	latin1_swedish_ci
+nova_cell0	resource_provider_aggregates	latin1_swedish_ci
+nova_cell0	inventories	latin1_swedish_ci
+-- SC overall: PASS

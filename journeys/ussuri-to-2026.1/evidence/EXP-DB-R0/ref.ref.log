@@ -1,0 +1,12 @@
+2026-10-31 12:20:31.847 1 INFO cinder.db.migration [-] Applying migration(s)
+2026-10-31 12:20:31.849 1 INFO alembic.runtime.migration [-] Context impl MySQLImpl.
+2026-10-31 12:20:31.849 1 INFO alembic.runtime.migration [-] Will assume non-transactional DDL.
+2026-10-31 12:20:31.858 1 INFO alembic.runtime.migration [-] Running upgrade  -> 921e1a36b076, Initial migration.
+2026-10-31 12:20:32.310 1 INFO alembic.runtime.migration [-] Running upgrade 921e1a36b076 -> c92a3e68beed, Make shared_targets nullable
+2026-10-31 12:20:32.330 1 INFO alembic.runtime.migration [-] Running upgrade c92a3e68beed -> daa98075b90d, Add resource indexes
+2026-10-31 12:20:32.373 1 INFO alembic.runtime.migration [-] Running upgrade daa98075b90d -> 89aa6f9639f9, Drop legacy migrate_version table
+2026-10-31 12:20:32.375 1 INFO alembic.runtime.migration [-] Running upgrade 89aa6f9639f9 -> b8660621f1b9, Update reservations resource
+2026-10-31 12:20:32.393 1 INFO alembic.runtime.migration [-] Running upgrade b8660621f1b9 -> 9ab1b092a404, Make use_quota non nullable
+2026-10-31 12:20:32.410 1 INFO alembic.runtime.migration [-] Running upgrade 9ab1b092a404 -> b7b88f50aab5, Remove quota consistencygroups
+2026-10-31 12:20:32.545 1 INFO alembic.runtime.migration [-] Running upgrade b7b88f50aab5 -> 9c74c1c6971f, Quota: Add backup defaults in quota class
+2026-10-31 12:20:32.558 1 INFO cinder.db.migration [-] Migration(s) applied

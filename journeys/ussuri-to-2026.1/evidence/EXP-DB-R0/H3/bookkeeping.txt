@@ -1,0 +1,16 @@
+keystone.alembic_version migrated=[47147121;c88cdce8f248] reference=[47147121;c88cdce8f248] equal
+keystone.migrate_version migrated=[keystone/109;keystone_contract/79;keystone_data_migrate/79;keystone_expand/79] reference=[absent] DIFFERENT
+glance.alembic_version migrated=[2024_1_contract01] reference=[2024_1_contract01] equal
+glance.migrate_version migrated=[Glance Migrations/0] reference=[absent] DIFFERENT
+placement.alembic_version migrated=[a082b8bb98d0] reference=[a082b8bb98d0] equal
+placement.migrate_version migrated=[absent] reference=[absent] equal
+nova_api.alembic_version migrated=[cdeec0c85668] reference=[cdeec0c85668] equal
+nova_api.migrate_version migrated=[absent] reference=[absent] equal
+nova.alembic_version migrated=[2903cd72dc14] reference=[2903cd72dc14] equal
+nova.migrate_version migrated=[absent] reference=[absent] equal
+nova_cell0.alembic_version migrated=[2903cd72dc14] reference=[2903cd72dc14] equal
+nova_cell0.migrate_version migrated=[absent] reference=[absent] equal
+neutron.alembic_version migrated=[5c85685d616d;ad80a9f07c5c] reference=[5c85685d616d;ad80a9f07c5c] equal
+neutron.migrate_version migrated=[absent] reference=[absent] equal
+cinder.alembic_version migrated=[9c74c1c6971f] reference=[9c74c1c6971f] equal
+cinder.migrate_version migrated=[absent] reference=[absent] equal
