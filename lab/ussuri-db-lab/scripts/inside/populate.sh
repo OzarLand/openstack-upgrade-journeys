@@ -3,8 +3,8 @@
 # real Ussuri APIs with python-openstackclient. Idempotent where the client allows it ("show || create").
 # Environment: ADMIN, USER_ALICE, USER_BOB, USER_CAROL passwords (from the git-ignored secrets file).
 set -euo pipefail
-export OS_COMPUTE_API_VERSION=2.60 OS_VOLUME_API_VERSION=3.50 OS_IMAGE_API_VERSION=2
-. /run/ufj/admin-openrc; export OS_PASSWORD="${ADMIN:?}"
+export OS_COMPUTE_API_VERSION=2.60 OS_VOLUME_API_VERSION=3 OS_IMAGE_API_VERSION=2
+set -a; . /run/ufj/admin-openrc; set +a; export OS_PASSWORD="${ADMIN:?}"
 ADMIN_PW="$ADMIN"
 oa() { openstack "$@"; }
 oA() { env OS_USERNAME=alice OS_PASSWORD="$USER_ALICE" OS_PROJECT_NAME=ufj-proj-a openstack "$@"; }
