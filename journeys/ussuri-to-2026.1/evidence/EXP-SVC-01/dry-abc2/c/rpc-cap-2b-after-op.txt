@@ -1,0 +1,5 @@
+nova-api: 2026-10-31 16:26:49.292 9 INFO nova.compute.rpcapi [None req-bb0dfd5d-aaaf-4681-a3d2-1add6b20aa17 - - - - - -] Automatically selected compute RPC version 6.5 from minimum service version 72
+nova-api: 2026-10-31 16:27:32.975 8 INFO nova.compute.rpcapi [None req-16aa112d-78df-4dda-85f5-9aa4983daecb - - - - - -] Automatically selected compute RPC version 6.5 from minimum service version 72
+nova-conductor: 2026-10-31 16:27:21.783 8 INFO nova.compute.rpcapi [None req-bfc7c154-8f76-44d8-8f4e-ae1dfbd6c42d - - - - - -] Automatically selected compute RPC version 6.5 from minimum service version 72
+nova-conductor: 2026-10-31 16:28:52.293 7 INFO nova.compute.rpcapi [None req-ea340d60-54f2-414d-9925-4d3e2f6cb57d - - - - - -] Automatically selected compute RPC version 6.5 from minimum service version 72
+(containers: ufj-svc-nova-scheduler=Up 3 minutes ufj-svc-nova-conductor=Up 3 minutes ufj-svc-nova-api=Up 3 minutes )
