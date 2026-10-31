@@ -14,6 +14,20 @@
 | **Risk** | read-only \| state-changing \| destructive (highest step) |
 | **Validation record** | VAL-NNN, once run |
 
+## Scope of this result (mandatory, every record)
+
+<!-- Required by the Red Team (RT-B-05). Fill every line; a record without this block cannot carry a validated status. -->
+
+| | |
+|---|---|
+| **Dataset tier** | Tier A (synthetic, created through APIs) \| Tier B (sanitized production copy) |
+| **Code source and digests** | e.g. PyPI under `<release>` upper-constraints + link to `pip freeze`; or Kolla image digests |
+| **Database engine and path** | e.g. `mariadb:10.3` library image → … ; stepwise (E1) / dump-restore (E2) |
+| **Topology** | e.g. "container control plane, fake virt driver, standalone MariaDB, no Galera, no Kolla images, no data plane" |
+| **Status line** | The exact line, e.g. the journey's mandatory `LAB-VALIDATED — scope: …` wording |
+| **Classification of the procedure itself** | e.g. Technically possible but unsupported |
+| **This result does NOT show** | Bullet list. For the container lab at least: Kolla image behaviour, Galera, production data, durations at production scale, live instances, libvirt reconciliation (machine type, CPU model), RabbitMQ, host OS. |
+
 ## Hypothesis
 
 One or two sentences, falsifiable. "From state A, doing B results in C." What would refute it.

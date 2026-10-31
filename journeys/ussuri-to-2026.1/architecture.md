@@ -94,13 +94,32 @@ running, but they are unmanaged: no API operation can act on them. Every compute
   hostname, then let 2026.1 nova-compute adopt the instances and hard-reboot them; or cold-copy the disks. Each
   instance is down for its host's reinstall.
 
-The Nova service-version gate (finding 4) can be crossed in two ways, and this is an open decision for the Red Team:
+**Hard precondition: no old clients before new endpoints** (Red Team RT-B-02). Before the 2026.1 control plane is
+reachable at any preserved endpoint, VIP or credential, every Ussuri RPC and HTTP client on compute, network and
+storage hosts must be stopped and verified stopped. That covers `nova_compute`, the Neutron agents,
+`cinder_volume` and `cinder_backup`; `nova_libvirt` and `openvswitch_vswitchd` keep running so that instances stay up.
+The alternative is to network-isolate those hosts from the control-plane VLAN. Verification: `rabbitmqctl
+list_consumers` is empty, and `docker ps` is checked on each host. Otherwise Ussuri `nova-compute` would write
+inventories to 2026.1 Placement, and 5.x RPC would land on 6.x servers.
 
-- `[workarounds]disable_compute_service_check_for_ffu` until all computes report 2026.1;
-- marking Ussuri compute services forced-down.
+**The Nova gate is two gates** (Red Team RT-B-01; decision DR-003). The service-version check refuses start-up, and
+the compute RPC version cap is computed from the same minimum-version query and cached per process. The sequence is:
 
-Agent 4 objects to forced-down because it changes real state; Agent 6 accepts fencing plus forced-down as part of an
-evacuation flow. The disagreement is kept open and goes to the Red Team (see section 5).
+1. Fence every Ussuri compute: stop `nova_compute` and the agents, which the precondition above already requires.
+   Disable any automatic evacuation (for example Masakari) for the window.
+2. Mark every Ussuri `nova-compute` service **forced-down**. This records a state that fencing has already made true.
+   Never delete service or compute-node rows.
+3. Start the 2026.1 control plane. `[workarounds]disable_compute_service_check_for_ffu` may be set as a time-boxed
+   safeguard only.
+4. Per host: reinstall, then start 2026.1 `nova-compute` under the **same hostname**, so that the existing compute node
+   row is adopted. Clear forced-down and verify that the host is schedulable.
+5. When no Ussuri row is left, remove the workaround and **restart** nova-api, nova-conductor and nova-scheduler, which
+   resets the cached RPC version. `nova-status upgrade check` must then pass "Older than N-1 computes".
+
+Agent 4 objected to forced-down as a change to real state. The Red Team ruled that forced-down only records what
+fencing has already made true, and that deleting rows would break node adoption. The objection is recorded as
+answered, not dismissed, in DR-003. Evacuation (Agent 6's flow) is accepted only for shared-storage instances, and
+only after fencing has been proven.
 
 - **For:**
   - Identity and every resource ID are preserved: same databases, same Keystone and Fernet keys.
@@ -132,8 +151,11 @@ IDs, MACs, fixed IPs and floating IPs. Instance, volume, network, port, project 
 
 Fast-forward only Keystone (bridge 2023.1) and Glance (alembic, direct). Keystone IDs, credentials and images are
 preserved. Neutron, Nova and Cinder resources are recreated in a parallel 2026.1 cloud as in P3. This avoids the
-riskiest database (Nova object blobs) at the cost of changing compute, network and volume IDs. It also isolates
-P2's biggest unknown.
+riskiest database (Nova object blobs) at the cost of changing compute, network and volume IDs.
+
+The Red Team's ruling (Stage 3, ruling 5) corrects the original claim. P4 **relocates** P2's biggest unknown rather
+than isolating it: it accepts every cost of P3 and still runs the unsupported Keystone bridge. It is kept as a fallback
+only with a table of which IDs cross the line and how each is preserved.
 
 ## 3. Comparison matrix (before experiments)
 
@@ -156,14 +178,26 @@ experiment record in `experiments/`.
 
 | ID | Hypothesis | Pass criteria (aligned with the Red Team's pre-registered criteria) |
 |---|---|---|
-| EXP-DB-00 | The baseline is complete and restorable. | Restore into a fresh MariaDB gives identical row counts and dump checksum. |
-| EXP-DB-01 (main, S2c) | U → 2023.1 → 2024.1 → 2025.1 → 2026.1 migrates every database with no manual edits. | Every command exits 0. Online migrations reach 0. Schema diff against a fresh reference = only declared differences. Row counts and fingerprints match except declared transformations. All `*-status upgrade check` with no FAILURE except the predicted Nova compute check. |
+| EXP-DB-00 | The baseline is complete and restorable. | Restore into a fresh MariaDB gives identical row counts and dump checksum. **Every item of the coverage checklist** (`experiments/baseline-coverage-checklist.md`, RT-B-04) has a count > 0, created through Ussuri APIs. T0 records Keystone `migrate_version`, the password hasher per user and `@@GLOBAL.sql_mode`. |
+| EXP-DB-01 (main, S2c) | U → 2023.1 → 2024.1 → 2025.1 → 2026.1 migrates every database with no manual edits. | Every command exits 0. Online migrations reach 0. Schema diff against a fresh reference shows only declared differences, from the list **frozen before the run** (`experiments/declared-differences.md`, RT-B-03). Row counts and fingerprints match except declared transformations. Offline status tools show no FAILURE; online checks are under SVC-01. **Idempotency:** a second run of every 2026.1 sync and online migration exits 0 with zero schema change and zero row change. Engine lines: E1 stepwise and E2 dump/restore; also the bridge code against 11.4. E3 is informational only. |
 | EXP-DB-02 (reference, S2b) | The full DB staircase U→V→W→X→Y→Z→2023.1→…→2026.1 gives the **same** final data as EXP-DB-01. | Normalised final dumps of 01 and 02 are identical except declared differences. This is the differential test of "skipping is equivalent". |
 | EXP-DB-03 (minimal, S2a) | U → 2023.1 → 2026.1 gives the same final data as EXP-DB-01. | As for 02. |
 | EXP-DB-N1 (negative) | 2026.1 code refuses a Ussuri database for Nova, Keystone and Cinder. | The predicted error is recorded verbatim. The run is expected to be FAILED, which confirms finding 2. |
 | EXP-DB-N2 (negative) | Skipping the Cinder online migrations at the bridge breaks or silently alters `use_quota` at 2024.1. | Observed behaviour under oslo.db's sql_mode is recorded. |
-| EXP-SVC-01 | 2026.1 services start on the fast-forwarded databases and serve every pre-existing resource. | `show` of every server, port, volume, image, project and user equals the T0 inventory; zero 500 errors. A 2026.1 fake nova-compute can then take over a baseline host name, and `nova-status upgrade check` passes. |
-| EXP-SVC-02 | Pre-existing resources stay operable after the migration. | Resize (fake), volume attach and detach, snapshot, a token for an old user, and a new port on an old network. |
+| EXP-SVC-01 | 2026.1 services start on the fast-forwarded databases and serve every pre-existing resource. | Starting state: Ussuri fake computes **stopped**, their service rows at version 51 (RT-B-02). `show` of every server, port, volume, image, project and user equals the T0 inventory, with zero 500 errors. Three gate states are recorded (RT-B-01): **(a)** rows not forced-down, workaround set: services start, `nova-status` FAILURE, conductor log shows RPC cap 5.11, an RPC-bearing operation fails. **(b)** Rows forced-down, then restart: log shows 6.x, the operation succeeds. **(c)** A 2026.1 fake compute adopts a baseline hostname, forced-down is cleared, the workaround is removed, services restart: `nova-status` passes. The deleted-row refusal path needs the libvirt driver; it is recorded as not demonstrable with the fake driver. |
+| EXP-SVC-02 | Pre-existing resources stay operable after the migration. | Resize (fake), volume attach and detach, snapshot, a token for an old user (Fernet and credential keys preserved), and a new port on an old network. |
+| EXP-RB-01 (rollback) | Restoring the pre-bridge dump and restarting Ussuri code returns the platform to T0. | Restore from the dump taken before the first 2023.1 `db sync`, start the Ussuri services, and the T0 inventory is identical. What is lost (everything after the dump) is documented. This supports the claim "the old control plane stays bootable until the point of no return" (RT-B-03). |
+
+**Production prerequisite (RT-B-04, Red Team criterion B.3).** No result on the synthetic Tier A dataset can support
+a production decision. A Tier B run on a sanitized copy of the production databases, with Kolla images pinned by
+digest, is required before any production go decision.
+
+**Mandatory scope line for any `LAB-VALIDATED` database result** (ruling 4, `docs/templates/experiment-record.md`):
+"`LAB-VALIDATED` — scope: database schema and data migration Ussuri → 2026.1 by the S2c code sequence, using
+upstream service code installed from PyPI under each release's upper-constraints, standalone MariaDB library images
+(no Galera), synthetic Tier A dataset generated through Ussuri APIs with the fake virt driver, no Kolla images, no
+Kolla-Ansible, no data plane." Each result also carries the classification **Technically possible but unsupported**
+for the procedure itself.
 
 Out of scope for this lab, and listed so that nobody claims them:
 
@@ -177,6 +211,17 @@ Out of scope for this lab, and listed so that nobody claims them:
 These need the quick-lab Kolla Ussuri variant (DR-001, alternative 1).
 
 ## 5. Open decisions for the Red Team review (Stage 3)
+
+> **Resolved in Stage 3** (`assessments/07-red-team-stage3-review.md` §5). The resolution of each question:
+>
+> 1. Fence, then forced-down, then the workaround only for start-up, then restart (DR-003).
+> 2. 2023.1 is the bridge, with Zed as a fallback.
+> 3. Run both the E1 and E2 engine lines; production defaults to E2 declared as a rebuild, unless vendor documentation
+>    and a three-node rehearsal support E1.
+> 4. Yes, but only with the mandatory scope line in section 4.
+> 5. P4 is kept, with a corrected promise.
+>
+> The original questions are kept below.
 
 1. Nova service-version gate: `disable_compute_service_check_for_ffu`, forced-down, or another mechanism?
 2. Bridge release: 2023.1 (the SLURP start), or Zed? Both are inside all windows (DR-002).
