@@ -5,3 +5,5 @@ status after wait: ACTIVE
 
 op 'stop' (rc=0): expected 'SHUTOFF None', got 'None SHUTOFF' -> FAIL
 op 'start' (rc=0): expected 'ACTIVE None', got 'None ACTIVE' -> FAIL
+op 'reboot --hard' (rc=0): expected 'ACTIVE None', got 'None ACTIVE' -> FAIL
+op 'pause' (rc=0): expected 'PAUSED None', got 'None PAUSED' -> FAIL
