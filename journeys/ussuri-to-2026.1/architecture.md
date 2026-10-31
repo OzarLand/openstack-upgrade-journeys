@@ -107,14 +107,19 @@ the compute RPC version cap is computed from the same minimum-version query and 
 
 1. Fence every Ussuri compute: stop `nova_compute` and the agents, which the precondition above already requires.
    Disable any automatic evacuation (for example Masakari) for the window.
-2. Mark every Ussuri `nova-compute` service **forced-down**. This records a state that fencing has already made true.
-   Never delete service or compute-node rows.
-3. Start the 2026.1 control plane. `[workarounds]disable_compute_service_check_for_ffu` may be set as a time-boxed
-   safeguard only.
+2. Mark every Ussuri `nova-compute` service **forced-down** through the **Ussuri** API (`openstack compute service set
+   --down`, never by SQL), after fencing and **before** the final pre-bridge backup. First capture the state of every
+   `services` row. This records a state that fencing has already made true. Never delete service or compute-node rows.
+3. Start the 2026.1 control plane **without** `disable_compute_service_check_for_ffu`. This is Agent 4's sharpening
+   (DR-003), read from source and to be tested as EXP-SVC-01 state (d). With every old row forced-down, Nova sees no
+   compute service: start-up passes and no RPC cap is cached. A `TooOldComputeService` refusal therefore proves that a
+   row was missed, and is a stop condition. The flag remains a fallback that needs a separate decision.
 4. Per host: reinstall, then start 2026.1 `nova-compute` under the **same hostname**, so that the existing compute node
-   row is adopted. Clear forced-down and verify that the host is schedulable.
-5. When no Ussuri row is left, remove the workaround and **restart** nova-api, nova-conductor and nova-scheduler, which
-   resets the cached RPC version. `nova-status upgrade check` must then pass "Older than N-1 computes".
+   row is adopted. Verify, then clear forced-down, in that order. Clearing it on a host that is still Ussuri would
+   cache RPC 5.11 again.
+5. After the last host, **restart** nova-api, nova-conductor and nova-scheduler once. The conductor log must show a
+   6.x compute RPC version, and `nova-status upgrade check` must pass "Older than N-1 computes". A host not re-adopted
+   in the window stays forced-down and disabled, with a reason.
 
 Agent 4 objected to forced-down as a change to real state. The Red Team ruled that forced-down only records what
 fencing has already made true, and that deleting rows would break node adoption. The objection is recorded as
@@ -184,7 +189,7 @@ experiment record in `experiments/`.
 | EXP-DB-03 (minimal, S2a) | U → 2023.1 → 2026.1 gives the same final data as EXP-DB-01. | As for 02. |
 | EXP-DB-N1 (negative) | 2026.1 code refuses a Ussuri database for Nova, Keystone and Cinder. | The predicted error is recorded verbatim. The run is expected to be FAILED, which confirms finding 2. |
 | EXP-DB-N2 (negative) | Skipping the Cinder online migrations at the bridge breaks or silently alters `use_quota` at 2024.1. | Observed behaviour under oslo.db's sql_mode is recorded. |
-| EXP-SVC-01 | 2026.1 services start on the fast-forwarded databases and serve every pre-existing resource. | Starting state: Ussuri fake computes **stopped**, their service rows at version 51 (RT-B-02). `show` of every server, port, volume, image, project and user equals the T0 inventory, with zero 500 errors. Three gate states are recorded (RT-B-01): **(a)** rows not forced-down, workaround set: services start, `nova-status` FAILURE, conductor log shows RPC cap 5.11, an RPC-bearing operation fails. **(b)** Rows forced-down, then restart: log shows 6.x, the operation succeeds. **(c)** A 2026.1 fake compute adopts a baseline hostname, forced-down is cleared, the workaround is removed, services restart: `nova-status` passes. The deleted-row refusal path needs the libvirt driver; it is recorded as not demonstrable with the fake driver. |
+| EXP-SVC-01 | 2026.1 services start on the fast-forwarded databases and serve every pre-existing resource. | Starting state: Ussuri fake computes **stopped**, their service rows at version 51 (RT-B-02). `show` of every server, port, volume, image, project and user equals the T0 inventory, with zero 500 errors. Three gate states are recorded (RT-B-01): **(a)** rows not forced-down, workaround set: services start, `nova-status` FAILURE, conductor log shows RPC cap 5.11, an RPC-bearing operation fails. **(b)** Rows forced-down, then restart: log shows 6.x, the operation succeeds. **(c)** A 2026.1 fake compute adopts a baseline hostname, forced-down is cleared, the workaround is removed, services restart: `nova-status` passes. **(d)**, the preferred P2 mechanism (DR-003): all Ussuri rows forced-down and the flag **not** set. Services start, `nova-status` returns 0 and no RPC cap is cached. Then one host is re-registered and cleared, and the cap is 6.x. The deleted-row refusal path needs the libvirt driver; it is recorded as not demonstrable with the fake driver. |
 | EXP-SVC-02 | Pre-existing resources stay operable after the migration. | Resize (fake), volume attach and detach, snapshot, a token for an old user (Fernet and credential keys preserved), and a new port on an old network. |
 | EXP-RB-01 (rollback) | Restoring the pre-bridge dump and restarting Ussuri code returns the platform to T0. | Restore from the dump taken before the first 2023.1 `db sync`, start the Ussuri services, and the T0 inventory is identical. What is lost (everything after the dump) is documented. This supports the claim "the old control plane stays bootable until the point of no return" (RT-B-03). |
 

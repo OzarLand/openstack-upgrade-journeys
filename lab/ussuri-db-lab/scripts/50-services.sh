@@ -18,8 +18,11 @@ wait_http http://ufj-placement:8778/ 120    || die "placement not answering"
 wait_http http://ufj-nova-api:8774/ 180     || die "nova-api not answering"
 wait_http http://ufj-neutron:9696/ 180      || die "neutron-server not answering"
 wait_http http://ufj-cinder-api:8776/ 120   || die "cinder-api not answering"
-# two fake compute nodes (nova.virt.fake.FakeDriver): no hypervisor, no libvirt
-for n in 1 2; do svc_start ufj-compute$n nova -- nova-compute --config-file /etc/nova/nova.conf; done
+# three fake compute nodes (nova.virt.fake.FakeDriver): no hypervisor, no libvirt
+# (FENCED=1: do not start computes and fake agents; used when restoring the fenced baseline)
+if [ "${FENCED:-0}" != 1 ]; then
+for n in 1 2 3; do svc_start ufj-compute$n nova -v "$LAB_DIR/tools/ufj_fake.py:/opt/ussuri/lib/python3.8/site-packages/nova/virt/ufj_fake.py:ro" -- nova-compute --config-file /etc/nova/nova.conf --config-file /etc/nova/nova-compute.conf; done
 # fake L2 agents (real report_state RPC to neutron-server) so that the 'fake_agent' mechanism driver can bind ports
-for n in 1 2; do svc_start ufj-fake-agent$n neutron -v "$LAB_DIR/tools:/tools:ro" -- python /tools/fake_l2_agent.py --host ufj-compute$n; done
+for n in 1 2 3; do svc_start ufj-fake-agent$n neutron -v "$LAB_DIR/tools:/tools:ro" -- python /tools/fake_l2_agent.py --host ufj-compute$n; done
+fi
 log "services started"

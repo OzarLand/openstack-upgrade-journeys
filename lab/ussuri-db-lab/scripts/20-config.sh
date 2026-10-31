@@ -60,6 +60,7 @@ bind_port = 9292
 transport_url = $MQ
 use_stderr = true
 show_image_direct_url = false
+show_multiple_locations = true
 [database]
 connection = $(db glance "$DBPW_GLANCE" glance)
 $(authtoken glance "$SVC_GLANCE")
@@ -99,6 +100,7 @@ firewall_driver = nova.virt.firewall.NoopFirewallDriver
 vif_plugging_is_fatal = false
 vif_plugging_timeout = 0
 resume_guests_state_on_host_boot = false
+reclaim_instance_interval = 3600
 [api]
 auth_strategy = keystone
 [api_database]
@@ -116,17 +118,19 @@ os_region_name = RegionOne
 [scheduler]
 discover_hosts_in_cells_interval = 30
 [filter_scheduler]
-enabled_filters = AvailabilityZoneFilter,ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,ServerGroupAntiAffinityFilter,ServerGroupAffinityFilter
+enabled_filters = AvailabilityZoneFilter,NUMATopologyFilter,ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,ServerGroupAntiAffinityFilter,ServerGroupAffinityFilter
 [conductor]
 workers = 2
 [oslo_concurrency]
 lock_path = /var/lib/nova/tmp
 T
 
+# compute-only overrides (kept apart so that the shared nova.conf stays the stock FakeDriver setting)
+printf '[DEFAULT]\ncompute_driver = ufj_fake.UfjFakeDriver\n' > "$E/nova/nova-compute.conf"
 cat > "$E/neutron/neutron.conf" <<T
 [DEFAULT]
 core_plugin = ml2
-service_plugins = router
+service_plugins = router,segments,network_segment_range
 allow_overlapping_ips = true
 auth_strategy = keystone
 transport_url = $MQ
@@ -170,7 +174,8 @@ auth_strategy = keystone
 my_ip = 0.0.0.0
 osapi_volume_listen = 0.0.0.0
 osapi_volume_listen_port = 8776
-enabled_backends = fake
+enabled_backends = fake,fake2
+quota_backups = 7
 default_volume_type = __DEFAULT__
 use_stderr = true
 state_path = /var/lib/cinder
@@ -183,6 +188,9 @@ lock_path = /var/lib/cinder/tmp
 [fake]
 volume_driver = cinder.tests.fake_driver.FakeLoggingVolumeDriver
 volume_backend_name = fake
+[fake2]
+volume_driver = cinder.tests.fake_driver.FakeLoggingVolumeDriver
+volume_backend_name = fake2
 T
 
 # paste pipelines ship as data files in the wheels (/opt/ussuri/etc/<svc>/); copy them next to the rendered configs

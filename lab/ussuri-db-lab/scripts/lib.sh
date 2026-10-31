@@ -67,7 +67,7 @@ except Exception: raise SystemExit(1)" >/dev/null 2>&1 && return 0; sleep 1; don
 }
 
 # Containers that write to MariaDB (everything labelled ufj except the infra containers and the client)
-service_containers() { docker ps -a --filter label=org.ozarland.ufj=1 --format '{{.Names}}' | grep -vE '^ufj-(mariadb|rabbitmq|memcached|client|restore-.*)$' | sort; }
+service_containers() { docker ps --filter label=org.ozarland.ufj=1 --format '{{.Names}}' | grep -vE '^ufj-(mariadb|rabbitmq|memcached|client|static|restore-.*)$' | sort; }
 # SQL helpers working on any running MariaDB container: $1 = container, password in $2
 sql_tables() { docker exec -e MYSQL_PWD="$2" "$1" mysql -uroot -N -e "SELECT table_schema, table_name FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema NOT IN ('information_schema','performance_schema') ORDER BY 1,2"; }
 sql_rowcounts() { # container pw -> TSV db table rows (exact COUNT(*))
@@ -79,8 +79,10 @@ OS_DBS=(keystone glance placement nova_api nova nova_cell0 neutron cinder)
 start_keystone_client() { # keystone (gunicorn) and the client container; no database writes
   svc_start ufj-keystone keystone -v ufj-keystone-keys:/var/lib/ufj/keys -v "$LAB_DIR/wsgi:/wsgi:ro" -- \
     gunicorn --chdir /wsgi --bind 0.0.0.0:5000 --workers 3 --timeout 120 keystone_app:application
+  mkdir -p "$RUN_DIR/static"; chmod 777 "$RUN_DIR/static"
+  svc_start ufj-static client -v "$RUN_DIR/static:/srv:ro" -- python -m http.server 8000 --directory /srv
   if ! cexists ufj-client; then
-    docker run -d --name ufj-client --hostname ufj-client --network "$NET" --label org.ozarland.ufj=1 --restart unless-stopped \
+    docker run -d --name ufj-client -v "$RUN_DIR/static:/static" --hostname ufj-client --network "$NET" --label org.ozarland.ufj=1 --restart unless-stopped \
       -v "$RUN_DIR/etc/client:/run/ufj:ro" -v "$LAB_DIR:/lab:ro" -v "$EVIDENCE_DIR:/evidence" "$IMG" sleep infinity >/dev/null
   else crunning ufj-client || docker start ufj-client >/dev/null; fi
 }

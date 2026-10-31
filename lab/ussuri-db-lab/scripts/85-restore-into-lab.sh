@@ -16,5 +16,5 @@ rm -rf "$RUN_DIR/etc"; tar -C "$RUN_DIR" -xzf "$B/config/rendered-etc.tar.gz"
 for v in ufj-mariadb-data ufj-keystone-keys ufj-glance-images; do
   docker run --rm -v "$v":/v -v "$B/volumes":/in:ro "$MARIADB_IMAGE" sh -c "tar -C /v -xzf /in/$v.tar.gz"; log "restored volume $v"; done
 UFJ_SKIP_DB_BOOTSTRAP=1 "$(dirname "$0")/10-infra.sh"
-"$(dirname "$0")/50-services.sh"
+FENCED="${FENCED:-1}" "$(dirname "$0")/50-services.sh"   # the baseline is a fenced platform: computes and fake agents stay stopped (FENCED=0 to start them)
 log "restore into lab done in $(( $(date +%s)-T0 )) s from $B"

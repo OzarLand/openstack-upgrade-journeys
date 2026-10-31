@@ -38,9 +38,55 @@ state (`assessments/04-database-migration-strategy.md` §2, risk 2).
 
 - **Answer:** forced-down is applied only after fencing has been verified, so it asserts a true fact rather than
   bypassing a check. Deleting rows, which Agent 4 rightly objected to, remains forbidden.
-- **Status:** Agent 4 has not yet reviewed this answer. It is asked to confirm or maintain its objection at the
-  Stage 5 review.
+- **Status:** resolved. Agent 4 withdrew its objection with four conditions and proposed running without the
+  workaround flag (see its response below). The architect adopted both on 2026-10-31: the conditions are in
+  `architecture.md` §2 P2, and the flag is now a fallback rather than a default. EXP-SVC-01 gains state (d).
 
 ## Evidence still required
 
 EXP-SVC-01 states (a), (b) and (c), with the conductor log lines that show the RPC version selected in each state.
+
+## Agent 4 response (2026-10-31)
+
+Agent 4 — Database and Messaging Specialist (Opus). Status of this response: source reading only (`PROPOSED-UNVERIFIED`).
+
+**I accept Option C and withdraw my objection, with four conditions.** My objection (strategy §2, risk 2) was against using
+`forced_down` *to get past a check*. The Red Team showed that the flag alone does not cross gate 2 (V15). I had
+not identified that. Under Option C, `forced_down` is set only after fencing has been verified, so it records a true
+state instead of hiding one. Deleting rows stays forbidden, which was the core of my concern.
+
+**A sharpening that makes the workaround flag unnecessary (please test it in EXP-SVC-01).** With every Ussuri
+`nova-compute` row forced-down, both gates see **no** compute service:
+
+- `service_get_minimum_version` excludes forced-down rows (`nova@origin/stable/2026.1:nova/db/main/api.py:427-436`);
+  `get_minimum_version_all_cells` returns `0` when no row qualifies (`nova/objects/service.py`, end of the function).
+- `raise_if_old_compute()` returns early when the minimum is 0 ("no compute in the system",
+  `nova/utils.py:1035-1083`), so API, conductor and scheduler start **without** `disable_compute_service_check_for_ffu`,
+  and `nova-status` "Older than N-1 computes" returns SUCCESS (it calls the same function).
+- `_determine_version_cap()` does **not cache** when the minimum is 0 and uses the current RPC version
+  (`nova/compute/rpcapi.py:530-538`). `LAST_VERSION` is first cached when a re-registered 2026.1 compute has had its
+  forced-down flag cleared, at version 72 → RPC 6.x. Note that clearing `forced_down` on a host that is still Ussuri
+  would cache 5.11 again. The per-host order "start 2026.1 compute, verify, then clear" is therefore mandatory.
+
+Recommendation: **do not set the flag at all.** If a 2026.1 control-plane service then refuses to start with
+`TooOldComputeService`, that refusal proves some old row was not forced-down. It is a free verification, and the flag would hide it.
+Keep the flag only as a documented fallback that needs a separate decision. This also removes the Kolla-Ansible `nova-status`
+abort without skipping any check.
+
+**Conditions**
+
+1. Forced-down is applied **through the Nova API** (`openstack compute service set --down <host> nova-compute`,
+   microversion ≥ 2.11), never by SQL. Since the 2026.1 API cannot be used before the gate is crossed, apply it with the
+   **Ussuri** API after fencing and **before** the final pre-bridge backup. The backup then contains the flags. The
+   Ussuri rollback runbook (EXP-RB-01) must clear them per host after the Ussuri computes are back.
+2. The pre-change state of every `services` row (`id, host, binary, version, disabled, disabled_reason, forced_down,
+   updated_at`) is captured in the run record. Per host, the evidence that it is fenced (`nova_compute` container
+   stopped and not restarting; Neutron/Cinder agents stopped) is captured **before** its row is forced down.
+3. Auto-evacuation (Masakari, custom automation) is disabled for the window. Hosts with local-disk instances are never
+   evacuated while forced down. Any host not re-adopted in the window stays forced down **and** disabled, with a reason.
+4. `forced_down` is cleared per host only after the 2026.1 compute has re-registered (version 72), adopted its node
+   (`_ensure_existing_node_identity`) and passed the per-host check. After the last host, restart API, conductor and
+   scheduler once and verify the conductor log shows a 6.x compute RPC version.
+
+EXP-SVC-01 should add a state **(d)**: all Ussuri rows forced-down, flag **not** set → services start, `nova-status` 0,
+no RPC cap cached; then one host re-registered and cleared → cap 6.x.
