@@ -78,7 +78,10 @@ Database code sequence (variant S2c of `assessments/04-database-migration-strate
 
 1. Ussuri, with the platform running: finish online data migrations.
 2. 2023.1: the bridge for Nova, Keystone and Cinder, plus 2023.1 online data migrations.
-3. 2024.1, then 2025.1, then 2026.1: SLURP hops, each with `db sync` and online data migrations.
+3. **Cinder only, 2023.2 (cinder 23.5.0)**: `db sync` and online data migrations until 0. This step is added by
+   DR-004, because the released 2023.1 Cinder leaves soft-deleted volumes and snapshots with `use_quota` NULL. It is
+   followed by the hard gate PC-C1. Classification: technically possible but unsupported.
+4. 2024.1, then 2025.1, then 2026.1: SLURP hops, each with `db sync` and online data migrations.
 
 MariaDB follows 10.3 → 10.6 → 10.11 → 11.4 on one node with wsrep off, and Galera is rebuilt afterwards.
 
@@ -191,7 +194,7 @@ experiment record in `experiments/`.
 | EXP-DB-N2 (negative) | Skipping the Cinder online migrations at the bridge breaks or silently alters `use_quota` at 2024.1. | Observed behaviour under oslo.db's sql_mode is recorded. |
 | EXP-SVC-01 | 2026.1 services start on the fast-forwarded databases and serve every pre-existing resource. | Starting state: Ussuri fake computes **stopped**, their service rows at version 51 (RT-B-02). `show` of every server, port, volume, image, project and user equals the T0 inventory, with zero 500 errors. Three gate states are recorded (RT-B-01): **(a)** rows not forced-down, workaround set: services start, `nova-status` FAILURE, conductor log shows RPC cap 5.11, an RPC-bearing operation fails. **(b)** Rows forced-down, then restart: log shows 6.x, the operation succeeds. **(c)** A 2026.1 fake compute adopts a baseline hostname, forced-down is cleared, the workaround is removed, services restart: `nova-status` passes. **(d)**, the preferred P2 mechanism (DR-003): all Ussuri rows forced-down and the flag **not** set. Services start, `nova-status` returns 0 and no RPC cap is cached. Then one host is re-registered and cleared, and the cap is 6.x. The deleted-row refusal path needs the libvirt driver; it is recorded as not demonstrable with the fake driver. |
 | EXP-SVC-02 | Pre-existing resources stay operable after the migration. | Resize (fake), volume attach and detach, snapshot, a token for an old user (Fernet and credential keys preserved), and a new port on an old network. |
-| EXP-RB-01 (rollback) | Restoring the pre-bridge dump and restarting Ussuri code returns the platform to T0. | Restore from the dump taken before the first 2023.1 `db sync`, start the Ussuri services, and the T0 inventory is identical. What is lost (everything after the dump) is documented. This supports the claim "the old control plane stays bootable until the point of no return" (RT-B-03). |
+| EXP-RB-01 (rollback) | Restoring the pre-bridge dump and restarting Ussuri code returns the platform to T0. | Restore from the dump taken before the first 2023.1 `db sync`, start the Ussuri services, and the T0 inventory is identical. What is lost (everything after the dump) is documented. This supports the claim "the old control plane stays bootable until the point of no return" (RT-B-03). For Cinder, the point of no return is the first `db sync`, which now comes before H1b (Red Team Stage 5b). |
 
 **Production prerequisite (RT-B-04, Red Team criterion B.3).** No result on the synthetic Tier A dataset can support
 a production decision. A Tier B run on a sanitized copy of the production databases, with Kolla images pinned by
