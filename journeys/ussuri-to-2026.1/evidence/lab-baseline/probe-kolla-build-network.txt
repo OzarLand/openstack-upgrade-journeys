@@ -1,0 +1,10 @@
+# probes for a local Kolla rebuild, 2026-10-31T09:43:53Z
+https://archive.ubuntu.com/ubuntu/dists/bionic/Release -> 200
+http://archive.ubuntu.com/ubuntu/dists/bionic/Release -> 200
+http://mirrors.ubuntu.com/mirrors.txt -> 200
+http://ubuntu-cloud.archive.canonical.com/ubuntu/dists/bionic-updates/ussuri/Release -> 000
+https://ubuntu-cloud.archive.canonical.com/ubuntu/dists/bionic-updates/ussuri/Release -> 000
+https://dlm.mariadb.com/repo/mariadb-server/10.3/repo/ubuntu/dists/bionic/Release -> 000
+https://dl.cloudsmith.io/public/rabbitmq/rabbitmq-server/deb/ubuntu/dists/bionic/Release -> 000
+http://keyserver.ubuntu.com:80/ -> 200
+https://keyserver.ubuntu.com/ -> 

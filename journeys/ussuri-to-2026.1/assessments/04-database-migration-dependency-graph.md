@@ -1,5 +1,8 @@
 # 04 — Database migration dependency graph (Ussuri → 2026.1)
 
+> **Architect correction (2026-10-31):** the Keystone bridge window is Zed to 2023.1, not Yoga to 2023.1. See
+> [DR-002](../decision-records/DR-002-keystone-bridge-window-disagreement.md). The original text is kept below.
+
 | Metadata | |
 |---|---|
 | Author | Agent 4 — Database and Messaging Specialist (Stage 1, independent investigation) |

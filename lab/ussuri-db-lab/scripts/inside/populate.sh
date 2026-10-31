@@ -113,13 +113,17 @@ oB volume show b-vol1 >/dev/null 2>&1 || oB volume create --size 3 b-vol1 >/dev/
 say "servers"
 oA server group show a-aaff >/dev/null 2>&1 || oA server group create --policy anti-affinity a-aaff >/dev/null
 oA server show a-vm1 >/dev/null 2>&1 || oA server create --flavor ufj.tiny --image ufj-image-a --network a-net1 --security-group a-web \
-   --key-name ufj-key-a --property role=web --property owner=alice --tag web --tag lab --hint group="$(oA server group show a-aaff -f value -c id)" --wait a-vm1 >/dev/null
+   --key-name ufj-key-a --property role=web --property owner=alice --hint group="$(oA server group show a-aaff -f value -c id)" --wait a-vm1 >/dev/null
 oA server show a-vm2 >/dev/null 2>&1 || oA server create --flavor ufj.small --image ufj-image-a --nic net-id="$(oA network show a-net1 -f value -c id)" \
    --nic net-id="$(oA network show a-net2 -f value -c id)" --security-group a-web --security-group a-db --key-name ufj-key-imported \
-   --property role=db --tag db --hint group="$(oA server group show a-aaff -f value -c id)" --wait a-vm2 >/dev/null
+   --property role=db --hint group="$(oA server group show a-aaff -f value -c id)" --wait a-vm2 >/dev/null
 oA server show a-vm3 >/dev/null 2>&1 || oA server create --flavor ufj.tiny --volume a-boot --network a-net1 --security-group a-web --wait a-vm3 >/dev/null || say "WARN boot-from-volume server failed (recorded)"
 oB server show b-vm1 >/dev/null 2>&1 || oB server create --flavor ufj.tiny --image ufj-image-public --network b-net1 --security-group b-ssh --key-name ufj-key-b \
    --property owner=bob --wait b-vm1 >/dev/null
+
+say "server tags (compute API 2.26+, python-openstackclient 5.2 has no option)"
+oA_tags() { env OS_USERNAME=alice OS_PASSWORD="$USER_ALICE" OS_PROJECT_NAME=ufj-proj-a python /lab/tools/tag_server.py "$@"; }
+oA_tags a-vm1 web lab; oA_tags a-vm2 db; env OS_USERNAME=bob OS_PASSWORD="$USER_BOB" OS_PROJECT_NAME=ufj-proj-b python /lab/tools/tag_server.py b-vm1 edge
 
 say "volume attach, snapshot"
 oA server add volume a-vm1 a-vol1 2>/dev/null || say "WARN attach a-vol1 failed (recorded)"

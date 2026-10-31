@@ -65,3 +65,13 @@ try: urllib.request.urlopen('$1', timeout=3)
 except urllib.error.HTTPError as e: raise SystemExit(0 if e.code in (300,401,403) else 1)
 except Exception: raise SystemExit(1)" >/dev/null 2>&1 && return 0; sleep 1; done; return 1
 }
+
+# Containers that write to MariaDB (everything labelled ufj except the infra containers and the client)
+service_containers() { docker ps -a --filter label=org.ozarland.ufj=1 --format '{{.Names}}' | grep -vE '^ufj-(mariadb|rabbitmq|memcached|client|restore-.*)$' | sort; }
+# SQL helpers working on any running MariaDB container: $1 = container, password in $2
+sql_tables() { docker exec -e MYSQL_PWD="$2" "$1" mysql -uroot -N -e "SELECT table_schema, table_name FROM information_schema.tables WHERE table_type='BASE TABLE' AND table_schema NOT IN ('information_schema','performance_schema') ORDER BY 1,2"; }
+sql_rowcounts() { # container pw -> TSV db table rows (exact COUNT(*))
+  sql_tables "$1" "$2" | awk -F'\t' '{printf "SELECT \"%s\",\"%s\",COUNT(*) FROM `%s`.`%s`;\n",$1,$2,$1,$2}' | docker exec -i -e MYSQL_PWD="$2" "$1" mysql -uroot -N; }
+sql_checksums() { # container pw -> TSV db.table checksum
+  sql_tables "$1" "$2" | awk -F'\t' '{printf "CHECKSUM TABLE `%s`.`%s`;\n",$1,$2}' | docker exec -i -e MYSQL_PWD="$2" "$1" mysql -uroot -N; }
+OS_DBS=(keystone glance placement nova_api nova nova_cell0 neutron cinder)
