@@ -1,0 +1,27 @@
+[18:21:47] reset and start the 2026.1 stack (state d), then re-adopt the three hosts and restart the Nova control services once (DR-003 steps 4-5)
+control plane answering
+ufj-compute2 enabled up
+ufj-compute1 enabled up
+ufj-compute3 enabled up
+[18:23:18] 1. tokens
+token-password-alice	OK	<token> a7cec7ef1552403fbb23fc861b3e16eb 
+token-password-bob	OK	<token> 3d064405fa2447cf9aa98184a4348f36 
+token-application-credential-alice	OK	new application credential of alice -> token scoped to project a7cec7ef1552403fbb23fc861b3e16eb
+[18:23:26] 2. credentials
+ec2-credentials-alice-list-with-secret	OK	1 ec2 credential(s) listed with access and decrypted secret (values not recorded)
+totp-credential-decrypts	OK	1 totp credential(s); blob returned (not recorded)
+[18:23:32] 3. quota
+quota-bob-before	INFO	No recognized column names in ['instances']. Recognized columns are ('Resource', 'Limit'). instances limit; 
+quota-bob-servers-after-4-creates	INFO	5 servers in project b (limit 5)
+quota-bob-6th-server-refused	OK	ForbiddenException: 403: Client Error for url: http://ufj-nova-api:8774/v2.1/servers, Quota exceeded for instances: Requested 1, but already used 5 of 5 instances 
+quota-bob-usage-after	INFO	
+quota-alice-volume-495G-refused	OK	HttpException: 413: Client Error for url: http://ufj-cinder-api:8776/v3/a7cec7ef1552403fbb23fc861b3e16eb/volumes, VolumeSizeExceedsAvailableQuota: Requested volume or snapshot exceeds allowed gigabytes quota. Requested 495G, quota is 500G and 30G has been consumed. 
+quota-alice-volume-1G-accepted	OK	volume 647e6ab4-2843-40ce-90af-ada4929dc46f
+[18:24:20] 4. network
+port-create-on-old-network-a-net1	OK	aceb9865-b4f2-46b8-9a8e-0ecae3205069 DOWN 
+server-create-old-network-old-image-old-flavor	OK	fa31feed-617a-4e76-9293-c17881076434 status ACTIVE; None {'a-net1': ['192.168.10.52']} 
+port-of-new-server-binding	INFO	86dd283b-d2f3-4efe-b5f4-c8ae056e141b DOWN 
+[18:24:38] 5. volume attach/detach and snapshots
+volume-attach-a-vol2-to-a-vm2 (command rc=1)	INFO	BadRequestException: 400: Client Error for url: http://ufj-cinder-api:8776/v3/a7cec7ef1552403fbb23fc861b3e16eb/volumes/detail?name=a-vol2, Invalid filters name are found in query options. 
+volume-attached	FAIL	a-vol2 status No Volume found for a-vol2; attachments: No Volume found for a-vol2
+volume-detached	FAIL	a-vol2 status No Volume found for a-vol2

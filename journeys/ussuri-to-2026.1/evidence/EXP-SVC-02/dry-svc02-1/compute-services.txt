@@ -1,0 +1,3 @@
+ufj-compute2 enabled up
+ufj-compute1 enabled up
+ufj-compute3 enabled up
