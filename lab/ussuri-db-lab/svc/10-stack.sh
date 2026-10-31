@@ -3,6 +3,8 @@
 #   clone <source-volume>   copy a stopped/clean database volume into ufj-svc-data (never the source)
 #   infra                   network, MariaDB 11.4 (alias ufj-mariadb), RabbitMQ 4.x (fresh broker, same user/password as the cell mapping), memcached, client
 #   render                  2026.1 configuration from the Ussuri-rendered files (changes listed in svc/config-changes.txt)
+#   bootstrap               what Kolla-Ansible 2026.1 (20.6.0) does at deploy time to Keystone: `keystone-manage bootstrap` (roles manager/service, KD-01 C-2)
+#                           and the `service` role for the nova, cinder and neutron service users (*_ks_user_roles); config-changes.txt items 12-13
 #   keystone|glance|placement|nova|neutron|cinder   control-plane services      computes <n..>   2026.1 fake computes adopting ufj-compute<n>
 #   down                    remove every ufj-svc-* container (volumes kept)
 . "$(dirname "$0")/lib.sh"; cmd=${1:?}; shift
@@ -38,6 +40,7 @@ render)
   printf '\n[service_user]\nsend_service_user_token = true\nauth_url = http://ufj-keystone:5000\nauth_type = password\nproject_domain_name = Default\nuser_domain_name = Default\nproject_name = service\nusername = nova\npassword = %s\nregion_name = RegionOne\n' "$NPW" >> "$SVC_RUN/etc/nova/nova.conf"
   sed -i '0,/^use_stderr = true/s//use_stderr = true\ndebug = true/' "$SVC_RUN/etc/nova/nova.conf"
   printf '\n[upgrade_levels]\ncompute = auto\n' >> "$SVC_RUN/etc/nova/nova.conf"
+  sed -i '0,/^\[keystone_authtoken\]/s//[keystone_authtoken]\nservice_token_roles_required = true/' "$SVC_RUN/etc/cinder/cinder.conf"
   for f in nova/nova.conf neutron/neutron.conf cinder/cinder.conf glance/glance-api.conf; do
     printf '\n[oslo_messaging_rabbit]\nrabbit_quorum_queue = true\nrabbit_transient_quorum_queue = true\nuse_queue_manager = true\namqp_durable_queues = true\n' >> "$SVC_RUN/etc/$f"; done
   printf '[DEFAULT]\ncompute_driver = ufj_fake2026.UfjFake2026Driver\n[database]\nconnection =\n[api_database]\nconnection =\n' > "$SVC_RUN/etc/nova/nova-compute.conf"
@@ -64,8 +67,17 @@ cinder)
   srun cinder-volume ufj-cinder-volume "${C[@]}" -- $SIMG cinder-volume --config-file /etc/cinder/cinder.conf;;
 computes) # computes <n..> : stock nova.virt.fake.FakeDriver, container hostname ufj-compute<n>
   for n in "$@"; do HOSTN=ufj-compute$n srun compute$n ufj-compute$n -v "$SVC_RUN/etc/nova:/etc/nova:ro" -v ufj-svc-compute$n-state:/var/lib/nova -v "$SVC_DIR/ufj_fake2026.py:/opt/ff/lib/python3.12/site-packages/nova/virt/ufj_fake2026.py:ro" -- $SIMG nova-compute --config-file /etc/nova/nova.conf --config-file /etc/nova/nova-compute.conf; done;;
-up) # up : render (before any container is created: render replaces the bind-mounted directories) and start every control-plane service
-  "$0" render; for s in keystone glance placement nova neutron cinder; do "$0" $s; done
+bootstrap) # bootstrap : Kolla-Ansible 2026.1 deploy-time Keystone steps on the clone (idempotent; KD-01 C-2 measured the row changes of the first call)
+  URLS=$(sdb -N -e "select interface,url from keystone.endpoint e join keystone.service s on s.id=e.service_id where s.type='identity'")
+  PUB=$(echo "$URLS" | awk '$1=="public"{print $2}'); INT=$(echo "$URLS" | awk '$1=="internal"{print $2}'); ADM=$(echo "$URLS" | awk '$1=="admin"{print $2}')
+  docker run --rm --network $SNET -v "$SVC_RUN/keys:/var/lib/ufj/keys:ro" -v "$SVC_RUN/etc/keystone:/etc/keystone:ro" $SIMG keystone-manage bootstrap \
+    --bootstrap-username admin --bootstrap-project-name admin --bootstrap-role-name admin --bootstrap-service-name keystone --bootstrap-region-id RegionOne \
+    --bootstrap-password "$ADMIN" --bootstrap-public-url "$PUB" --bootstrap-internal-url "$INT" --bootstrap-admin-url "$ADM" >/dev/null 2>&1 && echo "keystone-manage bootstrap: exit 0" || echo "keystone-manage bootstrap: exit $?"
+  swait http://ufj-keystone:5000/v3 120
+  for u in nova cinder neutron; do sosc role add --user $u --project service service >/dev/null 2>&1 || echo "role add service to $u failed"; done   # kolla: nova/cinder/neutron_ks_user_roles
+  sosc role list -f value -c Name | sort | tr '\n' ' '; echo; for u in nova cinder neutron; do echo "$u: $(sosc role assignment list --user $u --project service --names -f value -c Role | sort | tr '\n' ' ')"; done;;
+up) # up : render (before any container is created: render replaces the bind-mounted directories), Keystone bootstrap, then start every control-plane service
+  "$0" render; "$0" keystone; "$0" bootstrap; for s in glance placement nova neutron cinder; do "$0" $s; done
   swait http://ufj-keystone:5000/v3 120 && swait http://ufj-glance:9292/ 120 && swait http://ufj-placement:8778/ 120 && swait http://ufj-nova-api:8774/ 180 && swait http://ufj-neutron:9696/ 180 && swait http://ufj-cinder-api:8776/ 180 && echo "control plane answering";;
 agents) # agents <n..> : fake L2 agents (tools/fake_l2_agent.py, unchanged Ussuri lab tool) reporting through the real report_state RPC
   for n in "$@"; do srun agent$n ufj-agent$n -v "$SVC_RUN/etc/neutron:/etc/neutron:ro" -v "$LAB_DIR/tools:/tools:ro" -- $SIMG python /tools/fake_l2_agent.py --host ufj-compute$n; done;;
