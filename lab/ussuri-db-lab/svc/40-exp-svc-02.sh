@@ -34,79 +34,116 @@ sosc compute service list --service nova-compute -f value -c Host -c Status -c S
 sosc network agent list -f value -c Host -c Alive > "$OUT/agents.txt" 2>&1
 T0=$(date -u +%Y-%m-%dT%H:%M:%SZ)
 
+# ids (names cannot be used as filters by the Cinder API in 2026.1 without resource_filters.json)
+vid() { sosc volume list --all-projects -f value -c ID -c Name 2>/dev/null | awk -v n="$1" '$2==n{print $1; exit}'; }
+sid() { sosc server list --all-projects -f value -c ID -c Name 2>/dev/null | awk -v n="$1" '$2==n{print $1; exit}'; }
+astat() { sosc "$@" 2>&1 | head -1; }          # admin status probe
+sstatus() { astat server show "$1" -f value -c status; }
+vstatus() { astat volume show "$1" -f value -c status; }
+RV=$(vid a-vol2); VM1=$(sid a-vm1); VM2=$(sid a-vm2); VM3=$(sid a-vm3); MIG=$(sid a-migrate)
+note "roles before: $(sosc role list -f value -c Name | tr '\n' ' '); nova user in project service: $(sosc role assignment list --user nova --project service --names -f value 2>&1 | tr '\n' ' ')"
+echo "$(sosc role list -f value -c Name | tr '\n' ' ')" > "$OUT/roles-before.txt"
+
 # ---- 1. tokens for old users
-note "1. tokens"
+note "1. tokens (6.5 cap: all compute rows are version 72)"
 for u in alice bob; do pv=USER_${u^^}; pr=ufj-proj-a; [ $u = bob ] && pr=ufj-proj-b
-  out=$(su $u "${!pv}" $pr token issue -f value -c id -c project_id 2>&1 | head -2 | tr '\n' ' ' | sed -E 's/^[0-9a-zA-Z_-]{40,} /<token> /;s/^gAAAA[^ ]+ /<token> /'); rc=$?
-  rec "token-password-$u" "$([ -n "$out" ] && echo OK || echo FAIL)" "$out"; done
+  out=$(su $u "${!pv}" $pr token issue -f value -c project_id 2>&1 | head -1)
+  rec "token-password-$u" "$([ ${#out} -eq 32 ] && echo OK || echo FAIL)" "token scoped to project $out"; done
 AC=$(A application credential create ufj-svc02-appcred -f value -c id -c secret 2>&1); ACID=$(echo "$AC" | sed -n 1p); ACSEC=$(echo "$AC" | sed -n 2p)
 tok=$(docker exec -i -e ID="$ACID" -e SEC="$ACSEC" ufj-svc-client bash -c 'unset OS_USERNAME OS_PASSWORD OS_PROJECT_NAME OS_USER_DOMAIN_NAME OS_PROJECT_DOMAIN_NAME; export OS_AUTH_URL=http://ufj-keystone:5000/v3 OS_AUTH_TYPE=v3applicationcredential OS_APPLICATION_CREDENTIAL_ID=$ID OS_APPLICATION_CREDENTIAL_SECRET=$SEC OS_IDENTITY_API_VERSION=3; openstack token issue -f value -c project_id 2>&1 | head -1' | redact)
-rec "token-application-credential-alice" "$([ -n "$tok" ] && [ ${#tok} -eq 32 ] && echo OK || echo FAIL)" "new application credential of alice -> token scoped to project $tok"
+rec "token-application-credential-alice (NEW credential of a pre-existing user; the secrets of the pre-existing credentials were not retained by the baseline, so they cannot be used)" "$([ ${#tok} -eq 32 ] && echo OK || echo FAIL)" "token scoped to project $tok"
 A application credential delete ufj-svc02-appcred >/dev/null 2>&1
+n=$(A application credential list -f value -c ID 2>&1 | wc -l); rec "application-credentials-of-alice-listed (pre-existing)" "$([ "$n" -ge 3 ] && echo OK || echo FAIL)" "$n listed"
 
 # ---- 2. EC2 and TOTP credentials of the old user decrypt
 note "2. credentials"
 ec=$(A ec2 credentials list -f value -c Access -c Secret 2>&1 | awk 'NF>=2{n++} END{print n+0}')
 rec "ec2-credentials-alice-list-with-secret" "$([ "$ec" -ge 1 ] && echo OK || echo FAIL)" "$ec ec2 credential(s) listed with access and decrypted secret (values not recorded)"
-tc=$(sosc --os-interface public credential list --type totp -f value -c ID 2>&1 | wc -l); tb=$(sosc credential show $(sosc credential list --type totp -f value -c ID | head -1) -f value -c blob 2>&1 | head -c 4 | wc -c)
-rec "totp-credential-decrypts" "$([ "$tc" -ge 1 ] && [ "$tb" -ge 4 ] && echo OK || echo FAIL)" "$tc totp credential(s); blob returned (not recorded)"
+tid=$(sosc credential list --type totp -f value -c ID 2>&1 | head -1); tb=$(sosc credential show "$tid" -f value -c blob 2>&1 | head -c 8 | wc -c)
+rec "totp-credential-decrypts" "$([ -n "$tid" ] && [ "$tb" -ge 4 ] && echo OK || echo FAIL)" "totp credential $tid; blob returned (not recorded)"
 
-# ---- 3. quota enforcement with the old quota rows (bob: instances limit 5, usage 1)
-note "3. quota"
-B limits show --absolute -f value > "$OUT/bob-limits-before.txt" 2>&1
-INST=$(B limits show --absolute -f value 2>&1 | grep -E "^(maxTotalInstances|totalInstancesUsed)" | tr '\n' ' ')
-rec "quota-bob-before" INFO "$(B quota show -f value -c instances 2>&1) instances limit; $INST"
-for i in 1 2 3 4; do B server create --flavor ufj-tiny --image ufj-image-public --nic none ufj-svc02-q$i -f value -c id > /dev/null 2>&1; done
-sleep 20
-n=$(B server list -f value -c Name 2>/dev/null | wc -l); rec "quota-bob-servers-after-4-creates" INFO "$n servers in project b (limit 5)"
-out=$(B server create --flavor ufj-tiny --image ufj-image-public --nic none ufj-svc02-q5 2>&1 | head -3 | tr '\n' ' ')
-rec "quota-bob-6th-server-refused" "$(echo "$out" | grep -qiE 'quota|exceed|403' && echo OK || echo FAIL)" "$out"
-B limits show --absolute -f value > "$OUT/bob-limits-after.txt" 2>&1
-rec "quota-bob-usage-after" INFO "$(B limits show --absolute -f value 2>&1 | grep -E '^(maxTotalInstances|totalInstancesUsed)' | tr '\n' ' ')"
-# cinder: alice gigabytes limit 500, usage about 20
-out=$(A volume create --size 495 ufj-svc02-bigvol 2>&1 | head -3 | tr '\n' ' ')
-rec "quota-alice-volume-495G-refused" "$(echo "$out" | grep -qiE 'quota|exceed|VolumeLimitExceeded|413|403' && echo OK || echo FAIL)" "$out"
-A volume create --size 1 ufj-svc02-vol1 -f value -c id > "$OUT/.v1" 2>&1; V1=$(head -1 "$OUT/.v1"); rm -f "$OUT/.v1"
-rec "quota-alice-volume-1G-accepted" "$([ -n "$V1" ] && echo OK || echo FAIL)" "volume $V1"
+# ---- 3. phase A: operations on PRE-EXISTING servers and volumes with the Ussuri-era service configuration (no 'service' role in Keystone)
+note "3A. pre-existing resources, as migrated"
+A server stop a-vm3 > /dev/null 2>&1; st=$(waitfor 60 SHUTOFF bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack server show $VM3 -f value -c status'")
+A server start a-vm3 > /dev/null 2>&1; st2=$(waitfor 60 ACTIVE bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack server show $VM3 -f value -c status'")
+rec "stop-start-of-Ussuri-created-ACTIVE-server-a-vm3 (boot volume attached)" "$([ "$st" = SHUTOFF ] && [ "$st2" = ACTIVE ] && echo OK || echo FAIL)" "after stop $st, after start $st2"
+A server resize confirm a-migrate > "$OUT/confirm-migrate.txt" 2>&1; rc=$?
+st=$(waitfor 90 ACTIVE bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack server show $MIG -f value -c status'")
+rec "resize-confirm-of-Ussuri-created-VERIFY_RESIZE-server-a-migrate (rc=$rc)" "$([ "$st" = ACTIVE ] && echo OK || echo FAIL)" "status $st $(head -c 120 "$OUT/confirm-migrate.txt" | tr '\n' ' ')"
+A server add volume a-vm2 a-vol2 > "$OUT/attach.txt" 2>&1; rc=$?
+st=$(waitfor 90 in-use bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack volume show $RV -f value -c status'")
+rec "volume-attach-a-vol2-to-a-vm2 (rc=$rc)" "$([ "$st" = in-use ] && echo OK || echo FAIL)" "volume status $st $(head -c 120 "$OUT/attach.txt" | tr '\n' ' ')"
+A server remove volume a-vm2 a-vol2 > "$OUT/detach.txt" 2>&1; rc=$?
+st=$(waitfor 90 available bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack volume show $RV -f value -c status'")
+rec "volume-detach-a-vol2-from-a-vm2 (rc=$rc)" "$([ "$st" = available ] && echo OK || echo FAIL)" "volume status $st $(head -c 120 "$OUT/detach.txt" | tr '\n' ' ')"
+A server resize --flavor ufj-small a-vm1 > "$OUT/resize-vm1.txt" 2>&1; rc=$?
+st=$(waitfor 120 VERIFY_RESIZE bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack server show $VM1 -f value -c status'")
+rec "resize-of-Ussuri-created-server-a-vm1-with-attached-volume (rc=$rc)" "$([ "$st" = VERIFY_RESIZE ] && echo OK || echo FAIL)" "status $st"
+sosc server show $VM1 -f value -c fault 2>&1 | tr -d '\n' | grep -oE "ConflictNovaUsingAttachment[^\\]*|[A-Za-z]*Exception: [^\\]{0,160}" | tail -1 > "$OUT/fault-vm1-phaseA.txt"; rec "fault-of-a-vm1-phase-A" INFO "$(cat "$OUT/fault-vm1-phaseA.txt")"
+docker logs --since "$T0" ufj-svc-cinder-api 2>&1 | grep -E "WARNING.*service token|not a valid service" | head -2 | cut -c1-250 > "$OUT/cinder-service-token-lines.txt"; docker logs --since "$T0" ufj-svc-neutron 2>&1 | grep -E "service token" | head -1 | cut -c1-250 >> "$OUT/cinder-service-token-lines.txt"
 
-# ---- 4. new port and new server on an old network, old image, old flavor
-note "4. network"
-out=$(A port create --network a-net1 ufj-svc02-port -f value -c id -c status 2>&1 | tr '\n' ' '); rec "port-create-on-old-network-a-net1" "$(echo "$out" | grep -qE '^[0-9a-f-]{36}' && echo OK || echo FAIL)" "$out"
-A server create --flavor ufj-tiny --image ufj-image-a --network a-net1 ufj-svc02-srv1 -f value -c id > "$OUT/.s1" 2>&1; S1=$(head -1 "$OUT/.s1"); rm -f "$OUT/.s1"
-st=$(waitfor 120 ACTIVE bash -c "docker exec -i -e U=alice -e P='$USER_ALICE' ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; OS_USERNAME=alice; OS_PASSWORD=\$P; OS_PROJECT_NAME=ufj-proj-a; set +a; openstack server show $S1 -f value -c status'")
-rec "server-create-old-network-old-image-old-flavor" "$([ "$st" = ACTIVE ] && echo OK || echo FAIL)" "$S1 status $st; $(A server show $S1 -f value -c addresses -c OS-EXT-SRV-ATTR:host 2>&1 | tr '\n' ' ')"
-rec "port-of-new-server-binding" INFO "$(sosc port list --server $S1 -f value -c ID -c Status -c binding_vif_type -c binding_host_id 2>&1 | tr '\n' ' ')"
+# ---- 3B. remedy: the 'service' role that Cinder expects on the Nova service token
+note "3B. remedy: create role 'service' and grant it to the nova service user in project service; restart the Nova computes and cinder-api; flush memcached"
+sosc role create service -f value -c id > /dev/null 2>&1; sosc role add --user nova --project service service > /dev/null 2>&1
+rec "role-service-granted-to-nova" INFO "$(sosc role assignment list --user nova --project service --names -f value 2>&1 | tr '\n' ' ')"
+docker exec ufj-svc-client python -c "import socket;s=socket.create_connection(('ufj-memcached',11211));s.sendall(b'flush_all\r\n');print(s.recv(16))" > /dev/null 2>&1
+docker restart ufj-svc-compute1 ufj-svc-compute2 ufj-svc-compute3 ufj-svc-cinder-api ufj-svc-nova-api >/dev/null; sleep 25; swait http://ufj-nova-api:8774/ 90; swait http://ufj-cinder-api:8776/ 90
+sosc server set --state active a-vm1 > /dev/null 2>&1; sleep 3
+A server remove volume a-vm1 a-vol1 > "$OUT/detach-vm1-B.txt" 2>&1; rc=$?
+V1=$(vid a-vol1); st=$(waitfor 90 available bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack volume show $V1 -f value -c status'")
+rec "volume-detach-of-Ussuri-attachment-a-vol1-from-a-vm1 after remedy (rc=$rc)" "$([ "$st" = available ] && echo OK || echo FAIL)" "volume status $st $(head -c 150 "$OUT/detach-vm1-B.txt" | tr '\n' ' ')"
+A server resize --flavor ufj-small a-vm1 > "$OUT/resize-vm1-B.txt" 2>&1; rc=$?
+st=$(waitfor 120 VERIFY_RESIZE bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack server show $VM1 -f value -c status'")
+rec "resize-of-a-vm1 after remedy and detach (rc=$rc)" "$([ "$st" = VERIFY_RESIZE ] && echo OK || echo FAIL)" "status $st"
+if [ "$st" = VERIFY_RESIZE ]; then A server resize confirm a-vm1 > /dev/null 2>&1; st=$(waitfor 90 ACTIVE bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack server show $VM1 -f value -c status'"); rec "resize-confirm-a-vm1" "$([ "$st" = ACTIVE ] && echo OK || echo FAIL)" "status $st; flavor $(sosc server show $VM1 -f value -c flavor 2>&1 | cut -c1-60)"; fi
+A server resize --flavor ufj-small a-vm2 > "$OUT/resize-vm2.txt" 2>&1; rc=$?
+st=$(waitfor 120 VERIFY_RESIZE bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack server show $VM2 -f value -c status'")
+rec "resize-of-a-vm2-with-attached-encrypted-volume after remedy (rc=$rc)" "$([ "$st" = VERIFY_RESIZE ] && echo OK || echo FAIL)" "status $st"
+[ "$st" = VERIFY_RESIZE ] && A server resize confirm a-vm2 > /dev/null 2>&1
+A server add volume a-vm2 a-vol2 > /dev/null 2>&1; st=$(waitfor 90 in-use bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack volume show $RV -f value -c status'")
+A server remove volume a-vm2 a-vol2 > /dev/null 2>&1; st2=$(waitfor 90 available bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack volume show $RV -f value -c status'")
+rec "volume-attach-then-detach-a-vol2 after remedy" "$([ "$st" = in-use ] && [ "$st2" = available ] && echo OK || echo FAIL)" "attach -> $st, detach -> $st2"
 
-# ---- 5. volume attach and detach (old available volume, old active server), snapshots
-note "5. volume attach/detach and snapshots"
-A server add volume a-vm2 a-vol2 > "$OUT/attach.txt" 2>&1; rec "volume-attach-a-vol2-to-a-vm2 (command rc=$?)" INFO "$(head -c 200 "$OUT/attach.txt" | tr '\n' ' ')"
-st=$(waitfor 90 in-use bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack volume show a-vol2 -f value -c status'")
-rec "volume-attached" "$([ "$st" = in-use ] && echo OK || echo FAIL)" "a-vol2 status $st; attachments: $(sosc volume show a-vol2 -f value -c attachments 2>&1 | cut -c1-160)"
-A server remove volume a-vm2 a-vol2 > "$OUT/detach.txt" 2>&1
-st=$(waitfor 90 available bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack volume show a-vol2 -f value -c status'")
-rec "volume-detached" "$([ "$st" = available ] && echo OK || echo FAIL)" "a-vol2 status $st"
-A volume snapshot create --volume a-vol2 ufj-svc02-snap -f value -c id > "$OUT/.sn" 2>&1; SN=$(head -1 "$OUT/.sn"); rm -f "$OUT/.sn"
+# ---- 4. snapshots
+note "4. snapshots"
+A volume snapshot create --volume "$RV" ufj-svc02-snap -f value -c id > "$OUT/.sn" 2>&1; SN=$(head -1 "$OUT/.sn"); rm -f "$OUT/.sn"
 st=$(waitfor 60 available bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack volume snapshot show $SN -f value -c status'")
 rec "volume-snapshot-of-old-volume" "$([ "$st" = available ] && echo OK || echo FAIL)" "snapshot $SN status $st"
-A server image create a-vm3 --name ufj-svc02-img > "$OUT/img.txt" 2>&1; rec "server-image-create (nova snapshot) of a-vm3, command rc=$?" INFO "$(head -c 160 "$OUT/img.txt" | tr '\n' ' ')"
+A server image create a-vm3 --name ufj-svc02-img > "$OUT/img.txt" 2>&1; rec "server-image-create (nova snapshot) of a-vm3, command rc=$?" INFO "command accepted"
 sleep 20; rec "server-image-status" INFO "$(sosc image show ufj-svc02-img -f value -c status 2>&1 | head -1) (fake driver uploads no data)"
 
-# ---- 6. resize of an old server (fake driver)
-note "6. resize"
-A server resize --flavor ufj-small a-vm1 > "$OUT/resize.txt" 2>&1; rc=$?
-st=$(waitfor 120 VERIFY_RESIZE bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack server show a-vm1 -f value -c status'")
-rec "resize-a-vm1-to-ufj-small (rc=$rc)" "$([ "$st" = VERIFY_RESIZE ] && echo OK || echo FAIL)" "status $st"
-if [ "$st" = VERIFY_RESIZE ]; then A server resize confirm a-vm1 > /dev/null 2>&1; st=$(waitfor 90 ACTIVE bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack server show a-vm1 -f value -c status'"); rec "resize-confirm" "$([ "$st" = ACTIVE ] && echo OK || echo FAIL)" "status $st; flavor $(sosc server show a-vm1 -f value -c flavor 2>&1 | cut -c1-60)"; fi
+# ---- 5. quota enforcement with the old quota rows (bob: instances limit 5, usage 1; alice: gigabytes limit 500)
+note "5. quota"
+lim() { B limits show --absolute -f value 2>&1 | grep -E "^(instances|instances_used) " | tr '\n' ' '; }
+rec "quota-bob-before" INFO "$(lim)"
+for i in 1 2 3 4; do B server create --flavor ufj-tiny --image ufj-image-public --nic none ufj-svc02-q$i -f value -c id > /dev/null 2>&1; done
+sleep 25; rec "quota-bob-after-4-creates" INFO "$(lim)"
+out=$(B server create --flavor ufj-tiny --image ufj-image-public --nic none ufj-svc02-q5 2>&1 | head -3 | tr '\n' ' ')
+rec "quota-bob-6th-server-refused" "$(echo "$out" | grep -qiE 'quota|exceed|403' && echo OK || echo FAIL)" "$out"
+out=$(A volume create --size 495 ufj-svc02-bigvol 2>&1 | head -3 | tr '\n' ' ')
+rec "quota-alice-volume-495G-refused" "$(echo "$out" | grep -qiE 'quota|exceed|VolumeLimitExceeded|VolumeSizeExceeds|413|403' && echo OK || echo FAIL)" "$out"
+A volume create --size 1 ufj-svc02-vol1 -f value -c id > "$OUT/.v1" 2>&1; V1N=$(head -1 "$OUT/.v1"); rm -f "$OUT/.v1"
+rec "quota-alice-volume-1G-accepted" "$([ ${#V1N} -eq 36 ] && echo OK || echo FAIL)" "volume $V1N"
+
+# ---- 6. new port and new server on an old network, old image, old flavor
+note "6. network"
+out=$(A port create --network a-net1 ufj-svc02-port -f value -c id -c status 2>&1 | tr '\n' ' '); rec "port-create-on-old-network-a-net1" "$(echo "$out" | grep -qE '^[0-9a-f-]{36}' && echo OK || echo FAIL)" "$out"
+A server create --flavor ufj-tiny --image ufj-image-a --network a-net1 ufj-svc02-srv1 -f value -c id > "$OUT/.s1" 2>&1; S1=$(head -1 "$OUT/.s1"); rm -f "$OUT/.s1"
+st=$(waitfor 120 ACTIVE bash -c "docker exec -i ufj-svc-client bash -c 'set -a; . /run/svc/admin-openrc; set +a; openstack server show $S1 -f value -c status'")
+rec "server-create-old-network-old-image-old-flavor" "$([ "$st" = ACTIVE ] && echo OK || echo FAIL)" "$S1 status $st; $(sosc server show $S1 -f value -c addresses -c OS-EXT-SRV-ATTR:host 2>&1 | tr '\n' ' ')"
+rec "port-binding-of-new-server" INFO "$(sdb -N -e "select b.vif_type,b.host from neutron.ml2_port_bindings b join neutron.ports p on p.id=b.port_id where p.device_id='$S1'" 2>&1 | tr '\n' ' ')"
 
 # ---- cleanup of the objects created here, log scan, counts
 note "cleanup and log scan"
-for n in 1 2 3 4 5; do B server delete ufj-svc02-q$n > /dev/null 2>&1; done
+for n in 1 2 3 4 5; do B server delete ufj-svc02-q$n > /dev/null 2>&1; done; sleep 5
 A server delete ufj-svc02-srv1 > /dev/null 2>&1; A port delete ufj-svc02-port > /dev/null 2>&1; A volume snapshot delete ufj-svc02-snap > /dev/null 2>&1; A volume delete ufj-svc02-vol1 > /dev/null 2>&1; sosc image delete ufj-svc02-img > /dev/null 2>&1
+for c in nova-api nova-conductor nova-scheduler; do docker logs --since "$T0" ufj-svc-$c 2>&1 | grep "Automatically selected compute RPC" | sed -E "s/^/$c: /;s/\[None[^]]*\]//" | cut -c1-220; done > "$OUT/rpc-cap.txt"; cat "$OUT/rpc-cap.txt" | tee -a "$OUT/run.log"
 : > "$OUT/service-log-errors.txt"
 for c in nova-api nova-conductor nova-scheduler neutron neutron-rpc cinder-api cinder-scheduler cinder-volume glance keystone placement compute1 compute2 compute3; do
   e5=$(docker logs --since "$T0" ufj-svc-$c 2>&1 | grep -cE 'Returning 500|HTTP/1.1" 500|status: 500 len|500 Internal Server Error|InternalServerError')
   er=$(docker logs --since "$T0" ufj-svc-$c 2>&1 | grep -cE '\] ERROR |CRITICAL')
-  echo "$c: http500-lines=$e5 error-lines=$er" >> "$OUT/service-log-errors.txt"; done
+  oc=$(docker logs --since "$T0" ufj-svc-$c 2>&1 | grep -cE 'IncompatibleObjectVersion|ObjectActionError')
+  echo "$c: http500-lines=$e5 error-lines=$er object-version-errors=$oc" >> "$OUT/service-log-errors.txt"; done
 cat "$OUT/service-log-errors.txt" | tee -a "$OUT/run.log"
 { echo "harness commit: $(git -C "$LAB_DIR/../.." rev-parse HEAD)"; echo "lab/ files changed:"; git -C "$LAB_DIR/../.." status --porcelain -- lab | grep -v '^??'; echo "script sha256: $(sha256sum "$0" | cut -d' ' -f1)"; echo "image: $(docker image inspect $SIMG --format '{{.Id}}')"; echo "label $LABEL"; } > "$OUT/harness.txt"
 awk -F'\t' '$2=="FAIL"{f++} $2=="OK"{o++} END{print "SUMMARY ok=" o+0 " fail=" f+0}' "$RES" | tee -a "$OUT/run.log"

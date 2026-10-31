@@ -29,3 +29,21 @@ volume-snapshot-of-old-volume	FAIL	snapshot BadRequestException: 400: Client Err
 server-image-create (nova snapshot) of a-vm3, command rc=0	INFO	+------------------+--------------------------------------------------------------------------------------------------------------------------------------------
 server-image-status	INFO	active (fake driver uploads no data)
 [18:32:26] 6. resize
+resize-a-vm1-to-ufj-small (rc=0)	FAIL	status No Server found for a-vm1
+[18:36:14] cleanup and log scan
+nova-api: http500-lines=0 error-lines=0
+nova-conductor: http500-lines=0 error-lines=0
+nova-scheduler: http500-lines=0 error-lines=0
+neutron: http500-lines=0 error-lines=0
+neutron-rpc: http500-lines=0 error-lines=0
+cinder-api: http500-lines=0 error-lines=0
+cinder-scheduler: http500-lines=0 error-lines=0
+cinder-volume: http500-lines=0 error-lines=0
+glance: http500-lines=0 error-lines=0
+keystone: http500-lines=0 error-lines=0
+placement: http500-lines=0 error-lines=0
+compute1: http500-lines=0 error-lines=0
+compute2: http500-lines=0 error-lines=0
+compute3: http500-lines=0 error-lines=0
+SUMMARY ok=10 fail=4
+[18:36:33] done: dry-svc02-1

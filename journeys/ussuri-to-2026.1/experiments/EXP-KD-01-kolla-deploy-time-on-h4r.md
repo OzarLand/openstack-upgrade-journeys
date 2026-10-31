@@ -42,3 +42,9 @@ C-1 holds: Kolla's schema/bootstrap commands are no-ops on the migrated database
 ## Status
 
 `LAB-VALIDATED` (scope above). Deviation: the commands were run by hand from the assessment's table, not by Kolla-Ansible; the lab password of the second bootstrap was a throw-away string, not stored.
+
+## Corrections (2026-10-31, after Red Team Stage 5c; the text above is kept as written)
+
+* **RT-B-11, dataset tier.** The "Dataset tier" row says "Tier-B lab dataset". Correct to **Tier A** (synthetic, created through the Ussuri APIs, baseline v4); Tier B means a sanitised production copy and is not met here.
+* **C-2 wording.** The conclusion says the password change "prunes revocation events": measured is `revocation_event` 1501 rows before and 1 after the second bootstrap (the earlier events were removed and one event was added), not growth. Either way every token issued before the change is invalid.
+* **What this record validates.** The database effect of the commands that the Kolla assessment (Agent 3) says Kolla runs. Whether Kolla-Ansible issues exactly these commands with these arguments stays `DOCUMENTED-UNVERIFIED` until a Kolla run (K-01). Do not cite this record as "Kolla deploy validated".

@@ -1,0 +1,8 @@
+token-password-alice	OK	token scoped to project a7cec7ef1552403fbb23fc861b3e16eb
+token-password-bob	OK	token scoped to project 3d064405fa2447cf9aa98184a4348f36
+token-application-credential-alice (NEW credential of a pre-existing user; the secrets of the pre-existing credentials were not retained by the baseline, so they cannot be used)	OK	token scoped to project a7cec7ef1552403fbb23fc861b3e16eb
+application-credentials-of-alice-listed (pre-existing)	OK	3 listed
+ec2-credentials-alice-list-with-secret	OK	1 ec2 credential(s) listed with access and decrypted secret (values not recorded)
+totp-credential-decrypts	OK	totp credential e9f31d171b954c08a0a7472520a7567f; blob returned (not recorded)
+stop-start-of-Ussuri-created-ACTIVE-server-a-vm3 (boot volume attached)	OK	after stop SHUTOFF, after start ACTIVE
+resize-confirm-of-Ussuri-created-VERIFY_RESIZE-server-a-migrate (rc=0)	OK	status ACTIVE 

@@ -1,0 +1,14 @@
+nova-api: http500-lines=0 error-lines=0
+nova-conductor: http500-lines=0 error-lines=0
+nova-scheduler: http500-lines=0 error-lines=0
+neutron: http500-lines=0 error-lines=0
+neutron-rpc: http500-lines=0 error-lines=0
+cinder-api: http500-lines=0 error-lines=0
+cinder-scheduler: http500-lines=0 error-lines=0
+cinder-volume: http500-lines=0 error-lines=0
+glance: http500-lines=0 error-lines=0
+keystone: http500-lines=0 error-lines=0
+placement: http500-lines=0 error-lines=0
+compute1: http500-lines=0 error-lines=0
+compute2: http500-lines=0 error-lines=0
+compute3: http500-lines=0 error-lines=0

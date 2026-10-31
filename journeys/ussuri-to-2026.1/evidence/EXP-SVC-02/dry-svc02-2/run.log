@@ -1,0 +1,17 @@
+[18:39:02] reset and start the 2026.1 stack (state d), then re-adopt the three hosts and restart the Nova control services once (DR-003 steps 4-5)
+control plane answering
+ufj-compute2 enabled up
+ufj-compute1 enabled up
+ufj-compute3 enabled up
+[18:40:48] roles before: admin reader member ; nova user in project service: admin nova@Default  service@Default   False 
+[18:40:49] 1. tokens (6.5 cap: all compute rows are version 72)
+token-password-alice	OK	token scoped to project a7cec7ef1552403fbb23fc861b3e16eb
+token-password-bob	OK	token scoped to project 3d064405fa2447cf9aa98184a4348f36
+token-application-credential-alice (NEW credential of a pre-existing user; the secrets of the pre-existing credentials were not retained by the baseline, so they cannot be used)	OK	token scoped to project a7cec7ef1552403fbb23fc861b3e16eb
+application-credentials-of-alice-listed (pre-existing)	OK	3 listed
+[18:40:59] 2. credentials
+ec2-credentials-alice-list-with-secret	OK	1 ec2 credential(s) listed with access and decrypted secret (values not recorded)
+totp-credential-decrypts	OK	totp credential e9f31d171b954c08a0a7472520a7567f; blob returned (not recorded)
+[18:41:04] 3A. pre-existing resources, as migrated
+stop-start-of-Ussuri-created-ACTIVE-server-a-vm3 (boot volume attached)	OK	after stop SHUTOFF, after start ACTIVE
+resize-confirm-of-Ussuri-created-VERIFY_RESIZE-server-a-migrate (rc=0)	OK	status ACTIVE 
