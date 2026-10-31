@@ -33,6 +33,9 @@ status_all() { # status_all <state> <tag> : every *-status upgrade check with th
   st_run "glance-status --config-file glance-api.conf upgrade check" "${R[@]}" -v "$SVC_RUN/etc/glance:/etc/glance:ro" $SIMG glance-status --config-file /etc/glance/glance-api.conf upgrade check
   st_run "keystone-status --config-file keystone.conf upgrade check (keys also mounted at /etc/keystone: the tool checks the default repository paths)" "${R[@]}" -v "$K/fernet-keys:/etc/keystone/fernet-keys:ro" -v "$K/credential-keys:/etc/keystone/credential-keys:ro" -v "$K:/var/lib/ufj/keys:ro" -v "$SVC_RUN/etc/keystone:/conf:ro" $SIMG keystone-status --config-file /conf/keystone.conf upgrade check
   grep -E "^=====|Check:|Result:" "$f" | paste -sd' ' | sed 's/=====/\n=====/g' | sed -E 's/ +/ /g;s/\| //g' | tee -a "$OUT/run.log" | cut -c1-700; }
+svcset() { # svcset up|down <host> : forced-down through the 2026.1 API; on failure the HTTP error body is logged
+  out=$(sosc compute service set --$1 $2 nova-compute 2>&1); rc=$?; echo "compute service set --$1 $2 nova-compute -> rc=$rc $out" | tee -a "$OUT/run.log"
+  if [ $rc != 0 ]; then sosc --debug compute service set --$1 $2 nova-compute 2>&1 | grep -E "RESP BODY|HTTP/1.1\" [45]" | cut -c1-400 | tee -a "$OUT/run.log"; fi; }
 flag() { # flag on|off : [workarounds] disable_compute_service_check_for_ffu in nova.conf (edited in place)
   python3 - "$1" "$NOVA_CONF" <<'PY'
 import sys,re
@@ -85,7 +88,7 @@ run_d() {
   sosc compute service list --long -f value -c Binary -c Host -c Status -c State -c "Forced Down" > "$OUT/$st/api-service-list-2.txt" 2>&1
   sosc hypervisor list -f value -c ID -c "Hypervisor Hostname" -c State > "$OUT/$st/hypervisors-2.txt" 2>&1
   note "(d) clear forced-down on ufj-compute1 (after verification), restart nova-api/conductor/scheduler once"
-  sosc compute service set --up ufj-compute1 nova-compute >> "$OUT/run.log" 2>&1
+  svcset up ufj-compute1
   T3=$(now); ctl_restart; rows $st 3-cleared-restarted
   rpc_lines $st 3-cleared-restarted "$T3"; status_all $st 3-cleared-restarted
   op $st 3 ufj-compute1 "$T3"
@@ -102,7 +105,7 @@ run_abc() {
   st=a; mkdir -p "$OUT/a" "$OUT/b" "$OUT/c"; reset; "$STK" up | tee -a "$OUT/run.log"; waitapi
   note "(a) start 2026.1 compute ufj-compute1, then clear forced-down on all three Ussuri rows through the 2026.1 API"
   "$STK" computes 1; register_wait 1; sleep 15; adoption a 1
-  for h in 1 2 3; do sosc compute service set --up ufj-compute$h nova-compute >> "$OUT/run.log" 2>&1; done
+  for h in 1 2 3; do svcset up ufj-compute$h; done
   rows a 1-unforced; sosc compute service list --long -f value -c Binary -c Host -c Status -c State -c "Forced Down" > "$OUT/a/api-service-list-1.txt" 2>&1
   note "(a) restart control WITHOUT the workaround: expected refusal (min service version 51 of the unforced Ussuri rows)"
   T=$(now); ctl_restart; sleep 10; rpc_lines a 2-restart-no-flag "$T"
@@ -113,13 +116,13 @@ run_abc() {
   rpc_lines a 3-flag-restarted "$T"; status_all a 3-flag-restarted; op a 3 ufj-compute1 "$T"
   # ---- (b)
   note "(b) forced-down on ufj-compute2/3 through the 2026.1 API (ufj-compute1, 2026.1, stays up), then restart"
-  for h in 2 3; do sosc compute service set --down ufj-compute$h nova-compute >> "$OUT/run.log" 2>&1; done
+  for h in 2 3; do svcset down ufj-compute$h; done
   rows b 1-forced-down; T=$(now); ctl_restart; sleep 10; rows b 2-restarted
   rpc_lines b 2-restarted "$T"; status_all b 2-restarted; op b 2 ufj-compute1 "$T"
   # ---- (c)
   note "(c) 2026.1 computes adopt ufj-compute2/3; forced-down cleared; workaround removed; restart"
   "$STK" computes 2 3; register_wait 2; register_wait 3; sleep 20; adoption c 2; adoption c 3
-  for h in 2 3; do sosc compute service set --up ufj-compute$h nova-compute >> "$OUT/run.log" 2>&1; done
+  for h in 2 3; do svcset up ufj-compute$h; done
   flag off; rows c 1-cleared; nodes c 1-cleared; T=$(now); ctl_restart; sleep 10; rows c 2-restarted
   rpc_lines c 2-restarted "$T"; status_all c 2-restarted; op c 2 ufj-compute2 "$T"; op c 2b ufj-compute3 "$T"
 }
