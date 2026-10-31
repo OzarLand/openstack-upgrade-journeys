@@ -1,0 +1,12 @@
+compute_id file: 1ffa4385-060e-4e69-84f7-0bb6ab09d0dd
+compute_nodes rows for ufj-compute2 (all, including deleted):
+id	uuid	host	hypervisor_hostname	service_id	deleted
+1	1ffa4385-060e-4e69-84f7-0bb6ab09d0dd	ufj-compute2	ufj-compute2	NULL	0
+services row:
+id	version	forced_down	disabled
+8	72	1	0
+compute log (node identity / adoption / errors):
+2026-10-31 16:39:27.456 1 INFO nova.virt.node [None req-7a2eb72f-bbf5-4ab8-a1f1-e627da6a5bf9 - - - - - -] Wrote node identity 1ffa4385-060e-4e69-84f7-0bb6ab09d0dd to /var/lib/nova/compute_id
+2026-10-31 16:39:27.457 1 INFO nova.virt.node [None req-7a2eb72f-bbf5-4ab8-a1f1-e627da6a5bf9 - - - - - -] Determined node identity 1ffa4385-060e-4e69-84f7-0bb6ab09d0dd from /var/lib/nova/compute_id
+placement resource provider of the node:
+1ffa4385-060e-4e69-84f7-0bb6ab09d0dd ufj-compute2

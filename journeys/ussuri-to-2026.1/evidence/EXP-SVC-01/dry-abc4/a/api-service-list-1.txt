@@ -1,0 +1,5 @@
+nova-conductor ufj-nova-conductor enabled up False
+nova-scheduler ufj-nova-scheduler enabled up False
+nova-compute ufj-compute2 enabled down False
+nova-compute ufj-compute1 enabled up False
+nova-compute ufj-compute3 enabled down False

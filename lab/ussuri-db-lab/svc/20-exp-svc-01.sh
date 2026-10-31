@@ -58,6 +58,12 @@ op() { # op <state> <tag> <host> <since> : RPC-bearing operation = build_and_run
   for i in $(seq 1 45); do sleep 2; j=$(sosc server show "$sid" -f value -c status 2>&1 | head -1); case "$j" in ACTIVE|ERROR) break;; esac; done
   echo "status after wait: $j" >> "$f"
   sosc server show "$sid" -f json -c status -c OS-EXT-STS:task_state -c OS-EXT-STS:vm_state -c OS-EXT-SRV-ATTR:host -c fault 2>&1 | tr -d '\n' | cut -c1-600 >> "$f"; echo >> "$f"
+  if [ "$j" = ACTIVE ]; then   # further RPC-bearing operations on the new server (each waits for its target status, 60 s)
+    for step in "stop:SHUTOFF" "start:ACTIVE" "reboot --hard:ACTIVE" "pause:PAUSED" "unpause:ACTIVE"; do
+      a=${step%%:*}; want=${step##*:}; sosc server $a "$sid" >> "$f" 2>&1; rc=$?; got=
+      for i in $(seq 1 30); do sleep 2; got=$(sosc server show "$sid" -f value -c status -c OS-EXT-STS:task_state 2>&1 | paste -sd' '); [ "$got" = "$want None" ] && break; done
+      echo "op '$a' (rc=$rc): expected '$want None', got '$got' -> $([ "$got" = "$want None" ] && echo OK || echo FAIL)" >> "$f"; done
+  fi
   echo "compute log (errors since $4):" >> "$f"; docker logs --since "$4" ufj-svc-compute${3#ufj-compute} 2>&1 | grep -E "\] ERROR|UnsupportedVersion|RPC version|Endpoint does not support" | grep -v "DB access" | tail -4 | cut -c1-320 >> "$f"
   docker logs --since "$4" ufj-svc-nova-conductor 2>&1 | grep -E "\] ERROR|UnsupportedVersion|MessagingTimeout|NoValidHost" | tail -3 | cut -c1-320 >> "$f"
   sosc server delete "$sid" >> "$f" 2>&1; for i in $(seq 1 20); do sleep 2; sosc server show "$sid" >/dev/null 2>&1 || break; done

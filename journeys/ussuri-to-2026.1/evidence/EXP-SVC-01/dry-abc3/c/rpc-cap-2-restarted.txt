@@ -1,0 +1,2 @@
+nova-api: 2026-10-31 16:40:29.038 8 INFO nova.compute.rpcapi [None req-87135660-bdd5-471e-a19f-4a88d1e0eaa9 - - - - - -] Automatically selected compute RPC version 6.5 from minimum service version 72
+(containers: ufj-svc-nova-scheduler=Up 15 seconds ufj-svc-nova-conductor=Up 26 seconds ufj-svc-nova-api=Up 36 seconds )
