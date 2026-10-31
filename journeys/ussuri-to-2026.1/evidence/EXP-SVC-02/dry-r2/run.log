@@ -1,0 +1,6 @@
+[19:30:08] reset and start the 2026.1 stack (state d), then re-adopt the three hosts and restart the Nova control services once (DR-003 steps 4-5)
+keystone-manage bootstrap: exit 0
+admin manager member reader service 
+nova: admin service 
+cinder: admin service 
+neutron: admin service 

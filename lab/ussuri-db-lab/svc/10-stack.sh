@@ -72,7 +72,7 @@ bootstrap) # bootstrap : Kolla-Ansible 2026.1 deploy-time Keystone steps on the 
   PUB=$(echo "$URLS" | awk '$1=="public"{print $2}'); INT=$(echo "$URLS" | awk '$1=="internal"{print $2}'); ADM=$(echo "$URLS" | awk '$1=="admin"{print $2}')
   docker run --rm --network $SNET -v "$SVC_RUN/keys:/var/lib/ufj/keys:ro" -v "$SVC_RUN/etc/keystone:/etc/keystone:ro" $SIMG keystone-manage bootstrap \
     --bootstrap-username admin --bootstrap-project-name admin --bootstrap-role-name admin --bootstrap-service-name keystone --bootstrap-region-id RegionOne \
-    --bootstrap-password "$ADMIN" --bootstrap-public-url "$PUB" --bootstrap-internal-url "$INT" --bootstrap-admin-url "$ADM" >/dev/null 2>&1 && echo "keystone-manage bootstrap: exit 0" || echo "keystone-manage bootstrap: exit $?"
+    --bootstrap-password "$ADMIN" --bootstrap-public-url "$PUB" --bootstrap-internal-url "$INT" --bootstrap-admin-url "$ADM" >/dev/null 2>&1; echo "keystone-manage bootstrap: exit $?"
   swait http://ufj-keystone:5000/v3 120
   for u in nova cinder neutron; do sosc role add --user $u --project service service >/dev/null 2>&1 || echo "role add service to $u failed"; done   # kolla: nova/cinder/neutron_ks_user_roles
   sosc role list -f value -c Name | sort | tr '\n' ' '; echo; for u in nova cinder neutron; do echo "$u: $(sosc role assignment list --user $u --project service --names -f value -c Role | sort | tr '\n' ' ')"; done;;
