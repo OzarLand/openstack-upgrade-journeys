@@ -1,0 +1,133 @@
+== neutron-status upgrade check (2026.1)
+| Result: Success                                                       |
+| Details: All ml2_port_bindings.profile rows are correctly formatted   |
+|   in the database.                                                    |
++-----------------------------------------------------------------------+
+| Check: Floating IP inherits the QoS policy from the external network  |
+| Result: Success                                                       |
+| Details: There are no external networks with QoS policies associated  |
+|   and floating IPs without.                                           |
++-----------------------------------------------------------------------+
+| Check: Port extra DHCP options check                                  |
+| Result: Success                                                       |
+| Details: There are no extra_dhcp_opts with the newline character in   |
+|   the option name or option value.                                    |
++-----------------------------------------------------------------------+
+| Check: Duplicated HA network per project check                        |
+| Result: Success                                                       |
+| Details: There are no extra_dhcp_opts with the newline character in   |
+|   the option name or option value.                                    |
++-----------------------------------------------------------------------+
+| Check: OVN support for BM provisioning over IPv6 check                |
+| Result: Warning                                                       |
+| Details: Failed to connect to OVN. Error: Could not retrieve schema   |
+|   from tcp:127.0.0.1:6641                                             |
++-----------------------------------------------------------------------+
+| Check: ML2/OVS IGMP Flood check                                       |
+| Result: Success                                                       |
+| Details: IGMP related traffic configuration is not affected.          |
++-----------------------------------------------------------------------+
+| Check: Floating IP Port forwarding and OVN L3 plugin configuration    |
+| Result: Success                                                       |
+| Details: No OVN L3 plugin enabled.                                    |
++-----------------------------------------------------------------------+
+| Check: Existing tags exceeds limit per resource                       |
+| Result: Success                                                       |
+| Details: Number of tags for each resource is below the limit of 50.   |
++-----------------------------------------------------------------------+
+| Check: RBAC policies with invalid target_project                      |
+| Result: Success                                                       |
+| Details: All RBAC policies have a valid target_project value.         |
++-----------------------------------------------------------------------+
+exit=1
+== cinder-status upgrade check (2026.1)
++-----------------------------------+
+| Upgrade Check Results             |
++-----------------------------------+
+| Check: Backup Driver Path         |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Use of Policy File         |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Removed Drivers            |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Periodic Interval Use      |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Service UUIDs              |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Attachment specs           |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Use of Nested Quota Driver |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+exit=0
+== keystone-status upgrade check (2026.1)
++-------------------------------------------+
+| Upgrade Check Results                     |
++-------------------------------------------+
+| Check: Check trust policies are not empty |
+| Result: Success                           |
+| Details: Trust policies are safe.         |
++-------------------------------------------+
+| Check: Check default roles are immutable  |
+| Result: Success                           |
+| Details: Default roles are immutable.     |
++-------------------------------------------+
+| Check: Policy File JSON to YAML Migration |
+| Result: Success                           |
+| Details: None                             |
++-------------------------------------------+
+exit=0
+== glance-status upgrade check (2026.1)
+This option is deprecated against new config option
+``enabled_backends`` which helps to configure multiple backend stores
+of different schemes.
+
+This option is scheduled for removal in the U development
+cycle.
+).  Its value may be silently ignored in the future.
++----------------------------------------------+
+| Upgrade Check Results                        |
++----------------------------------------------+
+| Check: Sheepdog Driver Removal               |
+| Result: Success                              |
+| Details: None                                |
++----------------------------------------------+
+| Check: Policy File JSON to YAML Migration    |
+| Result: Success                              |
+| Details: None                                |
++----------------------------------------------+
+| Check: Config option owner_is_tenant removal |
+| Result: Success                              |
+| Details: None                                |
++----------------------------------------------+
+exit=0
+== placement-status upgrade check (2026.1)
++-------------------------------------------+
+| Upgrade Check Results                     |
++-------------------------------------------+
+| Check: Missing Root Provider IDs          |
+| Result: Success                           |
+| Details: None                             |
++-------------------------------------------+
+| Check: Incomplete Consumers               |
+| Result: Success                           |
+| Details: None                             |
++-------------------------------------------+
+| Check: Policy File JSON to YAML Migration |
+| Result: Success                           |
+| Details: None                             |
++-------------------------------------------+
+exit=0

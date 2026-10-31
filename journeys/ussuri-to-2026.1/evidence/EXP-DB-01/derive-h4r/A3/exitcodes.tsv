@@ -1,0 +1,4 @@
+archive-cell1	exit=1
+archive-cell0	exit=1
+archive-all-cells	exit=0
+purge-before	exit=3

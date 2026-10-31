@@ -102,3 +102,72 @@ total_seconds 41
 [PC-C1] GATE PASS (0 and 0)
 references built with release 2025.1
 snapshot /snap/H3: 1008 tables
+[C4] schema vs reference: 161 declared (ids: A1/S-3.1 x125; A2/S-3.2 x8; A3/S-3.3 x2; A4/S-N.1 x2; S-1c/S-1d x12; S-3.4 x12; ), 0 UNDECLARED
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=103 undeclared=0
+[N-3] N3-RECONCILIATION PASS (previous snapshot H2)
+[C2] bookkeeping rows differing from the reference (migrate_version expected for keystone/glance): keystone.migrate_version glance.migrate_version 
+[C9] status tools: 0 FAILURE results; 1 warning result(s), of which OVN-related lines: 4 (neutron-status exit 1 on the OVN warning is a WARNING, recorded, not a tool error); keystone-status results: 3; 0 real tool errors (exit 1 with no result at all; must be 0) - see status-tools.txt
+[C10] checks seconds: 80; hop timings in steps.tsv
+RESULT H3: PASS
+image=mariadb:11.4 version=11.4.13-MariaDB-ubu2404-log
+start_seconds=6 upgrade+check_seconds=5
+mariadb-upgrade exit=0; check exit=0
+[ERROR]-like lines at first start (before mariadb-upgrade, recorded, not SC-ENGINE by themselves): 0
+[ERROR] lines in the log written since the clean restart after mariadb-upgrade (SC-ENGINE if > 0): 0
+keystone-db_sync	0	2.6
+nova-api_db_sync	0	3.0
+nova-db_sync-cell0	0	3.2
+nova-db_sync-cell1	0	2.9
+cinder-db_sync	0	1.9
+cinder-odm-1	0	2.4
+nova-odm-1	0	3.5
+nova-odm-cell0-1	0	3.3
+glance-db_sync	0	2.0
+placement-db_sync	0	1.9
+neutron-upgrade	0	3.0
+placement-odm-1	0	1.7
+total_seconds 43
+[PC-C1] use_quota NULL (deleted included): volumes=0 snapshots=0; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[PC-C1] GATE PASS (0 and 0)
+references built with release 2026.1
+snapshot /snap/H4: 1008 tables
+[C4] schema vs reference: 161 declared (ids: A1/S-3.1 x125; A2/S-3.2 x8; A3/S-3.3 x2; A4/S-N.1 x2; S-1c/S-1d x12; S-3.4 x12; ), 0 UNDECLARED
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=104 undeclared=0
+[N-3] N3-RECONCILIATION PASS (previous snapshot H3)
+[C2] bookkeeping rows differing from the reference (migrate_version expected for keystone/glance): keystone.migrate_version glance.migrate_version 
+[C9] status tools: 0 FAILURE results; 1 warning result(s), of which OVN-related lines: 4 (neutron-status exit 1 on the OVN warning is a WARNING, recorded, not a tool error); keystone-status results: 3; 0 real tool errors (exit 1 with no result at all; must be 0) - see status-tools.txt
+[C10] checks seconds: 78; hop timings in steps.tsv
+RESULT H4: PASS
+keystone-db_sync	0	2.4
+nova-api_db_sync	0	2.8
+nova-db_sync-cell0	0	2.8
+nova-db_sync-cell1	0	3.1
+cinder-db_sync	0	2.1
+cinder-odm-1	0	2.2
+nova-odm-1	0	2.9
+nova-odm-cell0-1	0	3.1
+glance-db_sync	0	1.6
+placement-db_sync	0	1.8
+neutron-upgrade	0	3.0
+placement-odm-1	0	1.8
+total_seconds 40
+[PC-C1] use_quota NULL (deleted included): volumes=0 snapshots=0; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[PC-C1] GATE PASS (0 and 0)
+references built with release 2026.1
+snapshot /snap/H4r: 1008 tables
+[C4] schema vs reference: 161 declared (ids: A1/S-3.1 x125; A2/S-3.2 x8; A3/S-3.3 x2; A4/S-N.1 x2; S-1c/S-1d x12; S-3.4 x12; ), 0 UNDECLARED
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=104 undeclared=0
+[N-3] N3-RECONCILIATION PASS (previous snapshot H4)
+[IDEM] H4r vs H4 (no exclusions): SUMMARY declared=0 undeclared=0
+[C2] bookkeeping rows differing from the reference (migrate_version expected for keystone/glance): keystone.migrate_version glance.migrate_version 
+[C9] status tools: 0 FAILURE results; 1 warning result(s), of which OVN-related lines: 4 (neutron-status exit 1 on the OVN warning is a WARNING, recorded, not a tool error); keystone-status results: 3; 0 real tool errors (exit 1 with no result at all; must be 0) - see status-tools.txt
+[C10] checks seconds: 80; hop timings in steps.tsv
+RESULT H4r: PASS
+Cell 00000000-0000-0000-0000-000000000000(cell0): Unable to purge table shadow_migrate_version because it has no timestamp column
+Cell 3a38ca82-d40a-4fd8-bc63-dc4bdc851077(cell1): Unable to purge table shadow_migrate_version because it has no timestamp column
+A3 archive check: PASS
+PASS  targeted checks (frozen list section 5): no ASSERT-FAIL
+PASS  A3 archive_deleted_rows check on a disposable copy of H4r (exit 0/1, no error), purge message recorded
+PASS  baseline v4, H1b enabled, harness committed (see harness.txt)
+VERDICT: PASS - eligible for LAB-VALIDATED with the ruling-4 scope line plus 'procedure includes a Cinder-only 2023.2 step (DR-004), Technically possible but unsupported'. Commit 85faf6779a745d51a887697aefabbe0dc730f2c2.
+== run derive-h4r finished 2026-10-31T15:26:43Z total 718 s, stop conditions hit: 0

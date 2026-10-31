@@ -20,3 +20,6 @@ ad80a9f07c5c (head)
 5c85685d616d (head)
 OK
 == neutron has_offline_migrations (exit)
+exit=0
+== neutron check_migration (exit)
+exit=0

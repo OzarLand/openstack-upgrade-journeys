@@ -1,0 +1,13 @@
+Archiving....complete
++------------------------------+-------------------------+
+| Table                        | Number of Rows Archived |
++------------------------------+-------------------------+
+| API_DB.instance_group_member | 0                       |
+| API_DB.instance_mappings     | 0                       |
+| API_DB.request_specs         | 0                       |
+| instance_extra               | 1                       |
+| instance_id_mappings         | 1                       |
+| instance_info_caches         | 1                       |
+| instances                    | 1                       |
+| virtual_interfaces           | 1                       |
++------------------------------+-------------------------+
