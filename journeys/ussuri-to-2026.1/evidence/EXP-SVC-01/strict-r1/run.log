@@ -1,0 +1,21 @@
+[17:36:55] reset: fresh clone of ufj-ff-derive-h4r-data
+cloned ufj-ff-derive-h4r-data -> ufj-svc-data
+11.4.13-MariaDB-ubu2404-log
+4.4.0
+control plane answering
+[17:37:17] (d) d1: Ussuri rows forced-down, no flag, 2026.1 control plane started
+(containers: ufj-svc-nova-scheduler=Up 12 seconds ufj-svc-nova-conductor=Up 13 seconds ufj-svc-nova-api=Up 13 seconds )
+
+===== nova-status upgrade check Check: Cells v2 Result: Success Check: Placement API Result: Success Check: Cinder API Result: Success Check: Policy File JSON to YAML Migration Result: Success Check: Older than N-1 computes Result: Success Check: hw_machine_type unset Result: Warning Check: Service User Token Configuration Result: Success 
+===== exit code: 1 
+===== cinder-status upgrade check Check: Backup Driver Path Result: Success Check: Use of Policy File Result: Success Check: Removed Drivers Result: Success Check: Periodic Interval Use Result: Success Check: Service UUIDs Result: Success Check: Attachment specs Result: Success Check: Use of Nested Quota Driver Result: Success 
+===== exit code: 0 
+===== neutron-status --config-file neutron.conf upgrade check Check: Worker counts configured Result: Success Check: NIC Switch agent check kernel Result: Success Check: VLAN allocations valid segmentation ID check Result: Success Check: Policy File JSON to YAML Migration Result: Success Check: Port MAC address sanity check Result: Success Check: NetworkSegments unique constraint check Result: Success Check: Port Binding profile sanity check Result: Success Check: Floating IP inherits the QoS policy from the external network Result: Success Check: Port extra DHCP options check Result: Success Check: Duplicated HA network per project check Result: Success Check: OVN support for BM provisioning over IPv6 check Result: Warning Check: ML2/OVS IGMP Flood check Result: Success Check: Floating IP Port forwarding and OVN L3 plugin configuration Result: Success Check: Existing tags exceeds limit per resource Result: Success Check: RBAC policies with invalid target_project Result: Success 
+===== exit code: 1 
+===== placement-status upgrade check Check: Missing Root Provider IDs Result: Success Check: Incomplete Consumers Result: Success Check: Policy File JSON to YAML Migration Result: Success 
+===== exit code: 0 
+===== glance-status --config-file glance-api.conf upgrade check Check: Sheepdog Driver Removal Result: Success Check: Policy File JSON to YAML Migration Result: Success Check: Config option owner_is_tenant removal Result: Success 
+===== exit code: 0 
+===== keystone-status --config-file keystone.conf upgrade check (keys also mounted at /etc/keystone: the tool checks the default repository paths) Check: Check trust policies are not empty Result: Success Check: Check default roles are immutable Result: Success Check: Policy File JSON to YAML Migration Result: Success 
+===== exit code: 0
+[17:37:35] F2 read-back (state d1)

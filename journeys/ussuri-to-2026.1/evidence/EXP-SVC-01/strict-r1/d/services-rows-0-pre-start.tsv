@@ -1,0 +1,8 @@
+id	host	binary	version	disabled	disabled_reason	forced_down	deleted	updated_at
+1	ufj-nova-conductor	nova-conductor	51	0	NULL	0	0	2026-10-31 13:14:32
+3	0.0.0.0	nova-osapi_compute	51	0	NULL	0	0	NULL
+6	0.0.0.0	nova-metadata	51	0	NULL	0	0	NULL
+7	ufj-nova-scheduler	nova-scheduler	51	0	NULL	0	0	2026-10-31 13:14:34
+8	ufj-compute2	nova-compute	51	0	NULL	1	0	2026-10-31 11:43:51
+9	ufj-compute1	nova-compute	51	0	NULL	1	0	2026-10-31 11:43:53
+10	ufj-compute3	nova-compute	51	0	NULL	1	0	2026-10-31 11:43:55

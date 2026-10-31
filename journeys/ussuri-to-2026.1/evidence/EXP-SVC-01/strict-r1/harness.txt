@@ -1,0 +1,5 @@
+harness commit: f1e64d3d237b72cbf3343da9d3f752b9f13fc0ef
+lab/ files changed since that commit (must be empty for a strict run):
+script sha256: 48166ebfce7959c2dc89544a91fff966b30369e9d34487c12dff23f656a1899f
+image: sha256:9bdad819349b6bb9f9577cbc70579405579c1959b8543075a24366a6b8ff6d43
+label: strict-r1 part: all
