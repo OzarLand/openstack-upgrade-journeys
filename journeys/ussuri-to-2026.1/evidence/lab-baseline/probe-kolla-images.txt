@@ -1,0 +1,28 @@
+# manifest probes 2026-10-31T09:17:07Z
+kolla/ubuntu-source-keystone:ussuri -> 401 {"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":[{"Type":"repository","Class":"","Name":"kolla/ubuntu-source-keystone","Action":"pull"}]}]} 
+kolla/ubuntu-source-keystone:10.4.0 -> 401 {"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":[{"Type":"repository","Class":"","Name":"kolla/ubuntu-source-keystone","Action":"pull"}]}]} 
+kolla/ubuntu-binary-keystone:ussuri -> 401 {"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":[{"Type":"repository","Class":"","Name":"kolla/ubuntu-binary-keystone","Action":"pull"}]}]} 
+kolla/ubuntu-binary-keystone:10.4.0 -> 401 {"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":[{"Type":"repository","Class":"","Name":"kolla/ubuntu-binary-keystone","Action":"pull"}]}]} 
+kolla/centos-source-keystone:ussuri -> 401 {"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":[{"Type":"repository","Class":"","Name":"kolla/centos-source-keystone","Action":"pull"}]}]} 
+kolla/centos-source-keystone:10.4.0 -> 401 {"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":[{"Type":"repository","Class":"","Name":"kolla/centos-source-keystone","Action":"pull"}]}]} 
+kolla/centos-binary-keystone:ussuri -> 401 {"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":[{"Type":"repository","Class":"","Name":"kolla/centos-binary-keystone","Action":"pull"}]}]} 
+kolla/centos-binary-keystone:10.4.0 -> 401 {"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":[{"Type":"repository","Class":"","Name":"kolla/centos-binary-keystone","Action":"pull"}]}]} 
+kolla/ubuntu-source-base:ussuri -> 401 {"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":[{"Type":"repository","Class":"","Name":"kolla/ubuntu-source-base","Action":"pull"}]}]} 
+kolla/ubuntu-source-base:10.4.0 -> 401 {"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":[{"Type":"repository","Class":"","Name":"kolla/ubuntu-source-base","Action":"pull"}]}]} 
+kolla/centos-source-base:ussuri -> 401 {"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":[{"Type":"repository","Class":"","Name":"kolla/centos-source-base","Action":"pull"}]}]} 
+kolla/centos-source-base:10.4.0 -> 401 {"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":[{"Type":"repository","Class":"","Name":"kolla/centos-source-base","Action":"pull"}]}]} 
+kolla/ubuntu-source-mariadb:ussuri -> 401 {"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":[{"Type":"repository","Class":"","Name":"kolla/ubuntu-source-mariadb","Action":"pull"}]}]} 
+kolla/ubuntu-source-mariadb:10.4.0 -> 401 {"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":[{"Type":"repository","Class":"","Name":"kolla/ubuntu-source-mariadb","Action":"pull"}]}]} 
+kolla/ubuntu-source-rabbitmq:ussuri -> 401 {"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":[{"Type":"repository","Class":"","Name":"kolla/ubuntu-source-rabbitmq","Action":"pull"}]}]} 
+kolla/ubuntu-source-rabbitmq:10.4.0 -> 401 {"errors":[{"code":"UNAUTHORIZED","message":"authentication required","detail":[{"Type":"repository","Class":"","Name":"kolla/ubuntu-source-rabbitmq","Action":"pull"}]}]} 
+## docker pull attempt
+Error response from daemon: pull access denied for kolla/ubuntu-source-keystone, repository does not exist or may require 'docker login'
+## quay
+quay.io http=000
+docs.openstack.org http=000
+tarballs http=000
+## kvm
+ls: cannot access '/dev/kvm': No such file or directory
+ls: cannot access '/lib/modules': No such file or directory
+/bin/bash: line 26: lsmod: command not found
+/bin/bash: line 26: modprobe: command not found

@@ -1,0 +1,12 @@
+# Ussuri (2020.1) final releases, as published on PyPI (git tag on stable/ussuri at ussuri-eol)
+keystone==17.0.1
+glance==20.2.0
+openstack-placement==3.0.1
+nova==21.2.4
+neutron==16.4.2
+cinder==16.4.2
+# Client, DB driver, memcache client, WSGI server (not part of the services' own requirements)
+python-openstackclient==5.2.0
+PyMySQL==0.9.3
+python-memcached==1.59
+gunicorn==20.0.4
