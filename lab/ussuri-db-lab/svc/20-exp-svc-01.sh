@@ -61,8 +61,8 @@ op() { # op <state> <tag> <host> <since> : RPC-bearing operation = build_and_run
   if [ "$j" = ACTIVE ]; then   # further RPC-bearing operations on the new server (each waits for its target status, 60 s)
     for step in "stop:SHUTOFF" "start:ACTIVE" "reboot --hard:ACTIVE" "pause:PAUSED" "unpause:ACTIVE"; do
       a=${step%%:*}; want=${step##*:}; sosc server $a "$sid" >> "$f" 2>&1; rc=$?; got=
-      for i in $(seq 1 30); do sleep 2; got=$(sosc server show "$sid" -f value -c status -c OS-EXT-STS:task_state 2>&1 | paste -sd' '); [ "$got" = "$want None" ] && break; done
-      echo "op '$a' (rc=$rc): expected '$want None', got '$got' -> $([ "$got" = "$want None" ] && echo OK || echo FAIL)" >> "$f"; done
+      for i in $(seq 1 30); do sleep 2; got=$(sosc server show "$sid" -f value -c status -c OS-EXT-STS:task_state 2>&1 | paste -sd' '); [ "$got" = "None $want" ] && break; done
+      echo "op '$a' (rc=$rc): expected 'None $want' (task_state status), got '$got' -> $([ "$got" = "None $want" ] && echo OK || echo FAIL)" >> "$f"; done
   fi
   echo "compute log (errors since $4):" >> "$f"; docker logs --since "$4" ufj-svc-compute${3#ufj-compute} 2>&1 | grep -E "\] ERROR|UnsupportedVersion|RPC version|Endpoint does not support" | grep -v "DB access" | tail -4 | cut -c1-320 >> "$f"
   docker logs --since "$4" ufj-svc-nova-conductor 2>&1 | grep -E "\] ERROR|UnsupportedVersion|MessagingTimeout|NoValidHost" | tail -3 | cut -c1-320 >> "$f"
@@ -136,5 +136,7 @@ run_abc() {
   flag off; rows c 1-cleared; nodes c 1-cleared; T=$(now); ctl_restart; sleep 10; rows c 2-restarted
   rpc_lines c 2-restarted "$T"; status_all c 2-restarted; op c 2 ufj-compute2 "$T"; op c 2b ufj-compute3 "$T"
 }
+{ echo "harness commit: $(git -C "$LAB_DIR/../.." rev-parse HEAD)"; echo "lab/ files changed since that commit (must be empty for a strict run):"; git -C "$LAB_DIR/../.." status --porcelain -- lab | grep -v '^??'; echo "script sha256: $(sha256sum "$0" | cut -d' ' -f1)"; echo "image: $(docker image inspect $SIMG --format '{{.Id}}')"; echo "label: $LABEL part: $PART"; } > "$OUT/harness.txt"
+case $LABEL in strict*) [ -z "$(git -C "$LAB_DIR/../.." status --porcelain -- lab | grep -v '^??')" ] || { echo "STRICT run refused: lab/ has uncommitted changes"; exit 3; };; esac
 case $PART in d) run_d;; abc) run_abc;; all) run_d; run_abc;; esac
 note "done: $LABEL $PART"
