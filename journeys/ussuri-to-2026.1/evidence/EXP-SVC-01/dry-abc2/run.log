@@ -97,3 +97,32 @@ nova-api: 2026-10-31 16:24:26.381 7 INFO nova.compute.rpcapi [None req-f483eb40-
 nova-conductor: 2026-10-31 16:24:15.257 8 INFO nova.compute.rpcapi [None req-44be8254-373a-4d58-b83f-c3d338e2a15a - - - - - -] Automatically selected compute RPC version 6.5 from minimum service version 72
 (containers: ufj-svc-nova-scheduler=Up 2 minutes ufj-svc-nova-conductor=Up 2 minutes ufj-svc-nova-api=Up 2 minutes )
 [16:25:41] (c) 2026.1 computes adopt ufj-compute2/3; forced-down cleared; workaround removed; restart
+compute_id file: 1ffa4385-060e-4e69-84f7-0bb6ab09d0dd
+compute_nodes rows for ufj-compute2 (all, including deleted):
+id	uuid	host	hypervisor_hostname	service_id	deleted
+1	1ffa4385-060e-4e69-84f7-0bb6ab09d0dd	ufj-compute2	ufj-compute2	NULL	0
+services row:
+id	version	forced_down	disabled
+8	72	1	0
+compute log (node identity / adoption / errors):
+2026-10-31 16:25:46.593 1 INFO nova.virt.node [None req-948fc880-398d-47dc-903d-ec0e4e03774e - - - - - -] Wrote node identity 1ffa4385-060e-4e69-84f7-0bb6ab09d0dd to /var/lib/nova/compute_id
+2026-10-31 16:25:46.594 1 INFO nova.virt.node [None req-948fc880-398d-47dc-903d-ec0e4e03774e - - - - - -] Determined node identity 1ffa4385-060e-4e69-84f7-0bb6ab09d0dd from /var/lib/nova/compute_id
+placement resource provider of the node:
+1ffa4385-060e-4e69-84f7-0bb6ab09d0dd ufj-compute2
+compute_id file: 8130328a-9a79-4540-84eb-dc846acc3492
+compute_nodes rows for ufj-compute3 (all, including deleted):
+id	uuid	host	hypervisor_hostname	service_id	deleted
+3	8130328a-9a79-4540-84eb-dc846acc3492	ufj-compute3	ufj-compute3	NULL	0
+services row:
+id	version	forced_down	disabled
+10	72	1	0
+compute log (node identity / adoption / errors):
+2026-10-31 16:25:46.895 1 INFO nova.virt.node [None req-c0121477-6797-4a62-9e05-b38465ef7bf7 - - - - - -] Wrote node identity 8130328a-9a79-4540-84eb-dc846acc3492 to /var/lib/nova/compute_id
+2026-10-31 16:25:46.896 1 INFO nova.virt.node [None req-c0121477-6797-4a62-9e05-b38465ef7bf7 - - - - - -] Determined node identity 8130328a-9a79-4540-84eb-dc846acc3492 from /var/lib/nova/compute_id
+placement resource provider of the node:
+8130328a-9a79-4540-84eb-dc846acc3492 ufj-compute3
+compute service set --up ufj-compute2 nova-compute -> rc=0 
+compute service set --up ufj-compute3 nova-compute -> rc=0 
+[16:26:22] workaround flag off: 0 line(s) in nova.conf
+nova-api: 2026-10-31 16:26:49.292 9 INFO nova.compute.rpcapi [None req-bb0dfd5d-aaaf-4681-a3d2-1add6b20aa17 - - - - - -] Automatically selected compute RPC version 6.5 from minimum service version 72
+(containers: ufj-svc-nova-scheduler=Up 15 seconds ufj-svc-nova-conductor=Up 26 seconds ufj-svc-nova-api=Up 37 seconds )
