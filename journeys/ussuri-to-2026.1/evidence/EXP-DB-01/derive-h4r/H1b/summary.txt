@@ -1,0 +1,8 @@
+[PC-C1] use_quota NULL (deleted included): volumes=0 snapshots=0; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[PC-C1] GATE PASS (0 and 0)
+[C4] schema vs reference (cinder only, reference built by cinder 23.5.0): 32 declared (ids: A1/S-3.1 x30; A4/S-N.1 x2; ), 0 UNDECLARED
+[C5/C6] cinder vs T0: SUMMARY declared=5 undeclared=0; other databases H1b vs H1: SUMMARY declared=0 undeclared=0
+[N-3] N3-RECONCILIATION PASS (previous snapshot H1)
+[C9] status tools: 0 FAILURE results; 0 warning result(s), of which OVN-related lines: 0 (neutron-status exit 1 on the OVN warning is a WARNING, recorded, not a tool error); keystone-status results: 0; 0 real tool errors (exit 1 with no result at all; must be 0) - see status-tools.txt
+[C10] checks seconds: 13; hop timings in steps.tsv
+RESULT H1b: PASS

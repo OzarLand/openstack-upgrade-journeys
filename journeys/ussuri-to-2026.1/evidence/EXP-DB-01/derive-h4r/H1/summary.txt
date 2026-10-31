@@ -1,0 +1,9 @@
+[PC-C1] use_quota NULL (deleted included): volumes=3 snapshots=2; of which non-deleted: volumes=0 snapshots=0; predicted soft-deleted at T0: volumes=3 snapshots=2
+[V-C1a/V-C2a] H1 left exactly the predicted soft-deleted rows NULL (non-deleted rows set): PASS
+[C4] schema vs reference: 201 declared (ids: A1/S-3.1 x141; A2/S-3.2 x8; A3/S-3.3 x2; A4/S-N.1 x2; S-1a x24; S-1c/S-1d x12; S-3.4 x12; ), 0 UNDECLARED
+[C5/C6] counts+fingerprints vs T0: SUMMARY declared=26 undeclared=0
+[N-3] N3-RECONCILIATION PASS (previous snapshot T0)
+[C2] bookkeeping rows differing from the reference (migrate_version expected for keystone/glance): keystone.migrate_version glance.migrate_version nova_api.migrate_version nova.migrate_version nova_cell0.migrate_version cinder.migrate_version 
+[C9] status tools: 0 FAILURE results; 0 warning result(s), of which OVN-related lines: 2 (neutron-status exit 1 on the OVN warning is a WARNING, recorded, not a tool error); keystone-status results: 3; 0 real tool errors (exit 1 with no result at all; must be 0) - see status-tools.txt
+[C10] checks seconds: 90; hop timings in steps.tsv
+RESULT H1: PASS

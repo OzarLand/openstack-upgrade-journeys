@@ -1,0 +1,2 @@
+cinder.alembic_version migrated=[89aa6f9639f9] reference=[89aa6f9639f9] equal
+cinder.migrate_version migrated=[absent] reference=[absent] equal

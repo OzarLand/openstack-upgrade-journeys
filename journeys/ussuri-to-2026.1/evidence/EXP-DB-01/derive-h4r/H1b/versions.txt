@@ -1,0 +1,2 @@
+== cinder db version (release 2023.2)
+89aa6f9639f9

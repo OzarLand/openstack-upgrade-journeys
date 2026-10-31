@@ -1,0 +1,39 @@
+2026-10-31 15:18:11+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:10.11.19+maria~ubu2204 started.
+2026-10-31 15:18:12+00:00 [Warn] [Entrypoint]: /sys/fs/cgroup/ame=systemd:/docker/e12b4762f5babbdaaebf9c0e2e9530c2f10bbe988e1d89167a90b72e3314856f
+8:pids:/docker/e12b4762f5babbdaaebf9c0e2e9530c2f10bbe988e1d89167a90b72e3314856f
+7:blkio:/docker/e12b4762f5babbdaaebf9c0e2e9530c2f10bbe988e1d89167a90b72e3314856f
+6:freezer:/docker/e12b4762f5babbdaaebf9c0e2e9530c2f10bbe988e1d89167a90b72e3314856f
+5:devices:/docker/e12b4762f5babbdaaebf9c0e2e9530c2f10bbe988e1d89167a90b72e3314856f
+4:memory:/docker/e12b4762f5babbdaaebf9c0e2e9530c2f10bbe988e1d89167a90b72e3314856f
+3:cpuset:/docker/e12b4762f5babbdaaebf9c0e2e9530c2f10bbe988e1d89167a90b72e3314856f
+2:cpuacct:/docker/e12b4762f5babbdaaebf9c0e2e9530c2f10bbe988e1d89167a90b72e3314856f
+1:cpu:/docker/e12b4762f5babbdaaebf9c0e2e9530c2f10bbe988e1d89167a90b72e3314856f
+0::/docker/e12b4762f5babbdaaebf9c0e2e9530c2f10bbe988e1d89167a90b72e3314856f/memory.pressure not writable, functionality unavailable to MariaDB
+2026-10-31 15:18:12+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+2026-10-31 15:18:12+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:10.11.19+maria~ubu2204 started.
+2026-10-31 15:18:12+00:00 [Note] [Entrypoint]: MariaDB upgrade (mariadb-upgrade or creating healthcheck users) required, but skipped due to $MARIADB_AUTO_UPGRADE setting
+2026-10-31 15:18:12 0 [Warning] Could not increase number of max_open_files to more than 20000 (request: 33035)
+2026-10-31 15:18:12 0 [Note] Starting MariaDB 10.11.19-MariaDB-ubu2204-log source revision 93e051860a9c7e87ee8cee6ed38b640d491f7170 server_uid 7hU33696R+MUonvhvWTjNrwScHk= as process 1
+2026-10-31 15:18:12 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2026-10-31 15:18:12 0 [Note] InnoDB: Using transactional memory
+2026-10-31 15:18:12 0 [Note] InnoDB: Number of transaction pools: 1
+2026-10-31 15:18:12 0 [Note] InnoDB: Using AVX512 instructions
+2026-10-31 15:18:12 0 [Warning] mariadbd: io_uring_queue_init() failed with EPERM: sysctl kernel.io_uring_disabled has the value 2, or 1 and the user of the process is not a member of sysctl kernel.io_uring_group. (see man 2 io_uring_setup).
+create_uring failed: falling back to libaio
+2026-10-31 15:18:12 0 [Note] InnoDB: Using Linux native AIO
+2026-10-31 15:18:12 0 [Note] InnoDB: innodb_buffer_pool_size_max=8388608m, innodb_buffer_pool_size=512m
+2026-10-31 15:18:12 0 [Note] InnoDB: Completed initialization of buffer pool
+2026-10-31 15:18:12 0 [Note] InnoDB: File system buffers for log disabled (block size=4096 bytes)
+2026-10-31 15:18:12 0 [Note] InnoDB: Upgrading redo log: 96.000MiB; LSN=32306544
+2026-10-31 15:18:12 0 [Note] InnoDB: File system buffers for log disabled (block size=4096 bytes)
+2026-10-31 15:18:12 0 [Note] InnoDB: 128 rollback segments are active.
+2026-10-31 15:18:12 0 [Note] InnoDB: Setting file './ibtmp1' size to 12.000MiB. Physically writing the file full; Please wait ...
+2026-10-31 15:18:12 0 [Note] InnoDB: File './ibtmp1' size is now 12.000MiB.
+2026-10-31 15:18:12 0 [Note] InnoDB: log sequence number 32306544; transaction id 39357
+2026-10-31 15:18:12 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+2026-10-31 15:18:12 0 [Note] Plugin 'FEEDBACK' is disabled.
+2026-10-31 15:18:12 0 [Note] Server socket created on IP: '0.0.0.0', port: '3306'.
+2026-10-31 15:18:12 0 [Warning] Failed to create a socket for IPv6 '::': errno: 97.
+2026-10-31 15:18:12 0 [Note] mariadbd: ready for connections.
+Version: '10.11.19-MariaDB-ubu2204-log'  socket: '/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution
+2026-10-31 15:18:12 0 [Note] InnoDB: Buffer pool(s) load completed at 261031 15:18:12

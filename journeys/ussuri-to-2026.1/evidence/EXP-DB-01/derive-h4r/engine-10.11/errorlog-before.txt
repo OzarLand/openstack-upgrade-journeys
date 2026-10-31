@@ -1,0 +1,142 @@
+2026-10-31 15:15:36+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:10.6.28+maria~ubu2204 started.
+2026-10-31 15:15:36+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+2026-10-31 15:15:36+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:10.6.28+maria~ubu2204 started.
+2026-10-31 15:15:36+00:00 [Note] [Entrypoint]: MariaDB upgrade (mariadb-upgrade or creating healthcheck users) required, but skipped due to $MARIADB_AUTO_UPGRADE setting
+2026-10-31 15:15:36 0 [Warning] Could not increase number of max_open_files to more than 20000 (request: 33035)
+2026-10-31 15:15:36 0 [Note] Starting MariaDB 10.6.28-MariaDB-ubu2204-log source revision 210ab6edf47fa73f3b77e974ed2e9357ccdd051c server_uid 9wbOKwe70FDEmvoX0dm5FWZG9s4= as process 1
+2026-10-31 15:15:36 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2026-10-31 15:15:36 0 [Note] InnoDB: Using transactional memory
+2026-10-31 15:15:36 0 [Note] InnoDB: Number of pools: 1
+2026-10-31 15:15:36 0 [Note] InnoDB: Using AVX512 instructions
+2026-10-31 15:15:36 0 [Warning] mariadbd: io_uring_queue_init() failed with EPERM: sysctl kernel.io_uring_disabled has the value 2, or 1 and the user of the process is not a member of sysctl kernel.io_uring_group. (see man 2 io_uring_setup).
+2026-10-31 15:15:36 0 [Warning] InnoDB: liburing disabled: falling back to innodb_use_native_aio=OFF
+2026-10-31 15:15:36 0 [Note] InnoDB: Initializing buffer pool, total size = 536870912, chunk size = 134217728
+2026-10-31 15:15:36 0 [Note] InnoDB: Completed initialization of buffer pool
+2026-10-31 15:15:36 0 [Note] InnoDB: 128 rollback segments are active.
+2026-10-31 15:15:36 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2026-10-31 15:15:36 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2026-10-31 15:15:36 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+2026-10-31 15:15:36 0 [Note] InnoDB: 10.6.28 started; log sequence number 23708196; transaction id 28748
+2026-10-31 15:15:36 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+2026-10-31 15:15:36 0 [Note] Plugin 'FEEDBACK' is disabled.
+2026-10-31 15:15:36 0 [Note] Server socket created on IP: '0.0.0.0'.
+2026-10-31 15:15:36 0 [Warning] Failed to create a socket for IPv6 '::': errno: 97.
+2026-10-31 15:15:36 0 [ERROR] Incorrect definition of table mysql.event: expected column 'definer' at position 3 to have type varchar(, found type char(141).
+2026-10-31 15:15:36 0 [ERROR] mariadbd: Event Scheduler: An error occurred when initializing system tables. Disabling the Event Scheduler.
+2026-10-31 15:15:36 0 [Note] mariadbd: ready for connections.
+Version: '10.6.28-MariaDB-ubu2204-log'  socket: '/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution
+2026-10-31 15:15:36 0 [Note] InnoDB: Buffer pool(s) load completed at 261031 15:15:36
+2026-10-31 15:15:40 0 [Note] mariadbd (initiated by: unknown): Normal shutdown
+2026-10-31 15:15:40 0 [Note] InnoDB: FTS optimize thread exiting.
+2026-10-31 15:15:40 0 [Note] InnoDB: Starting shutdown...
+2026-10-31 15:15:40 0 [Note] InnoDB: Dumping buffer pool(s) to /var/lib/mysql/ib_buffer_pool
+2026-10-31 15:15:40 0 [Note] InnoDB: Buffer pool(s) dump completed at 261031 15:15:40
+2026-10-31 15:15:40 0 [Note] InnoDB: Removed temporary tablespace data file: "./ibtmp1"
+2026-10-31 15:15:40 0 [Note] InnoDB: Shutdown completed; log sequence number 23708208; transaction id 29294
+2026-10-31 15:15:40 0 [Note] mariadbd: Shutdown complete
+2026-10-31 15:15:40+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:10.6.28+maria~ubu2204 started.
+2026-10-31 15:15:40+00:00 [Note] [Entrypoint]: Switching to dedicated user 'mysql'
+2026-10-31 15:15:40+00:00 [Note] [Entrypoint]: Entrypoint script for MariaDB Server 1:10.6.28+maria~ubu2204 started.
+2026-10-31 15:15:41+00:00 [Note] [Entrypoint]: MariaDB healthcheck configuration file missing, assuming desirable
+2026-10-31 15:15:41+00:00 [Note] [Entrypoint]: MariaDB upgrade (mariadb-upgrade or creating healthcheck users) required, but skipped due to $MARIADB_AUTO_UPGRADE setting
+2026-10-31 15:15:41 0 [Warning] Could not increase number of max_open_files to more than 20000 (request: 33035)
+2026-10-31 15:15:41 0 [Note] Starting MariaDB 10.6.28-MariaDB-ubu2204-log source revision 210ab6edf47fa73f3b77e974ed2e9357ccdd051c server_uid 6x/rmwoJlCbvrWzoTZ6KvrZJXTY= as process 1
+2026-10-31 15:15:41 0 [Note] InnoDB: Compressed tables use zlib 1.2.11
+2026-10-31 15:15:41 0 [Note] InnoDB: Using transactional memory
+2026-10-31 15:15:41 0 [Note] InnoDB: Number of pools: 1
+2026-10-31 15:15:41 0 [Note] InnoDB: Using AVX512 instructions
+2026-10-31 15:15:41 0 [Warning] mariadbd: io_uring_queue_init() failed with EPERM: sysctl kernel.io_uring_disabled has the value 2, or 1 and the user of the process is not a member of sysctl kernel.io_uring_group. (see man 2 io_uring_setup).
+2026-10-31 15:15:41 0 [Warning] InnoDB: liburing disabled: falling back to innodb_use_native_aio=OFF
+2026-10-31 15:15:41 0 [Note] InnoDB: Initializing buffer pool, total size = 536870912, chunk size = 134217728
+2026-10-31 15:15:41 0 [Note] InnoDB: Completed initialization of buffer pool
+2026-10-31 15:15:41 0 [Note] InnoDB: 128 rollback segments are active.
+2026-10-31 15:15:41 0 [Note] InnoDB: Creating shared tablespace for temporary tables
+2026-10-31 15:15:41 0 [Note] InnoDB: Setting file './ibtmp1' size to 12 MB. Physically writing the file full; Please wait ...
+2026-10-31 15:15:41 0 [Note] InnoDB: File './ibtmp1' size is now 12 MB.
+2026-10-31 15:15:41 0 [Note] InnoDB: 10.6.28 started; log sequence number 23708208; transaction id 28748
+2026-10-31 15:15:41 0 [Note] Plugin 'FEEDBACK' is disabled.
+2026-10-31 15:15:41 0 [Note] InnoDB: Loading buffer pool(s) from /var/lib/mysql/ib_buffer_pool
+2026-10-31 15:15:41 0 [Note] Server socket created on IP: '0.0.0.0'.
+2026-10-31 15:15:41 0 [Warning] Failed to create a socket for IPv6 '::': errno: 97.
+2026-10-31 15:15:41 0 [Note] mariadbd: ready for connections.
+Version: '10.6.28-MariaDB-ubu2204-log'  socket: '/run/mysqld/mysqld.sock'  port: 3306  mariadb.org binary distribution
+2026-10-31 15:15:41 0 [Note] InnoDB: Buffer pool(s) load completed at 261031 15:15:41
+2026-10-31 15:15:43 6 [Warning] Aborted connection 6 to db: 'keystone' user: 'keystone' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:15:46 7 [Warning] Aborted connection 7 to db: 'keystone' user: 'keystone' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:15:47 8 [Warning] Aborted connection 8 to db: 'nova' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:15:47 9 [Warning] Aborted connection 9 to db: 'nova_api' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:15:51 10 [Warning] Aborted connection 10 to db: 'nova_api' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:15:51 11 [Warning] Aborted connection 11 to db: 'nova_cell0' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:15:51 12 [Warning] Aborted connection 12 to db: 'nova_api' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:15:54 13 [Warning] Aborted connection 13 to db: 'nova_cell0' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:15:55 14 [Warning] Aborted connection 14 to db: 'nova' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:15:55 15 [Warning] Aborted connection 15 to db: 'nova_api' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:15:57 16 [Warning] Aborted connection 16 to db: 'nova' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:15:58 17 [Warning] Aborted connection 17 to db: 'cinder' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:01 19 [Warning] Aborted connection 19 to db: 'cinder' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:01 18 [Warning] Aborted connection 18 to db: 'cinder' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:01 20 [Warning] Aborted connection 20 to db: 'cinder' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:03 21 [Warning] Aborted connection 21 to db: 'cinder' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:04 22 [Warning] Aborted connection 22 to db: 'nova' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:04 23 [Warning] Aborted connection 23 to db: 'nova_api' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:07 27 [Warning] Aborted connection 27 to db: 'nova' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:07 24 [Warning] Aborted connection 24 to db: 'nova' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:07 26 [Warning] Aborted connection 26 to db: 'nova_cell0' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:07 25 [Warning] Aborted connection 25 to db: 'nova_api' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:08 28 [Warning] Aborted connection 28 to db: 'nova_cell0' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:08 29 [Warning] Aborted connection 29 to db: 'nova_api' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:10 30 [Warning] Aborted connection 30 to db: 'nova_cell0' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:10 32 [Warning] Aborted connection 32 to db: 'nova_cell0' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:10 33 [Warning] Aborted connection 33 to db: 'nova' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:10 31 [Warning] Aborted connection 31 to db: 'nova_api' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:11 34 [Warning] Aborted connection 34 to db: 'glance' user: 'glance' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:12 35 [Warning] Aborted connection 35 to db: 'glance' user: 'glance' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:12 36 [Warning] Aborted connection 36 to db: 'glance' user: 'glance' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:13 37 [Warning] Aborted connection 37 to db: 'placement' user: 'placement' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:14 38 [Warning] Aborted connection 38 to db: 'placement' user: 'placement' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:15 39 [Warning] Aborted connection 39 to db: 'neutron' user: 'neutron' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:19 42 [Warning] Aborted connection 42 to db: 'placement' user: 'placement' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:20 43 [Warning] Aborted connection 43 to db: 'placement' user: 'placement' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:27 56 [Warning] Aborted connection 56 to db: 'keystone_ref' user: 'keystone' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:30 57 [Warning] Aborted connection 57 to db: 'glance_ref' user: 'glance' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:30 58 [Warning] Aborted connection 58 to db: 'glance_ref' user: 'glance' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:32 59 [Warning] Aborted connection 59 to db: 'placement_ref' user: 'placement' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:35 60 [Warning] Aborted connection 60 to db: 'nova_api_ref' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:38 61 [Warning] Aborted connection 61 to db: 'nova_cell0_ref' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:42 62 [Warning] Aborted connection 62 to db: 'nova_ref' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:16:59 66 [Warning] Aborted connection 66 to db: 'cinder_ref' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:00 65 [Warning] Aborted connection 65 to db: 'cinder_ref' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:06 67 [Warning] Aborted connection 67 to db: 'unconnected' user: 'root' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:11 68 [Warning] Aborted connection 68 to db: 'nova_api' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:16 69 [Warning] Aborted connection 69 to db: 'nova' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:18 70 [Warning] Aborted connection 70 to db: 'nova_cell0' user: 'nova' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:21 71 [Warning] Aborted connection 71 to db: 'keystone' user: 'keystone' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:23 72 [Warning] Aborted connection 72 to db: 'cinder' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:25 73 [Warning] Aborted connection 73 to db: 'glance' user: 'glance' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:26 74 [Warning] Aborted connection 74 to db: 'glance' user: 'glance' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:27 75 [Warning] Aborted connection 75 to db: 'placement' user: 'placement' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:44 111 [Warning] Aborted connection 111 to db: 'neutron' user: 'neutron' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:44 116 [Warning] Aborted connection 116 to db: 'neutron' user: 'neutron' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:44 112 [Warning] Aborted connection 112 to db: 'neutron' user: 'neutron' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:44 113 [Warning] Aborted connection 113 to db: 'neutron' user: 'neutron' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:44 114 [Warning] Aborted connection 114 to db: 'neutron' user: 'neutron' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:47 117 [Warning] Aborted connection 117 to db: 'cinder' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:49 118 [Warning] Aborted connection 118 to db: 'keystone' user: 'keystone' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:51 119 [Warning] Aborted connection 119 to db: 'placement' user: 'placement' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:52 120 [Warning] Aborted connection 120 to db: 'cinder' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:54 121 [Warning] Aborted connection 121 to db: 'cinder' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:55 122 [Warning] Aborted connection 122 to db: 'cinder' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:17:57 123 [Warning] Aborted connection 123 to db: 'cinder' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:18:00 130 [Warning] Aborted connection 130 to db: 'cinder_ref' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:18:00 129 [Warning] Aborted connection 129 to db: 'cinder_ref' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:18:04 131 [Warning] Aborted connection 131 to db: 'unconnected' user: 'root' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:18:05 132 [Warning] Aborted connection 132 to db: 'cinder' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:18:10 137 [Warning] Aborted connection 137 to db: 'cinder' user: 'cinder' host: '172.19.0.3' (Got an error reading communication packets)
+2026-10-31 15:18:10 0 [Note] mariadbd (initiated by: unknown): Normal shutdown
+2026-10-31 15:18:10 0 [Note] InnoDB: FTS optimize thread exiting.
+2026-10-31 15:18:10 0 [Note] InnoDB: Starting shutdown...
+2026-10-31 15:18:10 0 [Note] InnoDB: Dumping buffer pool(s) to /var/lib/mysql/ib_buffer_pool
+2026-10-31 15:18:10 0 [Note] InnoDB: Buffer pool(s) dump completed at 261031 15:18:10
+2026-10-31 15:18:11 0 [Note] InnoDB: Removed temporary tablespace data file: "./ibtmp1"
+2026-10-31 15:18:11 0 [Note] InnoDB: Shutdown completed; log sequence number 32306544; transaction id 39356
+2026-10-31 15:18:11 0 [Note] mariadbd: Shutdown complete

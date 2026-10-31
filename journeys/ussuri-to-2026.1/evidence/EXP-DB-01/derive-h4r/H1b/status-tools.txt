@@ -1,0 +1,37 @@
+== cinder-status upgrade check (2023.2)
++-----------------------------------+
+| Upgrade Check Results             |
++-----------------------------------+
+| Check: Backup Driver Path         |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Use of Policy File         |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Windows Driver Path        |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Removed Drivers            |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Periodic Interval Use      |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Service UUIDs              |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Attachment specs           |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+| Check: Use of Nested Quota Driver |
+| Result: Success                   |
+| Details: None                     |
++-----------------------------------+
+exit=0
